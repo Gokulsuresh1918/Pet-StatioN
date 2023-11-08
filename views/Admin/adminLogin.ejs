@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <!-- <link rel="stylesheet" href="../../css/admincss/adminLogin"> -->
+    <link rel="stylesheet" href="/css/admincss/adminLogin.css">
+
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form action="/admin/adminLogin" method="POST">
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <% if(locals.wrg) {%>
+                    <p style="color: red;" ><%=wrg%></p>
+                <% } %>
+                <div class="input-group">
+                    <button type="submit" class="login-button">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

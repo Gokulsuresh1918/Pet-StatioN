@@ -1,0 +1,212 @@
+
+/* Add your custom CSS styles here */
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Header styles */
+.custom-navbar {
+  background-color: #343a40;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  color: #fff;
+}
+
+.navbar-toggler-icon {
+  background-color: #fff;
+}
+
+.navbar-nav .nav-link {
+  color: #fff;
+}
+
+/* Hero Section styles */
+.hero {
+  background: url('images/hero-background.jpg') center/cover no-repeat;
+  color: #fff;
+  padding: 100px 0;
+}
+
+.intro-excerpt {
+  text-align: center;
+}
+
+.hero-img-wrap img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Product Section styles */
+.product-section {
+  background-color: #fff;
+  padding: 40px 0;
+}
+
+.section-title {
+  font-size: 28px;
+  color: #333;
+}
+
+.product-item {
+  text-decoration: none;
+  color: #333;
+}
+
+.product-title {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.product-price {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.icon-cross img {
+  max-width: 20px;
+  height: auto;
+}
+
+/* Why Choose Us Section styles */
+.why-choose-section {
+  background-color: #f9f9f9;
+  padding: 80px 0;
+}
+
+.feature {
+  text-align: center;
+}
+
+.icon img {
+  max-width: 60px;
+  height: auto;
+}
+
+/* We Help Section styles */
+.we-help-section {
+  background-color: #fff;
+  padding: 80px 0;
+}
+
+.imgs-grid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.grid img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Popular Product styles */
+.popular-product {
+  background-color: #f9f9f9;
+  padding: 80px 0;
+}
+
+.product-item-sm {
+  text-decoration: none;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-item-sm h3 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Testimonial Section styles */
+.testimonial-section {
+  background-color: #fff;
+  padding: 80px 0;
+}
+
+.testimonial-block {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.author-pic img {
+  max-width: 100px;
+  height: auto;
+}
+
+/* Blog Section styles */
+.blog-section {
+  background-color: #f9f9f9;
+  padding: 80px 0;
+}
+
+.post-entry {
+  text-decoration: none;
+  color: #333;
+}
+
+.post-thumbnail img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Footer Section styles */
+.footer-section {
+  background-color: #343a40;
+  color: #fff;
+  padding: 40px 0;
+}
+
+.footer-logo {
+  font-size: 24px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.subscription-form h3 {
+  font-size: 18px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.subscription-form form {
+  display: flex;
+}
+
+.subscription-form .form-control {
+  width: 200px;
+}
+
+.custom-social {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.custom-social li a {
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+/* Copyright styles */
+.copyright {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.copyright a {
+  color: #fff;
+  text-decoration: none;
+}
