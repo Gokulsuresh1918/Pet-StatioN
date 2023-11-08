@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <%- include("../partials/userpartials/header.ejs") %>
   <section class="vh-100" style="background-image: url(https://media.istockphoto.com/id/1417882544/photo/large-group-of-cats-and-dogs-looking-at-the-camera-on-blue-background.webp?b=1&s=170667a&w=0&k=20&c=Q-OSb3I9cuoCZT5rm539lIeu23zU3FdFyB35WhL0Kes=);background-repeat: no-repeat; 
     background-size: cover; 
     width: 100vw; 
@@ -27,24 +28,24 @@
                 <form action="/signup" method="post">
 
                   <div class="form-outline mb-4">
-                    <input type="text" id="form3Example1cg" name="username" class="form-control form-control-lg" />
                     <label class="form-label" for="form3Example1cg">Your Name</label>
+                    <input type="text" id="form3Example1cg" name="username" class="form-control form-control-lg" />
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input type="email" id="form3Example3cg" name="email" class="form-control form-control-lg" />
                     <label class="form-label" for="form3Example3cg">Your Email</label>
+                    <input type="email" id="form3Example3cg" name="email" class="form-control form-control-lg" />
                   </div>
 
                   <div class="form-outline mb-4">
-                    <input type="password" id="form3Example4cg" name="password" class="form-control form-control-lg" />
                     <label class="form-label" for="form3Example4cg">Password</label>
+                    <input type="password" id="form3Example4cg" name="password" class="form-control form-control-lg" />
                   </div>
 
                   <div class="form-outline mb-4">
+                    <label class="form-label" for="form3Example4cdg">Repeat your password</label>
                     <input type="password" id="form3Example4cdg" name="confirmpass"
                       class="form-control form-control-lg" />
-                    <label class="form-label" for="form3Example4cdg">Repeat your password</label>
                   </div>
 
                   <div class="form-check d-flex justify-content-center mb-5">
@@ -107,28 +108,28 @@
 
 
       // Password validation
-      let validatePassword = (pass) => {
-        const symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-        const lowercaseRegex = /[a-z]+/;
-        const uppercaseRegex = /[A-Z]+/;
-        const numericRegex = /\d+/;
+      // let validatePassword = (pass) => {
+      //   const symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+      //   const lowercaseRegex = /[a-z]+/;
+      //   const uppercaseRegex = /[A-Z]+/;
+      //   const numericRegex = /\d+/;
 
-        const hasSymbol = symbolRegex.test(pass);
-        const hasLowercase = lowercaseRegex.test(pass);
-        const hasUppercase = uppercaseRegex.test(pass);
-        const hasNumeric = numericRegex.test(pass);
-        return hasSymbol && hasLowercase && hasUppercase && hasNumeric;
-      };
+      //   const hasSymbol = symbolRegex.test(pass);
+      //   const hasLowercase = lowercaseRegex.test(pass);
+      //   const hasUppercase = uppercaseRegex.test(pass);
+      //   const hasNumeric = numericRegex.test(pass);
+      //   return hasSymbol && hasLowercase && hasUppercase && hasNumeric;
+      // };
      
 
       if (n.length === 0) message.push("Enter username");
       else if (!validateName(n)) message.push("Invalid name");
       else if (!validateEmail(Email)) message.push("Invalid email");
-      else if (pass.length === 0) message.push("Enter the password");
-      else if (!validatePassword(pass))
-        message.push(
-          "Password must contain a symbol, uppercase letter, and a number"
-        );
+      // else if (pass.length === 0) message.push("Enter the password");
+      // else if (!validatePassword(pass))
+      //   message.push(
+      //     "Password must contain a symbol, uppercase letter, and a number"
+      //   );
       else if (pass !== confirmpass) message.push("Passwords doesn't match");
 
 

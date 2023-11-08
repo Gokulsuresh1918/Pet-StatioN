@@ -5,14 +5,18 @@ const { LoginGet,loginPost,logoutGet,UserGet,dashboard,orderGet,categoryGet,prod
 
 
 router.get('/admin', LoginGet);
+router.post('/admin', loginPost);
+
+
 router.get('/logoutadmin', logoutGet);
+//admin dashboard
+router.get('/dashboard',dashboard) 
 router.get('/userdetails', UserGet);
 router.get('/orderdetails', orderGet);
 router.get('/productdetails', productGet);
 router.get('/Categorydetails', categoryGet);
-router.get('/dashboard',dashboard) 
 router.get('/blockStatus/:id',blockUser)
 
 
-router.post('/admin', loginPost);
+
 module.exports = router;    

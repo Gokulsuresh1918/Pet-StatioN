@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
     <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
     <title>
-        Dashboard
+       Category Dashboard
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
@@ -39,9 +39,55 @@
                 <!-- End Navbar -->
 
                 <div class="row mb-4">
-                    <%- include('../partials/adminpartials/category') %>
-
-                </div>
+                    <div class="col-12 grid-margin">
+                      <div class="card">
+                        <div class="card-body">
+                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                  <h6 class="text-white text-capitalize ps-3">Category Management</h6>
+                                </div>
+                              </div>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>Sl/no</th>
+                                  <th>Product</th>
+                                  <th>Category name</th>
+                                  <th>Description</th>
+                                  <th>Stock</th>
+                                  <th>Price</th>
+                                  <th>Edit / Delete</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td>
+                                    <!-- <img src="assets/images/faces/face1.jpg" alt="image" /> -->
+                                    <img src="" alt="image" />
+                                    <!-- <span class="pl-2">Henry Klein</span> -->
+                                  </td>
+                                  <td>Golden Retriever</td>
+                                  <td>Different Breed</td>
+                                  <td>In Stock</td>
+                                  <td>20000</td>
+                                  <td>
+                                    <button class="btn btn-success">Edit</button>
+                                    <button class="btn btn-danger">Delete</button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <button class="btn btn-primary btn-block">Add Category</button>
+                    </div>
+                  </div>
+                  
                 <%- include('../partials/adminpartials/footer') %>
                     </div>
         </main>

@@ -23,36 +23,7 @@
 	<body>
 
 		<!-- Start Header/Navigation -->
-		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
-
-			<div class="container">
-				<a class="navbar-brand" href="/home" style="font-family:Irish;">Pet Station<span>.</span></a>
-
-
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarsFurni">
-					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-						<li class="nav-item active">
-							<a class="nav-link" href="/home">Home</a>
-						</li>
-						<li><a class="nav-link" href="/home">Shop</a></li>
-						<li><a class="nav-link" href="/home">About us</a></li>
-						<!-- <li><a class="nav-link" href="services.html">Services</a></li> -->
-						<!-- <li><a class="nav-link" href="blog.html">Blog</a></li> -->
-						<li><a class="nav-link" href="/home">Contact us</a></li>
-					</ul>
-
-					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="/images/user.svg"></a></li>
-						<li><a class="nav-link" href="cart.html"><img src="/images/cart.svg"></a></li>
-					</ul>
-				</div>
-			</div>
-				
-		</nav>
+		<%- include('../partials/userpartials/header.ejs') %>
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
@@ -63,7 +34,7 @@
 							<div class="intro-excerpt">
 								<h1>Hands for <span clsas="d-block">PAWS</span></h1>
 								<p class="mb-4">Pets are humanizing. They remind us we have an obligation and responsibility to preserve and nurture and care for all life. Money can buy you a fine dog, but only love can make him wag his tail. The trouble with a kitten is that eventually it becomes a cat.</p>
-								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+								<p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="/shop" class="btn btn-white-outline">Explore</a></p>
 							</div>
 						</div>
 						<div class="col-lg-7">
@@ -85,16 +56,16 @@
 					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 						<h2 class="mb-4 section-title">Best therapist has fur and four legs</h2>
 						<p class="mb-4">“Until one has loved an animal, a part of one's soul remains unawakened.” “Animals are my friends…and I don't eat my friends.” “Animals are such agreeable friends—they ask no questions; they pass no criticisms.” “An animal's eyes have the power to speak a great language.” </p>
-						<p><a href="shop.html" class="btn">Explore</a></p>
+						<p><a href="/shop" class="btn">Explore</a></p>
 					</div> 
 					<!-- End Column 1 -->
 
 					<!-- Start Column 2 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
+						<a class="product-item" href="/shop">
 							<img src="/img/alec-favale-Ivzo69e18nk-unsplash.jpg" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Dog</h3>
-							<strong class="product-price">Rs:34676</strong>
+							<h3 class="product-title">Shop</h3>
+							<!-- <strong class="product-price">Rs:34676</strong> -->
 
 							<span class="icon-cross">
 								<img src="/images/cross.svg" class="img-fluid">
@@ -105,10 +76,10 @@
 
 					<!-- Start Column 3 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
+						<a class="product-item" href="/shop">
 							<img src="/img/alvan-nee-8g0D8ZfFXyA-unsplash.jpg" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Dog</h3>
-							<strong class="product-price">Rs:3999</strong>
+							<h3 class="product-title">Adoption</h3>
+							<!-- <strong class="product-price">Rs:3999</strong> -->
 
 							<span class="icon-cross">
 								<img src="images/cross.svg" class="img-fluid">
@@ -119,10 +90,10 @@
 
 					<!-- Start Column 4 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
+						<a class="product-item" href="/shop">
 							<img src="/img/Sweet doggo ✨.jpeg" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Dog</h3>
-							<strong class="product-price">Rs:4556</strong>
+							<h3 class="product-title">Grooming & Accessories</h3>
+							<!-- <strong class="product-price">Rs:4556</strong> -->
 
 							<span class="icon-cross">
 								<img src="images/cross.svg" class="img-fluid">
@@ -220,7 +191,7 @@
 							<li>"Adorable hamsters, gerbils, and guinea pigs  the perfect pint-sized family or compact companions."</li>
 							<li>"Vibrant, exotic fish species in our stocked aquarium section, for your underwater paradise."</li>
 						</ul>
-						<p><a herf="#" class="btn">Explore</a></p>
+						<p><a herf="/shop" class="btn">Explore</a></p>
 					</div>
 				</div>
 			</div>
@@ -379,6 +350,8 @@
 		<!-- End Testimonial Slider -->
 
 		<!-- Start Blog Section -->
+
+
 		<!-- <div class="blog-section">
 			<div class="container">
 				<div class="row mb-5">
