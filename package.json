@@ -2,7 +2,7 @@
   "name": "pet-station",
   "version": "1.0.0",
   "description": "my first project to of an e commerce ,a per seilling and renting platform that buyers can sel and buy pets",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "nodemon"
   },

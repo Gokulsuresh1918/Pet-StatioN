@@ -14,14 +14,22 @@ exports.loginGet = (req, res) => {
 };
 //controller for login post
 exports.loginPost = async (req, res) => {
+    console.log("hiiii im here");
     try {
         const check = await UserCollection.findOne({ email: req.body.Email });
         if (check) {
             const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
-            if (isPasswordMatch) {
+            if(check&&check.blockStatus){
+                console.log("acc blocked");
+                res.render("User/login")
+            }
+            else if (isPasswordMatch) {
                 console.log(isPasswordMatch);
-                req.session.userId = true;
-                console.log(req.session.userId);
+
+                // session created
+                req.session.userId = check._id;
+
+                // console.log(req.session.userId);
                 res.redirect('/home')
             } else {
                 console.log("logged out");
@@ -88,16 +96,12 @@ exports.signupPost = async (req, res) => {
 
 //controller for home get
 exports.homeGet = (req, res) => {
+    console.log("hi");
+    const userid = req.session.userId
+    console.log("userid",userid);
 
-    if (  req.session.userId) {
-        console.log("session");
-        res.render('User/home')
-
-    } else {
-        res.redirect('/')
-    }
-};
-
+res.render('User/home')
+}
 
 
 // OTP verification

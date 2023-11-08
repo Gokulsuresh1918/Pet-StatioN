@@ -16,7 +16,8 @@ const UserLoginSchema = new mongoose.Schema({
     },
     blockStatus:{
         type: Boolean,
-        default:false
+        default:false,
+        required:true
     }
 });
 

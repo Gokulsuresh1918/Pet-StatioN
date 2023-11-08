@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Login</title>
     <!-- <link rel="stylesheet" href="../../css/admincss/adminLogin"> -->
     <link rel="stylesheet" href="/css/admincss/adminLogin.css">
 
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-box">
             <h2>Login</h2>
-            <form action="/admin/adminLogin" method="POST">
+            <form action="/admin/admin" method="POST">
                 <div class="input-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -19,10 +21,21 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                
-                <% if(locals.wrg) {%>
-                    <p style="color: red;" ><%=wrg%></p>
-                <% } %>
+
+                <div class="container">
+                    <div class="col-md-4 mx-auto">
+                        <% if (typeof message !=='undefined' ) { %>
+                            <div class="alert alert-success text-center">
+                                <%= message %>
+                            </div>
+                            <% } %>
+                                <% if (typeof loginmessage !=='undefined' ) { %>
+                                    <div class="alert alert-danger text-center">
+                                        <%= loginmessage %>
+                                    </div>
+                                    <% } %>
+                    </div>
+                </div>
                 <div class="input-group">
                     <button type="submit" class="login-button">Login</button>
                 </div>
@@ -30,4 +43,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -46,7 +46,7 @@
             <div class="card-body px-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
-                    <%if(admin!==""){%>
+                  
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sl/no</th>
@@ -67,22 +67,30 @@
                        </td>
                        <td>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><%=row.name%>></h6>
+                            <h6 class="mb-0 text-sm"><%=row.name%></h6>
                             <!-- <p class="text-xs text-secondary mb-0">john@creative-tim.com</p> -->
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0"><%=row.email%>></p>
+                        <p class="text-xs font-weight-bold mb-0"><%=row.email%></p>
                         <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
                       </td>
-                      <td class="align-middle text-center text-sm">
-                       <button class="badge badge-sm bg-gradient-success">UN/Block</button>
+                  
+                      <td>
+                        <a  href="blockStatus/<%= row._id %>">
+                          
+                          <button class="btn btn-<%= row.blockStatus ? 'success' : 'danger' %>">
+                            <%= row.blockStatus ? 'Unblock' : 'Block' %>
+                          </button>
+                        </a>
+                        <!-- Unblock Button (initially hidden) -->
                       </td>
-                    
-                      <%})%>
+                      <% }) %>
                     </tr>
-                    <%}%>
+                    
+                    
+
                     
                   </tbody>
                 </table>
@@ -187,6 +195,10 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+
+
+
+  
 </body>
 
 </html>
