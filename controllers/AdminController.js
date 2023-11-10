@@ -21,17 +21,19 @@ try{
         passcode: 1571
     };
   if(!username || username.trim()===""){
-    res.render("admin/adminLogin",{message:"Username must be filled"})
+    res.render("Admin/adminLogin",{message:"Username must be filled"})
   }
   else if(!password||password.trim()===""){
-    res.render("admin/adminLogin",{message:"passwordf must be filled"})
+    res.render("Admin/adminLogin",{message:"passwordf must be filled"})
   }
    else if (admindata.profName == username && admindata.passcode == password) {
         req.session.adminID = true;
         res.redirect('/admin/dashboard');
     }
+    
     else {
-        res.render("admin/adminLogin", { message: "wrong credentials" })
+        const message="wrong"
+        res.render("Admin/adminLogin", { message})
     }
 }
 catch(err){
@@ -50,9 +52,7 @@ exports.orderGet = async (req, res) => {
 exports.categoryGet = async (req, res) => {
     res.render("Admin/category")
 };
-exports.productGet = async (req, res) => {
-    res.render("Admin/product") 
-};
+
 exports.dashboard = async (req, res) => {
     res.render('Admin/Dashboard')
 }

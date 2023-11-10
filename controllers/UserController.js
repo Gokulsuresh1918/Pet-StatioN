@@ -145,6 +145,9 @@ exports.homeGet = (req, res) => {
 exports.shopget = (req, res) => {
     res.render('User/shop')
 }
+exports.productView = (req, res) => {
+    res.render('User/productview')
+}
 
 
 

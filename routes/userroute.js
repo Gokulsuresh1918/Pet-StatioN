@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { loginGet,loginPost ,signupGet ,signupPost,homeGet,otpGet, otppost,shopget} = require('../controllers/UserController')
+const { loginGet,loginPost ,signupGet ,signupPost,homeGet,otpGet, otppost,shopget,productView} = require('../controllers/UserController')
 
 router.get('/', loginGet);
 router.post('/login',loginPost)
@@ -15,6 +15,7 @@ router.post("/otppage",otppost)
 router.get('/home', homeGet);
 
 router.get('/shop',shopget)
+router.get('/productview',productView)
 
 
 
