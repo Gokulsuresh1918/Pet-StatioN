@@ -5,11 +5,7 @@ const nodemailer = require('nodemailer');
 
 //controller for login get
 exports.loginGet = (req, res) => {
-    if (req.session.userId) {
-        res.render('User/home')
-    } else {
         res.render('User/login')
-    }
 };
 //controller for login post
 exports.loginPost = async (req, res) => {
@@ -19,16 +15,14 @@ exports.loginPost = async (req, res) => {
             const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
             if (check && check.blockStatus) {
                 console.log("acc blocked");
-                res.render("User/login")
+                res.render("User/login",{message:"account Blocked"})
             }
             else if (isPasswordMatch) {
                 // session created
                 req.session.userId = check._id
                 res.redirect('/home')
-                // console.log(req.session.userId); 
             } else {
-                console.log("logged out");
-                res.redirect('/')
+                res.redirect('/',{message:'wrong Credentials'})
             }
         }
     } catch (err) {
@@ -40,11 +34,8 @@ exports.loginPost = async (req, res) => {
 
 //controller for signup get
 exports.signupGet = (req, res) => {
-    if (req.session.userId) {
-        res.redirect('otppage')
-    } else {
         res.render('User/signup')
-    }
+    
 };
 
 
@@ -60,7 +51,7 @@ exports.signupPost = async (req, res) => {
     console.log(data);
     const existinguser = await UserCollection.findOne({ email: data.email })
     if (existinguser) {
-        res.redirect('/signup')
+        res.redirect('/signup',{message:"E mail already exists"})
     }
     if (data.password === req.body.confirmpass) {
         //otp generation through e mail

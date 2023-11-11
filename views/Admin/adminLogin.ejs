@@ -15,16 +15,18 @@
             <form action="/admin/admin" method="POST">
                 <div class="input-group">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" value="Gokul" name="username" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" value="1571" name="password" required>
                 </div>
 
                 <div class="container">
                     <div class="col-md-4 mx-auto">
-                       
+                        <% if(locals.message) {%>
+                            <p style="color: red;" ><%=message%></p>
+                        <% } %>
                     </div>
                 </div>
 

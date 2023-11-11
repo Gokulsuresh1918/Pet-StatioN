@@ -2,98 +2,120 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-    <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
-    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-    <link rel="stylesheet" href="/assets/css/material-dashboard.css">
-    <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
-    <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
-    <title>
-       Category Dashboard
-    </title>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
-    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
-    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-    <!-- Nepcha Analytics (nepcha.com) -->
-    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+  <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
+  <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
+  <title>
+    Category Dashboard
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
-    <!--header-->
-    <%- include('../partials/adminpartials/aside') %>
-        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-            <!-- Navbar -->
-            <%- include('../partials/adminpartials/navbar') %>
-                <!-- End Navbar -->
+  <!--header-->
+  <%- include('../partials/adminpartials/aside') %>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+      <!-- Navbar -->
+      <%- include('../partials/adminpartials/navbar') %>
+        <!-- End Navbar -->
 
-                <div class="row mb-4">
-                    <div class="col-12 grid-margin">
-                      <div class="card">
-                        <div class="card-body">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                  <h6 class="text-white text-capitalize ps-3">Category Management</h6>
-                                </div>
-                              </div>
-                          <div class="table-responsive">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Sl/no</th>
-                                  <th>Product</th>
-                                  <th>Category name</th>
-                                  <th>Description</th>
-                                  <th>Stock</th>
-                                  <th>Price</th>
-                                  <th>Edit / Delete</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>
-                                    <!-- <img src="assets/images/faces/face1.jpg" alt="image" /> -->
-                                    <img src="" alt="image" />
-                                    <!-- <span class="pl-2">Henry Klein</span> -->
-                                  </td>
-                                  <td>Golden Retriever</td>
-                                  <td>Different Breed</td>
-                                  <td>In Stock</td>
-                                  <td>20000</td>
-                                  <td>
-                                    <button class="btn btn-success">Edit</button>
-                                    <button class="btn btn-danger">Delete</button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12 mt-3">
-                      <button class="btn btn-primary btn-block">Add Category</button>
-                    </div>
+        <div class="row mb-4">
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                  <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                    <h6 class="text-white text-capitalize ps-3">Category Management</h6>
                   </div>
-                  
-                <%- include('../partials/adminpartials/footer') %>
-                    </div>
-        </main>
+                </div>
+                <div class="table-responsive">
+                  <table class="table">
+                    <% if (categorydata!="" ) {%>
+                      <thead>
+                        <tr>
+                          <th>Sl/no</th>
+                          <th>Category name</th>
+                          <th>Description</th>
+                          <th>Stock</th>
+                          <th>Price</th>
+                          <th> Edit</th>
+                          <th> Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% categorydata.forEach((row,index)=> {%>
+
+                          <tr>
+                            <td><%= index+1 %></td>
+                             <td><%= row.categoryname %></td>
+                            <td><%= row.description %></td>
+                            <td><%= row.stock %></td>
+                            <td><%= row.price%></td>
+                            <td> <a href="/admin/editcategory/<%= row._id%>"><button class="btn btn-success dltBtn">Edit</button></a> </td>
+                            <td> <a href="blockcategory/<%= row._id %>">
+                              <button class="btn btn-<%= row.blockStatus? 'success' : 'danger'%>">
+                                 <%= row.blockStatus ? 'Recover' : 'Delete' %></button></a> 
+                                </td>
+
+
+                            <% }) %>
+                          </tr>
+                          <%} %>
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mt-3">
+           <a href="/admin/addcategory"> <button class="btn btn-primary btn-block .addcategory">Add Category</button></a>
+          </div>
+        </div>
+
+        <%- include('../partials/adminpartials/footer') %>
+          </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 
 
 
-</body>
+<script>
+  const editbtn = document.querySelectorAll('.addcategory');
+  const editpage =document.querySelector('.main')
+
+  editbtn.forEach((x)=>{
+    x.addEventListener('click',(e)=>{
+      console.log(editpage);
+      editPage.style.display = "block";
+    })
+  })
+  const close = document.querySelector('.close');
+  close.addEventListener('click',()=>{
+    editpage.style.display="none"
+  })
+</script>
+
 
 </html>

@@ -9,8 +9,15 @@ const mongoose = require("mongoose")
 const database = require('./database/petStation')
 const nocache = require('nocache')
 const port = 3000
+const errorpage = require('./middleware/error/error')
+
+
+
+
+
 //setting up view engine
 app.set("view engine","ejs")
+
 
 //setting of public , JSON , urlencodedd
 app.use(express.static("public"))
@@ -25,7 +32,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 3600000%2, // Session will expire after 1 hour (in milliseconds)
+        maxAge: 3600000, // Session will expire after 1 hour (in milliseconds)
     }
 }));
 app.use((req, res, next) => {
@@ -43,12 +50,11 @@ app.use('/admin', require('./routes/adminroute'));
 
 
 
+
 // 404 error page
-// app.use((req, res) => { 
-//     // res.status(404).render('User/errorpage');
-// });
+app.use(errorpage)
 
 //port settimg
 app.listen(port,()=>{
-    console.log(`http://127.0.0.1:${port}`);
-})
+    console.log(`http://127.0.0.1:${port}/home`);
+}) 
