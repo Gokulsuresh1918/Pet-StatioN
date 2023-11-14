@@ -10,6 +10,7 @@ const database = require('./database/petStation')
 const nocache = require('nocache')
 const port = 3000
 const errorpage = require('./middleware/error/error')
+require('dotenv').config();
 
 
 
@@ -49,12 +50,13 @@ app.use('/admin', require('./routes/adminroute'));
 
 
 
-
+//multer image path
+app.use('/MulterUploads', express.static(path.resolve(__dirname, '/MulterUploads')));
 
 // 404 error page
 app.use(errorpage)
 
 //port settimg
 app.listen(port,()=>{
-    console.log(`http://127.0.0.1:${port}/home`);
+    console.log(`http://127.0.0.1:${port}`);
 }) 

@@ -5,31 +5,42 @@
     <title>Admin Login</title>
     <!-- <link rel="stylesheet" href="../../css/admincss/adminLogin"> -->
     <link rel="stylesheet" href="/css/admincss/adminLogin.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 
 </head>
 
 <body>
     <div class="login-container">
         <div class="login-box">
-            <h2>Login</h2>
-            <form action="/admin/admin" method="POST">
+            
+            <form action="/admin/admin" method="POST" id="form" >
+                <h1 class="text-center mt-1" >Admin Login</h1>
+                <% if (locals.msg) { %>
+                  <div class="alert alert-danger text-center">
+                    <strong style="color: red;"><%= msg %> </strong>
+                  </div>
+                <% } %> 
+                <% if (locals.errmsg) { %>
+                  <div class="alert alert-danger text-center">
+                    <strong><%= errmsg %> </strong>
+                  </div>
+                <% } %> 
+                 <div id="login-success-message" class="hidden"></div>
                 <div class="input-group">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" value="Gokul" name="username" required>
+                    <input type="text" id="username" value="Gokul" name="username" oninput="validateusername()">
+                    <div class="error text-danger" style="background-color: rgb(244, 241, 238); border-radius: 5px; font-size: 15px;" ></div>
+
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" value="1571" name="password" required>
+                    <input type="password" id="password" value="1571" name="password" oninput="validatePassword()">
+                    <div class="error text-danger" style="background-color: rgb(244, 241, 238); border-radius: 5px; font-size: 15px;" ></div>
+
                 </div>
 
-                <div class="container">
-                    <div class="col-md-4 mx-auto">
-                        <% if(locals.message) {%>
-                            <p style="color: red;" ><%=message%></p>
-                        <% } %>
-                    </div>
-                </div>
-
+               
 
                
                 <div class="input-group">
@@ -40,4 +51,68 @@
     </div>
 </body>
 
+
+<script>
+    // login submission validation
+
+//submission
+const form = document.querySelector('#form')
+const username = document.querySelector('#username');
+const password = document.querySelector('#password');
+
+form.addEventListener('submit',(e)=>{
+ 
+ if(!validateInputs()){
+     e.preventDefault();
+ }
+})
+
+function validateInputs(){
+ const usernameval = username.value.trim()
+ const passwordVal = password.value.trim();
+ let success = true
+
+ if(usernameVal===''){
+     success=false;
+     setError(username,'Name is required')
+ }
+ else{
+     setSuccess(username)
+ }
+
+
+ if(passwordVal === ''){
+     success= false;
+     setError(password,'Password is required')
+ }
+ else if(passwordVal.length<5){
+     success = false;
+     setError(password,'Password must be atleast 5 characters long')
+ }
+ else{
+     setSuccess(password)
+ }
+
+ return success;
+
+}
+
+function setError(element,message){
+ const inputGroup = element.parentElement;
+ const errorElement = inputGroup.querySelector('.error')
+
+ errorElement.innerText = message;
+ inputGroup.classList.add('error')
+ inputGroup.classList.remove('success')
+}
+
+function setSuccess(element){
+ const inputGroup = element.parentElement;
+ const errorElement = inputGroup.querySelector('.error')
+
+ errorElement.innerText = '';
+ inputGroup.classList.add('success')
+ inputGroup.classList.remove('error')
+}
+  </script>
 </html>

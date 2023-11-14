@@ -8,121 +8,129 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Signup</title>
-  <style>
-    body {
-      overflow: hidden; /* Disable scrolling */
-    }
-
-    .vh-100 {
-      height: 100vh; /* Full viewport height */
-    }
-
-    .form-container {
-      background: url(https://media.istockphoto.com/id/1417882544/photo/large-group-of-cats-and-dogs-looking-at-the-camera-on-blue-background.webp?b=1&s=170667a&w=0&k=20&c=Q-OSb3I9cuoCZT5rm539lIeu23zU3FdFyB35WhL0Kes=);
-      background-repeat: no-repeat;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    }
-
-    .form-card {
-      border-radius: 15px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      max-width: 500px;
-      width: 100%;
-    }
-
-    .form-label {
-      font-weight: bold;
-    }
-
-    .form-control {
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-  </style>
+ 
 </head>
 
 <body>
   <%- include("../partials/userpartials/header.ejs") %>
-  <section class="vh-100 form-container">
-    <div class="card form-card">
-      <h2 class="text-uppercase text-center mb-4">Create an account</h2>
-      <form action="/signup" method="post">
-        <div class="mb-3">
-          <label for="form3Example1cg" class="form-label">Your Name</label>
-          <input type="text" id="form3Example1cg" name="username" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="form3Example3cg" class="form-label">Your Email</label>
-          <input type="email" id="form3Example3cg" name="email" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="form3Example4cg" class="form-label">Password</label>
-          <input type="password" id="form3Example4cg" name="password" class="form-control" />
-        </div>
-        <div class="mb-3">
-          <label for="form3Example4cdg" class="form-label">Repeat your password</label>
-          <input type="password" id="form3Example4cdg" name="confirmpass" class="form-control" />
-        </div>
-        <div class="form-check d-flex justify-content-center mb-4">
-          <p class="error" style="color: red;"></p>
-        </div>
-        <div class="d-flex justify-content-center">
-          <button type="submit" id="submit" class="btn btn-success btn-block text-body">Register</button>
-        </div>
-        <p class="text-center text-muted mt-4 mb-0">Already have an account? <a href="/" class="fw-bold text-body"><u>Login here</u></a></p>
-      </form>
-    </div>
-  </section>
+    <section class="vh-100 form-container">
+      <div class="card form-card">
+        <h2 class="text-uppercase text-center mb-4">Create an account</h2>
+        <form action="/signup" method="post">
+          <% if (locals.message) { %>
+            <div class="alert alert-danger text-center">
+              <strong style="color: red;"><%= message %> </strong>
+            </div>
+          <% } %> 
+          <div class="mb-3">
+            <label for="username" class="form-label">Your Name</label>
+            <input type="text" id="username" value="GOKUL SURESH S.V" name="username" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" id="email" name="email" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile Number</label>
+            <input type="number" id="mobile" name="mobile" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="password"  class="form-label">Password</label>
+            <input type="password" value="Gokul@123" id="password" name="password" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="repassword" class="form-label">Repeat your password</label>
+            <input type="password"  value="Gokul@123"  id="repassword" name="confirmpass" class="form-control" />
+          </div>
+         
+          <p class="error" style="color: red;font-weight: bold;"></p>
+          <div class="d-flex justify-content-center">
+            <button type="submit" id="submit" class="btn btn-success btn-block text-body">Register</button>
+          </div>
+          <p class="text-center text-muted mt-4 mb-0">Already have an account? <a href="/"
+              class="fw-bold text-body"><u>Login here</u></a></p>
+        </form>
+      </div>
+    </section>
 
-  <script>
-    // Form validation logics
-    const username = document.getElementById("form3Example1cg");
-    const email = document.getElementById("form3Example3cg");
-    const password = document.getElementById("form3Example4cg");
-    const cpass = document.getElementById("form3Example4cdg");
-    const submit = document.getElementById("submit");
-    const error = document.querySelector(".error");
+    <script>
+      // Form validation logics
 
-    //Form validation
-    submit.addEventListener("click", (e) => {
-      let n = username.value.trim();
-      let Email = email.value;
-      let pass = password.value;
-      let confirmpass = cpass.value;
-      let message = [];
+      const username = document.getElementById("username");
+      const email = document.getElementById("email");
+      const mobile = document.getElementById("mobile");
+      const password = document.getElementById("password");
+      const cpass = document.getElementById("repassword");
+      const submit = document.getElementById("submit");
+      const error = document.querySelector(".error");
 
-      // Name validation
-      let validateName = (trimmed) => {
-        if (trimmed.length >= 3) {
-          return true;
+
+      //Form validation
+
+      submit.addEventListener("click", (e) => {
+        console.log('submit button is clicked')
+        let n = username.value.trim();
+        // console.log(n);
+        let Email = email.value;
+        let Mobile = mobile.value
+        let pass = password.value;
+        let confirmpass = cpass.value
+        let message = [];
+
+        // Name validation
+        let validateName = (trimmed) => {
+          if (trimmed.length >= 3) {
+            return true;
+          }
+          return false;
+        };
+        // Email validation:
+        let validateEmail = (Email) => {
+          var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+          return emailRegex.test(Email);
+        };
+
+        //mobile number validation
+        let validateMobile = (Mobile) => {
+          const mobileNumberRegex = /^\d{10}$/;
+          return mobileNumberRegex.test(Mobile);
         }
-        return false;
-      };
 
-      // Email validation:
-      let validateEmail = (Email) => {
-        var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-        return emailRegex.test(Email);
-      };
+        // Password validation
+        let validatePassword = (pass) => {
+          const symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+          const lowercaseRegex = /[a-z]+/;
+          const uppercaseRegex = /[A-Z]+/;
+          const numericRegex = /\d+/;
 
-      if (n.length === 0) message.push("Enter username");
-      else if (!validateName(n)) message.push("Invalid name");
-      else if (!validateEmail(Email)) message.push("Invalid email");
-      else if (pass !== confirmpass) message.push("Passwords don't match");
+          const hasSymbol = symbolRegex.test(pass);
+          const hasLowercase = lowercaseRegex.test(pass);
+          const hasUppercase = uppercaseRegex.test(pass);
+          const hasNumeric = numericRegex.test(pass);
+          return hasSymbol && hasLowercase && hasUppercase && hasNumeric;
+        };
 
-      if (message.length > 0) {
-        e.preventDefault();
-        error.textContent = message.join("");
-      } else {
-        error.textContent = '';
-      }
-    });
-  </script>
+
+        if (n.length === 0) message.push("Enter username");
+        else if (!validateName(n)) message.push("Invalid name");
+        else if (!validateEmail(Email)) message.push("Invalid email");
+        else if (!validateMobile(Mobile)) message.push("Invalid Mobile number");
+        else if (pass.length === 0) message.push("Enter the password");
+        else if (!validatePassword(pass))
+          message.push(
+            "Password must contain a symbol, uppercase letter, and a number"
+          );
+        else if (pass !== confirmpass) message.push("Passwords doesn't match");
+
+
+        if (message.length > 0) {
+          e.preventDefault();
+          error.textContent = message.join("");
+        } else {
+          error.textContent = '';
+        }
+      });
+       </script>
 </body>
 
 </html>

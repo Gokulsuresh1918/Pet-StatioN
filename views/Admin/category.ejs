@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-  <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="stylesheet" href="/assets/css/material-dashboard.css">
   <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
@@ -45,7 +45,11 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                   <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                     <h6 class="text-white text-capitalize ps-3">Category Management</h6>
+                    
                   </div>
+                  <div class="col-12 mt-3">
+                    <a href="/admin/addcategory"> <button class="btn btn-primary btn-block .addcategory">Add Category</button></a>
+                   </div>
                 </div>
                 <div class="table-responsive">
                   <table class="table">
@@ -86,9 +90,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 mt-3">
-           <a href="/admin/addcategory"> <button class="btn btn-primary btn-block .addcategory">Add Category</button></a>
-          </div>
+         
         </div>
 
         <%- include('../partials/adminpartials/footer') %>

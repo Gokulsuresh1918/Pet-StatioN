@@ -9,32 +9,32 @@
   <link rel="icon" href="img/favicon.png">
   <!-- Bootstrap CSS -->
   <!-- <link rel="stylesheet" href="../../sinprotem/css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="/productcss/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Roboto+Flex:opsz@8..144&display=swap"
     rel="stylesheet">
   <!-- animate CSS -->
-  <link rel="stylesheet" href="/productcss/animate.css">
+  <link rel="stylesheet" href="/assets/productcss/animate.css">
   <!-- owl carousel CSS -->
-  <link rel="stylesheet" href="/productcss/owl.carousel.min.css">
-  <link rel="stylesheet" href="/productcss/lightslider.min.css">
+  <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/productcss/lightslider.min.css">
   <!-- font awesome CSS -->
-  <link rel="stylesheet" href="/productcss/all.css">
+  <link rel="stylesheet" href="/assets/productcss/all.css">
   <!-- flaticon CSS -->
-  <link rel="stylesheet" href="/productcss/flaticon.css">
-  <link rel="stylesheet" href="/productcss/themify-icons.css">
+  <link rel="stylesheet" href="/assets/productcss/flaticon.css">
+  <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
   <!-- font awesome CSS -->
-  <link rel="stylesheet" href="/productcss/magnific-popup.css">
+  <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
   <!-- style CSS -->
-  <link rel="stylesheet" href="/productcss/style.css">
+  <link rel="stylesheet" href="/assets/productcss/style.css">
 
 
 
-  <link href="/cssUT/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/cssUT/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="/cssUT/tiny-slider.css" rel="stylesheet">
-  <link href="/cssUT/style.css" rel="stylesheet">
+  <link href="/assets/cssUT/tiny-slider.css" rel="stylesheet">
+  <link href="/assets/cssUT/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -137,7 +137,7 @@
         <div class="col-lg-8">
           <div class="breadcrumb_iner">
             <div class="breadcrumb_iner_item">
-              <h2>Welcome to Your Future Furry Friend!</h2>
+              <h1>Welcome to Your Future Furry Friend!</h1>
               <p>Discover a world of love, companionship, and boundless joy as you embark on the journey of bringing a
                 new pet into your life. At [Your Pet Store], we take pride in connecting families with their perfect
                 pets, ensuring a lifetime of wagging tails, playful purrs, and unforgettable moments <span>-</span> Shop
@@ -163,7 +163,9 @@
                   style="height: 1800px; transform: translate3d(0px, 0px, 0px);">
                   <div data-thumb="/img/Boy With Pet Dog Walking.jpeg" class="lslide active"
                     style="height: 450px; margin-bottom: 0px;">
-                    <img src="/img/Boy With Pet Dog Walking.jpeg">
+                    <%productdata.forEach((row,index)=>{%>
+
+                    <img src="/MulterUploads/<%= row.image[0] %> ">
                   </div>
                   <!-- <div data-thumb="img/product/single-product/product_1.png" class="lslide" style="height: 450px; margin-bottom: 0px;">
                 <img src="/img/t-r-photography-TzjMd7i5WQI-unsplash.jpg.jpg">
@@ -180,11 +182,11 @@
               <ul class="lSPager lSGallery"
                 style="margin-left: 5px; width: 100px; transition-duration: 600ms; height: 607.167px; transform: translate3d(0px, 0px, 0px);">
                 <li style="width:100%;height:146.66666666666666px;margin-bottom:5px" class="active"><a href="#"><img
-                      src="/img/Boy With Pet Dog Walking.jpeg"></a></li>
+                      src="/MulterUploads/<%= row.image[1] %> "></a></li>
                 <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
-                      src="/img/Boy With Pet Dog Walking.jpeg"></a></li>
+                      src="/MulterUploads/<%= row.image[2] %> "></a></li>
                 <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
-                      src="/img/Boy With Pet Dog Walking.jpeg"></a></li>
+                      src="/MulterUploads/<%= row.image[3] %> "></a></li>
                 <!-- <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img src="/img/Boy With Pet Dog Walking.jpeg"></a></li> -->
               </ul>
             </div>
@@ -193,12 +195,12 @@
         <div class="col-lg-5 col-xl-4">
           <div class="s_product_text">
             <h5>Sales<span>|</span> Rent</h5>
-            <h3>Golden Retriver</h3>
-            <h2>Rs:19999</h2>
+            <h3><%= row.name %> </h3>
+            <h2>Rs:<%= row.price %> </h2>
             <ul class="list">
               <li>
                 <a class="active" href="#">
-                  <span>Category</span> Dogs</a>
+                  <span> Category</span> <%= row.category %></a>
               </li>
               <!-- <li>
                 <a href="#"> <span>Availibility</span> : In Stock</a>
@@ -223,6 +225,7 @@
       </div>
     </div>
   </div>
+  <%})%>
   <!--================End Single Product Area =================-->
 
   <!--================Product Description Area =================-->

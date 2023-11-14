@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .table-responsive {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .editPage {
+            background-color: #3b5d50; /* Bootstrap default background color */
+            border-radius: 8px;
+            padding: 20px;
+            width: 500px; /* Adjust the width as needed */
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+    <title>Product Add</title>
+</head>
+
+<body>
+    <div class="table-responsive">
+        <img src="/img/Cat & Dog 3a.jpeg" alt="">
+        <div class="editPage">
+            <a href="/admin/productdetails">
+                <h1>&times;</h1>
+            </a>
+            <form action="/admin/productadd" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text"  class="form-control" name="name" required>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class="form-label">Category:</label>
+                            <input type="text"  class="form-control" name="category" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="discount" class="form-label">Discount:</label>
+                            <input type="number" class="form-control"  name="discount" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description:</label>
+                            <input type="text" class="form-control" name="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="form-label">Price:</label>
+                            <input type="number"  class="form-control"  name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="qty" class="form-label">Qty:</label>
+                            <input type="number"  class="form-control" name="qty" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- New image upload field -->
+                <div class="form-group">
+                    <label for="image" class="form-label">Image:</label>
+                    <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png, .gif" required multiple>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

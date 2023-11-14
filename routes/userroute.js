@@ -11,13 +11,13 @@ router.post('/login',loginPost)
 router.get('/signup', signupGet);
 router.post('/signup',signupPost);
 
-router.get('/otppage',usersession,otpGet)
-router.post("/otppage",usersession,otppost)
+router.get('/otppage',otpGet)
+router.post("/otppage",otppost)
 
 router.get('/home', homeGet);
 
 router.get('/shop',shopget)
-router.get('/productview',usersession ,productView)
+router.get('/productview' ,productView)//add usersession  then user cant access before login
 
 
 

@@ -1,18 +1,25 @@
 const { UserCollection } = require('../model/userDB')
+const { productCollection } = require('../model/adminproduct')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer');
 
 
 //controller for login get
 exports.loginGet = (req, res) => {
+    if(!req.session.userId){
         res.render('User/login')
+    }else{
+           res.redirect('admin/home')
+    }
+     
 };
 //controller for login post
-exports.loginPost = async (req, res) => {
+exports.loginPost = async (req, res) => { 
     try {
         const check = await UserCollection.findOne({ email: req.body.Email });
         if (check) {
             const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
+          
             if (check && check.blockStatus) {
                 console.log("acc blocked");
                 res.render("User/login",{message:"account Blocked"})
@@ -22,7 +29,7 @@ exports.loginPost = async (req, res) => {
                 req.session.userId = check._id
                 res.redirect('/home')
             } else {
-                res.redirect('/',{message:'wrong Credentials'})
+                res.render('User/login',{message:'wrong Credentials'})
             }
         }
     } catch (err) {
@@ -46,12 +53,17 @@ exports.signupPost = async (req, res) => {
     data = {
         name: req.body.username,
         email: req.body.email,
+        mobile:req.body.mobile,
         password: req.body.password,
     };
     console.log(data);
     const existinguser = await UserCollection.findOne({ email: data.email })
+    const existingusermobile = await UserCollection.findOne({mobile:data.mobile})
     if (existinguser) {
-        res.redirect('/signup',{message:"E mail already exists"})
+        res.render('User/signup',{message:"E mail already exists"})
+    }
+    if (existingusermobile) {
+        res.render('User/signup',{message:"mobile already exists"})
     }
     if (data.password === req.body.confirmpass) {
         //otp generation through e mail
@@ -79,10 +91,10 @@ exports.signupPost = async (req, res) => {
         const hashedpassword = await bcrypt.hash(data.password, saltRound)
         data.password = hashedpassword
         await UserCollection.insertMany([data])
-        res.redirect('/otppage')
+        res.render('User/otppage')
 
     } else {
-        res.redirect('/signup')
+        res.redirect('/admin/signup')
     };
 };
 // OTP verification
@@ -133,11 +145,13 @@ exports.otppost = async (req, res) => {
 exports.homeGet = (req, res) => {
     res.render('User/home')
 }
-exports.shopget = (req, res) => {
-    res.render('User/shop')
+exports.shopget = async(req, res) => {
+    const productdata=await productCollection.find()
+    res.render('User/shop',{productdata})
 }
-exports.productView = (req, res) => {
-    res.render('User/productview')
+exports.productView =async (req, res) => {
+    const productdata=await productCollection.find()
+    res.render('User/productview',{productdata})
 }
 
 

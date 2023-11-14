@@ -6,7 +6,15 @@ const adminSession = (req,res,next)=>{
         res.redirect('/admin/admin')
     }
 }
+const isLogOut = (res, req,next)=>{
+    if(!req.session.adminID){
+        res.redirect('/admin')
+    }else{
+        next()
+    }
+}
 
 module.exports= {
-    adminSession
+    adminSession,
+    isLogOut
 }

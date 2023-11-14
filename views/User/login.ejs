@@ -46,13 +46,19 @@
                       
                       <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                     </div>
+                    <% if (locals.message) { %>
+                      <div class="alert alert-danger text-center">
+                        <strong style="color: red;"><%= message %> </strong>
+                      </div>
+                    <% } %> 
+                  
   
                     <!-- <a class="small text-muted" href="#!">Forgot password?</a> -->
                     
                     <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="/signup"
                         style="color: #393f81; font-size: large;">Sign Up</a></p>
                     
-                  </form>
+                  </form>   
   
                 </div>
               </div>
