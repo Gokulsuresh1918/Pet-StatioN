@@ -1,7 +1,7 @@
 const { adminCollection } = require("../model/adminDB");
 const { UserCollection } = require("../model/userDB");
-const { categoryCollection } = require("../model/Admincategory");
-const { productCollection } = require("../model/adminproduct");
+const { categoryCollection } = require("../model/categoryDB");
+const { productCollection } = require("../model/productDB");
 const multer = require('multer')
 const path = require('path')
 
@@ -29,13 +29,12 @@ exports.LoginGet = (req, res) => {
 exports.loginPost = async (req, res) => {
     try {
         const { username, password } = req.body
-        const admindata = {
-            adminName: "Gokul",
-            passcode: 1571
-        };
-        if (admindata.adminName == username && admindata.passcode == password) {
+        const admindata =await adminCollection.findOne()
+        console.log(admindata);
+        if (admindata.name == username && admindata.password == password) {
+           
             let admin = false
-            req.session.adminID = admindata.adminName;
+            req.session.adminID = admindata.name;
             res.redirect('/admin/dashboard');
         }
         else {
@@ -59,6 +58,8 @@ exports.UserGet = async (req, res) => {
 //Blocking User----------------------------------------------------------------------
 exports.blockUser = async (req, res) => {
     try {
+        console.log('block');
+       
         const userid = req.params.id
         const user = await UserCollection.findById(userid)
         user.blockStatus = !user.blockStatus
@@ -189,12 +190,12 @@ exports.productpost = async (req, res) => {
         category: req.body.category,
         price: req.body.price,
         discount: req.body.discount,
-        qty: req.body.qty,   
+        qty: req.body.qty,
     };
     await productCollection.updateOne({ _id: id }, { $set: productdetails })
 
-        res.redirect('/admin/productdetails')
-    
+    res.redirect('/admin/productdetails')
+
 };
 
 
@@ -210,7 +211,7 @@ exports.productaddGet = async (req, res) => {
 
 exports.productaddpost = async (req, res, next) => {
     try {
-        console.log('productaddpost',req.body);
+        console.log('productaddpost', req.body);
         const files = req.files
 
         const product = {
@@ -236,24 +237,24 @@ exports.productaddpost = async (req, res, next) => {
 
 
 
-exports. editproductGet = async (req, res) => {
+exports.editproductGet = async (req, res) => {
     try {
         const id = req.params.id
         console.log(id);
         const productdata = await productCollection.findById(id)
         console.log(productdata);
 
-        res.render('Admin/productedit', {productdata, admin: false })
+        res.render('Admin/productedit', { productdata, admin: false })
     } catch (error) {
         console.log(error.message);
         res.status(500).send("Internal error")
     }
 }
 
-exports. editproductpost = async (req, res) => {
+exports.editproductpost = async (req, res) => {
 
     try {
-       
+
         const id = req.params.id
         const updatedData = {
             name: req.body.name,
@@ -264,7 +265,7 @@ exports. editproductpost = async (req, res) => {
             qty: req.body.qty,
         };
 
- 
+
 
         await productCollection.findByIdAndUpdate(id, updatedData);
         res.redirect('/admin/productdetails');

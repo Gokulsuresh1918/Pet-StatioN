@@ -6,15 +6,11 @@ const adminLoginSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    email:{
-        type:String,
-        required:true
-    },
     password:{
         type:String,
         required:true
     }
 });
 
-const adminCollection = new mongoose.model('adminCollection',adminLoginSchema)
+const adminCollection = new mongoose.model('admincollection',adminLoginSchema)
 module.exports={adminCollection}

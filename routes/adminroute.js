@@ -68,7 +68,7 @@ router.get('/dashboard',adminSession,dashboard)
 
 //user ------------------------
 router.get('/userdetails',adminSession, UserGet);
-router.get('/blockStatus/:id',blockUser)
+router.get('/blockStatus',blockUser)
 
 
 //category----------

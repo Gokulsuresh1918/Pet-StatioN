@@ -1,35 +1,35 @@
 const { UserCollection } = require('../model/userDB')
-const { productCollection } = require('../model/adminproduct')
+const { productCollection } = require('../model/productDB')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer');
 
 
 //controller for login get
 exports.loginGet = (req, res) => {
-    if(!req.session.userId){
+    if (!req.session.userId) {
         res.render('User/login')
-    }else{
-           res.redirect('admin/home')
+    } else {
+        res.redirect('admin/home')
     }
-     
+
 };
 //controller for login post
-exports.loginPost = async (req, res) => { 
+exports.loginPost = async (req, res) => {
     try {
         const check = await UserCollection.findOne({ email: req.body.Email });
         if (check) {
             const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
-          
+
             if (check && check.blockStatus) {
                 console.log("acc blocked");
-                res.render("User/login",{message:"account Blocked"})
+                res.render("User/login", { message: "account Blocked" })
             }
             else if (isPasswordMatch) {
                 // session created
                 req.session.userId = check._id
                 res.redirect('/home')
             } else {
-                res.render('User/login',{message:'wrong Credentials'})
+                res.render('User/login', { message: 'wrong Credentials' })
             }
         }
     } catch (err) {
@@ -41,8 +41,8 @@ exports.loginPost = async (req, res) => {
 
 //controller for signup get
 exports.signupGet = (req, res) => {
-        res.render('User/signup')
-    
+    res.render('User/signup')
+
 };
 
 
@@ -53,17 +53,17 @@ exports.signupPost = async (req, res) => {
     data = {
         name: req.body.username,
         email: req.body.email,
-        mobile:req.body.mobile,
+        mobile: req.body.mobile,
         password: req.body.password,
     };
     console.log(data);
     const existinguser = await UserCollection.findOne({ email: data.email })
-    const existingusermobile = await UserCollection.findOne({mobile:data.mobile})
+    const existingusermobile = await UserCollection.findOne({ mobile: data.mobile })
     if (existinguser) {
-        res.render('User/signup',{message:"E mail already exists"})
+        res.render('User/signup', { message: "E mail already exists" })
     }
     if (existingusermobile) {
-        res.render('User/signup',{message:"mobile already exists"})
+        res.render('User/signup', { message: "mobile already exists" })
     }
     if (data.password === req.body.confirmpass) {
         //otp generation through e mail
@@ -131,7 +131,7 @@ exports.otppost = async (req, res) => {
     if (userEnteredOTP === otp) {
         await UserCollection.insertMany(data);
         console.log("User registered successfully!!");
-        res.render('User/otpsucces') 
+        res.render('User/otpsucces')
     } else {
         res.redirect("/otppage")
     }
@@ -145,13 +145,13 @@ exports.otppost = async (req, res) => {
 exports.homeGet = (req, res) => {
     res.render('User/home')
 }
-exports.shopget = async(req, res) => {
-    const productdata=await productCollection.find()
-    res.render('User/shop',{productdata})
+exports.shopget = async (req, res) => {
+    const productdata = await productCollection.find()
+    res.render('User/shop', { productdata })
 }
-exports.productView =async (req, res) => {
-    const productdata=await productCollection.find()
-    res.render('User/productview',{productdata})
+exports.productView = async (req, res) => {
+    const productdata = await productCollection.find()
+    res.render('User/productview', { productdata })
 }
 
 

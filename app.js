@@ -6,11 +6,14 @@ const bcrypt = require("bcrypt")
 const env = require('dotenv')
 const crypto = require('crypto')
 const mongoose = require("mongoose")
-const database = require('./database/petStation')
+const database = require('./middleware/database/petStation')
 const nocache = require('nocache')
 const port = 3000
 const errorpage = require('./middleware/error/error')
 require('dotenv').config();
+const cors = require('cors');
+app.use(cors());
+
 
 
 
