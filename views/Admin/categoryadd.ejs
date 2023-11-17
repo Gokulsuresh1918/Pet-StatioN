@@ -55,23 +55,40 @@
                           <a href="/admin/Categorydetails">
                             <h1>&times;</h1>
                           </a>
+                          <% if (locals.message) { %>
+                            <div class="alert alert-danger text-center">
+                              <strong style="color: red;"><%= message %> </strong>
+                            </div>
+                          <% } %> 
                           <form action="/admin/Categorydetails" method="post">
                             <div class="mb-3">
                               <label for="categoryName" class="form-label">Category Name:</label>
-                              <input type="text" class="form-control" id="categoryname" name="categoryname" required>
-                            </div>
+                              <select class="form-select" id="categoryname" name="categoryname" required>
+                                  <!-- Add your dropdown options dynamically, for example, using server-side data -->
+                                  <option value="option1">Sale&Rent</option>
+                                  <option value="option2"> Adoption</option>
+                                  <option value="option3">Grooming</option>
+                                  <!-- Add more options as needed -->
+                              </select>
+                          </div>
+                          <div class="mb-3">
+                            <label for="categoryName" class="form-label">SubCategory Name:</label>
+                            <select class="form-select" id="categoryname" name="categoryname" required>
+                                <!-- Add your dropdown options dynamically, for example, using server-side data -->
+                                <option value="option1">Option 1</option>
+                                <option value="option2">Option 2</option>
+                                <option value="option3">Option 3</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                        </div>
                             <div class="mb-3">
                               <label for="description" class="form-label">Description:</label>
                               <input type="text" class="form-control" id="description" name="description" required>
                             </div>
-                            <div class="mb-3">
-                              <label for="stock" class="form-label">Stock:</label>
-                              <input type="number" class="form-control" id="stock" name="stock" required>
-                            </div>
-                            <div class="mb-3">
-                              <label for="price" class="form-label">Price:</label>
-                              <input type="number" class="form-control" id="price" name="price" required>
-                            </div>
+                       
+                            
+                           <p></p>
+                            
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                           </form>
                         </div>

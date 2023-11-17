@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<%- include('../../partials/layoutpage') %>
+</head>
+<body>
+  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+    <div class="container">
+        <a class="navbar-brand" href="/home" style="font-family:Irish;">Pet Station<span>.</span></a>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li><a class="nav-link" href="/shop">Shop</a></li>
+                <li><a class="nav-link" href="/home">About us</a></li>
+                <li><a class="nav-link" href="/home">contact us</a></li>
+                
+            </ul>
+
+            <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="/assets/images/user.svg">
+                    </a>
+                    <%if(locals.user) {%>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #51826f; border: 1px solid #000000;">
+                            <!-- Dropdown items go here -->
+                            <a class="dropdown-item" href="/profile" style="color: #f9bf29;">Profile</a>
+                            <a class="dropdown-item" href="/logout" style="color: #ee0000;">Log Out</a>
+                        </div>
+                    <% }else{ %>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #51826f; border: 1px solid #000000;">
+                        <!-- Dropdown items go here -->
+                        <a class="dropdown-item" href="/" style="color: #f9f9f9;">Log In</a>
+                        <a class="dropdown-item" href="/signup" style="color: #f9bf29;">Sign Up</a>
+                       
+                    </div>
+                    <%}%>
+                </li>
+                <li><a class="nav-link" href="/profile"><img src="/assets/images/cart.svg"></a></li>
+            </ul>
+            
+        </div>
+    </div>
+        
+</nav>
+
+
+  
+    <div class="ui-bg-cover ui-bg-overlay-container text-black" style="background-color: #87CEFA;">
+        <div class="ui-bg-overlay bg-dark opacity-50"></div>
+        <div class="container">
+          <div class="text-center py-5">
+            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="ui-w-100 rounded-circle">
+    
+            <div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
+              <h4 class="font-weight-bold my-4 text-green">User Name</h4>
+    
+              <div class="opacity-75 mb-4">
+                Welcome to Our Pet Store!
+                At PET STATION, we celebrate the extraordinary bond between humans and their furry friends. Step into a world where tails wag, purrs resonate, and feathers flutter with joy! 🐾              </div>
+            </div>
+    
+            <div class="text-center ">
+              <a href="/address" class="d-inline-block text-black bg-gradient-success border-radius-lg px-4 py-2 my-3">
+               
+                <span class="opacity-75 ">Address</span>
+              </a>
+              <a href="javascript:void(0)" class="d-inline-block text-black ml-3 bg-gradient-success border-radius-lg px-4 py-2 my-3">
+                <span class="opacity-75">Forget Password</span>
+              </a>
+              
+              <a href="javascript:void(0)" class="d-inline-block text-black ml-3 bg-gradient-success border-radius-lg px-4 py-2 my-3">
+               
+                <span class="opacity-75">Order</span>
+              </a>
+              <a href="javascript:void(0)" class="d-inline-block text-black ml-3 bg-gradient-success border-radius-lg px-4 py-2 my-3">
+               
+                <span class="opacity-75">Log Out</span>
+              </a>
+            </div>
+          </div>
+        </div>
+    
+        
+        <%-include('../../partials/userpartials/footer.ejs') %>
+      </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+integrity="sha384-qjnXahWFSzoaUaxh3cFYsFAJ7U/xfxVcY8JgTajJ9TI9PqWBYxBGqBEKaQ29iYz1"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyUEm2AUahfFlrBxIj2I6dXJlEnKz7khp"
+crossorigin="anonymous"></script>
+</html>

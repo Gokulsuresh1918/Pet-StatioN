@@ -2,29 +2,29 @@ const mongoose = require('mongoose')
 
 
 const categoryschema = new mongoose.Schema({
-    categoryname:{
-        type:String,
-        required:true
+    category: {
+        categoryname: {
+            type: String,
+            required: true
+        },
+        subcategory: {
+            type: String,
+            required: true
+        }
     },
-    description:{
-        type:String,
-        required:true
+    description: {
+        type: String,
+        required: true
+
     },
-    stock:{
-        type:Number,
-        required:true
-    },
-    price:{
-        type:Number,
-        required:true
-    },
-    blockStatus:{
+
+    blockStatus: {
         type: Boolean,
-        default:false,
-        required:true
+        default: false,
+        required: true
     }
 
 });
 
-const categoryCollection = new mongoose.model('categoryCollection',categoryschema)
-module.exports={categoryCollection}
+const categoryCollection = new mongoose.model('categoryCollection', categoryschema)
+module.exports = { categoryCollection }

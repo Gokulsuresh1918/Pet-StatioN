@@ -2,88 +2,122 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .table-responsive {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .editPage {
-            background-color: #3b5d50; /* Bootstrap default background color */
-            border-radius: 8px;
-            padding: 20px;
-            width: 500px; /* Adjust the width as needed */
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-    </style>
-    <title>product Edit</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
+    <title>
+        Product Dashboard
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
-<body>
-    <div class="table-responsive">
-        <img src="/img/Cat & Dog 3a.jpeg" alt="">
-        <div class="editPage">
-            <a href="/admin/productdetails">
-                <h1>&times;</h1>
-            </a>
-            <form action="/admin/productdetails/<%=productdata.id%>" method="post" enctype="multipart/form-data">
-               
-                    
-                   
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" value="<%= productdata.name %>" class="form-control" name="name" required>
-                            
-                        </div>
-                        <div class="form-group">
-                            <label for="category" class="form-label">Category:</label>
-                            <input type="text" value="<%=productdata.category%>" class="form-control" name="category" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="discount" class="form-label">Discount:</label>
-                            <input type="number" value="<%=productdata.discount%>"  class="form-control"  name="discount" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="description" class="form-label">Description:</label>
-                            <input type="text" value="<%=productdata.description%>"  class="form-control" name="description" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="price" class="form-label">Price:</label>
-                            <input type="number"value="<%=productdata.price%>"   class="form-control"  name="price" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="qty" class="form-label">Qty:</label>
-                            <input type="number"value="<%=productdata.qty%>"  class="form-control" name="qty" required>
+<body class="g-sidenav-show  bg-gray-200">
+    <!--header-->
+    <%- include('../partials/adminpartials/aside') %>
+        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+            <!-- Navbar -->
+            <%- include('../partials/adminpartials/navbar') %>
+                <!-- End Navbar -->
+
+                <div class="row mb-4">
+
+                    <div class="row mb-4">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                            <h6 class="text-white text-capitalize ps-3">Product Management</h6>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+
+
+                                        <form action="/admin/productdetails/<%=productdata.id%>" method="post"
+                                            enctype="multipart/form-data">
+
+
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name" class="form-label">Name</label>
+                                                        <input type="text" value="<%= productdata.name %>"
+                                                            class="form-control" name="name" required>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="category" class="form-label">Category:</label>
+                                                        <input type="text" value="<%=productdata.category%>"
+                                                            class="form-control" name="category" required>
+                                                    </div>
+                                                    <div style="display: flex; margin-top: 20px">
+                                                        <% productdata.image.forEach(element=> { %>
+                                                            <div style="position: relative">
+                                                                <img class="img-fluid" style="width: 90px; margin: 10px"
+                                                                    src="/<%= element%>" alt="" />
+                                                                <a style="position: absolute; top: 0; right: 0; color: red"
+                                                                    class="fas fa-times "
+                                                                    href="/admin/dashboard/product/delete/<%= element %>/<%= productdata._id %>"></a>
+                                                            </div>
+                                                            <% }) %>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="description" class="form-label">Description:</label>
+                                                        <input type="text" value="<%=productdata.description%>"
+                                                            class="form-control" name="description" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="price" class="form-label">Price:</label>
+                                                        <input type="number" value="<%=productdata.price%>"
+                                                            class="form-control" name="price" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="qty" class="form-label">Qty:</label>
+                                                        <input type="number" value="<%=productdata.qty%>"
+                                                            class="form-control" name="qty" required>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </form>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
+
                 </div>
-               
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                </div>
+        </main>
 </body>
 
 </html>

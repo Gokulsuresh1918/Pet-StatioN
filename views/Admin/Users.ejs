@@ -180,13 +180,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
     console.log('here', userId, blockStatus);
 
 
-    fetch(`/blockStatus?userid=${userId}`, {
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    fetch(`/admin/blockStatus?userid=${userId}`, {
+      method: 'GET'
     })
       .then(response => response.json())
+      .then(res => console.log(res))
       .catch(error => {
         console.error('Error:', error);
         alert('Error occurred. Please try again.');

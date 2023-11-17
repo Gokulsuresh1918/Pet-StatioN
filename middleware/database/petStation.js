@@ -2,7 +2,7 @@ const mongoose =require('mongoose')
 
 
 //database
-mongoose.connect("mongodb://127.0.0.1:27017/User-PetStation")
+mongoose.connect(process.env.DB_URL) 
 .then(()=>{
     console.log("Mongodb Connected");
 })

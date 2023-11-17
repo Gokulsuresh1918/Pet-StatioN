@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <%- include('../../partials/layoutpage.ejs') %>
+  <title>User Details</title>
+
+  <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <style>
+    .btn-primary-left {
+      margin-right: 10px;
+    }
+
+    .btn-primary-right {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body class="g-sidenav-show bg-gray-200">
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <div class="container-fluid">
+      <div class="row mb-4">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                  <h6 class="text-white text-capitalize ps-3">Address</h6>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <form action="/admin/productadd" method="post" enctype="multipart/form-data">
+                  <!-- Form content... -->
+               
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="name" class="form-label">Name:</label>
+                          <input type="text" class="form-control" name="name" required>
+
+                        </div>
+                        <div class="form-group">
+                          <label for="category" class="form-label">Address</label>
+                          <input type="text" class="form-control" name="category" required>
+                        </div>
+                        
+                        <div class="form-group ">
+                          <label for="category" class="form-label">District</label>
+                          <input type="text" class="form-control" name="category" required>
+                        </div>
+                        
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="description" class="form-label">Pincode</label>
+                          <input type="number" class="form-control" name="description" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="price" class="form-label">E-mail</label>
+                          <input type="text" class="form-control" name="price" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="qty" class="form-label">State:</label>
+                          <input type="number" class="form-control" name="qty" required>
+                        </div>
+                      </div>
+                    </div>
+                   
+
+                    
+                
+                  <div class="row mt-4">
+                    <div class="col-md-6">
+                      <!-- Form inputs... -->
+                      
+                    </div>
+                    <div class="col-md-6">
+                      <!-- Form inputs... -->
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <a href="/add-address"><button type="button" class="btn btn-primary btn-primary-left" style="padding-top: 10px;">Add Address</button></a>
+                    <a href="/edit-address"><button type="button" class="btn btn-secondary btn-primary-right" style="padding-top: 10px;">Edit Address</button></a>
+                  </div>
+                </form>
+              </div>
+            </div>
+      

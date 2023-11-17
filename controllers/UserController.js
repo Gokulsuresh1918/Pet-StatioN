@@ -6,12 +6,14 @@ const nodemailer = require('nodemailer');
 
 //controller for login get
 exports.loginGet = (req, res) => {
-    if (!req.session.userId) {
-        res.render('User/login')
-    } else {
-        res.redirect('admin/home')
-    }
 
+    if (!req.session.userId) {
+        const user = true
+        res.render('User/login',{user})
+    } else {
+        const user= false
+        res.redirect('admin/home',{user})
+    }
 };
 //controller for login post
 exports.loginPost = async (req, res) => {
@@ -41,7 +43,8 @@ exports.loginPost = async (req, res) => {
 
 //controller for signup get
 exports.signupGet = (req, res) => {
-    res.render('User/signup')
+    const user = true
+    res.render('User/signup',{user})
 
 };
 
@@ -101,8 +104,8 @@ exports.signupPost = async (req, res) => {
 const transporter = nodemailer.createTransport({
     service: 'Gmail', // e.g., 'Gmail', 'SMTP'
     auth: {
-        user: 'petstation2002@gmail.com',
-        pass: 'kgbvqcgzldlmeftf',
+        user: process.env.MY_EMAIL,
+        pass: process.env.MY_PASS,
     },
 });
 let otp;
@@ -117,6 +120,7 @@ const generateotp = () => {
 
 //otp get controller
 exports.otpGet = (req, res) => {
+    
     res.render('User/otppage')
 };
 
@@ -143,11 +147,36 @@ exports.otppost = async (req, res) => {
 
 //controller for home get
 exports.homeGet = (req, res) => {
-    res.render('User/home')
+   
+    try {
+         if(req.session.userId){
+            const user = true
+        res.render('User/home',{user})
+    }else{
+        const user = false
+        res.render('User/home',{user})
+    }
+    } catch (error) {
+        console.error(error);
+    }
+    
 }
 exports.shopget = async (req, res) => {
-    const productdata = await productCollection.find()
-    res.render('User/shop', { productdata })
+    try {
+        if(req.session.userId){
+           const user = true
+           const productdata = await productCollection.find()
+           res.render('User/shop', { productdata,user})
+   }else{
+       const user = false
+       const productdata = await productCollection.find()
+       res.render('User/shop', { productdata,user})
+   }
+   } catch (error) {
+       console.error(error);
+   }
+   
+
 }
 exports.productView = async (req, res) => {
     const productdata = await productCollection.find()
@@ -156,4 +185,16 @@ exports.productView = async (req, res) => {
 
 
 
-
+//profile get 
+exports.profileGet=(req,res)=>{
+    res.render('User/userProfile/profile')
+}
+exports.addressGet=(req,res)=>{
+    res.render('User/userProfile/address')
+}
+exports.addaddressGet=(req,res)=>{
+    res.render('User/userProfile/addaddress')
+}
+exports.editaddressGet=(req,res)=>{
+    res.render('User/userProfile/editaddress')
+}

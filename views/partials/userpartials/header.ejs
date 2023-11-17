@@ -21,18 +21,25 @@
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="/assets/images/user.svg">
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%if(locals.user) {%>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #51826f; border: 1px solid #000000;">
+                            <!-- Dropdown items go here -->
+                            <a class="dropdown-item" href="/profile" style="color: #f9bf29;">Profile</a>
+                            <a class="dropdown-item" href="/logout" style="color: #ee0000;">Log Out</a>
+                        </div>
+                    <% }else{ %>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #51826f; border: 1px solid #000000;">
                         <!-- Dropdown items go here -->
-                        <a class="dropdown-item" href="/">log in</a>
-                        <a class="dropdown-item" href="/signup">sign up</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="/" style="color: #f9f9f9;">Log In</a>
+                        <a class="dropdown-item" href="/signup" style="color: #f9bf29;">Sign Up</a>
+                       
                     </div>
+                    <%}%>
                 </li>
-                <li><a class="nav-link" href="cart.html"><img src="/assets/images/cart.svg"></a></li>
+                <li><a class="nav-link" href="/profile"><img src="/assets/images/cart.svg"></a></li>
             </ul>
             
         </div>

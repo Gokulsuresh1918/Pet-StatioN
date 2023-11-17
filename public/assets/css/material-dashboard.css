@@ -22680,7 +22680,7 @@ label,
 }
 
 .form-control {
-  border-radius: 5rem;
+  border-radius: 1rem;
   border-color:#4a4a4a;
 }
 
@@ -22711,8 +22711,8 @@ label,
 
 .input-group .input-group-text {
   position: absolute;
-  padding: .75rem 0;
-  right: 0;
+  padding: 75rem 0;
+  right: 0px;
   border-right: 0 !important;
 }
 

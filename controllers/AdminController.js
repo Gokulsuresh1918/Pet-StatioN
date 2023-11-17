@@ -3,7 +3,8 @@ const { UserCollection } = require("../model/userDB");
 const { categoryCollection } = require("../model/categoryDB");
 const { productCollection } = require("../model/productDB");
 const multer = require('multer')
-const path = require('path')
+const path = require('path');
+const { log } = require("console");
 
 
 
@@ -29,10 +30,10 @@ exports.LoginGet = (req, res) => {
 exports.loginPost = async (req, res) => {
     try {
         const { username, password } = req.body
-        const admindata =await adminCollection.findOne()
+        const admindata = await adminCollection.findOne()
         console.log(admindata);
         if (admindata.name == username && admindata.password == password) {
-           
+
             let admin = false
             req.session.adminID = admindata.name;
             res.redirect('/admin/dashboard');
@@ -58,10 +59,12 @@ exports.UserGet = async (req, res) => {
 //Blocking User----------------------------------------------------------------------
 exports.blockUser = async (req, res) => {
     try {
-        console.log('block');
-       
-        const userid = req.params.id
+        console.log('blocked user');
+        console.log(req.query);
+        console.log(req.params);
+        const userid = req.query.id
         const user = await UserCollection.findById(userid)
+        console.log(blockStatus);
         user.blockStatus = !user.blockStatus
         await user.save()
         res.redirect("/admin/userdetails")
@@ -88,6 +91,7 @@ exports.categoryGet = async (req, res) => {
         if (req.session.adminID) {
             let admin = false
             const categorydata = await categoryCollection.find()
+
             res.render("Admin/category", { categorydata, admin })
         } else {
             let admin = true
@@ -99,14 +103,30 @@ exports.categoryGet = async (req, res) => {
 };
 //category post0-----------------------------------------------------------------------------
 exports.categorypost = async (req, res) => {
-    categorydata = {
-        categoryname: req.body.categoryname,
-        description: req.body.description,
-        stock: req.body.stock,
-        price: req.body.price
-    };
-    await categoryCollection.insertMany([categorydata])
-    res.redirect("/admin/Categorydetails")
+    try {
+        const categorydata = {
+            category: {
+                categoryname: req.body.categoryname,
+                subcategory: req.body.subcategory
+            },
+            description: req.body.description,
+        };
+        
+        const existingcategory = await categoryCollection.find();
+        
+
+        console.log("hello" +"  "+ existingcategory.categoryname);
+        if (existingcategory === req.body.categoryname) {
+            console.log("ifnte");
+            res.redirect("/admin/Categorydetails");
+        } else {
+            await categoryCollection.insertMany([categorydata]);
+            res.redirect("/admin/Categorydetails");
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 };
 
 //blockcategory------------------------------------------------------
@@ -127,7 +147,6 @@ exports.blockcategory = async (req, res) => {
 
 //adding category-------------------------------------------
 exports.addcategoryGet = async (req, res) => {
-
     res.render('Admin/categoryadd');
 };
 exports.addcategoryPost = async (req, res) => {
@@ -137,6 +156,10 @@ exports.addcategoryPost = async (req, res) => {
         stock: req.body.stock,
         price: req.body.price
     };
+    const check = await categoryCollection.find({ categoryname })
+    if (check.categoryname === req.body.categoryname) {
+        res.redirect('/addcategory', { message: "category Exicts" })
+    }
     await categoryCollection.updateOne({ _id: categoryId }, { $set: categorydetails })
     res.redirect('/Categorydetails');
 };
@@ -179,11 +202,12 @@ exports.dashboard = async (req, res) => {
 //ProductGet----------------------------------------
 exports.productGet = async (req, res) => {
     const productdata = await productCollection.find()
+    
     res.render("Admin/product", { productdata })
 };
 exports.productpost = async (req, res) => {
     const id = req.params.id
-    console.log(req.body);
+    
     let productdetails = {
         name: req.body.name,
         description: req.body.description,
@@ -211,7 +235,7 @@ exports.productaddGet = async (req, res) => {
 
 exports.productaddpost = async (req, res, next) => {
     try {
-        console.log('productaddpost', req.body);
+       
         const files = req.files
 
         const product = {

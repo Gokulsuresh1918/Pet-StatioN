@@ -72,7 +72,7 @@ router.get('/blockStatus',blockUser)
 
 
 //category----------
-router.get('/Categorydetails',adminSession, categoryGet);
+router.get('/Categorydetails',adminSession, categoryGet); 
 router.post('/Categorydetails',adminSession, categorypost);
 router.get('/addcategory',adminSession,addcategoryGet);
 router.post('/addcategory',adminSession, addcategoryPost );

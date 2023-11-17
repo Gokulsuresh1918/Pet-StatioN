@@ -58,30 +58,31 @@
                         <tr>
                           <th>Sl/no</th>
                           <th>Category name</th>
+                          <th>Sub Category </th>
                           <th>Description</th>
-                          <th>Stock</th>
-                          <th>Price</th>
+                        
                           <th> Edit</th>
                           <th> Delete</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% categorydata.forEach((row,index)=> {%>
-
+                        <% categorydata.forEach((row, index) => { %>
                           <tr>
-                            <td><%= index+1 %></td>
-                             <td><%= row.categoryname %></td>
-                            <td><%= row.description %></td>
-                            <td><%= row.stock %></td>
-                            <td><%= row.price%></td>
-                            <td> <a href="/admin/editcategory/<%= row._id%>"><button class="btn btn-success dltBtn">Edit</button></a> </td>
-                            <td> <a href="blockcategory/<%= row._id %>">
-                              <button class="btn btn-<%= row.blockStatus? 'success' : 'danger'%>">
-                                 <%= row.blockStatus ? 'Recover' : 'Delete' %></button></a> 
-                                </td>
-
-
-                            <% }) %>
+                              <td><%= index + 1 %></td>
+                              <td><%= row. category.categoryname%></td>
+                              <td><%= row.category.subcategory ? row.category.subcategory : 'N/A' %></td>
+                              <td><%= row.description %></td>
+                              <td><a href="/admin/editcategory/<%= row._id %>"><button class="btn btn-success dltBtn">Edit</button></a></td>
+                              <td>
+                                  <a href="blockcategory/<%= row._id %>">
+                                      <button class="btn btn-<%= row.blockStatus ? 'success' : 'danger' %>">
+                                          <%= row.blockStatus ? 'Recover' : 'Delete' %>
+                                      </button>
+                                  </a>
+                              </td>
+                          </tr>
+                      <% }); %>
+                      
                           </tr>
                           <%} %>
                       </tbody>
