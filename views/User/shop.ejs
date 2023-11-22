@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -14,8 +13,8 @@
     <!-- Bootstrap CSS -->
 
     <%- include('../partials/layoutpage.ejs') %>
-    <title>Shoping page</title>
-    
+        <title>Shoping page</title>
+
 </head>
 
 <body>
@@ -50,187 +49,156 @@
                 <div class="row">
 
                     <!-- Start Column 1 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="/productview">
-                            <%productdata.forEach((row,index)=>{%>
-                               
-                            <img src="/MulterUploads/<%= row.image[0] %> "
-                                class="img-fluid product-thumbnail">
-                            <h3 class="product-title"><%= row.name %></h3>
-                            <strong class="product-price"><%= row.price %></strong>
-
-                            <span class="icon-cross">
-                                <img src="/assets/images/cross.svg" class="img-fluid">
-                            </span>
-                            <%})%>
-                        </a>
-                    </div>
-                    <!-- End Column 1 -->
-
-                    <!-- Start Column 2 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="/productview">
-                            <img src="/img/karsten-winegeart-nwe2qgAhT4k-unsplash (1).png"
-                                class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Nordic Chair</h3>
-                            <strong class="product-price">Rs:1999</strong>
-
-                            <span class="icon-cross">
-                                <img src="/assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    <!-- End Column 2 -->
-
-                    <!-- Start Column 3 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="/img/karsten-winegeart-nwe2qgAhT4k-unsplash (1).png"
-                                class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Kruzo Aero Chair</h3>
-                            <strong class="product-price">Rs:1999</strong>
-
-                            <span class="icon-cross">
-                                <img src="/assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    <!-- End Column 3 -->
-
-                  
+                    <%productdata.forEach((row,index)=>{%>
+                        <div class="col-12 col-md-4 col-lg-3 mb-5 ">
+                            <div class=" d-flex">
+                                <a class="product-item " href="/productview/<%= row._id %>">
 
 
-
-                   
-
-                    <!-- Start Column 4 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="/img/karsten-winegeart-nwe2qgAhT4k-unsplash (1).png"
-                                class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Ergonomic Chair</h3>
-                            <strong class="product-price">Rs:1999</strong>
-
-                            <span class="icon-cross">
-                                <img src="/assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    <!-- End Column 4 -->
-
-
-<!-- poppular product -->
-		 <div class="popular-product">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div class="product-item-sm d-flex">
-							<div class="thumbnail">
-								<img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg" alt="Image" class="img-fluid">
-							</div>
-							<div class="pt-3">
-								<h3>Nordic Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div class="product-item-sm d-flex">
-							<div class="thumbnail">
-								<img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg" alt="Image" class="img-fluid">
-							</div>
-							<div class="pt-3">
-								<h3>Kruzo Aero Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div class="product-item-sm d-flex">
-							<div class="thumbnail">
-								<img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg" alt="Image" class="img-fluid">
-							</div>
-							<div class="pt-3">
-								<h3>Ergonomic Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div> 
-
-
-
-
-
-
-
-
-
-
-                    <div class="blog-section">
-                        <div class="container">
-                            <div class="row mb-5">
-                                <div class="col-md-6">
-                                    <h2 class="section-title">Recent Blog</h2>
-                                </div>
-                                <div class="col-md-6 text-start text-md-end">
-                                    <a href="#" class="more">View All Posts</a>
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                                    <div class="post-entry">
-                                        <a href="#" class="post-thumbnail"><img src="/img/27 Heartwarming Photos Of Pets Rescued After Sandy.jpeg" alt="Image"
-                                                class="img-fluid"></a>
-                                        <div class="post-content-entry">
-                                            <h3><a href="#">Grooming & Accessories</a></h3>
-                                            <div class="meta">
-                                                <span>All Grooming Accessories</span>
-                                            </div>
-                                        </div>
+                                    <div style="overflow: hidden;height: 393px;width: 262px;">
+                                        <img src="/MulterUploads/<%= row.image[0] %> "
+                                            class="img-fluid product-thumbnail">
                                     </div>
-                                </div>
+                                    <h3 class="product-title">
+                                        <%= row.name %>
+                                    </h3>
+                                    <strong class="product-price">Rs:<%= row.price %></strong>
+                                    <p>
+                                        <%= row.description %>
+                                    </p>
+                                    <span class="icon-cross">
+                                        <img src="/assets/images/cross.svg" class="img-fluid">
+                                    </span>
 
-                                <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                                    <div class="post-entry">
-                                        <a href="#" class="post-thumbnail"><img src="/img/Here’s the Perfect Pet to Own Based On Your Sign – Makeful.jpeg" alt="Image"
-                                                class="img-fluid"></a>
-                                        <div class="post-content-entry">
-                                            <h3><a href="#">Adoption </a></h3>
-                                            <div class="meta">
-                                                <span>All Adoption</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                                    <div class="post-entry">
-                                        <a href="#" class="post-thumbnail"><img src="/img/How to Introduce a New Puppy to Your Cat _ PawLeaks.jpeg" alt="Image"
-                                                class="img-fluid"></a>
-                                        <div class="post-content-entry">
-                                            <h3><a href="#">Sales & Rent</a></h3>
-                                            <div class="meta">
-                                                <span>All Sales</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                </a>
                             </div>
                         </div>
-                    </div>
+                        <%})%>
+                            <!-- End Column 1 -->
+
+
+
+                            <!-- poppular product -->
+                            <div class="popular-product">
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                                            <div class="product-item-sm d-flex">
+                                                <div class="thumbnail">
+                                                    <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
+                                                        alt="Image" class="img-fluid">
+                                                </div>
+                                                <div class="pt-3">
+                                                    <h3>Nordic Chair</h3>
+                                                    <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+                                                    </p>
+                                                    <p><a href="#">Read More</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                                            <div class="product-item-sm d-flex">
+                                                <div class="thumbnail">
+                                                    <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
+                                                        alt="Image" class="img-fluid">
+                                                </div>
+                                                <div class="pt-3">
+                                                    <h3>Kruzo Aero Chair</h3>
+                                                    <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+                                                    </p>
+                                                    <p><a href="#">Read More</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                                            <div class="product-item-sm d-flex">
+                                                <div class="thumbnail">
+                                                    <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
+                                                        alt="Image" class="img-fluid">
+                                                </div>
+                                                <div class="pt-3">
+                                                    <h3>Ergonomic Chair</h3>
+                                                    <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio
+                                                    </p>
+                                                    <p><a href="#">Read More</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                            <div class="blog-section">
+                                <div class="container">
+                                    <div class="row mb-5">
+                                        <div class="col-md-6">
+                                            <h2 class="section-title">Recent Blog</h2>
+                                        </div>
+                                        <div class="col-md-6 text-start text-md-end">
+                                            <a href="#" class="more">View All Posts</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                            <div class="post-entry">
+                                                <a href="#" class="post-thumbnail"><img
+                                                        src="/img/27 Heartwarming Photos Of Pets Rescued After Sandy.jpeg"
+                                                        alt="Image" class="img-fluid"></a>
+                                                <div class="post-content-entry">
+                                                    <h3><a href="#">Grooming & Accessories</a></h3>
+                                                    <div class="meta">
+                                                        <span>All Grooming Accessories</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                            <div class="post-entry">
+                                                <a href="#" class="post-thumbnail"><img
+                                                        src="/img/Here’s the Perfect Pet to Own Based On Your Sign – Makeful.jpeg"
+                                                        alt="Image" class="img-fluid"></a>
+                                                <div class="post-content-entry">
+                                                    <h3><a href="#">Adoption </a></h3>
+                                                    <div class="meta">
+                                                        <span>All Adoption</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                            <div class="post-entry">
+                                                <a href="#" class="post-thumbnail"><img
+                                                        src="/img/How to Introduce a New Puppy to Your Cat _ PawLeaks.jpeg"
+                                                        alt="Image" class="img-fluid"></a>
+                                                <div class="post-content-entry">
+                                                    <h3><a href="#">Sales & Rent</a></h3>
+                                                    <div class="meta">
+                                                        <span>All Sales</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                 </div>
             </div>
         </div>

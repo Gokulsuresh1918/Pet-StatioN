@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+
+    <!-- Link Bootstrap CSS (replace "bootstrap.min.css" with the actual path) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<%- include('../../partials/layoutpage.ejs') %>
+    <style>
+        /* Add custom styles here */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        
+        }
+
+        h2 {
+            color: #3b5d50;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 150px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px;
+            margin-bottom: 30px;
+            box-sizing: border-box;
+            border: 1px solid #3b5d50;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #3b5d50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3b5d50;
+        }
+    </style>
+</head>
+<body>
+<%- include('../../partials/userpartials/header.ejs') %>
+    <div class="container mt-5">
+        <h2>FORGET PASSWORD</h2>
+        
+        <form action="/forgetpass" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+
+    </div>
+  
+
+    <!-- Link Bootstrap JS and Popper.js (replace "bootstrap.min.js" and "popper.min.js" with the actual paths) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

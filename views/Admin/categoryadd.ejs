@@ -61,29 +61,15 @@
                             </div>
                           <% } %> 
                           <form action="/admin/Categorydetails" method="post">
+                           
+                         
                             <div class="mb-3">
-                              <label for="categoryName" class="form-label">Category Name:</label>
-                              <select class="form-select" id="categoryname" name="categoryname" required>
-                                  <!-- Add your dropdown options dynamically, for example, using server-side data -->
-                                  <option value="option1">Sale&Rent</option>
-                                  <option value="option2"> Adoption</option>
-                                  <option value="option3">Grooming</option>
-                                  <!-- Add more options as needed -->
-                              </select>
-                          </div>
-                          <div class="mb-3">
-                            <label for="categoryName" class="form-label">SubCategory Name:</label>
-                            <select class="form-select" id="categoryname" name="categoryname" required>
-                                <!-- Add your dropdown options dynamically, for example, using server-side data -->
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
-                                <!-- Add more options as needed -->
-                            </select>
-                        </div>
+                              <label for="categoryName" class="form-label">category Name:</label>
+                              <input type="text" class="form-control" id="categoryname" name="categoryname" required>
+                            </div>
                             <div class="mb-3">
                               <label for="description" class="form-label">Description:</label>
-                              <input type="text" class="form-control" id="description" name="description" required>
+                              <div class="form-control limited-description" id="description" name="description" contenteditable="true" required></div>
                             </div>
                        
                             
@@ -111,7 +97,16 @@
   </body>
 
 
-
+  <style>
+    .limited-description {
+      overflow: hidden;
+      text-overflow: ellipsis; /* This will add an ellipsis (...) to indicate that there is more text */
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* Limit to 3 lines */
+      -webkit-box-orient: vertical;
+      max-height: 3 * 1.2em; /* 1.2em is the line height */
+    }
+  </style>
 
 
 </html>

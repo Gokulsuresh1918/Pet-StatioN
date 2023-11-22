@@ -1,5 +1,7 @@
 const { UserCollection } = require('../model/userDB')
 const { productCollection } = require('../model/productDB')
+const { addressCollection } = require('../model/addressDB')
+const { cartCollection } = require('../model/cartDB')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer');
 
@@ -9,10 +11,10 @@ exports.loginGet = (req, res) => {
 
     if (!req.session.userId) {
         const user = true
-        res.render('User/login',{user})
+        res.render('User/login', { user })
     } else {
-        const user= false
-        res.redirect('admin/home',{user})
+        const user = false
+        res.redirect('admin/home')
     }
 };
 //controller for login post
@@ -44,7 +46,7 @@ exports.loginPost = async (req, res) => {
 //controller for signup get
 exports.signupGet = (req, res) => {
     const user = true
-    res.render('User/signup',{user})
+    res.render('User/signup', { user })
 
 };
 
@@ -100,6 +102,9 @@ exports.signupPost = async (req, res) => {
         res.redirect('/admin/signup')
     };
 };
+
+
+
 // OTP verification
 const transporter = nodemailer.createTransport({
     service: 'Gmail', // e.g., 'Gmail', 'SMTP'
@@ -120,7 +125,7 @@ const generateotp = () => {
 
 //otp get controller
 exports.otpGet = (req, res) => {
-    
+
     res.render('User/otppage')
 };
 
@@ -129,11 +134,11 @@ exports.otpGet = (req, res) => {
 
 // Otp Post Router
 exports.otppost = async (req, res) => {
-    const { digit1, digit2, digit3, digit4, digit5, digit6 } = req.body;
-    const userEnteredOTP = digit1 + digit2 + digit3 + digit4 + digit5 + digit6;
+    const { digit1 } = req.body;
+    const userEnteredOTP = digit1;
     console.log(otp);
     if (userEnteredOTP === otp) {
-        await UserCollection.insertMany(data);
+        // await UserCollection.insertMany(data);
         console.log("User registered successfully!!");
         res.render('User/otpsucces')
     } else {
@@ -147,54 +152,186 @@ exports.otppost = async (req, res) => {
 
 //controller for home get
 exports.homeGet = (req, res) => {
-   
+
     try {
-         if(req.session.userId){
+        if (req.session.userId) {
             const user = true
-        res.render('User/home',{user})
-    }else{
-        const user = false
-        res.render('User/home',{user})
-    }
+            res.render('User/home', { user })
+        } else {
+            const user = false
+            res.render('User/home', { user })
+        }
     } catch (error) {
         console.error(error);
     }
-    
+
 }
 exports.shopget = async (req, res) => {
     try {
-        if(req.session.userId){
-           const user = true
-           const productdata = await productCollection.find()
-           res.render('User/shop', { productdata,user})
-   }else{
-       const user = false
-       const productdata = await productCollection.find()
-       res.render('User/shop', { productdata,user})
-   }
-   } catch (error) {
-       console.error(error);
-   }
-   
+        if (req.session.userId) {
+            const user = true
+            const productdata = await productCollection.find()
+            res.render('User/shop', { productdata, user })
+        } else {
+            const user = false
+            const productdata = await productCollection.find()
+            res.render('User/shop', { productdata, user })
+        }
+    } catch (error) {
+        console.error(error);
+    }
+
 
 }
 exports.productView = async (req, res) => {
-    const productdata = await productCollection.find()
+
+    const productdata = await productCollection.findOne({ _id: req.params.id });
+
     res.render('User/productview', { productdata })
+}
+
+exports.cartGet = async (req, res) => {
+   const cartdetails = await cartCollection.find();
+   let id = cartdetails.productId;
+   console.log(id);
+
+   // Find the product in the productCollection
+   const productdetails = await productCollection.find({ _id: id });
+
+   // Send the cartdetails and productdetails to the view
+   res.render('User/cart', { cartdetails: cartdetails, productdetails: productdetails });
 }
 
 
 
 //profile get 
-exports.profileGet=(req,res)=>{
+exports.profileGet = (req, res) => {
     res.render('User/userProfile/profile')
 }
-exports.addressGet=(req,res)=>{
-    res.render('User/userProfile/address')
+exports.addressGet = async (req, res) => {
+    const address = await addressCollection.find()
+    console.log("hello" + address);
+    res.render('User/userProfile/address', { address, message: "" })
 }
-exports.addaddressGet=(req,res)=>{
+exports.addresspost = async (req, res) => {
+    res.render('User/userProfile/address', { address, message: "" })
+
+}
+exports.addaddressGet = (req, res) => {
     res.render('User/userProfile/addaddress')
 }
-exports.editaddressGet=(req,res)=>{
+exports.addaddresspost = async (req, res) => {
+    try {
+        const Address = {
+            name: req.body.name,
+            address: req.body.homeaddress,
+            district: req.body.district,
+            pincode: req.body.pincode,
+            phone: req.body.phone,
+            email: req.body.email,
+            state: req.body.state
+        }
+        console.log(Address);
+        const address = await addressCollection.find()
+        try {
+            const check = await addressCollection.find({ phone: req.body.phone })
+            if (check[0]) {
+                res.render('User/userProfile/address', { address, message: "already exicts" })
+            } else {
+                await addressCollection.insertMany([Address]);
+                res.render('User/userProfile/address', { address, message: "" })
+            }
+        } catch (error) {
+            console.error(error); hh
+        }
+
+
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+exports.editaddressGet = async (req, res) => {
     res.render('User/userProfile/editaddress')
+}
+exports.editaddresspost = async (req, res) => {
+    const addressid = req.body.id
+
+    const addressedit = await addressCollection.find({ _id: addressid })
+
+    res.render('User/userProfile/editaddress', { addressedit })
+}
+
+exports.logoutuser = (req, res) => {
+    if (req.session.userId) {
+
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error', err);
+            }
+            console.log("session destriyod sucessfully");
+            res.redirect('/');
+        });
+
+    } else {
+        res.redirect('/');
+    }
+
+
+};
+
+exports.forgetpass = (req, res) => {
+    res.render('User/userProfile/forgetpass')
+}
+exports.forgetpasspost = async (req, res) => {
+    data = {
+        email: req.body.email,
+    };
+    console.log(data);
+    const existinguser = await UserCollection.findOne({ email: data.email })
+    if (existinguser) {
+        //otp generation through e mail
+        otp = generateotp()
+        console.log(otp);
+        const emailText = `  Hi this is from PetStation 
+        this is your OTP for account recovery
+         Your OTP is: ${otp}`;
+        const mailOptions = {
+            from: 'petstation2002@gmail.com',
+            to: data.email,
+            subject: 'OTP forget password',
+            text: emailText,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error sending OTP:', error);
+            } else {
+                console.log('OTP sent:', info.response);
+                res.redirect('/otppage')
+            }
+        });
+
+        res.render('User/otppage')
+
+    } else {
+        res.redirect('/signup')
+    };
+};
+exports.addcartpost = async (req, res) => {
+    const user = req.session.userId;
+    try {
+        if (user) {
+            const productId = req.body.productId;
+            const qty = req.body.quantity;
+            let productPrice = await productCollection.findOne({ _id: productId }, { _id: 0, price: 1 });
+            productPrice = productPrice.price;
+            let subtotal = productPrice * qty;
+            await cartCollection.insertMany([{ userId: user, subtotal: subtotal }]);
+            await cartCollection.updateOne({userId : user},{$push: { productId: productId, quantity: qty }})
+        }else{
+            res.json({message: "noUser"});
+        }
+    } catch (error) {
+       console.log(error.message);
+    }
 }

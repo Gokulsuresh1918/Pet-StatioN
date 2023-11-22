@@ -60,10 +60,16 @@
                 <input type="text"  class="form-control" name="name" required>
                 
             </div>
-            <div class="form-group">
-                <label for="category" class="form-label">Category:</label>
-                <input type="text"  class="form-control" name="category" required>
-            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Category Name:</label>
+              <select class="form-select" id="category" name="category" required>
+                  <!-- Add your dropdown options dynamically, for example, using server-side data -->
+                  <option value="option1">Sale&Rent</option>
+                  <option value="option2"> Adoption</option>
+                  <option value="option3">Grooming</option>
+                  <!-- Add more options as needed -->
+              </select>
+          </div>
             <div class="form-group">
               <label for="image" class="form-label">Image:</label>
               <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png, .gif" required multiple>

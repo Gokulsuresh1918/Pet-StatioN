@@ -18,10 +18,7 @@ const productschema = new mongoose.Schema({
         type:Number,
         required:true
     },
-    discount:{
-        type:Number,
-        required:true
-    },
+ 
     qty:{
         type:Number,
         required:true

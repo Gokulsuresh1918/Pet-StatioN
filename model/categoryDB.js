@@ -2,15 +2,12 @@ const mongoose = require('mongoose')
 
 
 const categoryschema = new mongoose.Schema({
-    category: {
-        categoryname: {
-            type: String,
-            required: true
-        },
-        subcategory: {
-            type: String,
-            required: true
-        }
+    categoryname: {
+
+        type: String,
+        required: true
+
+
     },
     description: {
         type: String,

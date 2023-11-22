@@ -30,7 +30,7 @@
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
-<body class="g-sidenav-show  bg-gray-200">
+<body style="overflow: hidden;" class="g-sidenav-show  bg-gray-200">
   <!--header-->
   <%- include('../partials/adminpartials/aside') %>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -41,7 +41,7 @@
         <div class="row mb-4">
           <div class="col-12 grid-margin">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body" style="overflow: hidden;">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                   <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                     <h6 class="text-white text-capitalize ps-3">Category Management</h6>
@@ -58,7 +58,7 @@
                         <tr>
                           <th>Sl/no</th>
                           <th>Category name</th>
-                          <th>Sub Category </th>
+                          
                           <th>Description</th>
                         
                           <th> Edit</th>
@@ -69,8 +69,8 @@
                         <% categorydata.forEach((row, index) => { %>
                           <tr>
                               <td><%= index + 1 %></td>
-                              <td><%= row. category.categoryname%></td>
-                              <td><%= row.category.subcategory ? row.category.subcategory : 'N/A' %></td>
+                              <td><%= row.categoryname%></td>
+                         
                               <td><%= row.description %></td>
                               <td><a href="/admin/editcategory/<%= row._id %>"><button class="btn btn-success dltBtn">Edit</button></a></td>
                               <td>

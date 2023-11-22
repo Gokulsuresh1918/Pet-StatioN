@@ -33,60 +33,60 @@
                 </div>
               </div>
               <div class="table-responsive">
-                <form action="/admin/productadd" method="post" enctype="multipart/form-data">
+                <%addressedit.forEach((row,index) => {%>
+                  
+            
+                <form action="/address" method="post" >
                   <!-- Form content... -->
                
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="name" class="form-label">Name:</label>
-                          <input type="text" class="form-control" name="name" required>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" value="<%=row.name%>" name="name" required>
 
-                        </div>
-                        <div class="form-group">
-                          <label for="category" class="form-label">Address</label>
-                          <input type="text" class="form-control" name="category" required>
-                        </div>
-                        
-                        <div class="form-group ">
-                          <label for="category" class="form-label">District</label>
-                          <input type="text" class="form-control" name="category" required>
-                        </div>
-                        
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="description" class="form-label">Pincode</label>
-                          <input type="number" class="form-control" name="description" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="price" class="form-label">E-mail</label>
-                          <input type="text" class="form-control" name="price" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="qty" class="form-label">State:</label>
-                          <input type="number" class="form-control" name="qty" required>
-                        </div>
+                      <div class="form-group">
+                        <label for="homeaddress" class="form-label">Address</label>
+                        <input type="text" class="form-control" value="<%=row.address%>"name="homeaddress" required>
+                      </div>
+                      
+                      <div class="form-group ">
+                        <label for="district" class="form-label">District</label>
+                        <input type="text" class="form-control"value="<%=row.district%>" name="district" required>
+                      </div>
+                      
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="pincode" class="form-label">Pincode</label>
+                        <input type="number" class="form-control"value="<%=row.pincode%>" name="pincode" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="number" class="form-control"value="<%=row.phone%>" name="phone" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="text" class="form-control" value="<%=row.email%>"ame="email" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="state" class="form-label">State:</label>
+                        <input type="text" class="form-control"value="<%=row.state%> "name="state" required>
                       </div>
                     </div>
+                  </div>
                    
 
                     
                 
-                  <div class="row mt-4">
-                    <div class="col-md-6">
-                      <!-- Form inputs... -->
-                      
-                    </div>
-                    <div class="col-md-6">
-                      <!-- Form inputs... -->
-                    </div>
-                  </div>
+                 
 
                   <div class="form-group mt-4">
-                    <a href="/address"><button type="button" class="btn btn-primary btn-primary-left" style="padding-top: 10px;">Save Changes</button></a>
+                    <button type="submit" class="btn btn-primary btn-primary-left" style="padding-top: 10px;">Save Changes</button>
                   </div>
                 </form>
+                <%})%>
               </div>
             </div>
       

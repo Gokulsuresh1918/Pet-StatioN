@@ -65,22 +65,29 @@
                                                             class="form-control" name="name" required>
 
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="category" class="form-label">Category:</label>
-                                                        <input type="text" value="<%=productdata.category%>"
-                                                            class="form-control" name="category" required>
+                                                    <div class="mb-3">
+                                                        <label for="categoryName" class="form-label">Category Name:</label>
+                                                        <select class="form-select" id="categoryname" name="categoryname" required>
+                                                            <!-- Add your dropdown options dynamically, for example, using server-side data -->
+                                                            <option value="option1">Sale&Rent</option>
+                                                            <option value="option2"> Adoption</option>
+                                                            <option value="option3">Grooming</option>
+                                                            <!-- Add more options as needed -->
+                                                        </select>
                                                     </div>
                                                     <div style="display: flex; margin-top: 20px">
-                                                        <% productdata.image.forEach(element=> { %>
+                                                        <% for (let i = 0; i < productdata.image.length; i++) { %>
                                                             <div style="position: relative">
                                                                 <img class="img-fluid" style="width: 90px; margin: 10px"
-                                                                    src="/<%= element%>" alt="" />
+                                                                    src="/MulterUploads/<%= productdata.image[i] %>" alt="" />
                                                                 <a style="position: absolute; top: 0; right: 0; color: red"
                                                                     class="fas fa-times "
-                                                                    href="/admin/dashboard/product/delete/<%= element %>/<%= productdata._id %>"></a>
+                                                                    href="/<%= productdata.image[i]._id %>/<%= productdata._id %>"></a>
                                                             </div>
-                                                            <% }) %>
+                                                        <% } %>
                                                     </div>
+                                                    
+                                                    
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">

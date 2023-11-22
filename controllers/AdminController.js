@@ -104,20 +104,17 @@ exports.categoryGet = async (req, res) => {
 //category post0-----------------------------------------------------------------------------
 exports.categorypost = async (req, res) => {
     try {
+      
         const categorydata = {
-            category: {
-                categoryname: req.body.categoryname,
-                subcategory: req.body.subcategory
-            },
+            categoryname: req.body.categoryname, 
             description: req.body.description,
         };
-        
-        const existingcategory = await categoryCollection.find();
-        
+     
+        const existingCategory = await categoryCollection.findOne({ categoryname: { $regex: new RegExp('^' + categorydata.categoryname + '$', 'i') } });
 
-        console.log("hello" +"  "+ existingcategory.categoryname);
-        if (existingcategory === req.body.categoryname) {
-            console.log("ifnte");
+        console.log("hello" + "  " + existingCategory.categoryname);
+        if (existingCategory === req.body.categoryname) {
+         
             res.redirect("/admin/Categorydetails");
         } else {
             await categoryCollection.insertMany([categorydata]);
@@ -176,10 +173,10 @@ exports.editcategoryPost = async (req, res) => {
 
     let categorydetails = {
         categoryname: req.body.categoryname,
-        description: req.body.Description,
-        stock: req.body.stock,
-        price: req.body.price
+        description: req.body.description,
+       
     };
+    console.log(categorydetails);
     await categoryCollection.updateOne({ _id: categoryid }, { $set: categorydetails }, { upsert: true })
     res.redirect('/admin/Categorydetails');
 };
@@ -202,12 +199,12 @@ exports.dashboard = async (req, res) => {
 //ProductGet----------------------------------------
 exports.productGet = async (req, res) => {
     const productdata = await productCollection.find()
-    
+
     res.render("Admin/product", { productdata })
 };
 exports.productpost = async (req, res) => {
     const id = req.params.id
-    
+
     let productdetails = {
         name: req.body.name,
         description: req.body.description,
@@ -235,7 +232,7 @@ exports.productaddGet = async (req, res) => {
 
 exports.productaddpost = async (req, res, next) => {
     try {
-       
+
         const files = req.files
 
         const product = {
@@ -243,7 +240,6 @@ exports.productaddpost = async (req, res, next) => {
             description: req.body.description,
             category: req.body.category,
             price: req.body.price,
-            discount: req.body.discount,
             qty: req.body.qty,
             image: files.map(file => file.filename)
             ,

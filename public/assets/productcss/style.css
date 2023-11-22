@@ -7602,10 +7602,8 @@ h6 {
 
 /* line 1, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_breadcrumb.scss */
 .breadcrumb_bg {
-  background-image: url("/img/t-r-photography-TzjMd7i5WQI-unsplash.jpg.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #3b5d50;
+
 }
 
 /* line 5, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_breadcrumb.scss */
@@ -7617,7 +7615,7 @@ h6 {
 
 /* line 10, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_breadcrumb.scss */
 .breadcrumb .breadcrumb_iner {
-  height: 475px;
+  height:400px;
   width: 100%;
   display: table;
 }
