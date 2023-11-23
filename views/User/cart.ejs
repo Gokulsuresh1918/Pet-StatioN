@@ -5,218 +5,219 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>aranaz</title>
+  <title>Cart</title>
   <link rel="icon" href="img/favicon.png">
   <%- include('../partials/layoutpage.ejs') %>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
-  <!-- animate CSS -->
-  <link rel="stylesheet" href="/assets/productcss/animate.css">
-  <!-- owl carousel CSS -->
-  <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
-  <!-- nice select CSS -->
-  <link rel="stylesheet" href="/assets/productcss/nice-select.css">
-  <!-- font awesome CSS -->
-  <link rel="stylesheet" href="/assets/productcss/all.css">
-  <!-- flaticon CSS -->
-  <link rel="stylesheet" href="/assets/productcss/flaticon.css">
-  <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
-  <!-- font awesome CSS -->
-  <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
-  <!-- swiper CSS -->
-  <link rel="stylesheet" href="/assets/productcss/slick.css">
-  <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
-  <!-- style CSS -->
-  <link rel="stylesheet" href="/assets/productcss/style.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="/assets/productcss/animate.css">
+    <!-- owl carousel CSS -->
+    <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
+    <!-- nice select CSS -->
+    <link rel="stylesheet" href="/assets/productcss/nice-select.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/assets/productcss/all.css">
+    <!-- flaticon CSS -->
+    <link rel="stylesheet" href="/assets/productcss/flaticon.css">
+    <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
+    <!-- font awesome CSS -->
+    <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
+    <!-- swiper CSS -->
+    <link rel="stylesheet" href="/assets/productcss/slick.css">
+    <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
+    <!-- style CSS -->
+    <link rel="stylesheet" href="/assets/productcss/style.css">
 </head>
 
 <body>
   <%- include('../partials/layoutpage.ejs') %>
-  <!--::header part start::-->
-  <%- include('../partials/userpartials/header.ejs') %>
-  <!-- Header part end-->
+    <!--::header part start::-->
+    <%- include('../partials/userpartials/header.ejs') %>
+      <!-- Header part end-->
 
 
-  <!--================Home Banner Area =================-->
-  <!-- breadcrumb start-->
-  <section class="breadcrumb breadcrumb_bg">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="hero">
-          <div class="container">
-              <div class="row justify-content-between">
+      <!--================Home Banner Area =================-->
+      <!-- breadcrumb start-->
+      <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="hero">
+              <div class="container">
+                <div class="row justify-content-between">
                   <div class="col-lg-5">
-                      <div class="intro-excerpt">
-                          <h1>CART </h1>
-                      </div>
+                    <div class="intro-excerpt">
+                      <h1>CART </h1>
+                    </div>
                   </div>
                   <div class="col-lg-7">
-                      <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
-                          nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
-                          his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                    <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+                      nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
+                      his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
                   </div>
+                </div>
               </div>
-          </div>
-      </div>
-      </div>
-    </div>
-  </section>
-  <!-- breadcrumb start-->
-
-  <!--================Cart Area =================-->
-  <section class="cart_area padding_top">
-    <div class="container">
-      <div class="cart_inner">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% cartdetails.forEach((item)=> { %>
-              <tr>
-                <td>
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/cart-1.jpg" alt="" />
-                    </div>
-                    <div class="media-body">
-                      <p>Minimalistic shop for multipurpose use</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                 
-                    <h5><%= item.subtotal %></h5>
-                
-                 
-                </td>
-                <td>
-                  <div class="product_count">
-                    <span class="input-number-decrement"> <i class="fa fa-angle-down"></i></span>
-                    <input class="input-number" type="text" value="<%= item.quantity %>" min="0" max="10">
-                    <span class="input-number-increment"> <i class="fa fa-angle-up "></i></span>
-                  </div>
-                </td>
-                <td>
-                  <h5><%= item.subtotal %></h5>
-                </td>
-              </tr>
-      
-          
-              <tr class="bottom_button">
-                <td>
-                  <a class="btn_1" href="#">Clear Cart</a>
-                </td>
-                <td></td>
-                <td></td>
-                <!-- <td>
-                  <div class="cupon_text float-right">
-                    <a class="btn_1" href="#">Close Coupon</a>
-                  </div>
-                </td> -->
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td>
-                  <h5>Subtotal =</h5>
-                </td>
-                <td>
-                  <h5><%= item.subtotal %></h5>
-                </td>
-              </tr>
-              <!-- <tr class="shipping_area">
-                <td></td>
-                <td></td>
-                <td>
-                  <h5>Shipping</h5>
-                </td>
-                <td>
-                  <div class="shipping_box">
-                    <ul class="list">
-                      <li>
-                        <a href="#">Flat Rate: $5.00</a>
-                      </li>
-                      <li>
-                        <a href="#">Free Shipping</a>
-                      </li>
-                      <li>
-                        <a href="#">Flat Rate: $10.00</a>
-                      </li>
-                      <li class="active">
-                        <a href="#">Local Delivery: $2.00</a>
-                      </li>
-                    </ul>
-                    <h6>
-                      Calculate Shipping
-                      <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    </h6>
-                    <select class="shipping_select">
-                      <option value="1">Bangladesh</option>
-                      <option value="2">India</option>
-                      <option value="4">Pakistan</option>
-                    </select>
-                    <select class="shipping_select section_bg">
-                      <option value="1">Select a State</option>
-                      <option value="2">Select a State</option>
-                      <option value="4">Select a State</option>
-                    </select>
-                  
-                  </div>
-                </td>
-              </tr> -->
-            </tbody>   
-            <% }); %>
-          </table>
-          
-          <div class="checkout_btn_inner float-right">
-            <a class="btn_1" href="/shop">Add More</a>
-            <a class="btn_1 checkout_btn_1" href="/checkout">Proceed to checkout</a>
+            </div>
           </div>
         </div>
-      </div>
-  </section>
-  <!--================End Cart Area =================-->
+      </section>
+      <!-- breadcrumb start-->
 
-  <!--::footer_part start::-->
- <%- include('../partials/userpartials/footer.ejs') %>
-  <!--::footer_part end::-->
+      <!--================Cart Area =================-->
+      <section class="cart_area padding_top">
+        <div class="container">
+          <div class="cart_inner">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% let subtotal=0 %>
+                    <% if (cartdetails !==null) { %>
+                      <% cartdetails.productId.forEach((id, index)=> { %>
+                        <% let total=0 %>
+                          <% const product=productdetails.find(item=> item._id.equals(id)); %>
+                            <tr>
+                              <td>
+                                <div class="media">
+                                  <div class="d-flex">
+                                    <img style="width: 100px; height: 80px;" src="/MulterUploads/<%= product.image[0]%>"
+                                      alt="" />
+                                  </div>
+                                  <div class="media-body">
+                                    <p>
+                                      <%= product.name %>
+                                    </p>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <h5>
+                                  <%= product.price %>
+                                </h5>
+                              </td>
+                              <td>
+                                <h6>
+                                  <%= cartdetails.quantity[index] %>
+                                </h6>
+                              </td>
+                              <% const pricetotal=Number(product.price) * Number(cartdetails.quantity[index]) %>
+                                <td>
+                                  <h5>
+                                    <%= pricetotal %>
+                                  </h5>
+                                  <% subtotal +=pricetotal %>
+                                </td>
 
-  <!-- jquery plugins here-->
-  <!-- jquery -->
-  <script src="/singlejs/jquery-1.12.1.min.js"></script>
-  <!-- popper js -->
-  <script src="/singlejs//popper.min.js"></script>
-  <!-- bootstrap js -->
-  <script src="/singlejs/bootstrap.min.js"></script>
-  <!-- easing js -->
-  <script src="/singlejs/jquery.magnific-popup.js"></script>
-  <!-- swiper js -->
-  <script src="/singlejs/swiper.min.js"></script>
-  <!-- swiper js -->
-  <script src="/singlejs/masonry.pkgd.js"></script>
-  <!-- particles js -->
-  <script src="/singlejs/owl.carousel.min.js"></script>
-  <script src="/singlejs/jquery.nice-select.min.js"></script>
-  <!-- slick js -->
-  <script src="/singlejs/slick.min.js"></script>
-  <script src="/singlejs/jquery.counterup.min.js"></script>
-  <script src="/singlejs/waypoints.min.js"></script>
-  <script src="/singlejs/contact.js"></script>
-  <script src="/singlejs/jquery.ajaxchimp.min.js"></script>
-  <script src="/singlejs/jquery.form.js"></script>
-  <script src="/singlejs/jquery.validate.min.js"></script>
-  <script src="/singlejs/mail-script.js"></script>
-  <script src="/singlejs/stellar.js"></script>
-  <script src="/singlejs/price_rangs.js"></script>
-  <!-- custom js -->
-  <script src="/singlejs/custom.js"></script>
+                                <td>
+                                  <button class="btn btn-sm btn_3"
+                                    onclick="removeItem('<%=product.id%>')">Remove</button>
+                                </td>
+                            </tr>
+                            <% }); %>
+                              <% } else { %>
+                                <tr>
+                                  <td colspan="5">
+                                    <img style="width: 400px; height: 300px; color: red;" src="/img/empty-cart.png"
+                                      alt="image">
+                                    " YOUR CART IS EMPTY " Pls add product to use cart feature
+                                  </td>
+                                </tr>
+                                <% } %>
+                                  <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                      <h5>Subtotal =</h5>
+                                    </td>
+                                    <td>
+                                      <h5>
+                                        <%= subtotal %>
+                                      </h5>
+                                    </td>
+                                  </tr>
+                </tbody>
+              </table>
+
+              <a class="btn btn-sm btn_3" href="/clearcart">Clear Cart</a>
+
+              <div class="checkout_btn_inner float-right">
+                <a class="btn btn-sm btn_1" href="/shop">Add More</a>
+                <a class="btn btn-sm btn_1 checkout_btn_1" onclick="checkcart()" href="/checkout">Proceed to
+                  checkout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--================End Cart Area =================-->
+
+      <!--::footer_part start::-->
+      <%- include('../partials/userpartials/footer.ejs') %>
+        <!--::footer_part end::-->
+
+        <!-- jquery plugins here-->
+        <!-- jquery -->
+        <script src="/singlejs/jquery-1.12.1.min.js"></script>
+        <!-- popper js -->
+        <script src="/singlejs//popper.min.js"></script>
+        <!-- bootstrap js -->
+        <script src="/singlejs/bootstrap.min.js"></script>
+        <!-- easing js -->
+        <script src="/singlejs/jquery.magnific-popup.js"></script>
+        <!-- swiper js -->
+        <script src="/singlejs/swiper.min.js"></script>
+        <!-- swiper js -->
+        <script src="/singlejs/masonry.pkgd.js"></script>
+        <!-- particles js -->
+        <script src="/singlejs/owl.carousel.min.js"></script>
+        <script src="/singlejs/jquery.nice-select.min.js"></script>
+        <!-- slick js -->
+        <script src="/singlejs/slick.min.js"></script>
+        <script src="/singlejs/jquery.counterup.min.js"></script>
+        <script src="/singlejs/waypoints.min.js"></script>
+        <script src="/singlejs/contact.js"></script>
+        <script src="/singlejs/jquery.ajaxchimp.min.js"></script>
+        <script src="/singlejs/jquery.form.js"></script>
+        <script src="/singlejs/jquery.validate.min.js"></script>
+        <script src="/singlejs/mail-script.js"></script>
+        <script src="/singlejs/stellar.js"></script>
+        <script src="/singlejs/price_rangs.js"></script>
+        <!-- custom js -->
+        <script src="/singlejs/custom.js"></script>
+        <script>
+          function removeItem(productId) {
+            console.log(productId);
+            fetch(`/removeItem/${productId}`, { method: 'DELETE' })
+              .then(response => response.json())
+              .then(data => {
+                // Handle the response data if needed
+              })
+              .catch(error => console.error('Error:', error));
+          }
+        </script>
+        <script>
+          function checkcart(event) {
+            
+            const isCartEmpty = "<%=cartdetails %>";
+            if (isCartEmpty) {
+              event.preventDefault();
+              alert('Your cart is empty. Please add items to proceed to checkout.');
+            }
+
+            // If the cart is not empty, proceed with the default behavior (navigation)
+            // You can also redirect to another page or perform other actions as needed
+          }
+        </script>
 </body>
 
 </html>

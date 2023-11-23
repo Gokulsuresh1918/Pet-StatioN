@@ -104,26 +104,27 @@ exports.categoryGet = async (req, res) => {
 //category post0-----------------------------------------------------------------------------
 exports.categorypost = async (req, res) => {
     try {
-      
+
         const categorydata = {
-            categoryname: req.body.categoryname, 
+            categoryname: req.body.categoryname,
             description: req.body.description,
         };
-     
-        const existingCategory = await categoryCollection.findOne({ categoryname: { $regex: new RegExp('^' + categorydata.categoryname + '$', 'i') } });
+        console.log(categorydata);
+        const a = categorydata.categoryname;
+        const existingCategory = await categoryCollection.findOne({ a: { $regex: new RegExp('^' + categorydata.categoryname + '$', 'i') } });
 
-        console.log("hello" + "  " + existingCategory.categoryname);
-        if (existingCategory === req.body.categoryname) {
-         
-            res.redirect("/admin/Categorydetails");
-        } else {
-            await categoryCollection.insertMany([categorydata]);
-            res.redirect("/admin/Categorydetails");
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+   
+    if (existingCategory === req.body.categoryname) {
+
+        res.redirect("/admin/Categorydetails");
+    } else {
+        await categoryCollection.insertMany([categorydata]);
+        res.redirect("/admin/Categorydetails");
     }
+} catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+}
 };
 
 //blockcategory------------------------------------------------------
@@ -174,7 +175,7 @@ exports.editcategoryPost = async (req, res) => {
     let categorydetails = {
         categoryname: req.body.categoryname,
         description: req.body.description,
-       
+
     };
     console.log(categorydetails);
     await categoryCollection.updateOne({ _id: categoryid }, { $set: categorydetails }, { upsert: true })

@@ -35,407 +35,410 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="/assets/cssUT/tiny-slider.css" rel="stylesheet">
   <link href="/assets/cssUT/style.css" rel="stylesheet">
+
 </head>
 
 <body>
   <!--::header part start::-->
-  <!-- Header part end-->
+  <%- include('../partials/userpartials/header.ejs') %>
+    <!-- Header part end-->
 
-  <!-- breadcrumb start-->
-  <section class="breadcrumb breadcrumb_bg">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="hero">
-          <div class="container">
-            <div class="row justify-content-between">
-              <div class="col-lg-5">
-                <div class="intro-excerpt">
-                  <h1>Product Details</h1>
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="hero">
+            <div class="container">
+              <div class="row justify-content-between">
+                <div class="col-lg-5">
+                  <div class="intro-excerpt">
+                    <h1>Product Details</h1>
+                  </div>
                 </div>
-              </div>
-              <div class="col-lg-7">
-                <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
-                  nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
-                  his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                <div class="col-lg-7">
+                  <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+                    nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
+                    his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- breadcrumb start-->
-  <!--================End Home Banner Area =================-->
+    <!-- breadcrumb start-->
+    <!--================End Home Banner Area =================-->
 
-  <!--================Single Product Area =================-->
+    <!--================Single Product Area =================-->
 
-  <div class="product_image_area section_padding">
-    <div class="container">
-      <div class="row s_product_inner justify-content-between">
-        <div class="col-lg-7 col-xl-7">
-          <div class="product_slider_img">
-            <div class="lSSlideOuter  vertical" style="padding-right: 105px;">
-              <div class="lSSlideWrapper usingCss" style="height: 450px;">
-                <div id="vertical" class="lightSlider lsGrab lSSlide"
-                  style="height: 1800px; transform: translate3d(0px, 0px, 0px);">
-                  <div data-thumb="/img/Boy With Pet Dog Walking.jpeg" class="lslide active"
-                    style="height: 450px; margin-bottom: 0px;">
+    <div class="product_image_area section_padding">
+      <div class="container">
+        <div class="row s_product_inner justify-content-between">
+          <div class="col-lg-7 col-xl-7">
+            <div class="product_slider_img">
+              <div class="lSSlideOuter  vertical" style="padding-right: 105px;">
+                <div class="lSSlideWrapper usingCss" style="height: 450px;">
+                  <div id="vertical" class="lightSlider lsGrab lSSlide"
+                    style="height: 1800px; transform: translate3d(0px, 0px, 0px);">
+                    <div data-thumb="/img/Boy With Pet Dog Walking.jpeg" class="lslide active"
+                      style="height: 450px; margin-bottom: 0px;">
 
-                    <img src="/MulterUploads/<%= productdata.image[0] %> ">
+                      <img id="zoommain" src="/MulterUploads/<%= productdata.image[0] %> ">
+                    </div>
+
                   </div>
-
+                  <div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div>
                 </div>
-                <div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div>
-              </div>
-              <ul class="lSPager lSGallery"
-                style="margin-left: 5px; width: 100px; transition-duration: 600ms; height: 607.167px; transform: translate3d(0px, 0px, 0px);">
-                <li style="width:100%;height:146.66666666666666px;margin-bottom:5px" class="active"><a href="#"><img
-                      src="/MulterUploads/<%= productdata.image[1] %> "></a></li>
-                <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
-                      src="/MulterUploads/<%= productdata.image[2] %> "></a></li>
-                <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
-                      src="/MulterUploads/<%= productdata.image[3] %> "></a></li>
-                <!-- <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
+                <ul class="lSPager lSGallery"
+                  style="margin-left: 5px; width: 100px; transition-duration: 600ms; height: 607.167px; transform: translate3d(0px, 0px, 0px);">
+                  <li style="width:100%;height:146.66666666666666px;margin-bottom:5px" class="active"><a href="/signup"><img
+                        src="/MulterUploads/<%= productdata.image[1] %> "></a></li>
+                  <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
+                        src="/MulterUploads/<%= productdata.image[2] %> "></a></li>
+                  <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
+                        src="/MulterUploads/<%= productdata.image[3] %> "></a></li>
+                  <!-- <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
                         src=""></a></li> -->
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-5 col-xl-4">
-          <div class="s_product_text">
-            <h5>Sales<span>|</span> Rent</h5>
-            <h3>
-              <%= productdata.name %>
-            </h3>
-            <h2>Rs:<%= productdata.price %>
-            </h2>
-            <ul class="list">
-              <li>
-                <a class="active" href="#">
-                  <span> Category</span>
-                  <%= productdata.category %>
-                </a>
-              </li>
-              <!-- <li>
+          <div class="col-lg-5 col-xl-4">
+            <div class="s_product_text">
+              <h5>Sales<span>|</span> Rent</h5>
+              <h3>
+                <%= productdata.name %>
+              </h3>
+              <h2>Rs:<%= productdata.price %>
+              </h2>
+              <ul class="list">
+                <li>
+                  <a class="active" href="#">
+                    <span> Category</span>
+                    <%= productdata.category %>
+                  </a>
+                </li>
+                <!-- <li>
                 <a href="#"> <span>Availibility</span> : In Stock</a>
               </li> -->
-            </ul>
-            <p>
-              Give your furry friend the gift of a peaceful night's sleep with our Comfort Paws Orthopedic Dog Bed.
-              Specially designed to provide optimal comfort and support, this bed is perfect for dogs of all ages,
-              sizes, and breeds.
-            </p>
-            <div class="card_area d-flex justify-content-between align-items-center">
-              <div class="product_count">
-                <span class="inumber-decrement"> <i class="fa fa-minus"></i></span>
-                <input id="Qty" class="input-number" type="text" value="1" min="0" max="10">
-                <span class="number-increment"> <i class="fa fa-plus"></i></span>
-              </div>
-              <button id="addToCartButton" onclick="addToCart('<%= productdata._id %>')" class="btn_3"
-                style="text-decoration: none;">add to cart</button>
-
-              <a href="#" class="like_us"> <i class="fa fa-heart"></i> </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--================End Single Product Area =================-->
-
-  <!--================Product Description Area =================-->
-  <section class="product_description_area">
-    <div class="container">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-            aria-selected="true">Description</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-            aria-selected="false">Specification</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-            aria-selected="false">Comments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-            aria-selected="false">Reviews</a>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-
-
-        <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-          <div class="row">
-            <div class="col-lg-6">
-
-              <div class="review_list">
-                <div class="review_item">
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/review-1.png" alt="" />
-                    </div>
-                    <div class="media-body">
-                      <h4>Blake Ruiz</h4>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
+              </ul>
+              <p>
+                Give your furry friend the gift of a peaceful night's sleep with our Comfort Paws Orthopedic Dog Bed.
+                Specially designed to provide optimal comfort and support, this bed is perfect for dogs of all ages,
+                sizes, and breeds.
+              </p>
+              <div class="card_area d-flex justify-content-between align-items-center">
+                <div class="product_count">
+                  <span class="inumber-decrement"> <i class="fa fa-minus"></i></span>
+                  <input id="Qty" class="input-number" type="text" value="1" min="0" max="10">
+                  <span class="number-increment"> <i class="fa fa-plus"></i></span>
                 </div>
-                <div class="review_item">
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/review-2.png" alt="" />
-                    </div>
-                    <div class="media-body">
-                      <h4>Blake Ruiz</h4>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-                <div class="review_item">
-                  <div class="media">
-                    <div class="d-flex">
-                      <img src="img/product/single-product/review-3.png" alt="" />
-                    </div>
-                    <div class="media-body">
-                      <h4>Blake Ruiz</h4>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                    </div>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="review_box">
-                <h4>Add a Review</h4>
-                <p>Your Rating:</p>
-                <ul class="list">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-star"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-star"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-star"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-star"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-star"></i>
-                    </a>
-                  </li>
-                </ul>
-                <p>Outstanding</p>
-                <form class="row contact_form" action="contact_process.php" method="post" novalidate="novalidate">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="name" placeholder="Your Full name" />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="email" class="form-control" name="email" placeholder="Email Address" />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="number" placeholder="Phone Number" />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <textarea class="form-control" name="message" rows="1" placeholder="Review"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-12 text-right">
-                    <button type="submit" value="submit" class="btn_3">
-                      Submit Now
-                    </button>
-                  </div>
-                </form>
+                <button id="addToCartButton" onclick="addToCart('<%= productdata._id %>')" class="btn_3"
+                  style="text-decoration: none;">add to cart</button>
+
+                <a href="#" class="like_us"> <i class="fa fa-heart"></i> </a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!--================End Product Description Area =================-->
+    <!--================End Single Product Area =================-->
 
-  <!-- product_list part start-->
+    <!--================Product Description Area =================-->
+    <section class="product_description_area">
+      <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+              aria-selected="true">Description</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+              aria-selected="false">Specification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+              aria-selected="false">Comments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab"
+              aria-controls="review" aria-selected="false">Reviews</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
 
-  <div class="popular-product">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-          <div class="product-item-sm d-flex">
-            <div class="thumbnail">
-              <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
-                alt="Image" class="img-fluid">
-            </div>
-            <div class="pt-3">
-              <h3>Sales & Rent</h3>
-              <p>Pets sales available here </p>
-              <!-- <p><a href="#">Read More</a></p> -->
+
+          <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+            <div class="row">
+              <div class="col-lg-6">
+
+                <div class="review_list">
+                  <div class="review_item">
+                    <div class="media">
+                      <div class="d-flex">
+                        <img src="img/product/single-product/review-1.png" alt="" />
+                      </div>
+                      <div class="media-body">
+                        <h4>Blake Ruiz</h4>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo
+                    </p>
+                  </div>
+                  <div class="review_item">
+                    <div class="media">
+                      <div class="d-flex">
+                        <img src="img/product/single-product/review-2.png" alt="" />
+                      </div>
+                      <div class="media-body">
+                        <h4>Blake Ruiz</h4>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo
+                    </p>
+                  </div>
+                  <div class="review_item">
+                    <div class="media">
+                      <div class="d-flex">
+                        <img src="img/product/single-product/review-3.png" alt="" />
+                      </div>
+                      <div class="media-body">
+                        <h4>Blake Ruiz</h4>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="review_box">
+                  <h4>Add a Review</h4>
+                  <p>Your Rating:</p>
+                  <ul class="list">
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-star"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-star"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-star"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-star"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-star"></i>
+                      </a>
+                    </li>
+                  </ul>
+                  <p>Outstanding</p>
+                  <form class="row contact_form" action="contact_process.php" method="post" novalidate="novalidate">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Your Full name" />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Email Address" />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="number" placeholder="Phone Number" />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <textarea class="form-control" name="message" rows="1" placeholder="Review"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                      <button type="submit" value="submit" class="btn_3">
+                        Submit Now
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+    <!--================End Product Description Area =================-->
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-          <div class="product-item-sm d-flex">
-            <div class="thumbnail">
-              <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
-                alt="Image" class="img-fluid">
-            </div>
-            <div class="pt-3">
-              <h3>Adoption</h3>
-              <p>Be Kind Adopt pets </p>
-              <!-- <p><a href="#">Read More</a></p> -->
+    <!-- product_list part start-->
+
+    <div class="popular-product">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="product-item-sm d-flex">
+              <div class="thumbnail">
+                <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
+                  alt="Image" class="img-fluid">
+              </div>
+              <div class="pt-3">
+                <h3>Sales & Rent</h3>
+                <p>Pets sales available here </p>
+                <!-- <p><a href="#">Read More</a></p> -->
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-          <div class="product-item-sm d-flex">
-            <div class="thumbnail">
-              <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
-                alt="Image" class="img-fluid">
-            </div>
-            <div class="pt-3">
-              <h3>Grooming & Accessories</h3>
-              <p>Pet Grooming Accesories</p>
-              <!-- <p><a href="#">Read More</a></p> -->
+          <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="product-item-sm d-flex">
+              <div class="thumbnail">
+                <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
+                  alt="Image" class="img-fluid">
+              </div>
+              <div class="pt-3">
+                <h3>Adoption</h3>
+                <p>Be Kind Adopt pets </p>
+                <!-- <p><a href="#">Read More</a></p> -->
+              </div>
             </div>
           </div>
-        </div>
 
+          <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="product-item-sm d-flex">
+              <div class="thumbnail">
+                <img src="/img/Meet Three Best Friends – Two Dogs And A Cat Who Love Doing Everything Together.jpeg"
+                  alt="Image" class="img-fluid">
+              </div>
+              <div class="pt-3">
+                <h3>Grooming & Accessories</h3>
+                <p>Pet Grooming Accesories</p>
+                <!-- <p><a href="#">Read More</a></p> -->
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-  </div>
-  <!-- product_list part end-->
+    <!-- product_list part end-->
 
-  <!--::footer_part start::-->
-  <%- include("../partials/userpartials/footer.ejs") %>
-    <!--::footer_part end::-->
+    <!--::footer_part start::-->
+    <%- include("../partials/userpartials/footer.ejs") %>
+      <!--::footer_part end::-->
 
-    <!-- jquery plugins here-->
-    <!-- jquery -->
-    <!-- <script src="js/jquery-1.12.1.min.js"></script> -->
+      <!-- jquery plugins here-->
+      <!-- jquery -->
+      <!-- <script src="js/jquery-1.12.1.min.js"></script> -->
 
-    <script src="/singlejs/jquery-1.12.1.min.js"></script>
-    <!-- <script src="/singlejs/jquery-1.12.1.min.js"></script> -->
-    <!-- popper js -->
-    <script src="/singlejs/popper.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="/singlejs/bootstrap.min.js"></script>
-    <!-- easing js -->
-    <script src="/singlejs/jquery.magnific-popup.js"></script>
-    <!-- swiper js -->
-    <script src="/singlejs/lightslider.min.js"></script>
-    <!-- swiper js -->
-    <script src="/singlejs/masonry.pkgd.js"></script>
-    <!-- particles js -->
-    <script src="/singlejs/owl.carousel.min.js"></script>
-    <script src="/singlejs/jquery.nice-select.min.js"></script>
-    <!-- slick js -->
-    <script src="/singlejs/slick.min.js"></script>
-    <script src="/singlejs/swiper.jquery.js"></script>
-    <script src="/singlejs/jquery.counterup.min.js"></script>
-    <script src="/singlejs/waypoints.min.js"></script>
-    <script src="/singlejs/contact.js"></script>
-    <script src="/singlejs/jquery.ajaxchimp.min.js"></script>
-    <script src="/singlejs/jquery.form.js"></script>
-    <script src="/singlejs/jquery.validate.min.js"></script>
-    <script src="/singlejs/mail-script.js"></script>
-    <script src="/singlejs/stellar.js"></script>
-    <!-- custom js -->
-    <script src="/singlejs/theme.js"></script>
-    <script src="/singlejs/custom.js"></script>
+      <script src="/singlejs/jquery-1.12.1.min.js"></script>
+      <!-- <script src="/singlejs/jquery-1.12.1.min.js"></script> -->
+      <!-- popper js -->
+      <script src="/singlejs/popper.min.js"></script>
+      <!-- bootstrap js -->
+      <script src="/singlejs/bootstrap.min.js"></script>
+      <!-- easing js -->
+      <script src="/singlejs/jquery.magnific-popup.js"></script>
+      <!-- swiper js -->
+      <script src="/singlejs/lightslider.min.js"></script>
+      <!-- swiper js -->
+      <script src="/singlejs/masonry.pkgd.js"></script>
+      <!-- particles js -->
+      <script src="/singlejs/owl.carousel.min.js"></script>
+      <script src="/singlejs/jquery.nice-select.min.js"></script>
+      <!-- slick js -->
+      <script src="/singlejs/slick.min.js"></script>
+      <script src="/singlejs/swiper.jquery.js"></script>
+      <script src="/singlejs/jquery.counterup.min.js"></script>
+      <script src="/singlejs/waypoints.min.js"></script>
+      <script src="/singlejs/contact.js"></script>
+      <script src="/singlejs/jquery.ajaxchimp.min.js"></script>
+      <script src="/singlejs/jquery.form.js"></script>
+      <script src="/singlejs/jquery.validate.min.js"></script>
+      <script src="/singlejs/mail-script.js"></script>
+      <script src="/singlejs/stellar.js"></script>
+      <!-- custom js -->
+      <script src="/singlejs/theme.js"></script>
+      <script src="/singlejs/custom.js"></script>
 
-    <script>
-     function addToCart(productId) {
-   // Add product to cart logic goes here
-   var qty = document.getElementById('Qty');
-   var val = qty.value;
-   const data = {
-     productId: productId, 
-     quantity: val
-   }
-   fetch('/addcart', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(data) // Convert data to JSON string
-   })
-     .then(response => {
-       if (!response.ok) {
-         throw new Error('Network response was not ok');
-       }
-       return response.json();
-     })
-     .then(data => {
-       if (data.message == "noUser") {
-         window.location.href = '/';
-       }
-     })
-   // Change button text and redirect
-   var button = document.getElementById('addToCartButton');
-   button.textContent = 'Go to Cart';
-   button.onclick = () =>{
-     window.location.href = '/cart';
-   };
-}
-
+      <script>
+        function addToCart(productId) {
+          // Add product to cart logic goes here
+          var qty = document.getElementById('Qty');
+          var val = qty.value;
+          const data = {
+            productId: productId,
+            quantity: val
+          }
+          fetch('/addcart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) // Convert data to JSON string
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              if (data.message == "noUser") {
+                window.location.href = '/';
+              }
+            })
+          // Change button text and redirect
+          var button = document.getElementById('addToCartButton');
+          button.textContent = 'Go to Cart';
+          button.onclick = () => {
+            window.location.href = '/cart';
+          };
+        }
 
 
- 
 
-    </script>
+
+
+      </script>
+     
 </body>
 
 </html>

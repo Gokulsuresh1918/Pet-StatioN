@@ -69,7 +69,8 @@
                             </div>
                             <div class="mb-3">
                               <label for="description" class="form-label">Description:</label>
-                              <div class="form-control limited-description" id="description" name="description" contenteditable="true" required></div>
+                              <input class="form-control " id="description" name="description" required type="text">
+                              
                             </div>
                        
                             
@@ -97,16 +98,7 @@
   </body>
 
 
-  <style>
-    .limited-description {
-      overflow: hidden;
-      text-overflow: ellipsis; /* This will add an ellipsis (...) to indicate that there is more text */
-      display: -webkit-box;
-      -webkit-line-clamp: 3; /* Limit to 3 lines */
-      -webkit-box-orient: vertical;
-      max-height: 3 * 1.2em; /* 1.2em is the line height */
-    }
-  </style>
+ 
 
 
 </html>

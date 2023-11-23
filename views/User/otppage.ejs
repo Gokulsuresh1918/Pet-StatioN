@@ -31,7 +31,10 @@
               <button class="btn btn-primary mb-3" type="submit">
                 Verify
               </button>
-
+              <div class="text-center">
+                <p id="timer"></p>
+                <a id="resendBtn" class="btn_3  mb-3 disabled " href="/resendotp"  onclick="resendOTP()" style="color: white;">Resend OTP</a>
+            </div>
               <p class="resend text-muted mb-0">
                 Didn't receive the code? <a href="#">Request again</a>
               </p>
@@ -44,77 +47,45 @@
     <%- include("../partials/userpartials/footer.ejs") %>
   </section>
 
-<!-- 
+
+
   <script>
-    const inputs = document.querySelectorAll(".otp-field > input");
-    const button = document.querySelector(".btn");
-
-    window.addEventListener("load", () => inputs[0].focus());
-    button.setAttribute("disabled", "disabled");
-
-    inputs[0].addEventListener("paste", function (event) {
-      event.preventDefault();
-
-      const pastedValue = (event.clipboardData || window.clipboardData).getData(
-        "text"
-      );
-      const otpLength = inputs.length;
-
-      for (let i = 0; i < otpLength; i++) {
-        if (i < pastedValue.length) {
-          inputs[i].value = pastedValue[i];
-          inputs[i].removeAttribute("disabled");
-          inputs[i].focus;
-        } else {
-          inputs[i].value = ""; // Clear any remaining inputs
-          inputs[i].focus;
-        }
+      let timer;
+      let timeLeft = 60; // Time in seconds
+  
+      function startTimer() {
+          timer = setInterval(function () {
+              document.getElementById('timer').innerHTML = 'Time left: ' + timeLeft + ' seconds';
+              timeLeft--;
+  
+              if (timeLeft < 0) {
+                  clearInterval(timer);
+                  document.getElementById('timer').innerHTML = '';
+                  document.getElementById('resendBtn').classList.remove('disabled');
+              } else {
+                  document.getElementById('resendBtn').classList.add('disabled');
+              }
+          }, 1000);
       }
-    });
+  
+      // Start the timer when the page loads
+      startTimer();
+  </script>
+  
 
-    inputs.forEach((input, index1) => {
-      input.addEventListener("keyup", (e) => {
-        const currentInput = input;
-        const nextInput = input.nextElementSibling;
-        const prevInput = input.previousElementSibling;
+   
 
-        if (currentInput.value.length > 1) {
-          currentInput.value = "";
-          return;
-        }
+   
 
-        if (
-          nextInput &&
-          nextInput.hasAttribute("disabled") &&
-          currentInput.value !== ""
-        ) {
-          nextInput.removeAttribute("disabled");
-          nextInput.focus();
-        }
+       
 
-        if (e.key === "Backspace") {
-          inputs.forEach((input, index2) => {
-            if (index1 <= index2 && prevInput) {
-              input.setAttribute("disabled", true);
-              input.value = "";
-              prevInput.focus();
-            }
-          });
-        }
+  
 
-        button.classList.remove("active");
-        button.setAttribute("disabled", "disabled");
-
-        const inputsNo = inputs.length;
-        if (!inputs[inputsNo - 1], name = "digit" && inputs[inputsNo - 1].value !== ""); {
-          button.classList.add("active");
-          button.removeAttribute("disabled");
-
-          return;
-        }
-      });
-    });
-  </script> -->
+      
+      
+    
+  
+  </script>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
 $(function () {
-    $("#zoom").imagezoomsl();
+    $("#zoommain").imagezoomsl();
 });
 

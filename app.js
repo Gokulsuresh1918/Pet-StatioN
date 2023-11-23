@@ -32,7 +32,7 @@ app.use(nocache())
 
 // session useing 
 app.use(session({
-    secret: 'my-secret-key', // Change this to a strong secret in a real application
+    secret: process.env.SECRET_KEY, // Change this to a strong secret in a real application
     resave: false,
     saveUninitialized: true,
     cookie: {
