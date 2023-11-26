@@ -54,6 +54,9 @@
                   <div class="table-responsive">
                     <table class="table">
                       <% if(productdata!="" ){%>
+                      
+                          
+                       
                         <thead>
                           <tr>
                             <th>Sl/no</th>
@@ -69,6 +72,7 @@
                         </thead>
 
                         <tbody>
+                         
                           <%productdata.forEach((row,index)=>{%>
                             <tr>
                               <td>
@@ -90,6 +94,7 @@
                               <td>
                                 <%= row.description %>
                               </td>
+
                               <td>
                                 <%= row.category %>
                               </td>
@@ -104,6 +109,7 @@
                               <%})%>
                             </tr>
                             <%}%>
+                            
                         </tbody>
                     </table>
                   </div>

@@ -3,16 +3,12 @@ const mongoose = require('mongoose')
 
 const categoryschema = new mongoose.Schema({
     categoryname: {
-
         type: String,
         required: true
-
-
     },
     description: {
         type: String,
         required: true
-
     },
 
     blockStatus: {

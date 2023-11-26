@@ -1,26 +1,41 @@
 const mongoose = require('mongoose');
 
 const orderschema = new mongoose.Schema({
-    username: {
+    userId:{
+        type:String,
+        required:true
+    },
+    productdetails: [{
+        productName: {
+          type: String,
+          required: true
+        },
+        quantity: {
+          type: String,
+          required: true
+        },
+        uniquePriceTotal: {
+          type: String,
+          required: true
+        }
+      }],
+      
+    Ordernumber: {
         type: String,
         required: true
     },
-    productId: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "orderCollection"
-    }],
-    price: {
-        type: String, // Fix the typo here: typw -> type
+    total: {
+        type: String,
         required: true
     },
-    quantity: [{
+    address: {
         type: String,
         required: true
-    }],
-    subtotal: {
-        type: String,
-        required: true
-    }
+    },
+    // payment: {
+    //     type: String,
+    //     required: true
+    // }
 });
 
 const orderCollection = new mongoose.model('orderCollection', orderschema);

@@ -84,22 +84,19 @@
                     <div data-thumb="/img/Boy With Pet Dog Walking.jpeg" class="lslide active"
                       style="height: 450px; margin-bottom: 0px;">
 
-                      <img id="zoommain" src="/MulterUploads/<%= productdata.image[0] %> ">
+                      <img id="zoommain" src="/MulterUploads/<%= productdata.image[0] %>">
                     </div>
-
                   </div>
-                  <div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div>
                 </div>
                 <ul class="lSPager lSGallery"
                   style="margin-left: 5px; width: 100px; transition-duration: 600ms; height: 607.167px; transform: translate3d(0px, 0px, 0px);">
-                  <li style="width:100%;height:146.66666666666666px;margin-bottom:5px" class="active"><a href="/signup"><img
-                        src="/MulterUploads/<%= productdata.image[1] %> "></a></li>
-                  <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
-                        src="/MulterUploads/<%= productdata.image[2] %> "></a></li>
-                  <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
-                        src="/MulterUploads/<%= productdata.image[3] %> "></a></li>
-                  <!-- <li style="width:100%;height:146.66666666666666px;margin-bottom:5px"><a href="#"><img
-                        src=""></a></li> -->
+                  <li class="smalImg" style="width:100%;height:146.66666666666666px;margin-bottom:5px"  ><img
+                        src="/MulterUploads/<%= productdata.image[1] %> ">  </li>
+                  <li class="smalImg" style="width:100%;height:146.66666666666666px;margin-bottom:5px"><img
+                        src="/MulterUploads/<%= productdata.image[2] %> ">  </li>
+                  <li class="smalImg" style="width:100%;height:146.66666666666666px;margin-bottom:5px"><img
+                        src="/MulterUploads/<%= productdata.image[3] %> ">  </li>
+                 
                 </ul>
               </div>
             </div>
@@ -364,39 +361,69 @@
     <%- include("../partials/userpartials/footer.ejs") %>
       <!--::footer_part end::-->
 
-      <!-- jquery plugins here-->
-      <!-- jquery -->
-      <!-- <script src="js/jquery-1.12.1.min.js"></script> -->
+     <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-      <script src="/singlejs/jquery-1.12.1.min.js"></script>
-      <!-- <script src="/singlejs/jquery-1.12.1.min.js"></script> -->
-      <!-- popper js -->
-      <script src="/singlejs/popper.min.js"></script>
-      <!-- bootstrap js -->
-      <script src="/singlejs/bootstrap.min.js"></script>
-      <!-- easing js -->
-      <script src="/singlejs/jquery.magnific-popup.js"></script>
-      <!-- swiper js -->
-      <script src="/singlejs/lightslider.min.js"></script>
-      <!-- swiper js -->
-      <script src="/singlejs/masonry.pkgd.js"></script>
-      <!-- particles js -->
-      <script src="/singlejs/owl.carousel.min.js"></script>
-      <script src="/singlejs/jquery.nice-select.min.js"></script>
-      <!-- slick js -->
-      <script src="/singlejs/slick.min.js"></script>
-      <script src="/singlejs/swiper.jquery.js"></script>
-      <script src="/singlejs/jquery.counterup.min.js"></script>
-      <script src="/singlejs/waypoints.min.js"></script>
-      <script src="/singlejs/contact.js"></script>
-      <script src="/singlejs/jquery.ajaxchimp.min.js"></script>
-      <script src="/singlejs/jquery.form.js"></script>
-      <script src="/singlejs/jquery.validate.min.js"></script>
-      <script src="/singlejs/mail-script.js"></script>
-      <script src="/singlejs/stellar.js"></script>
-      <!-- custom js -->
-      <script src="/singlejs/theme.js"></script>
-      <script src="/singlejs/custom.js"></script>
+<!-- Bootstrap and Popper.js -->
+<script src="/singlejs/popper.min.js"></script>
+<script src="/singlejs/bootstrap.min.js"></script>
+
+<!-- Magnific Popup -->
+<script src="/singlejs/jquery.magnific-popup.js"></script>
+
+<!-- Lightslider -->
+<script src="/singlejs/lightslider.min.js"></script>
+
+<!-- Masonry -->
+<script src="/singlejs/masonry.pkgd.js"></script>
+
+<!-- Owl Carousel and Nice Select -->
+<script src="/singlejs/owl.carousel.min.js"></script>
+<script src="/singlejs/jquery.nice-select.min.js"></script>
+
+<!-- Slick -->
+<script src="/singlejs/slick.min.js"></script>
+
+<!-- Swiper -->
+<script src="/singlejs/swiper.jquery.js"></script>
+
+<!-- CounterUp and Waypoints -->
+<script src="/singlejs/jquery.counterup.min.js"></script>
+<script src="/singlejs/waypoints.min.js"></script>
+
+<!-- Contact Form Scripts -->
+<script src="/singlejs/contact.js"></script>
+<script src="/singlejs/jquery.ajaxchimp.min.js"></script>
+<script src="/singlejs/jquery.form.js"></script>
+<script src="/singlejs/jquery.validate.min.js"></script>
+
+<!-- Mail Script -->
+<script src="/singlejs/mail-script.js"></script>
+
+<!-- Stellar -->
+<script src="/singlejs/stellar.js"></script>
+
+<!-- Custom Theme and Scripts -->
+<script src="/singlejs/theme.js"></script>
+<script src="/singlejs/custom.js"></script>
+
+<!-- Zoom Scripts -->
+<!-- <script src="/javascript/zoom.js"></script> -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let MainImg = document.getElementById('zoommain');
+    let smalImg = document.getElementsByClassName('smalImg');
+
+    for (let i = 0; i < smalImg.length; i++) {
+      smalImg[i].addEventListener('click', function () {
+        MainImg.src = smalImg[i].querySelector('img').src;
+      });
+    }
+  });
+</script>
+
+<script src="/zoom/zoom.js"></script>
+<script src="/zoom/zoomsl.min.js"></script>
 
       <script>
         function addToCart(productId) {

@@ -1,7 +1,8 @@
+
 const mongoose = require('mongoose')
 
 
-const UserLoginSchema = new mongoose.Schema({
+const tempLoginSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -24,9 +25,9 @@ const UserLoginSchema = new mongoose.Schema({
         required: true
     },
     otp:{
-        type: Number,
+        type:Number
     }
 });
 
-const UserCollection = new mongoose.model('UserCollection', UserLoginSchema)
-module.exports = { UserCollection }
+const tempCollection = new mongoose.model('tempCollection', tempLoginSchema)
+module.exports = { tempCollection }

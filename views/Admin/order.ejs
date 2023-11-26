@@ -52,34 +52,36 @@
                                 <table class="table">
                                   <thead>
                                     <tr>
-                                      <th>Id </th>
-                                      <th> Order no </th>
-                                      <th>Total Price</th>
-                                      <th> Customer</th>
-                                      <th>Payment Methoud</th>
-                                      <th> Order Date </th>
-                                      <th>Phone nu </th>
-                                      <th>Download </th>
+                                      <th scope="col">Sl/no</th>
+                                      <th scope="col">Product Name</th>
+                                      <th scope="col">Quantity</th>
+                                      <th scope="col">Price</th>
+                                      <th scope="col">Order Id</th>
+                                      <th scope="col">Address</th>
+                                      <th scope="col">Download</th>
+                                      <!-- Add more headers if needed -->
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td> 1 </td>
-                                      <td> 123456</td>
-                                      <td> Rs:999 </td>
-                                      <td> Gokul </td>
-                                      <td> Upid</td>
-                                      <td> 13/7/2023</td>
-                                      <td> 1234567890</td>
-                                      <td>
-                                       <button class="btn btn-success">Download</button>
-                                       <!-- <button class="btn btn-danger">Delete</button> -->
-                                      </td>
-                                    </tr>
-                                    
-                                    
+                                    <% orderdata.forEach((order, index) => { %>
+                                      <% order.productdetails.forEach((item, itemIndex) => { %>
+                                        <tr>
+                                          <td><%= index + 1 %></td>
+                                          <td><%= item.productName %></td>
+                                          <td><%= item.quantity %></td>
+                                          <td><%= item.uniquePriceTotal %></td>
+                                          <td><%= order.Ordernumber %></td>
+                                          <td><%= order.address %></td>
+                                          <td>
+                                            <button class="btn btn-success">Download</button>
+                                            <!-- <button class="btn btn-danger">Delete</button> -->
+                                          </td>
+                                        </tr>
+                                      <% }) %>
+                                    <% }) %>
                                   </tbody>
                                 </table>
+                                
                               </div>
                             </div>
                           </div>

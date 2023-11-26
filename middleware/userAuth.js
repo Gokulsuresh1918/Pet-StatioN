@@ -1,4 +1,4 @@
-const userCollection = require('../model/userDB')
+const {UserCollection} = require('../model/userDB')
 
 
 const usersession = (req, res, next) => {
@@ -24,22 +24,30 @@ const isLogout = async (req, res, next) => {
 
 const isblock = async (req, res, next) => {
   try {
-
     if (req.session.userId) {
+      const userId = req.session.userId ? req.session.userId.toString() : null;
+      if (userId) {
+        const check = await UserCollection.findOne({ _id: userId });
+        console.log('User Check:', check);
 
-      // const email = req.body.email
-      const email = req.session.userId
-      const check = await userCollection.findOne({ email: email });
-      if (check.blockStatus === false) {
-        next();
+        if (check && check.blockStatus === false) {
+          next();
+        } else {
+          req.session.userId = null;
+          res.render('user/login', { message: "Please contact Your Admin You are no longer able to access this account" });
+        }
       } else {
-        req.session.userId = null
-        res.render('user/login', { message: "Please contact Your Admin You are no longer to access this account" })
+        // Handle the case where req.session.userId is null or undefined
+        res.status(500).send('Internal Server Error');
       }
+    } else {
+      // Handle the case where req.session.userId is not set
+      res.status(500).send('Internal Server Error');
     }
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
+    res.status(500).send('Internal Server Error');
   }
-
 }
-module.exports = { usersession, isLogout ,isblock}
+
+module.exports = { usersession, isLogout, isblock }

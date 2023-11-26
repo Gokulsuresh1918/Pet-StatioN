@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+<%- include('../../partials/layoutpage.ejs') %>
+
+    <%- include('../../partials/userpartials/header.ejs') %>
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="hero">
+              <div class="container">
+                <div class="row justify-content-between">
+                  <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                      <h1>Your Orders </h1>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+                      nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
+                      his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sl/no</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Address</th>
+                    <!-- Add more headers if needed -->
+                </tr>
+            </thead>
+            
+            <tbody>
+                <% orderdata.forEach((order, index) => { %>
+                    <% order.productdetails.forEach((item, itemIndex) => { %>
+                        <tr>
+                          
+                            <td><%= index + 1 %></td>
+                            <td><%= item.productName %></td>
+                            <td><%= item.quantity %></td>
+                            <td><%= item.uniquePriceTotal %></td>
+                            <td><%= order.Ordernumber %></td>
+                            <td><%= order.address %></td>
+                        </tr>
+                    <% }) %>
+                <% }) %>
+                
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+     </div>
+     
+<%- include('../../partials/userpartials/footer.ejs') %>
+</body>
+</html>

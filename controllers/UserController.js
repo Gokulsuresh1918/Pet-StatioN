@@ -6,6 +6,7 @@ const { cartCollection } = require('../model/cartDB')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer');
 const { name } = require('ejs')
+const { tempCollection } = require('../model/temporyDB')
 
 
 //controller for login get
@@ -33,6 +34,7 @@ exports.loginPost = async (req, res) => {
             else if (isPasswordMatch) {
                 // session created
                 req.session.userId = check._id
+
                 res.redirect('/home')
             } else {
                 res.render('User/login', { message: 'wrong Credentials' })
@@ -58,58 +60,66 @@ exports.signupGet = (req, res) => {
 //controller for signup post
 exports.signupPost = async (req, res) => {
     try {
-        data = {
+        // OTP generation through e-mail
+        const otp = generateotp();
+        console.log(otp);
+
+        const data = {
             name: req.body.username,
             email: req.body.email,
             mobile: req.body.mobile,
             password: req.body.password,
+            otp: otp
         };
+
+        req.session.userEmail = data.email
         console.log(data);
-        const existinguser = await UserCollection.findOne({ email: data.email })
-        const existingusermobile = await UserCollection.findOne({ mobile: data.mobile })
-        if (existinguser) {
-            res.render('User/signup', { message: "E mail already exists" })
+
+        const existingUser = await UserCollection.findOne({ email: data.email });
+        const existingUserMobile = await UserCollection.findOne({ mobile: data.mobile });
+
+        if (existingUser) {
+            return res.render('User/signup', { message: 'E-mail already exists' });
         }
-        if (existingusermobile) {
-            res.render('User/signup', { message: "mobile already exists" })
+
+        if (existingUserMobile) {
+            return res.render('User/signup', { message: 'Mobile already exists' });
         }
-        if (data.password === req.body.confirmpass) {
-            //otp generation through e mail
-            otp = generateotp()
-            console.log(otp);
-            const emailText = `  Hi this is from PetStation you just signup 
-             Your OTP is: ${otp}`;
-            const mailOptions = {
-                from: 'petstation2002@gmail.com',
-                to: data.email,
-                subject: 'OTP Verification',
-                text: emailText,
-            };
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log('Error sending OTP:', error);
-                } else {
-                    console.log('OTP sent:', info.response);
-                    res.redirect('/otppage')
-                }
-            });
-    
-            //hashing of pasword and adding to database
-            const saltRound = 10;
-            const hashedpassword = await bcrypt.hash(data.password, saltRound)
-            data.password = hashedpassword
-            await UserCollection.insertMany([data])
-            res.render('User/otppage')
-    
-        } else {
-            res.redirect('/admin/signup')
+
+        if (data.password !== req.body.confirmpass) {
+            return res.redirect('/admin/signup');
+        }
+
+
+        const emailText = `Hi, this is from PetStation. You just signed up. Your OTP is: ${otp}`;
+        const mailOptions = {
+            from: 'petstation2002@gmail.com',
+            to: data.email,
+            subject: 'OTP Verification',
+            text: emailText,
         };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error sending OTP:', error);
+                return res.status(500).send('Error sending OTP');
+            }
+
+            console.log('OTP sent:', info.response);
+            res.redirect('/otppage');
+        });
+
+        // Hashing of password and adding to the database
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+        data.password = hashedPassword;
+
+        await tempCollection.insertMany([data]);
+
     } catch (error) {
         console.error('Error in signupPost:', error);
         res.status(500).send('Internal Server Error');
     }
-    
-  
 };
 
 
@@ -145,9 +155,14 @@ exports.otpGet = (req, res) => {
 exports.otppost = async (req, res) => {
     const { digit1 } = req.body;
     const userEnteredOTP = digit1;
-    console.log(otp);
-    if (userEnteredOTP === otp) {
-        // await UserCollection.insertMany(data);
+    const temporary = await tempCollection.findOne({ otp: userEnteredOTP })
+
+    const otpdata = temporary.otp
+    if (userEnteredOTP == otpdata) {
+        await UserCollection.insertMany([temporary]);
+        req.session.destroy((err) => {
+            res.render("User/errorpage")
+        })
         console.log("User registered successfully!!");
         res.render('User/otpsucces')
     } else {
@@ -155,26 +170,41 @@ exports.otppost = async (req, res) => {
     }
 };
 
-exports.resendotppost=async(req,res)=>{
-     //otp generation through e mail
-     otp = generateotp()
-     console.log(otp);
-     const emailText = `  Hi this is from PetStation you just signup 
+exports.resendotpget = async (req, res) => {
+    //otp generation through e mail
+    otp = generateotp()
+    console.log(otp);
+    const userEmail = req.session.userEmail;
+    const temporary = await tempCollection.findOne({ email: userEmail })
+
+    const existingUser = await UserCollection.findOne({ email: temporary.email });
+    const existingUserMobile = await UserCollection.findOne({ mobile: temporary.mobile });
+
+    if (existingUser) {
+        return res.render('User/signup', { message: 'E-mail already exists' });
+    }
+
+    if (existingUserMobile) {
+        return res.render('User/signup', { message: 'Mobile already exists' });
+    }
+    const userdetails = await tempCollection.findOneAndUpdate({ email: temporary.email }, { $set: { otp: otp } })
+    const emailText = `  Hi this is from PetStation you just signup 
       Your  Resend OTP is: ${otp}`;
-     const mailOptions = {
-         from: 'petstation2002@gmail.com',
-         to: data.email,
-         subject: 'OTP Verification',
-         text: emailText,
-     };
-     transporter.sendMail(mailOptions, (error, info) => {
-         if (error) {
-             console.log('Error sending OTP:', error);
-         } else {
-             console.log('OTP sent:', info.response);
-             res.redirect('/otppage')
-         }
-     });
+    const mailOptions = {
+        from: 'petstation2002@gmail.com',
+        to: userdetails.email,
+        subject: 'OTP Verification',
+        text: emailText,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log('Error sending OTP:', error);
+        } else {
+            console.log('OTP sent:', info.response);
+            res.redirect('/otppage')
+        }
+    });
+
 }
 
 
@@ -222,7 +252,7 @@ exports.productView = async (req, res) => {
 exports.cartGet = async (req, res) => {
 
     const cartdetails = await cartCollection.findOne({ userId: req.session.userId });
-    
+
 
     // Find the product in the productCollection
     const productdetails = await productCollection.find();
@@ -234,12 +264,16 @@ exports.cartGet = async (req, res) => {
 
 
 //profile get 
-exports.profileGet = (req, res) => {
-    res.render('User/userProfile/profile')
+exports.profileGet = async (req, res) => {
+    const id = req.session.userId
+    console.log(id);
+    const userdetails = await UserCollection.findOne({ _id: id })
+    console.log(userdetails);
+    res.render('User/userProfile/profile', { userdetails })
 }
 exports.addressGet = async (req, res) => {
     const address = await addressCollection.find()
-  
+
     res.render('User/userProfile/address', { address, message: "" })
 }
 exports.addresspost = async (req, res) => {
@@ -273,7 +307,7 @@ exports.addaddresspost = async (req, res) => {
             email: req.body.email,
             state: req.body.state
         }
-       
+
         const address = await addressCollection.find()
         try {
             const check = await addressCollection.find({ phone: req.body.phone })
@@ -304,6 +338,19 @@ exports.editaddresspost = async (req, res) => {
     res.render('User/userProfile/editaddress', { addressedit })
 }
 
+
+exports.ordersget = async(req, res) => {
+    const userid= req.session.userId
+    console.log(userid);
+ const orderdata = await orderCollection.find()
+ 
+    res.render('User/userprofile/order',{orderdata})
+}
+
+
+
+
+
 exports.logoutuser = (req, res) => {
     if (req.session.userId) {
 
@@ -323,7 +370,7 @@ exports.logoutuser = (req, res) => {
 };
 
 exports.forgetpass = (req, res) => {
-    res.render('User/userProfile/forgetpass')
+    res.render('User/forget-pass')
 }
 exports.forgetpasspost = async (req, res) => {
     data = {
@@ -335,9 +382,17 @@ exports.forgetpasspost = async (req, res) => {
         //otp generation through e mail
         otp = generateotp()
         console.log(otp);
-        const emailText = `  Hi this is from PetStation 
-        this is your OTP for account recovery
-         Your OTP is: ${otp}`;
+        const otpresend = await tempCollection.findOneAndUpdate({ email: data.email }, { $set: { otp: otp } })
+        const emailText = ` Hi there,
+
+        This is a message from PetStation regarding your account recovery.
+        Your One-Time Password (OTP) for account recovery is: ${otp}
+        
+        If you did not initiate this request, please ignore this message.
+        
+        Best regards,
+        PetStation Team`;
+
         const mailOptions = {
             from: 'petstation2002@gmail.com',
             to: data.email,
@@ -349,16 +404,40 @@ exports.forgetpasspost = async (req, res) => {
                 console.log('Error sending OTP:', error);
             } else {
                 console.log('OTP sent:', info.response);
-                res.redirect('/otppage')
+                res.render('User/forget-otp')
             }
         });
 
-        res.render('User/otppage')
+
 
     } else {
         res.redirect('/signup')
     };
 };
+
+
+
+exports.resendpost = async (req, res) => {
+    const { digit } = req.body;
+    const userEnteredOTP = digit;
+    const temporary = await tempCollection.findOne({ otp: userEnteredOTP })
+
+    const otpdata = temporary.otp
+    if (userEnteredOTP == otpdata) {
+
+
+
+        res.render('User/otpsucces')
+    } else {
+        res.redirect("/otppage")
+    }
+};
+
+
+
+
+
+
 exports.addcartpost = async (req, res) => {
     const user = req.session.userId;
     try {
@@ -413,16 +492,26 @@ exports.checkoutaddress = async (req, res) => {
     res.redirect('/checkout')
 }
 
-exports.addressremove=async (req,res)=>{
+exports.addressremove = async (req, res) => {
     try {
-    const addressId = req.params.addressId;
-   
-     await addressCollection.deleteOne({ id: addressId });
-     res.status(200).json({ message: 'Address removed successfully' });
+        const addressId = req.params.addressId;
+        console.log(addressId);
+        try {
+            const result = await addressCollection.deleteOne({ id: addressId });
+        } catch (error) {
+            console.log(error);
+        }
+
+
+        if (result.deletedCount > 0) {
+            res.status(200).json({ message: 'Address removed successfully' });
+        } else {
+            res.status(404).json({ error: 'Address not found' });
+        }
     } catch (error) {
-      // Handle errors
-      console.error('Error removing address:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+        // Handle errors
+        console.error('Error removing address:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 
@@ -435,24 +524,64 @@ exports.confirmationget = ((req, res) => {
 
 
 
+
+// Exporting the confirmation post function
 exports.confirmationpost = async (req, res) => {
     try {
-        // Access orderDetails from the request body
-        const { orderDetails } = req.body;
+        // Extracting order details from the request body
+        const { orderDetails, addressid } = req.body;
 
-        // Save the order details to the database or perform necessary actions
+        // Logging the received order details
         console.log('Received order details:', orderDetails);
-     
-        await newOrder.save();
+        console.log('Received adress details:', addressid);
 
-        // Send a response to the client (you can customize the response as needed)
+        // Calculating the total sum of unique price totals
+        let totalsum = 0;
+        orderDetails.forEach(detail => {
+            totalsum += Number(detail.uniquePriceTotal);
+        });
+
+        // Extracting user ID from the session
+        const userId = req.session.userId;
+
+
+        // Fetching the user's address
+        const addressdata = await addressCollection.findById({ _id: addressid });
+
+        // Generating a unique order number
+        const Ordernumber = Math.floor(10000000 + Math.random() * 90000000);
+
+        let shippingAddress = "";
+        shippingAddress = shippingAddress+ addressdata.address + ".";
+        // Preparing the data to be saved
+        const data = {
+            productdetails: orderDetails,
+            total: totalsum,
+            address: shippingAddress,
+            Ordernumber: Ordernumber,
+            userId: userId
+        };
+
+        // Logging the data
+        console.log(data);
+
+        // Saving the order details to the database
+        await orderCollection.insertMany([data]);
+
+        // Removing data from cartcollection
+        await cartCollection.deleteMany({ userId: userId });
+
+        // Sending a response to the client
         res.json({ success: true, message: 'Order confirmed successfully' });
     } catch (error) {
+        // Logging the error
         console.error('Error:', error);
+
+        // Sending an error response to the client
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
-
 };
+
 
 exports.clearcartget = async (req, res) => {
     await cartCollection.deleteMany({});

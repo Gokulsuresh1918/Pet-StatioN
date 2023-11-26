@@ -14,18 +14,14 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-4" style="min-width: 500px;">
         <div class="card bg-white mb-5 mt-5 border-0" style="box-shadow: 0 12px 15px rgba(0, 0, 0, 0.02);">
-          <form action="/otppage" method="POST">
+          <form action="/resendotp" method="POST">
             <div class="card-body p-5 text-center">
               <h4>Verify</h4>
               <p>Your code was sent to you via email</p>
 
               <div class="otp-field mb-4">
-                <input type="text" maxlength="6" name="digit1" required />
-                <!-- <input type="number" maxlength="1" name="digit2" required />
-                <input type="number" maxlength="1" name="digit3" required />
-                <input type="number" maxlength="1" name="digit4" required />
-                <input type="number" maxlength="1" name="digit5" required />
-                <input type="number" maxlength="1" name="digit6" required /> -->
+                <input type="text" maxlength="6" name="digit" required />
+               
               </div>
 
               <button class="btn btn-primary mb-3" type="submit">

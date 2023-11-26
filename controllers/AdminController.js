@@ -2,6 +2,8 @@ const { adminCollection } = require("../model/adminDB");
 const { UserCollection } = require("../model/userDB");
 const { categoryCollection } = require("../model/categoryDB");
 const { productCollection } = require("../model/productDB");
+const { orderCollection } = require("../model/orderDB");
+const mongoose = require("mongoose")
 const multer = require('multer')
 const path = require('path');
 const { log } = require("console");
@@ -59,17 +61,33 @@ exports.UserGet = async (req, res) => {
 //Blocking User----------------------------------------------------------------------
 exports.blockUser = async (req, res) => {
     try {
-        console.log('blocked user');
+        console.log('Blocked user');
         console.log(req.query);
-        console.log(req.params);
-        const userid = req.query.id
-        const user = await UserCollection.findById(userid)
-        console.log(blockStatus);
-        user.blockStatus = !user.blockStatus
-        await user.save()
-        res.redirect("/admin/userdetails")
+        // console.log(req.params);
+
+        const userId = req.query.id;
+
+        // Find user by ID
+        const user = await UserCollection.findOne(userId);
+        console.log(user);
+        if (!user) {
+            console.log('User not found');
+            // Handle the case where the user is not found
+            return res.status(404).send('User not found');
+        }
+
+        // Toggle blockStatus
+        user.blockStatus = !user.blockStatus;
+
+        // Update user blockStatus
+        await user.save();
+
+        console.log('User updated:', user);
+
+        res.redirect("/admin/userdetails");
     } catch (error) {
-        console.error("error", error);
+        console.error("Error:", error);
+        res.status(500).send('Internal Server Error');
     }
 };
 
@@ -77,7 +95,10 @@ exports.blockUser = async (req, res) => {
 
 //OrderGet------------------------------------------------------------------------
 exports.orderGet = async (req, res) => {
-    res.render("Admin/order")
+   
+ const orderdata = await orderCollection.find()
+ 
+    res.render("Admin/order",{orderdata})
 };
 
 
@@ -113,18 +134,18 @@ exports.categorypost = async (req, res) => {
         const a = categorydata.categoryname;
         const existingCategory = await categoryCollection.findOne({ a: { $regex: new RegExp('^' + categorydata.categoryname + '$', 'i') } });
 
-   
-    if (existingCategory === req.body.categoryname) {
 
-        res.redirect("/admin/Categorydetails");
-    } else {
-        await categoryCollection.insertMany([categorydata]);
-        res.redirect("/admin/Categorydetails");
+        if (existingCategory === req.body.categoryname) {
+
+            res.redirect("/admin/Categorydetails");
+        } else {
+            await categoryCollection.insertMany([categorydata]);
+            res.redirect("/admin/Categorydetails");
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
-} catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-}
 };
 
 //blockcategory------------------------------------------------------
@@ -200,35 +221,42 @@ exports.dashboard = async (req, res) => {
 //ProductGet----------------------------------------
 exports.productGet = async (req, res) => {
     const productdata = await productCollection.find()
-
     res.render("Admin/product", { productdata })
 };
-exports.productpost = async (req, res) => {
-    const id = req.params.id
 
-    let productdetails = {
-        name: req.body.name,
-        description: req.body.description,
-        category: req.body.category,
-        price: req.body.price,
-        discount: req.body.discount,
-        qty: req.body.qty,
-    };
-    await productCollection.updateOne({ _id: id }, { $set: productdetails })
 
-    res.redirect('/admin/productdetails')
 
+
+exports.imagedelete = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id); // Log the value to check its format
+
+        // Convert id to a valid ObjectId
+        const validId = new mongoose.Types.ObjectId(id);
+        console.log("validid", validId);
+        const productData = await productCollection.findByIdAndUpdate(
+            { _id: id },
+            { $pull: { image: req.params.image } },
+            { new: true }
+        );
+
+        res.redirect(`/admin/productedit/${productData._id}`);
+    } catch (error) {
+        console.error('Error in imagedelete:', error.message);
+        res.status(500).send('Internal error');
+    }
 };
+
 
 
 
 //product add------------------
 exports.productaddGet = async (req, res) => {
-    try {
-        res.render('Admin/productadd')
-    } catch (error) {
-        console.log(error);
-    }
+    const categoryoption = await categoryCollection.find()
+
+    res.render('Admin/productadd', { categoryoption })
+
 };
 
 exports.productaddpost = async (req, res, next) => {
@@ -263,9 +291,11 @@ exports.editproductGet = async (req, res) => {
         const id = req.params.id
         console.log(id);
         const productdata = await productCollection.findById(id)
+        const categoryoption = await categoryCollection.find()
+
         console.log(productdata);
 
-        res.render('Admin/productedit', { productdata, admin: false })
+        res.render('Admin/productedit', { productdata, categoryoption })
     } catch (error) {
         console.log(error.message);
         res.status(500).send("Internal error")
@@ -280,12 +310,11 @@ exports.editproductpost = async (req, res) => {
         const updatedData = {
             name: req.body.name,
             description: req.body.description,
-            category: req.body.category,
+            category: req.body.categoryname,
             price: req.body.price,
-            discount: req.body.discount,
             qty: req.body.qty,
         };
-
+        console.log(updatedData);
 
 
         await productCollection.findByIdAndUpdate(id, updatedData);

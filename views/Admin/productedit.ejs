@@ -2,93 +2,94 @@
 <html lang="en">
 
 <head>
+    <!-- Meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-    <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/assets/css/material-dashboard.css">
     <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
     <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
-    <title>
-        Product Dashboard
-    </title>
-    <!--     Fonts and icons     -->
+    <!-- Title -->
+    <title>Product Dashboard</title>
+    <!-- Fonts and Icons -->
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
     <!-- Nepcha Analytics (nepcha.com) -->
-    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
-<body class="g-sidenav-show  bg-gray-200">
-    <!--header-->
+<body class="g-sidenav-show bg-gray-200">
+    <!-- Header -->
     <%- include('../partials/adminpartials/aside') %>
+        <!-- Main Content -->
         <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
             <!-- Navbar -->
             <%- include('../partials/adminpartials/navbar') %>
-                <!-- End Navbar -->
-
+                <!-- Content Section -->
                 <div class="row mb-4">
-
                     <div class="row mb-4">
                         <div class="col-12 grid-margin">
                             <div class="card">
                                 <div class="card-body">
+                                    <!-- Card Header -->
                                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                             <h6 class="text-white text-capitalize ps-3">Product Management</h6>
                                         </div>
                                     </div>
+                                    <!-- Table Section -->
                                     <div class="table-responsive">
-
-
-                                        <form action="/admin/productdetails/<%=productdata.id%>" method="post"
+                                        <form action="/admin/productedit/<%=productdata.id%>" method="post"
                                             enctype="multipart/form-data">
-
-
-
                                             <div class="row">
+                                                <!-- Left Column -->
                                                 <div class="col-md-6">
+
                                                     <div class="form-group">
                                                         <label for="name" class="form-label">Name</label>
                                                         <input type="text" value="<%= productdata.name %>"
                                                             class="form-control" name="name" required>
-
                                                     </div>
+
+                                                    <!-- Category Dropdown -->
                                                     <div class="mb-3">
-                                                        <label for="categoryName" class="form-label">Category Name:</label>
-                                                        <select class="form-select" id="categoryname" name="categoryname" required>
-                                                            <!-- Add your dropdown options dynamically, for example, using server-side data -->
-                                                            <option value="option1">Sale&Rent</option>
-                                                            <option value="option2"> Adoption</option>
-                                                            <option value="option3">Grooming</option>
-                                                            <!-- Add more options as needed -->
+                                                        <label for="categoryName" class="form-label">Category
+                                                            Name:</label>
+                                                        <select class="form-select" id="categoryname"
+                                                            name="categoryname" required>
+                                                            <% categoryoption.forEach((item)=> { %>
+                                                                <option value="<%=item.categoryname%>">
+                                                                    <%=item.categoryname%>
+                                                                </option>
+                                                                <% }) %>
                                                         </select>
                                                     </div>
+                                                    <!-- Image Display and Delete -->
                                                     <div style="display: flex; margin-top: 20px">
-                                                        <% for (let i = 0; i < productdata.image.length; i++) { %>
+                                                        <% productdata.image.forEach(element=> { %>
+
+
                                                             <div style="position: relative">
                                                                 <img class="img-fluid" style="width: 90px; margin: 10px"
-                                                                    src="/MulterUploads/<%= productdata.image[i] %>" alt="" />
+                                                                    src="/MulterUploads/<%=element %>"
+                                                                    alt="" />
                                                                 <a style="position: absolute; top: 0; right: 0; color: red"
                                                                     class="fas fa-times "
-                                                                    href="/<%= productdata.image[i]._id %>/<%= productdata._id %>"></a>
+                                                                    href="/admin/<%= element %>/<%= productdata.id %>"></a>
                                                             </div>
-                                                        <% } %>
+
+                                                            <% }) %>
                                                     </div>
-                                                    
-                                                    
                                                 </div>
+                                                <!-- Right Column -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="description" class="form-label">Description:</label>
@@ -105,24 +106,16 @@
                                                         <input type="number" value="<%=productdata.qty%>"
                                                             class="form-control" name="qty" required>
                                                     </div>
-
-
                                                 </div>
                                             </div>
-
+                                            <!-- Save Changes Button -->
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
                                         </form>
-
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
                 </div>
         </main>
 </body>

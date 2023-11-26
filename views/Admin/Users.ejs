@@ -16,10 +16,9 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-  <link rel="stylesheet" href="/public/assets/css/material-dashboard.css">
-  <link href="
-https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
-" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
   <!-- <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script> -->
 </head>
@@ -83,12 +82,14 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
                     <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
                   </td>
 
+
                   <td>
                     <button class="btn btn-<%= row.blockStatus ? 'success' : 'danger' %>"
                       onclick="handleBlockUnblock('<%= row._id %>','<%= row.blockStatus %>')">
                       <%= row.blockStatus ? 'Unblock' : 'Block' %>
                     </button>
                   </td>
+
                   <% }) %>
                     </tr>
                     </tbody>
@@ -179,18 +180,34 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
   function handleBlockUnblock(userId, blockStatus) {
     console.log('here', userId, blockStatus);
 
-
     fetch(`/admin/blockStatus?userid=${userId}`, {
       method: 'GET'
     })
-      .then(response => response.json())
-      .then(res => console.log(res))
+      .then(response => response.text())
+      .then(res => {
+        console.log(res);
+        // Show a SweetAlert
+        Swal.fire({
+          title: 'Confirmation',
+          text: 'Updated User status successfully',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // Reload the page after the user clicks "OK"
+          window.location.reload();
+        });
+      })
       .catch(error => {
         console.error('Error:', error);
-        alert('Error occurred. Please try again.');
+        // Show a SweetAlert on error
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to update user status',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       });
   }
-
 
 
 
