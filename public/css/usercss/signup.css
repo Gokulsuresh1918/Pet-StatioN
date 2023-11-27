@@ -30,16 +30,15 @@
     height: 100vh;
     /* Full viewport height */
   }
-
   .form-container {
-    background: url(https://media.istockphoto.com/id/1417882544/photo/large-group-of-cats-and-dogs-looking-at-the-camera-on-blue-background.webp?b=1&s=170667a&w=0&k=20&c=Q-OSb3I9cuoCZT5rm539lIeu23zU3FdFyB35WhL0Kes=);
+    background-color: rgb(255, 255, 255);
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     height: auto;
-  }
+}
 
   .form-card {
     border-radius: 15px;

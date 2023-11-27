@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer');
 const { name } = require('ejs')
 const { tempCollection } = require('../model/temporyDB')
+const { contactCollection } = require('../model/contactDB')
 
 
 //controller for login get
@@ -225,6 +226,32 @@ exports.homeGet = (req, res) => {
     }
 
 }
+
+exports.contactGet = (req, res) => {
+    try {
+        res.render('User/contact')
+    } catch (error) {
+        console.log(error);
+    }
+}
+exports.contactpost = async (req, res) => {
+    try {
+        let {name,lastname,email,message}= req.body;
+    
+        const data =  new contactCollection({
+            name: name,
+            lastname: lastname ,
+            email:email,
+            message: message
+
+        })
+        console.log(data);
+        await data.save()
+res.redirect('/')
+    } catch (error) {
+console.log(error);
+    }
+}
 exports.shopget = async (req, res) => {
     try {
         if (req.session.userId) {
@@ -339,12 +366,12 @@ exports.editaddresspost = async (req, res) => {
 }
 
 
-exports.ordersget = async(req, res) => {
-    const userid= req.session.userId
+exports.ordersget = async (req, res) => {
+    const userid = req.session.userId
     console.log(userid);
- const orderdata = await orderCollection.find()
- 
-    res.render('User/userprofile/order',{orderdata})
+    const orderdata = await orderCollection.find()
+
+    res.render('User/userprofile/order', { orderdata })
 }
 
 
@@ -552,7 +579,7 @@ exports.confirmationpost = async (req, res) => {
         const Ordernumber = Math.floor(10000000 + Math.random() * 90000000);
 
         let shippingAddress = "";
-        shippingAddress = shippingAddress+ addressdata.address + ".";
+        shippingAddress = shippingAddress + addressdata.address + ".";
         // Preparing the data to be saved
         const data = {
             productdetails: orderDetails,

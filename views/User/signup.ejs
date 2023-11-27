@@ -12,11 +12,9 @@
 </head>
 
 <body>
-  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
-
+  <nav class="custom-navbar navbar navbar-expand-md" style="background-color: #3B5D50;" aria-label="Furni navigation bar">
     <div class="container">
-        <a class="navbar-brand" href="/home" style="font-family:Irish;">Pet Station<span>.</span></a>
-
+        <a class="navbar-brand" href="/home" style="font-family: Irish; color: white;">Pet Station<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,61 +23,66 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/home">Home</a>
+                    <a class="nav-link" href="/home" style="color: white;">Home</a>
                 </li>
-                <li><a class="nav-link" href="/shop">Shop</a></li>
-                
-                <li><a class="nav-link" href="/home">contact us</a></li>
-                
+                <li><a class="nav-link" href="/shop" style="color: white;">Shop</a></li>
+                <li><a class="nav-link" href="/home" style="color: white;">Contact Us</a></li>
             </ul>
-
-           
-            
         </div>
     </div>
-        
 </nav>
 
 
-    <section class="vh-100 form-container">
-      <div class="card form-card">
-        <h2 class="text-uppercase text-center mb-4">Create an account</h2>
-        <form action="/signup" method="post">
+
+<section class="vh-100 form-container">
+  <div class="card form-card" style="background-color: #3B5D50;">
+    <h2 class="text-uppercase text-center mb-4" style="color: white;">Create an account</h2>
+
+      <form action="/signup" method="post">
           <% if (locals.message) { %>
-            <div class="alert alert-danger text-center">
+          <div class="alert alert-danger text-center error"id="errorAlert">
               <strong style="color: red;"><%= message %> </strong>
-            </div>
-          <% } %> 
-          <div class="mb-3">
-            <label for="username" class="form-label">Your Name</label>
-            <input type="text" id="username" value="GOKUL SURESH S.V" name="username" class="form-control" />
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Your Email</label>
-            <input type="email" id="email" name="email" class="form-control" />
+          <% } %>
+          <div class="row mb-3">
+              <div class="col-md-6">
+                  <label for="username" style="color: white;" class="form-label">Your Name</label>
+                  <input type="text" id="username" value="GOKUL SURESH S.V" name="username" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                  <label for="email" style="color: white;" class="form-label">Your Email</label>
+                  <input type="email" id="email" name="email" class="form-control" />
+              </div>
           </div>
-          <div class="mb-3">
-            <label for="mobile" class="form-label">Mobile Number</label>
-            <input type="number" id="mobile" name="mobile" class="form-control" />
+          <div class="row mb-3">
+              <div class="col-md-6">
+                  <label for="mobile" style="color: white;" class="form-label">Mobile Number</label>
+                  <input type="number" id="mobile" name="mobile" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                  <label for="password" style="color: white;" class="form-label">Password</label>
+                  <input type="password" value="Gokul@123" id="password" name="password" class="form-control" />
+              </div>
           </div>
+          <!-- Show Password Checkbox -->
           <div class="mb-3">
-            <label for="password"  class="form-label">Password</label>
-            <input type="password" value="Gokul@123" id="password" name="password" class="form-control" />
+              <label for="repassword" style="color: white;" class="form-label">Repeat your password</label>
+              <input type="password" value="Gokul@123" id="repassword" name="confirmpass" class="form-control" />
           </div>
-          <div class="mb-3">
-            <label for="repassword" class="form-label">Repeat your password</label>
-            <input type="password"  value="Gokul@123"  id="repassword" name="confirmpass" class="form-control" />
+          <div class="form-check mt-2">
+              <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
+              <label class="form-check-label" style="color:blanchedalmond;" for="showPassword">Show Password</label>
           </div>
-         
-          <p class="error" style="color: red;font-weight: bold;"></p>
+
           <div class="d-flex justify-content-center">
-            <button type="submit" id="submit" class="btn btn-success btn-block text-body">Register</button>
+              <button type="submit" id="submit" class="btn btn-success btn-block text-white">Register</button>
           </div>
-          <p class="text-center text-muted mt-4 mb-0">Already have an account? <a href="/"
-              class="fw-bold text-body"><u>Login here</u></a></p>
-        </form>
-      </div>
-    </section>
+          <p class="text-center mt-4 mb-0" style="color: #ff0000;">Already have an account?</p>
+          <a href="/" class="text-center mt-4 mb-0 fw-bold "style="color: #ffffff; text-decoration:none"><h6>Sign in</h6></a>
+      </form>
+  </div>
+</section>
+
 
     <script>
       // Form validation logics
@@ -160,5 +163,25 @@
       });
        </script>
 </body>
+<script>
+  function togglePasswordVisibility() {
+      let passwordrepeat = document.getElementById("repassword");
+      let password = document.getElementById("password")
+      if (passwordrepeat.type === "password"||password.type==="password") {
+        passwordrepeat.type = "text";
+        password.type="text"
+      } else {
+        passwordrepeat.type = "password";
+        password.type="password"
+      }
+  }
+</script>
 
+<script>
+  // Add a delay of 5 seconds (5000 milliseconds)
+  setTimeout(function () {
+      // Hide the alert by adding the 'd-none' class
+      document.getElementById('errorAlert').classList.add('d-none');
+  }, 3000);
+</script>
 </html>

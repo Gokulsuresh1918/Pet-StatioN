@@ -9,11 +9,9 @@
 </head>
 <body>
  <div>
-  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
-
+  <nav class="custom-navbar navbar navbar-expand-md" style="background-color: #3B5D50;" aria-label="Furni navigation bar">
     <div class="container">
-        <a class="navbar-brand" href="/home" style="font-family:Irish;">Pet Station<span>.</span></a>
-
+        <a class="navbar-brand" href="/home" style="font-family: Irish; color: white;">Pet Station<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,19 +20,13 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/home">Home</a>
+                    <a class="nav-link" href="/home" style="color: white;">Home</a>
                 </li>
-                <li><a class="nav-link" href="/shop">Shop</a></li>
-                
-                <li><a class="nav-link" href="/home">contact us</a></li>
-                
+                <li><a class="nav-link" href="/shop" style="color: white;">Shop</a></li>
+                <li><a class="nav-link" href="/home" style="color: white;">Contact Us</a></li>
             </ul>
-
-           
-            
         </div>
     </div>
-        
 </nav>
 
 
@@ -45,7 +37,7 @@
 
 
 
-<section class="vh-100" style="background-color: hsl(347, 23%, 49%);">
+<section class="vh-100" style="background-color: hsl(0, 0%, 100%);">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-xl-10">
@@ -56,27 +48,32 @@
                   alt="login form" class="img-fluid" style="border-radius: 10rem 0 0 10rem;" />
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                <div class="card-body p-4 p-lg-5 text-black">
-  
-                  <form action="/login" method="post" >
+                <div class="card-body p-3 p-lg-4 text-black" style="background-color: #3B5D50; border-radius: 0 200px 200px 0;">  
+                  <form action="/login" method="post">
   
                     <div class="d-flex align-items-center mb-3 pb-1">
-                      <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                      <span  class="h1 fw-bold mb-0">Pet Station</span>
+                      <i class="fas fa-cubes fa-2x me-3"></i>
+                      <span class="h1 fw-bold mb-0" style="color: white;">Pet Station</span>
+
                     </div>
   
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: white;">Sign into your account</h5>
   
                     <div class="form-outline mb-4">
                       <input type="email" id="form2Example17" value="gokulanandhu1571@gmail.com" name="Email"class="form-control form-control-lg" />
-                      <label class="form-label" for="form2Example17">Email address</label>
+                      <label class="form-label" style="color: white;" for="form2Example17">Email address</label>
                     </div>
   
                     <div class="form-outline mb-4">
                       <input type="password" id="form2Example27" value="Gokul@123" name="password" class="form-control form-control-lg" />
-                      <label class="form-label" for="form2Example27">Password</label>
-                    </div>
-  
+                      <label class="form-label" style="color: white;" for="form2Example27">Password</label>
+                  
+                      <!-- Show Password Checkbox -->
+                      <div class="form-check mt-2">
+                          <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
+                          <label class="form-check-label" style="color:blanchedalmond;" for="showPassword">Show Password</label>
+                      </div>
+                  </div>
                     <div class="pt-1 mb-4">
                       
                       <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
@@ -90,8 +87,8 @@
   
                     <a class="small " style="color: red;" href="/forgetpass">Forgot password?</a>
                     
-                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="/signup"
-                        style="color: #393f81; font-size: large;">Sign Up</a></p>
+                    <p class="mb-5 pb-lg-2" style="color: #ffffff;">Don't have an account? <a href="/signup"
+                        style="color: red; font-size: large;">Sign Up</a></p>
                     
                  
                   
@@ -107,4 +104,14 @@
   </section>
 </div>
 </body>
+<script>
+  function togglePasswordVisibility() {
+      var passwordInput = document.getElementById("form2Example27");
+      if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+      } else {
+          passwordInput.type = "password";
+      }
+  }
+</script>
 </html>
