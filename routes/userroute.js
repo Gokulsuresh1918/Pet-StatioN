@@ -35,15 +35,12 @@ const {
   productView,
   ordersget,
   contactGet,
-  aboutGet,
- contactpost
-
+  aboutget,
+  contactpost,
 } = require('../controllers/UserController');
 
 // Importing middleware functions
-const { usersession, isblock } = require('../middleware/userAuth');
-
-
+const { usersession } = require('../middleware/userAuth');
 
 // Public routes
 router.get('/', loginGet);
@@ -60,13 +57,13 @@ router.get('/resendotp', resendotpget);
 // Authenticated routes
 router.get('/home', homeGet);
 router.get('/contact', contactGet);
-router.post('/contact', contactpost);
-// router.get('/about', aboutGet);
+router.post('/contact', usersession, contactpost);
+router.get('/about', aboutget);
 
 // Shop and Product routes
 router.get('/shop', shopget);
 router.get('/cart', usersession, cartGet);
-router.get('/productview/:id', usersession,productView);
+router.get('/productview/:id', usersession, productView);
 
 // Cart routes
 router.get('/cart', usersession, cartGet);
@@ -90,11 +87,11 @@ router.post('/add-address', usersession, addaddresspost);
 router.get('/edit-address/:id', usersession, editaddressGet);
 router.post('/edit-address', usersession, editaddresspost);
 
-router.get('/orders',usersession,ordersget)
+router.get('/orders', usersession, ordersget);
 
 // Password-related routes
-router.get('/forgetpass',usersession, forgetpass);
-router.post('/forgetpass', usersession,forgetpasspost);
-router.post('/resendotp',usersession,resendpost)
+router.get('/forgetpass', usersession, forgetpass);
+router.post('/forgetpass', usersession, forgetpasspost);
+router.post('/resendotp', usersession, resendpost);
 
 module.exports = router;

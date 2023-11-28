@@ -3,161 +3,148 @@
 
 <head>
     <title>Admin Login</title>
-    <!-- <link rel="stylesheet" href="../../css/admincss/adminLogin"> -->
     <link rel="stylesheet" href="/css/admincss/adminLogin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-<style>
-    /* Your custom CSS styles go here */
-    body {
-      padding-top: 60px; /* Adjusted top padding for fixed navbar */
-    }
-  </style>
+    <style>
+        /* Your custom CSS styles go here */
+        body {
+            padding-top: 60px; /* Adjusted top padding for the fixed navbar */
+        }
+    </style>
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style="background-color: #da2464;">
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #da2464;">
         <div class="container">
-          <a class="navbar-brand" style="color: black; font-weight: bold;" href="/home">Pet Station</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-              <!-- Shop link moved to the end -->
-              <li class="nav-item "  >
-                <a class="nav-link"  style="color: black;" href="/shop">Shop</a>
-              </li>
-              <!-- Home link moved to the end -->
-              <li class="nav-item">
-                <a class="nav-link"  style="color: black;" href="/home">Home</a>
-              </li>
-            </ul>
-          </div>
+            <a class="navbar-brand" style="color: black; font-weight: bold;" href="/home">Pet Station</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <!-- Shop link moved to the end -->
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: black;" href="/shop">Shop</a>
+                    </li>
+                    <!-- Home link moved to the end -->
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: black;" href="/home">Home</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </nav>
-      
+    </nav>
 
+    <!-- Header Section -->
+    <header class="jumbotron text-center">
+        <h1 class="display-4">Welcome Admin</h1>
+        <p class="lead">Give your furry friend the gift of a peaceful night's sleep with our Comfort Paws Orthopedic
+            Dog Bed. Specially designed to provide optimal comfort and support, this bed is perfect for dogs of all
+            ages, sizes, and breeds.</p>
+    </header>
 
-      <header class="jumbotron text-center">
-        <h1 class="display-4" >Welcome Admin</h1>
-        <p class="lead"> Give your furry friend the gift of a peaceful night's sleep with our Comfort Paws Orthopedic Dog Bed.
-            Specially designed to provide optimal comfort and support, this bed is perfect for dogs of all ages,
-            sizes, and breeds.</p>
-      </header>
-
-  <!-- Content Section -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <!-- Your main content goes here -->
-        <form action="/admin/admin" method="POST" id="form" >
-            <h1 class="text-center mt-1" style="color: #da2464;" >Admin Login</h1>
-            <% if (locals.msg) { %>
-              <div class="alert alert-danger text-center">
-                <strong style="color: red;"><%= msg %> </strong>
-              </div>
-            <% } %> 
-            <% if (locals.errmsg) { %>
-              <div class="alert alert-danger text-center">
-                <strong><%= errmsg %> </strong>
-              </div>
-            <% } %> 
-             <div id="login-success-message" class="hidden"></div>
-            <div class="input-group">
-                <label for="username">Username:</label>
-                <input type="text" value="Gokul" id="username"  name="username" oninput="validateusername()">
-                <div class="error text-danger" style="background-color: rgb(244, 241, 238); border-radius: 5px; font-size: 15px;" ></div>
-
+    <!-- Content Section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Admin Login Form -->
+                <form action="/admin/admin" method="POST" id="form">
+                    <h1 class="text-center mt-1" style="color: #da2464;">Admin Login</h1>
+                    <% if (locals.msg) { %>
+                    <div class="alert alert-danger text-center">
+                        <strong style="color: red;"><%= msg %> </strong>
+                    </div>
+                    <% } %>
+                    <% if (locals.errmsg) { %>
+                    <div class="alert alert-danger text-center">
+                        <strong><%= errmsg %> </strong>
+                    </div>
+                    <% } %>
+                    <div id="login-success-message" class="hidden"></div>
+                    <div class="input-group">
+                        <label for="username">Username:</label>
+                        <input type="text" value="Gokul" id="username" name="username" oninput="validateusername()">
+                        <div class="error text-danger" style="background-color: rgb(244, 241, 238); border-radius: 5px; font-size: 15px;"></div>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password:</label>
+                        <input type="password" value="1571" id="password" name="password" oninput="validatePassword()">
+                        <div class="error text-danger" style="background-color: rgb(244, 241, 238); border-radius: 5px; font-size: 15px;"></div>
+                    </div>
+                    <div class="input-group">
+                        <button style="background-color: #da2464;" type="submit" class="login-button">Login</button>
+                    </div>
+                </form>
             </div>
-            <div class="input-group">
-                <label for="password">Password:</label>
-                <input type="password" value="1571" id="password"  name="password" oninput="validatePassword()">
-                <div class="error text-danger" style="background-color: rgb(244, 241, 238); border-radius: 5px; font-size: 15px;" ></div>
-
+            <div class="col-md-4">
+                <!-- Your sidebar or additional content goes here -->
             </div>
-
-           
-
-           
-            <div class="input-group">
-                <button style="background-color: #da2464;" type="submit" class="login-button">Login</button>
-              </form>
-            </div>
-      </div>
-      <div class="col-md-4">
-        <!-- Your sidebar or additional content goes here -->
-      </div>
+        </div>
     </div>
-   
-  </div>
-   
+
+    <!-- JavaScript Section -->
+    <script>
+        // login submission validation
+
+        // submission
+        const form = document.querySelector('#form')
+        const username = document.querySelector('#username');
+        const password = document.querySelector('#password');
+
+        form.addEventListener('submit', (e) => {
+
+            if (!validateInputs()) {
+                e.preventDefault();
+            }
+        })
+
+        function validateInputs() {
+            const usernameval = username.value.trim()
+            const passwordVal = password.value.trim();
+            let success = true
+
+            if (usernameVal === '') {
+                success = false;
+                setError(username, 'Name is required')
+            } else {
+                setSuccess(username)
+            }
+
+            if (passwordVal === '') {
+                success = false;
+                setError(password, 'Password is required')
+            } else if (passwordVal.length < 5) {
+                success = false;
+                setError(password, 'Password must be at least 5 characters long')
+            } else {
+                setSuccess(password)
+            }
+
+            return success;
+        }
+
+        function setError(element, message) {
+            const inputGroup = element.parentElement;
+            const errorElement = inputGroup.querySelector('.error')
+
+            errorElement.innerText = message;
+            inputGroup.classList.add('error')
+            inputGroup.classList.remove('success')
+        }
+
+        function setSuccess(element) {
+            const inputGroup = element.parentElement;
+            const errorElement = inputGroup.querySelector('.error')
+
+            errorElement.innerText = '';
+            inputGroup.classList.add('success')
+            inputGroup.classList.remove('error')
+        }
+    </script>
 </body>
 
-
-<script>
-    // login submission validation
-
-//submission
-const form = document.querySelector('#form')
-const username = document.querySelector('#username');
-const password = document.querySelector('#password');
-
-form.addEventListener('submit',(e)=>{
- 
- if(!validateInputs()){
-     e.preventDefault();
- }
-})
-
-function validateInputs(){
- const usernameval = username.value.trim()
- const passwordVal = password.value.trim();
- let success = true
-
- if(usernameVal===''){
-     success=false;
-     setError(username,'Name is required')
- }
- else{
-     setSuccess(username)
- }
-
-
- if(passwordVal === ''){
-     success= false;
-     setError(password,'Password is required')
- }
- else if(passwordVal.length<5){
-     success = false;
-     setError(password,'Password must be atleast 5 characters long')
- }
- else{
-     setSuccess(password)
- }
-
- return success;
-
-}
-
-function setError(element,message){
- const inputGroup = element.parentElement;
- const errorElement = inputGroup.querySelector('.error')
-
- errorElement.innerText = message;
- inputGroup.classList.add('error')
- inputGroup.classList.remove('success')
-}
-
-function setSuccess(element){
- const inputGroup = element.parentElement;
- const errorElement = inputGroup.querySelector('.error')
-
- errorElement.innerText = '';
- inputGroup.classList.add('success')
- inputGroup.classList.remove('error')
-}
-
-  </script>
 </html>

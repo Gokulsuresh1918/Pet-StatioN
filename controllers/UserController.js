@@ -234,22 +234,33 @@ exports.contactGet = (req, res) => {
         console.log(error);
     }
 }
-exports.contactpost = async (req, res) => {
+exports.aboutget = (req, res) => {
     try {
-        let {name,lastname,email,message}= req.body;
-    
-        const data =  new contactCollection({
-            name: name,
-            lastname: lastname ,
-            email:email,
-            message: message
-
-        })
-        console.log(data);
-        await data.save()
-res.redirect('/')
+        res.render('User/about')
     } catch (error) {
-console.log(error);
+        console.log(error);
+    }
+}
+exports.contactpost = async (req, res, next) => {
+    try {
+        let { name, lastname, email, message } = req.body;
+
+        // Assuming you have a middleware that adds userId to the request
+        const userId = req.session.userId;
+        console.log(userId);
+        const data = new contactCollection({
+            userId: userId,
+            name: name,
+            lastname: lastname,
+            email: email,
+            message: message
+        });
+
+        await data.save();
+      res.render('User/reviewsubmit')
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 exports.shopget = async (req, res) => {

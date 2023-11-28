@@ -1,132 +1,172 @@
-<!-- /*
-* Bootstrap 5
-* Template Name: Furni
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Untree.co">
-  <link rel="shortcut icon" href="favicon.png">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
 
-  <meta name="description" content="" />
-  <meta name="keywords" content="bootstrap, bootstrap4" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
 
-		<!-- Bootstrap CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-		<link href="css/tiny-slider.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
-	</head>
 
-	<body>
 
-		<!-- Start Header/Navigation -->
-		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+	<link href="/assets/cssUT/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<link href="/assets/cssUT/tiny-slider.css" rel="stylesheet">
+	<link href="/assets/cssUT/style.css" rel="stylesheet">
+	<title>About us</title>
+	<%- include('../partials/layoutpage.ejs') %>
+	<style>
+		.single-team-item {
+			position: relative;
+		}
+	
+		.team-bg {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+			z-index: -1;
+		}
+	
+		.team-image {
+			width: 100%;
+			/* Ensures the image fills the container */
+			height: auto;
+			/* Maintains aspect ratio */
+			border-radius: 8px;
+			/* Optional: Add rounded corners */
+		}
+	
+		.social-links {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	
+		.social-link-team {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			gap: 10px;
+		}
+	
+		.social-link-team li {
+			background-color: #4CAF50; /* Green color */
+			border-radius: 50%; /* Circle shape */
+			padding: 10px;
+		}
+	
+		.social-link-team a {
+			color: #fff; /* White color */
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 18px;
+		}
+	</style>
+	
+</head>
 
-			<div class="container">
-				<a class="navbar-brand" href="index.html">Furni<span>.</span></a>
+<body>
 
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarsFurni">
-					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-						<li class="nav-item ">
-							<a class="nav-link" href="index.html">Home</a>
-						</li>
-						<li><a class="nav-link" href="shop.html">Shop</a></li>
-						<li class="active"><a class="nav-link" href="about.html">About us</a></li>
-						<li><a class="nav-link" href="services.html">Services</a></li>
-						<li><a class="nav-link" href="blog.html">Blog</a></li>
-						<li><a class="nav-link" href="contact.html">Contact us</a></li>
-					</ul>
-
-					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
-						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
-					</ul>
-				</div>
-			</div>
-				
-		</nav>
+	<!-- Start Header/Navigation -->
+	<%- include('../partials/userpartials/header.ejs') %>
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
-			<div class="hero">
-				<div class="container">
-					<div class="row justify-content-between">
-						<div class="col-lg-5">
-							<div class="intro-excerpt">
-								<h1>About Us</h1>
-								<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
-								<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
-							</div>
+		<div class="hero">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-5">
+						<div class="intro-excerpt">
+							<h1>About Us</h1>
+							<p class="mb-4">Welcome to Pet Station, where passion for pets meets unparalleled service! At [Your Pet Shop Name], we believe that pets are not just animals; they're cherished members of your family. Our journey began with a simple yet profound goal: to create a haven for pet enthusiasts and provide a one-stop destination for all their pet needs..</p>
+							<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
+									class="btn btn-white-outline">Explore</a></p>
 						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="images/couch.png" class="img-fluid">
-							</div>
+					</div>
+					<div class="col-lg-7">
+						<div class="hero-img-wrap">
+							<img src="/img/2.png" class="img-fluid">
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		<!-- End Hero Section -->
 
-		
+
 
 		<!-- Start Why Choose Us Section -->
 		<div class="why-choose-section">
 			<div class="container">
-				<div class="row justify-content-between align-items-center">
+				<div class="row justify-content-between">
 					<div class="col-lg-6">
 						<h2 class="section-title">Why Choose Us</h2>
-						<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+						<p>"We choose because our choices reflect our preferences, needs, and desires. When it comes to
+							selecting a pet from a pet shop, there are several factors that influence our choices. Some
+							of these factors include the type of pet we are looking for, our lifestyle, living
+							arrangements, and personal preferences.</p>
 
 						<div class="row my-5">
 							<div class="col-6 col-md-6">
 								<div class="feature">
 									<div class="icon">
-										<img src="images/truck.svg" alt="Image" class="imf-fluid">
+										<img src="/assets/images/truck.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Fast &amp; Free Shipping</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>At PET STATION, we understand that your pets are part of your family, and we want
+										to make shopping for their needs as convenient as possible. That's why we offer
+										lightning-fast and free shipping on all your pet essentials.</p>
 								</div>
 							</div>
 
 							<div class="col-6 col-md-6">
 								<div class="feature">
 									<div class="icon">
-										<img src="images/bag.svg" alt="Image" class="imf-fluid">
+										<img src="/assets/images/bag.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Easy to Shop</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>"Welcome to our pet shop, your one-stop destination for all your pet's needs!
+										Here at PET STATION, we offer a wide range of products and services to cater to
+										your furry, feathered, or scaly friends. Whether you're a proud pet parent or
+										just getting started, we have something for everyone.</p>
 								</div>
 							</div>
 
 							<div class="col-6 col-md-6">
 								<div class="feature">
 									<div class="icon">
-										<img src="images/support.svg" alt="Image" class="imf-fluid">
+										<img src="/assets/images/support.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>24/7 Support</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>At PET STATION, we understand that your pets are not just animals; they are
+										beloved members of your family. That's why we are proud to offer
+										round-the-clock, 24/7 support to ensure the well-being and happiness of your
+										furry, feathered, or scaled companions.</p>
 								</div>
 							</div>
 
 							<div class="col-6 col-md-6">
 								<div class="feature">
 									<div class="icon">
-										<img src="images/return.svg" alt="Image" class="imf-fluid">
+										<img src="/assets/images/return.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Hassle Free Returns</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>"At PET STATION, we are committed to ensuring that every pet you adopt from us is
+										a happy and healthy addition to your family. We understand that sometimes,
+										despite your best intentions and efforts, a pet may not be the right fit for
+										your home or lifestyle. That's why we offer a hassle-free return policy designed
+										to make the process as straightforward and stress-free as possible.</p>
 								</div>
 							</div>
 
@@ -135,7 +175,7 @@
 
 					<div class="col-lg-5">
 						<div class="img-wrap">
-							<img src="images/why-choose-us-img.jpg" alt="Image" class="img-fluid">
+							<img src="/img/Golden Retriever 🐶.jpeg" alt="Image" class="img-fluid">
 						</div>
 					</div>
 
@@ -144,78 +184,14 @@
 		</div>
 		<!-- End Why Choose Us Section -->
 
-		<!-- Start Team Section -->
-		<div class="untree_co-section">
-			<div class="container">
 
-				<div class="row mb-5">
-					<div class="col-lg-5 mx-auto text-center">
-						<h2 class="section-title">Our Team</h2>
-					</div>
-				</div>
 
-				<div class="row">
-
-					<!-- Start Column 1 -->
-					<div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
-						<img src="images/person_1.jpg" class="img-fluid mb-5">
-						<h3 clas><a href="#"><span class="">Lawson</span> Arnold</a></h3>
-            <span class="d-block position mb-4">CEO, Founder, Atty.</span>
-            <p>Separated they live in.
-            Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-            <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-					</div> 
-					<!-- End Column 1 -->
-
-					<!-- Start Column 2 -->
-					<div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
-						<img src="images/person_2.jpg" class="img-fluid mb-5">
-
-						<h3 clas><a href="#"><span class="">Jeremy</span> Walker</a></h3>
-            <span class="d-block position mb-4">CEO, Founder, Atty.</span>
-            <p>Separated they live in.
-            Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-            <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-
-					</div> 
-					<!-- End Column 2 -->
-
-					<!-- Start Column 3 -->
-					<div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
-						<img src="images/person_3.jpg" class="img-fluid mb-5">
-						<h3 clas><a href="#"><span class="">Patrik</span> White</a></h3>
-            <span class="d-block position mb-4">CEO, Founder, Atty.</span>
-            <p>Separated they live in.
-            Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-            <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-					</div> 
-					<!-- End Column 3 -->
-
-					<!-- Start Column 4 -->
-					<div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
-						<img src="images/person_4.jpg" class="img-fluid mb-5">
-
-						<h3 clas><a href="#"><span class="">Kathryn</span> Ryan</a></h3>
-            <span class="d-block position mb-4">CEO, Founder, Atty.</span>
-            <p>Separated they live in.
-            Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-            <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-
-          
-					</div> 
-					<!-- End Column 4 -->
-
-					
-
-				</div>
-			</div>
-		</div>
-		<!-- End Team Section -->
-
+		
 		
 
 		<!-- Start Testimonial Slider -->
-		<div class="testimonial-section before-footer-section">
+		<!-- Start Testimonial Slider -->
+		<div class="testimonial-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-7 mx-auto text-center">
@@ -233,196 +209,110 @@
 							</div>
 
 							<div class="testimonial-slider">
-								
+
+								<!-- Testimonial 1 -->
 								<div class="item">
 									<div class="row justify-content-center">
 										<div class="col-lg-8 mx-auto">
-
 											<div class="testimonial-block text-center">
 												<blockquote class="mb-5">
-													<p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+													<p>&ldquo;I can't thank PET STATION enough for helping me find my
+														perfect furry friend. Their selection of puppies is outstanding,
+														and the staff's knowledge and care made the process a breeze. My
+														Labrador, Max, is the joy of our family, and we owe it all to
+														this wonderful pet shop. We couldn't be happier with our
+														experience.&rdquo;</p>
 												</blockquote>
 
 												<div class="author-info">
 													<div class="author-pic">
-														<img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+														<img src="/assets/images/person-1.png" alt="Arya"
+															class="img-fluid">
 													</div>
-													<h3 class="font-weight-bold">Maria Jones</h3>
-													<span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+													<h3 class="font-weight-bold">Arya</h3>
+													<span class="position d-block mb-3">Social Activist.</span>
 												</div>
 											</div>
-
 										</div>
 									</div>
-								</div> 
+								</div>
 								<!-- END item -->
 
+								<!-- Testimonial 2 -->
 								<div class="item">
 									<div class="row justify-content-center">
 										<div class="col-lg-8 mx-auto">
-
 											<div class="testimonial-block text-center">
 												<blockquote class="mb-5">
-													<p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+													<p>&ldquo;As a cat lover, I'm over the moon with PET STATION. Their
+														range of charming feline companions is unparalleled. I found my
+														Siamese beauty, Luna, who has brought so much grace and joy into
+														my life. The staff's dedication and expertise are truly
+														remarkable. I highly recommend [Pet Shop Name] to all cat
+														enthusiasts!&rdquo;</p>
 												</blockquote>
 
 												<div class="author-info">
 													<div class="author-pic">
-														<img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+														<img src="/assets/images/person-2.png" alt="Ashik M.S"
+															class="img-fluid">
 													</div>
-													<h3 class="font-weight-bold">Maria Jones</h3>
-													<span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+													<h3 class="font-weight-bold">Ashik M.S</h3>
+													<span class="position d-block mb-3">Entrepreneur</span>
 												</div>
 											</div>
-
 										</div>
 									</div>
-								</div> 
+								</div>
 								<!-- END item -->
 
+								<!-- Testimonial 3 -->
 								<div class="item">
 									<div class="row justify-content-center">
 										<div class="col-lg-8 mx-auto">
-
 											<div class="testimonial-block text-center">
 												<blockquote class="mb-5">
-													<p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+													<p>&ldquo;PET STATION is a one-stop paradise for pet lovers. We
+														discovered our lovable hamster trio, Peanut, Jelly, and Butter,
+														here. The staff's advice on caring for these pint-sized pets was
+														invaluable. Our family adores these furry companions, and we are
+														grateful for the fantastic support we received at the pet
+														shop.&rdquo;</p>
 												</blockquote>
 
 												<div class="author-info">
 													<div class="author-pic">
-														<img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
+														<img src="/assets/images/person-3.png" alt="Neethu"
+															class="img-fluid">
 													</div>
-													<h3 class="font-weight-bold">Maria Jones</h3>
-													<span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+													<h3 class="font-weight-bold">Neethu</h3>
+													<span class="position d-block mb-3">Pet Lover</span>
 												</div>
 											</div>
-
 										</div>
 									</div>
-								</div> 
+								</div>
 								<!-- END item -->
 
 							</div>
+							<!-- End Testimonial Slider -->
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- End Testimonial Slider -->
 
-		
+		<!-- End Testimonial Section -->
 
 		<!-- Start Footer Section -->
-		<footer class="footer-section">
-			<div class="container relative">
-
-				<div class="sofa-img">
-					<img src="images/sofa.png" alt="Image" class="img-fluid">
-				</div>
-
-				<div class="row">
-					<div class="col-lg-8">
-						<div class="subscription-form">
-							<h3 class="d-flex align-items-center"><span class="me-1"><img src="images/envelope-outline.svg" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
-
-							<form action="#" class="row g-3">
-								<div class="col-auto">
-									<input type="text" class="form-control" placeholder="Enter your name">
-								</div>
-								<div class="col-auto">
-									<input type="email" class="form-control" placeholder="Enter your email">
-								</div>
-								<div class="col-auto">
-									<button class="btn btn-primary">
-										<span class="fa fa-paper-plane"></span>
-									</button>
-								</div>
-							</form>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="row g-5 mb-5">
-					<div class="col-lg-4">
-						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
-						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
-
-						<ul class="list-unstyled custom-social">
-							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
-						</ul>
-					</div>
-
-					<div class="col-lg-8">
-						<div class="row links-wrap">
-							<div class="col-6 col-sm-6 col-md-3">
-								<ul class="list-unstyled">
-									<li><a href="#">About us</a></li>
-									<li><a href="#">Services</a></li>
-									<li><a href="#">Blog</a></li>
-									<li><a href="#">Contact us</a></li>
-								</ul>
-							</div>
-
-							<div class="col-6 col-sm-6 col-md-3">
-								<ul class="list-unstyled">
-									<li><a href="#">Support</a></li>
-									<li><a href="#">Knowledge base</a></li>
-									<li><a href="#">Live chat</a></li>
-								</ul>
-							</div>
-
-							<div class="col-6 col-sm-6 col-md-3">
-								<ul class="list-unstyled">
-									<li><a href="#">Jobs</a></li>
-									<li><a href="#">Our team</a></li>
-									<li><a href="#">Leadership</a></li>
-									<li><a href="#">Privacy Policy</a></li>
-								</ul>
-							</div>
-
-							<div class="col-6 col-sm-6 col-md-3">
-								<ul class="list-unstyled">
-									<li><a href="#">Nordic Chair</a></li>
-									<li><a href="#">Kruzo Aero</a></li>
-									<li><a href="#">Ergonomic Chair</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="border-top copyright">
-					<div class="row pt-4">
-						<div class="col-lg-6">
-							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
-            </p>
-						</div>
-
-						<div class="col-lg-6 text-center text-lg-end">
-							<ul class="list-unstyled d-inline-flex ms-auto">
-								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-							</ul>
-						</div>
-
-					</div>
-				</div>
-
-			</div>
-		</footer>
-		<!-- End Footer Section -->	
+		<%- include('../partials/userpartials/footer.ejs') %>
+			<!-- End Footer Section -->
 
 
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/custom.js"></script>
-	</body>
+			<script src="/jsUT/bootstrap.bundle.min.js"></script>
+			<script src="/jsUT/tiny-slider.js"></script>
+			<script src="/jsUT/custom.js"></script>
+</body>
 
 </html>
