@@ -112,34 +112,37 @@
                   </div> <!-- /.service -->
                 </div>
               </div>
-
-              <form action="/contact" method="post" >
+              <form action="/contact" method="post" onsubmit="return validateForm()">
                 <div class="row">
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label class="text-black" for="fname">First name</label>
-                      <input type="text" class="form-control" id="fname" name="name" >
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="text-black" for="fname">First name</label>
+                            <input type="text" class="form-control" id="fname" name="name">
+                            <div id="fnameError" class="error-message"></div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label class="text-black" for="lname">Last name</label>
-                      <input type="text" class="form-control" name="lastname" id="lname">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="text-black" for="lname">Last name</label>
+                            <input type="text" class="form-control" name="lastname" id="lname">
+                            <div id="lnameError" class="error-message"></div>
+                        </div>
                     </div>
-                  </div>
                 </div>
                 <div class="form-group">
-                  <label class="text-black" for="email">Email address</label>
-                  <input type="email" class="form-control" name="email" id="email">
+                    <label class="text-black" for="email">Email address</label>
+                    <input type="email" class="form-control" name="email" id="email">
+                    <div id="emailError" class="error-message"></div>
                 </div>
-
+            
                 <div class="form-group mb-5">
-                  <label class="text-black" for="message">Message</label>
-                  <textarea name="message" class="form-control" id="message" cols="30" rows="5"></textarea>
+                    <label class="text-black" for="message">Message</label>
+                    <textarea name="message" class="form-control" id="message" cols="30" rows="5"></textarea>
+                    <div id="messageError" class="error-message"></div>
                 </div>
-
+            
                 <button type="submit" class="btn btn-primary-hover-outline">Send Message</button>
-              </form>
+            </form>
 
             </div>
 
@@ -182,4 +185,48 @@
 		<script src="/jsUT/custom.js"></script>
 	</body>
 
+  <script>
+    function validateForm() {
+        var fname = document.getElementById("fname").value;
+        var lname = document.getElementById("lname").value;
+        var email = document.getElementById("email").value;
+        var message = document.getElementById("message").value;
+
+        // Reset previous error messages
+        document.getElementById("fnameError").innerHTML = "";
+        document.getElementById("lnameError").innerHTML = "";
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("messageError").innerHTML = "";
+
+        // Validate first name (only letters and spaces)
+        var nameRegex = /^[a-zA-Z ]+$/;
+        if (!nameRegex.test(fname)) {
+            document.getElementById("fnameError").innerHTML = "First name should only contain letters and spaces.";
+            return false;
+        }
+
+        // Validate last name (only letters and spaces)
+        if (!nameRegex.test(lname)) {
+            document.getElementById("lnameError").innerHTML = "Last name should only contain letters and spaces.";
+            return false;
+        }
+
+        // Validate email
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            document.getElementById("emailError").innerHTML = "Invalid email address.";
+            return false;
+        }
+
+        // Validate message length
+        if (message.trim().length === 0) {
+            document.getElementById("messageError").innerHTML = "Message cannot be empty.";
+            return false;
+        }
+
+        // Additional validation logic can be added here
+
+        return true;
+    }
+</script>
 </html>

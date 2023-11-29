@@ -8,7 +8,7 @@ const usersession =async (req, res, next) => {
     const userId = req.session.userId ? req.session.userId.toString() : null;
     if (userId) {
       const check = await UserCollection.findOne({ _id: userId });
-      console.log('User Check:', check);
+   
  
       if (check && check.blockStatus === false) {
         next();

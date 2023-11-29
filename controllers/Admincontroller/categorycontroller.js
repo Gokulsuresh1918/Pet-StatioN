@@ -1,11 +1,4 @@
-const { adminCollection } = require("../../model/adminDB");
-const { UserCollection } = require("../../model/userDB");
 const { categoryCollection } = require("../../model/categoryDB");
-const { productCollection } = require("../../model/productDB");
-const { orderCollection } = require("../../model/orderDB");
-const { contactCollection } = require("../../model/contactDB");
-const mongoose = require("mongoose")
-const multer = require('multer')
 const path = require('path');
 const { log } = require("console");
 
@@ -41,7 +34,6 @@ exports.categorypost = async (req, res) => {
             categoryname: req.body.categoryname,
             description: req.body.description,
         };
-        console.log(categorydata);
         const a = categorydata.categoryname;
         const existingCategory = await categoryCollection.findOne({ a: { $regex: new RegExp('^' + categorydata.categoryname + '$', 'i') } });
 
@@ -97,7 +89,6 @@ exports.editcategoryPost = async (req, res) => {
         description: req.body.description,
 
     };
-    console.log(categorydetails);
     await categoryCollection.updateOne({ _id: categoryid }, { $set: categorydetails }, { upsert: true })
     res.redirect('/admin/Categorydetails');
 };
@@ -110,9 +101,7 @@ exports.editcategoryPost = async (req, res) => {
 exports.blockcategory = async (req, res) => {
     try {
         const categoryid = req.params._id
-        // console.log(categoryid);
         const category = await categoryCollection.findById({ _id: categoryid })
-        // console.log('category.blockStatus', category.blockStatus);
         category.blockStatus = !category.blockStatus
 
         await category.save()

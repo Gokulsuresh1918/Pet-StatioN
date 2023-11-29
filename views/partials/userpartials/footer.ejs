@@ -5,29 +5,26 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="subscription-form">
-
-
-                    <form action="/contact" method="post"  class="row g-3">
+                    <form action="/contact" method="post" onsubmit="return validateForm()" class="row g-3" name="contactForm">
                         <div class="col-auto">
-                            <input type="text" class="form-control" name="name" placeholder="Enter your name">
+                            <input type="text" class="form-control" name="name" placeholder="Enter your name" required>
                         </div>
                         <div class="col-auto">
-                            <input type="email" class="form-control" name="email" placeholder="Enter your email">
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
                         </div>
                         <div class="col-auto">
                             <button class="btn btn-primary">
-                                <span class="fa fa-paper-plane"></span>
+                                <span class="fa fa-paper-plane"></span> Submit
                             </button>
                         </div>
                         <div class="form-group mb-5">
-                           
-                            <textarea name="message" class="form-control" id="message" cols="10" rows="3" placeholder="Enter your Valuable Message here" ></textarea>
-                          </div>
+                            <textarea name="message" class="form-control" id="message" cols="10" rows="3" placeholder="Enter your Valuable Message here" required></textarea>
+                        </div>
                     </form>
-
                 </div>
             </div>
         </div>
+        
 
         <div class="row g-5 mb-5">
             <div class="col-lg-4">
@@ -109,3 +106,27 @@
         
     </div>
 </footer>
+<script>
+    function validateForm() {
+        var name = document.forms["contactForm"]["name"].value;
+        var message = document.forms["contactForm"]["message"].value;
+
+        // Validate name (no numbers or special characters)
+        var nameRegex = /^[a-zA-Z ]+$/;
+        if (!nameRegex.test(name)) {
+            alert("Name should only contain letters and spaces.");
+            return false;
+        }
+
+        // Validate message (no numbers or special characters)
+        var messageRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+        if (!messageRegex.test(message)) {
+            alert("Message should only contain letters and basic punctuation.");
+            return false;
+        }
+
+        // Additional validation logic can be added here
+
+        return true;
+    }
+</script>

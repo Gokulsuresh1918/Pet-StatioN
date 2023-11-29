@@ -1,44 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-// Importing controller functions
-const {
-  loginGet,
-  loginPost,
-  logoutuser,
-  resendotpget,
-  forgetpass,
-  forgetpasspost,
-  addressremove,
-  signupGet,
-  signupPost,
-  addcartpost,
-  clearcartget,
-  checkoutaddress,
-  homeGet,
-  otpGet,
-  addressGet,
-  addresspost,
-  confirmationget,
-  confirmationpost,
-  editaddressGet,
-  addaddressGet,
-  checkoutget,
-  addaddresspost,
-  editaddresspost,
-  removeItem,
-  profileGet,
-  otppost,
-  shopget,
-  cartGet,
-  resendpost,
-  productView,
-  ordersget,
-  contactGet,
-  aboutget,
-  contactpost,
-} = require('../controllers/UserController');
 
+const { homeGet, contactGet, contactpost, aboutget } = require('../controllers/Usercontroller/authenticationcontroller')
+const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
+const { shopget, productView } = require('../controllers/Usercontroller/shop&productcontroller')
+const { cartGet, addcartpost, clearcartget, removeItem } = require('../controllers/Usercontroller/cartcontroller')
+const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost } = require('../controllers/Usercontroller/checkoutcontroller')
+const { profileGet, addressGet, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget }=require('../controllers/Usercontroller/profilecontroller')
+const{forgetpass,forgetpasspost,resendpost,otpGet,otppost,resendotpget}=require('../controllers/Usercontroller/otp&passcontroller')
 // Importing middleware functions
 const { usersession } = require('../middleware/userAuth');
 
@@ -49,10 +19,7 @@ router.get('/signup', signupGet);
 router.post('/signup', signupPost);
 router.get('/logoutuser', logoutuser);
 
-// OTP-related routes
-router.get('/otppage', otpGet);
-router.post('/otppage', otppost);
-router.get('/resendotp', resendotpget);
+
 
 // Authenticated routes
 router.get('/home', homeGet);
@@ -62,14 +29,17 @@ router.get('/about', aboutget);
 
 // Shop and Product routes
 router.get('/shop', shopget);
-router.get('/cart', usersession, cartGet);
 router.get('/productview/:id', usersession, productView);
+
+
 
 // Cart routes
 router.get('/cart', usersession, cartGet);
 router.post('/addcart', usersession, addcartpost);
 router.get('/clearcart', usersession, clearcartget);
 router.delete('/removeItem/:productId', usersession, removeItem);
+
+
 
 // Checkout routes
 router.get('/checkout', usersession, checkoutget);
@@ -86,12 +56,15 @@ router.get('/add-address', usersession, addaddressGet);
 router.post('/add-address', usersession, addaddresspost);
 router.get('/edit-address/:id', usersession, editaddressGet);
 router.post('/edit-address', usersession, editaddresspost);
-
 router.get('/orders', usersession, ordersget);
+
 
 // Password-related routes
 router.get('/forgetpass', usersession, forgetpass);
 router.post('/forgetpass', usersession, forgetpasspost);
 router.post('/resendotp', usersession, resendpost);
+router.get('/otppage', otpGet);
+router.post('/otppage', otppost);
+router.get('/resendotp', resendotpget);
 
 module.exports = router;

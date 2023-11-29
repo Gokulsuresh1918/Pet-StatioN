@@ -1,11 +1,4 @@
 const { adminCollection } = require("../../model/adminDB");
-const { UserCollection } = require("../../model/userDB");
-const { categoryCollection } = require("../../model/categoryDB");
-const { productCollection } = require("../../model/productDB");
-const { orderCollection } = require("../../model/orderDB");
-const { contactCollection } = require("../../model/contactDB");
-const mongoose = require("mongoose")
-const multer = require('multer')
 const path = require('path');
 const { log } = require("console");
 
@@ -36,7 +29,7 @@ exports.loginPost = async (req, res) => {
     try {
         const { username, password } = req.body
         const admindata = await adminCollection.findOne()
-        console.log(admindata);
+  
         if (admindata.name == username && admindata.password == password) {
 
             let admin = false
@@ -57,7 +50,7 @@ exports.loginPost = async (req, res) => {
 
 //LogoutGet------------
 exports.logoutGet = (req, res) => {
-    console.log('logout', req.session.adminID);
+ 
     if (req.session.adminID) {
 
         req.session.destroy((err) => {
@@ -71,8 +64,6 @@ exports.logoutGet = (req, res) => {
     } else {
         res.redirect('/admin/admin');
     }
-
-
 };
 
 

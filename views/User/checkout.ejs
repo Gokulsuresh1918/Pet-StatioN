@@ -171,44 +171,51 @@
             <div class="popup-content">
               <span class="close" onclick="closePopup()">&times;</span>
               <h2>Add New Address</h2>
-              <form id="addressForm" action="/checkoutaddress" class="horizontal-form" method="POST">
+              <form id="addressForm" action="/checkoutaddress" class="horizontal-form" method="POST" onsubmit="return validateForm()">
                 <div class="form-group">
-                  <label for="name" class="form-label">Name:</label>
-                  <input type="text" class="form-control" name="name" required>
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div id="nameError" class="error-message"></div>
                 </div>
-
+            
                 <div class="form-group">
-                  <label for="homeaddress" class="form-label">Address:</label>
-                  <input type="text" class="form-control" name="homeaddress" required>
+                    <label for="homeaddress" class="form-label">Address:</label>
+                    <input type="text" class="form-control" id="homeaddress" name="homeaddress" required>
+                    <div id="homeaddressError" class="error-message"></div>
                 </div>
-
+            
                 <div class="form-group">
-                  <label for="district" class="form-label">District:</label>
-                  <input type="text" class="form-control" name="district" required>
+                    <label for="district" class="form-label">District:</label>
+                    <input type="text" class="form-control" id="district" name="district" required>
+                    <div id="districtError" class="error-message"></div>
                 </div>
-
+            
                 <div class="form-group">
-                  <label for="pincode" class="form-label">Pincode:</label>
-                  <input type="number" class="form-control" name="pincode" required>
+                    <label for="pincode" class="form-label">Pincode:</label>
+                    <input type="number" class="form-control" id="pincode" name="pincode" required>
+                    <div id="pincodeError" class="error-message"></div>
                 </div>
-
+            
                 <div class="form-group">
-                  <label for="phone" class="form-label">Phone:</label>
-                  <input type="number" class="form-control" name="phone" required>
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input type="number" class="form-control" id="phone" name="phone" required>
+                    <div id="phoneError" class="error-message"></div>
                 </div>
-
+            
                 <div class="form-group">
-                  <label for="email" class="form-label">E-mail:</label>
-                  <input type="email" class="form-control" name="email" required>
+                    <label for="email" class="form-label">E-mail:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div id="emailError" class="error-message"></div>
                 </div>
-
+            
                 <div class="form-group">
-                  <label for="state" class="form-label">State:</label>
-                  <input type="text" class="form-control" name="state" required>
+                    <label for="state" class="form-label">State:</label>
+                    <input type="text" class="form-control" id="state" name="state" required>
+                    <div id="stateError" class="error-message"></div>
                 </div>
-
+            
                 <button type="submit">Submit</button>
-              </form>
+            </form>
             </div>
           </div>
 
@@ -485,6 +492,80 @@
               });
           }
         </script>
+        
+<script>
+  function validateForm() {
+      var name = document.getElementById("name").value;
+      var homeaddress = document.getElementById("homeaddress").value;
+      var district = document.getElementById("district").value;
+      var pincode = document.getElementById("pincode").value;
+      var phone = document.getElementById("phone").value;
+      var email = document.getElementById("email").value;
+      var state = document.getElementById("state").value;
+
+      // Reset previous error messages
+      document.getElementById("nameError").innerHTML = "";
+      document.getElementById("homeaddressError").innerHTML = "";
+      document.getElementById("districtError").innerHTML = "";
+      document.getElementById("pincodeError").innerHTML = "";
+      document.getElementById("phoneError").innerHTML = "";
+      document.getElementById("emailError").innerHTML = "";
+      document.getElementById("stateError").innerHTML = "";
+
+      // Validate name (only letters and spaces)
+      var nameRegex = /^[a-zA-Z ]+$/;
+      if (!nameRegex.test(name)) {
+          document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
+          return false;
+      }
+
+      // Validate address (optional: letters, numbers, and spaces)
+      var addressRegex = /^[a-zA-Z0-9 ]*$/;
+      if (!addressRegex.test(homeaddress)) {
+          document.getElementById("homeaddressError").innerHTML = "Address should only contain letters, numbers, and spaces.";
+          return false;
+      }
+
+      // Validate district (only letters)
+      var districtRegex = /^[a-zA-Z]+$/;
+      if (!districtRegex.test(district)) {
+          document.getElementById("districtError").innerHTML = "District should only contain letters.";
+          return false;
+      }
+
+      // Validate pincode (5-digit number)
+      var pincodeRegex = /^\d{5}$/;
+      if (!pincodeRegex.test(pincode)) {
+          document.getElementById("pincodeError").innerHTML = "Pincode should be a 5-digit number.";
+          return false;
+      }
+
+      // Validate phone (10-digit number)
+      var phoneRegex = /^\d{10}$/;
+      if (!phoneRegex.test(phone)) {
+          document.getElementById("phoneError").innerHTML = "Phone should be a 10-digit number.";
+          return false;
+      }
+
+      // Validate email
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+          document.getElementById("emailError").innerHTML = "Invalid email address.";
+          return false;
+      }
+
+      // Validate state (only letters)
+      var stateRegex = /^[a-zA-Z]+$/;
+      if (!stateRegex.test(state)) {
+          document.getElementById("stateError").innerHTML = "State should only contain letters.";
+          return false;
+      }
+
+      // Additional validation logic can be added here
+
+      return true;
+  }
+</script>
 </body>
 
 </html>

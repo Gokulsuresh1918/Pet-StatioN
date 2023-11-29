@@ -60,24 +60,20 @@
                               <strong style="color: red;"><%= message %> </strong>
                             </div>
                           <% } %> 
-                          <form action="/admin/Categorydetails" method="post">
-                           
-                         
+                          <form action="/admin/Categorydetails" method="post" onsubmit="return validateForm()">
                             <div class="mb-3">
-                              <label for="categoryName" class="form-label">category Name:</label>
-                              <input type="text" class="form-control" id="categoryname" name="categoryname" required>
+                                <label for="categoryName" class="form-label">Category Name:</label>
+                                <input type="text" class="form-control" id="categoryname" name="categoryname" required>
+                                <div id="categoryNameError" class="error-message"></div>
                             </div>
                             <div class="mb-3">
-                              <label for="description" class="form-label">Description:</label>
-                              <input class="form-control " id="description" name="description" required type="text">
-                              
+                                <label for="description" class="form-label">Description:</label>
+                                <input class="form-control" id="description" name="description" required type="text">
+                                <div id="descriptionError" class="error-message"></div>
                             </div>
-                       
-                            
-                           <p></p>
-                            
+                            <p></p>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
-                          </form>
+                        </form>
                         </div>
                       </div>
                   
@@ -98,7 +94,34 @@
   </body>
 
 
- 
+  <script>
+    function validateForm() {
+        var categoryName = document.getElementById("categoryname").value;
+        var description = document.getElementById("description").value;
+
+        // Reset previous error messages
+        document.getElementById("categoryNameError").innerHTML = "";
+        document.getElementById("descriptionError").innerHTML = "";
+
+        // Validate category name (only letters and spaces)
+        var nameRegex = /^[a-zA-Z ]+$/;
+        if (!nameRegex.test(categoryName)) {
+            document.getElementById("categoryNameError").innerHTML = "Category name should only contain letters and spaces.";
+            return false;
+        }
+
+        // Validate description (only letters and basic punctuation)
+        var descriptionRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+        if (!descriptionRegex.test(description)) {
+            document.getElementById("descriptionError").innerHTML = "Description should only contain letters and basic punctuation.";
+            return false;
+        }
+
+        // Additional validation logic can be added here
+
+        return true;
+    }
+</scripT>
 
 
 </html>

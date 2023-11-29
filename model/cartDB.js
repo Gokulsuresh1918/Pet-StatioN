@@ -6,14 +6,17 @@ const cartschema = new mongoose.Schema({
       type: String,
       required: true
    },
-   productId:[{
-      type: String,
-      required: true
+   products:[{
+      quantity:{
+         type: String,
+         required: true
+      },
+      productId:{
+         type:mongoose.Schema.Types.ObjectId,
+         required:true
+      }
    }],
-   quantity:[{
-      type: String,
-      required: true
-   }],
+ 
    subtotal:{
       type: String,
       required: true

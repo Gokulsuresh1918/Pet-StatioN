@@ -1,11 +1,8 @@
-const { adminCollection } = require("../../model/adminDB");
-const { UserCollection } = require("../../model/userDB");
+
 const { categoryCollection } = require("../../model/categoryDB");
 const { productCollection } = require("../../model/productDB");
-const { orderCollection } = require("../../model/orderDB");
-const { contactCollection } = require("../../model/contactDB");
+
 const mongoose = require("mongoose")
-const multer = require('multer')
 const path = require('path');
 const { log } = require("console");
 
@@ -24,11 +21,9 @@ exports.productGet = async (req, res) => {
 exports.imagedelete = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id); // Log the value to check its format
 
         // Convert id to a valid ObjectId
         const validId = new mongoose.Types.ObjectId(id);
-        console.log("validid", validId);
         const productData = await productCollection.findByIdAndUpdate(
             { _id: id },
             { $pull: { image: req.params.image } },
@@ -83,11 +78,9 @@ exports.productaddpost = async (req, res, next) => {
 exports.editproductGet = async (req, res) => {
     try {
         const id = req.params.id
-        console.log(id);
         const productdata = await productCollection.findById(id)
         const categoryoption = await categoryCollection.find()
 
-        console.log(productdata);
 
         res.render('Admin/productedit', { productdata, categoryoption })
     } catch (error) {
@@ -108,7 +101,7 @@ exports.editproductpost = async (req, res) => {
             price: req.body.price,
             qty: req.body.qty,
         };
-        console.log(updatedData);
+   
 
 
         await productCollection.findByIdAndUpdate(id, updatedData);

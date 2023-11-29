@@ -47,67 +47,63 @@
                                     </div>
                                     <!-- Table Section -->
                                     <div class="table-responsive">
-                                        <form action="/admin/productedit/<%=productdata.id%>" method="post"
-                                            enctype="multipart/form-data">
+                                        <form action="/admin/productedit/<%=productdata.id%>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                                             <div class="row">
                                                 <!-- Left Column -->
                                                 <div class="col-md-6">
-
                                                     <div class="form-group">
                                                         <label for="name" class="form-label">Name</label>
-                                                        <input type="text" value="<%= productdata.name %>"
-                                                            class="form-control" name="name" required>
+                                                        <input type="text" value="<%= productdata.name %>" class="form-control" id="name" name="name" required>
+                                                        <div id="nameError" class="error-message"></div>
                                                     </div>
-
+                                        
                                                     <!-- Category Dropdown -->
                                                     <div class="mb-3">
-                                                        <label for="categoryName" class="form-label">Category
-                                                            Name:</label>
-                                                        <select class="form-select" id="categoryname"
-                                                            name="categoryname" required>
+                                                        <label for="categoryName" class="form-label">Category Name:</label>
+                                                        <select class="form-select" id="categoryname" name="categoryname" required>
                                                             <% categoryoption.forEach((item)=> { %>
-                                                                <option value="<%=item.categoryname%>">
-                                                                    <%=item.categoryname%>
-                                                                </option>
-                                                                <% }) %>
+                                                            <option value="<%=item.categoryname%>">
+                                                                <%=item.categoryname%>
+                                                            </option>
+                                                            <% }) %>
                                                         </select>
+                                                        <div id="categoryNameError" class="error-message"></div>
                                                     </div>
+                                        
                                                     <!-- Image Display and Delete -->
                                                     <div style="display: flex; margin-top: 20px">
                                                         <% productdata.image.forEach(element=> { %>
-
-
-                                                            <div style="position: relative">
-                                                                <img class="img-fluid" style="width: 90px; margin: 10px"
-                                                                    src="/MulterUploads/<%=element %>"
-                                                                    alt="" />
-                                                                <a style="position: absolute; top: 0; right: 0; color: red"
-                                                                    class="fas fa-times "
-                                                                    href="/admin/<%= element %>/<%= productdata.id %>"></a>
-                                                            </div>
-
-                                                            <% }) %>
+                                                        <div style="position: relative">
+                                                            <img class="img-fluid" style="width: 90px; margin: 10px" src="/MulterUploads/<%=element %>" alt="" />
+                                                            <a style="position: absolute; top: 0; right: 0; color: red" class="fas fa-times "
+                                                                href="/admin/<%= element %>/<%= productdata.id %>"></a>
+                                                        </div>
+                                                        <% }) %>
                                                     </div>
                                                 </div>
+                                        
                                                 <!-- Right Column -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="description" class="form-label">Description:</label>
-                                                        <input type="text" value="<%=productdata.description%>"
-                                                            class="form-control" name="description" required>
+                                                        <input type="text" value="<%=productdata.description%>" class="form-control" id="description"
+                                                            name="description" required>
+                                                        <div id="descriptionError" class="error-message"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="price" class="form-label">Price:</label>
-                                                        <input type="number" value="<%=productdata.price%>"
-                                                            class="form-control" name="price" required>
+                                                        <input type="number" value="<%=productdata.price%>" class="form-control" id="price" name="price"
+                                                            required>
+                                                        <div id="priceError" class="error-message"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="qty" class="form-label">Qty:</label>
-                                                        <input type="number" value="<%=productdata.qty%>"
-                                                            class="form-control" name="qty" required>
+                                                        <input type="number" value="<%=productdata.qty%>" class="form-control" id="qty" name="qty" required>
+                                                        <div id="qtyError" class="error-message"></div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        
                                             <!-- Save Changes Button -->
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
                                         </form>
@@ -120,4 +116,48 @@
         </main>
 </body>
 
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var description = document.getElementById("description").value;
+        var price = document.getElementById("price").value;
+        var qty = document.getElementById("qty").value;
+
+        // Reset previous error messages
+        document.getElementById("nameError").innerHTML = "";
+        document.getElementById("descriptionError").innerHTML = "";
+        document.getElementById("priceError").innerHTML = "";
+        document.getElementById("qtyError").innerHTML = "";
+
+        // Validate name (only letters and spaces)
+        var nameRegex = /^[a-zA-Z ]+$/;
+        if (!nameRegex.test(name)) {
+            document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
+            return false;
+        }
+
+        // Validate description (only letters and basic punctuation)
+        var descriptionRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+        if (!descriptionRegex.test(description)) {
+            document.getElementById("descriptionError").innerHTML = "Description should only contain letters and basic punctuation.";
+            return false;
+        }
+
+        // Validate price (positive number)
+        if (isNaN(price) || price <= 0) {
+            document.getElementById("priceError").innerHTML = "Price should be a positive number.";
+            return false;
+        }
+
+        // Validate qty (positive integer)
+        if (!Number.isInteger(Number(qty)) || qty <= 0) {
+            document.getElementById("qtyError").innerHTML = "Quantity should be a positive integer.";
+            return false;
+        }
+
+        // Additional validation logic can be added here
+
+        return true;
+    }
+</script>
 </html>

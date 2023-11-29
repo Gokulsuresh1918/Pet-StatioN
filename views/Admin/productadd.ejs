@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +39,7 @@
         <!-- End Navbar -->
 
         <div class="row mb-4">
-          
+
           <div class="row mb-4">
             <div class="col-12 grid-margin">
               <div class="card">
@@ -51,50 +50,52 @@
                     </div>
                   </div>
                   <div class="table-responsive">
-                    
-<form action="/admin/productadd" method="post" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="name" class="form-label">Name:</label>
-                <input type="text"  class="form-control" name="name" required>
-                
-            </div>
-            <div class="mb-3">
-              <label for="category" class="form-label">Category Name:</label>
-              <select class="form-select" id="category" name="category" required>
-                <% categoryoption.forEach((item )=> {%>
-               
-                  <option value="<%=item.categoryname%>"><%=item.categoryname%></option>
-                
-                 
-                <%})%>
-              </select>
-          </div>
-            <div class="form-group">
-              <label for="image" class="form-label">Image:</label>
-              <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png, .gif" required multiple>
-          </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="description" class="form-label">Description:</label>
-                <input type="text" class="form-control" name="description" required>
-            </div>
-            <div class="form-group">
-                <label for="price" class="form-label">Price:</label>
-                <input type="number"  class="form-control"  name="price" required>
-            </div>
-            <div class="form-group">
-                <label for="qty" class="form-label">Qty:</label>
-                <input type="number"  class="form-control" name="qty" required>
-            </div>
-        </div>
-    </div>
-    <!-- New image upload field -->
-    
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+                    <form action="/admin/productadd" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="name" class="form-label">Name:</label>
+                                  <input type="text" class="form-control" id="name" name="name" required>
+                                  <div id="nameError" class="error-message"></div>
+                              </div>
+                              <div class="mb-3">
+                                  <label for="category" class="form-label">Category Name:</label>
+                                  <select class="form-select" id="category" name="category" required>
+                                      <% categoryoption.forEach((item )=> { %>
+                                      <option value="<%= item.categoryname %>">
+                                          <%= item.categoryname %>
+                                      </option>
+                                      <% }) %>
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                  <label for="image" class="form-label">Image:</label>
+                                  <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png, .gif"
+                                      required multiple>
+                                  <div id="imageError" class="error-message"></div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="description" class="form-label">Description:</label>
+                                  <input type="text" class="form-control" id="description" name="description" required>
+                                  <div id="descriptionError" class="error-message"></div>
+                              </div>
+                              <div class="form-group">
+                                  <label for="price" class="form-label">Price:</label>
+                                  <input type="number" class="form-control" id="price" name="price" required>
+                                  <div id="priceError" class="error-message"></div>
+                              </div>
+                              <div class="form-group">
+                                  <label for="qty" class="form-label">Qty:</label>
+                                  <input type="number" class="form-control" id="qty" name="qty" required>
+                                  <div id="qtyError" class="error-message"></div>
+                              </div>
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </form>
+                  
                   </div>
                 </div>
               </div>
@@ -107,7 +108,56 @@
     </main>
 </body>
 
+<script>
+  function validateForm() {
+      var name = document.getElementById("name").value;
+      var description = document.getElementById("description").value;
+      var price = document.getElementById("price").value;
+      var qty = document.getElementById("qty").value;
+      var image = document.getElementById("image").value;
+
+      // Reset previous error messages
+      document.getElementById("nameError").innerHTML = "";
+      document.getElementById("descriptionError").innerHTML = "";
+      document.getElementById("priceError").innerHTML = "";
+      document.getElementById("qtyError").innerHTML = "";
+      document.getElementById("imageError").innerHTML = "";
+
+      // Validate name (only letters and spaces)
+      var nameRegex = /^[a-zA-Z ]+$/;
+      if (!nameRegex.test(name)) {
+          document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
+          return false;
+      }
+
+      // Validate description (only letters and basic punctuation)
+      var descriptionRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+      if (!descriptionRegex.test(description)) {
+          document.getElementById("descriptionError").innerHTML = "Description should only contain letters and basic punctuation.";
+          return false;
+      }
+
+      // Validate price (positive number)
+      if (isNaN(price) || price <= 0) {
+          document.getElementById("priceError").innerHTML = "Price should be a positive number.";
+          return false;
+      }
+
+      // Validate qty (positive integer)
+      if (!Number.isInteger(Number(qty)) || qty <= 0) {
+          document.getElementById("qtyError").innerHTML = "Quantity should be a positive integer.";
+          return false;
+      }
+
+      // Validate image (optional: check if file is selected)
+      if (!image) {
+          document.getElementById("imageError").innerHTML = "Please select an image.";
+          return false;
+      }
+
+      // Additional validation logic can be added here
+
+      return true;
+  }
+</script>
 </html>
-
-
-
