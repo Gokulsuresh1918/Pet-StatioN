@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
   <!-- Required meta tags -->
@@ -72,9 +72,9 @@
                 <tbody>
                   <% let subtotal=0 %>
                     <% if (cartdetails !==null) { %>
-                      <% cartdetails.productId.forEach((id, index)=> { %>
+                      <% cartdetails.products.forEach((prod, index)=> { %>
                         <% let total=0 %>
-                          <% const product=productdetails.find(item=> item._id.equals(id)); %>
+                          <% const product=productdetails.find(item=> item._id.equals(prod.productId)); %>
                             <tr>
                               <td>
                                 <div class="media">
@@ -96,10 +96,10 @@
                               </td>
                               <td>
                                 <h6>
-                                  <%= cartdetails.quantity[index] %>
+                                  <%= prod.quantity %>
                                 </h6>
                               </td>
-                              <% const pricetotal=Number(product.price) * Number(cartdetails.quantity[index]) %>
+                              <% const pricetotal=Number(product.price) * Number(prod.quantity) %>
                                 <td>
                                   <h5>
                                     <%= pricetotal %>

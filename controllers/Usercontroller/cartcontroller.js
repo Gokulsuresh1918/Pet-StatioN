@@ -33,23 +33,41 @@ exports.addcartpost = async (req, res) => {
             const qty = req.body.quantity;
             let productPrice = await productCollection.findOne({ _id: productId }, { _id: 0, price: 1 });
 
-            const existingProduct = await cartCollection.findOne({ userId: user, productId: productId });
-            console.log(existingProduct);
-            if (!existingProduct) {
+            const cart = await cartCollection.findOne({ userId: user });
+            if(!cart){
                 productPrice = productPrice.price;
-                let subtotal = productPrice * qty;
-                await cartCollection.insertMany([{ userId: user, subtotal: subtotal }]);
-                await cartCollection.updateOne({ userId: user }, { $push: { productId: productId, quantity: qty } })
+                let subtotal = productPrice * parseInt(qty);
+                console.log("data chrck"+productPrice,subtotal,user);
+                let cart= {
+                    userId: user,
+                 products:[{
+                    quantity:qty,
+                    productId:productId
+                 }],
+                 subtotal:subtotal
+                }
+                await cartCollection.insertMany(cart);
+            }else{
+
+            const existingProduct = cart.products.findIndex((item) => item.productId.equals(productId))
+            console.log("index fo "+existingProduct);
+            if (existingProduct==-1 ) {
+               cart.products.push(
+                {
+                    quantity:qty,
+                    productId:productId
+                 }
+               )
+                await cart.save()
             } else {
                 // parseInt is used here because here in my schema i use quantity as string
-                const updatedQuantity = parseInt(existingProduct.quantity[0]) + parseInt(qty);
 
-                await cartCollection.findOneAndUpdate(
-                    { userId: user, productId: productId },
-                    { $set: { quantity: updatedQuantity } },
-                    { upsert: true }
-                );
+                cart.products[existingProduct].quantity+=parseInt(qty)
+               await cart.save()
+
+               console.log("THeis is cart"+cart);
             }
+        }
 
         } else {
             res.json({ message: "noUser" });

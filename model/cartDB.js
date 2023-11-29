@@ -3,12 +3,12 @@ const mongoose = require('mongoose')
 
 const cartschema = new mongoose.Schema({
   userId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true
    },
    products:[{
       quantity:{
-         type: String,
+         type: Number,
          required: true
       },
       productId:{
@@ -18,7 +18,7 @@ const cartschema = new mongoose.Schema({
    }],
  
    subtotal:{
-      type: String,
+      type: Number,
       required: true
    }
 });

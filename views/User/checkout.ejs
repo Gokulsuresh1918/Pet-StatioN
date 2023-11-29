@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
   <!-- Required meta tags -->
@@ -147,7 +147,7 @@
                 <div class="row justify-content-between">
                   <div class="col-lg-5">
                     <div class="intro-excerpt">
-                      <h1>CART </h1>
+                      <h1>Checkout </h1>
                     </div>
                   </div>
                   <div class="col-lg-7">
@@ -171,51 +171,52 @@
             <div class="popup-content">
               <span class="close" onclick="closePopup()">&times;</span>
               <h2>Add New Address</h2>
-              <form id="addressForm" action="/checkoutaddress" class="horizontal-form" method="POST" onsubmit="return validateForm()">
+              <form id="addressForm" action="/checkoutaddress" class="horizontal-form" method="POST"
+                onsubmit="return validateForm()">
                 <div class="form-group">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                    <div id="nameError" class="error-message"></div>
+                  <label for="name" class="form-label">Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" required>
+                  <div id="nameError" class="error-message"></div>
                 </div>
-            
+
                 <div class="form-group">
-                    <label for="homeaddress" class="form-label">Address:</label>
-                    <input type="text" class="form-control" id="homeaddress" name="homeaddress" required>
-                    <div id="homeaddressError" class="error-message"></div>
+                  <label for="homeaddress" class="form-label">Address:</label>
+                  <input type="text" class="form-control" id="homeaddress" name="homeaddress" required>
+                  <div id="homeaddressError" class="error-message"></div>
                 </div>
-            
+
                 <div class="form-group">
-                    <label for="district" class="form-label">District:</label>
-                    <input type="text" class="form-control" id="district" name="district" required>
-                    <div id="districtError" class="error-message"></div>
+                  <label for="district" class="form-label">District:</label>
+                  <input type="text" class="form-control" id="district" name="district" required>
+                  <div id="districtError" class="error-message"></div>
                 </div>
-            
+
                 <div class="form-group">
-                    <label for="pincode" class="form-label">Pincode:</label>
-                    <input type="number" class="form-control" id="pincode" name="pincode" required>
-                    <div id="pincodeError" class="error-message"></div>
+                  <label for="pincode" class="form-label">Pincode:</label>
+                  <input type="number" class="form-control" id="pincode" name="pincode" required>
+                  <div id="pincodeError" class="error-message"></div>
                 </div>
-            
+
                 <div class="form-group">
-                    <label for="phone" class="form-label">Phone:</label>
-                    <input type="number" class="form-control" id="phone" name="phone" required>
-                    <div id="phoneError" class="error-message"></div>
+                  <label for="phone" class="form-label">Phone:</label>
+                  <input type="number" class="form-control" id="phone" name="phone" required>
+                  <div id="phoneError" class="error-message"></div>
                 </div>
-            
+
                 <div class="form-group">
-                    <label for="email" class="form-label">E-mail:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                    <div id="emailError" class="error-message"></div>
+                  <label for="email" class="form-label">E-mail:</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                  <div id="emailError" class="error-message"></div>
                 </div>
-            
+
                 <div class="form-group">
-                    <label for="state" class="form-label">State:</label>
-                    <input type="text" class="form-control" id="state" name="state" required>
-                    <div id="stateError" class="error-message"></div>
+                  <label for="state" class="form-label">State:</label>
+                  <input type="text" class="form-control" id="state" name="state" required>
+                  <div id="stateError" class="error-message"></div>
                 </div>
-            
+
                 <button type="submit">Submit</button>
-            </form>
+              </form>
             </div>
           </div>
 
@@ -229,7 +230,9 @@
                   <input type="radio" id="f" name="selector1" checked /><span>Select Address</span>
                   <address>
 
-                    <p id="addressid" style="display: none;" ><%= row.id %></p>
+                    <p id="addressid" style="display: none;">
+                      <%= row.id %>
+                    </p>
                     <h5>
                       <%=row.name%>
                     </h5>
@@ -275,24 +278,35 @@
                     </li>
 
                     <% let subtotal=0 %>
-                      <% cartdetails[0].productId.forEach((id,index)=> { %>
-                        <% const product=productdetails.find(item=>item._id.equals(id)); %>
+                      <% if (cartdetails !==null) { %>
+                        <% cartdetails.forEach(cart=> { %>
+                          <% cart.products.forEach((prod, index)=> { %>
+                            <% const product=productdetails.find(item=> item._id.equals(prod.productId)); %>
+                              <li class="your-product-selector">
+                                <a href="#" class="product-name">
+                                  <%= product.name %>
+                                    <span style="margin-left: 10px;font-weight: bold; color: black;" class="quantity">
+                                      X<%= prod.quantity %>
+                                    </span>
+                                    <% const uniquepricetotal=Number(product.price) * Number(prod.quantity)%>
+                                      <span class="uniquetotalprice">
+                                        <%=uniquepricetotal%>
+                                      </span>
+                                      <% subtotal +=uniquepricetotal %>
+                                </a>
+                              </li>
+                              <% }); %>
+                                <% }) %>
 
-                          <li class="your-product-selector">
-                            <a href="#" class="product-name">
-                              <%= product.name %>
-                              <span class="quantity">
-                                X<%= cartdetails[0].quantity[index]%>
-                              </span>
-                                <% const uniquepricetotal=Number(product.price) *
-                                  Number(cartdetails[0].quantity[index])%>
-                                  <span class="last">
-                                    <%=uniquepricetotal%>
-                                  </span>
-                                  <% subtotal +=uniquepricetotal %>
-                            </a>
-                          </li>
-                          <% }); %>
+                                  <% } else { %>
+                                    <tr>
+                                      <td colspan="5">
+                                        <img style="width: 400px; height: 300px; color: red;" src="/img/empty-cart.png"
+                                          alt="image">
+                                        " YOUR CART IS EMPTY " Pls add product to use cart feature
+                                      </td>
+                                    </tr>
+                                    <% } %>
 
                   </ul>
                   <ul class="list list_2">
@@ -319,33 +333,36 @@
                         </a>
                     </li>
                   </ul>
-                  <div class="payment_item">
-                    <div class="radion_btn">
-                      <input type="radio" id="f-option5" name="selector" checked />
-                      <label for="f-option5">Cash On Delivery</label>
-                      <div class="check"></div>
-                    </div>
+                  <form action="" id="payment">
+                    <div class="payment_item">
+                      <div class="radion_btn">
+                        <input type="radio" id="cod" name="selector" value="COD" checked />
+                        <label for="cod">Cash On Delivery</label>
+                        <div class="check"></div>
+                      </div>
 
-                  </div>
-                  <div class="payment_item active">
-                    <div class="radion_btn">
-                      <input type="radio" id="f-option6" name="selector" />
-                      <label for="f-option6">Other </label>
 
-                      <div class="check"></div>
-                    </div>
+                      <div class="radion_btn">
+                        <div id="payNowButton">
+                          <input type="radio" id="online" name="selector" value="online" />
+                          <label for="online">Online</label>
+                          <div class="check"></div>
+                        </div>
+                      </div>
 
-                  </div>
-                  <div class="creat_account">
-                    <input type="checkbox" id="f-option4" name="selector" />
-                    <label for="f-option4">I’ve read and accept the </label>
-                    <a href="#">terms & conditions*</a>
-                  </div>
-                  <a class="btn_3" href="#" onclick="confirmOrder()">Confirm Order</a>
+                  </form>
                 </div>
               </div>
+              <div class="creat_account">
+                <input type="checkbox" id="f-option4" name="selector" />
+                <label for="f-option4">I’ve read and accept the </label>
+                <a href="#">terms & conditions*</a>
+              </div>
+              <a class="btn_3" href="#" onclick="confirmOrder()">Confirm Order</a>
             </div>
           </div>
+        </div>
+        </div>
         </div>
       </section>
       <!--================End Checkout Area =================-->
@@ -401,74 +418,157 @@
         <script src="/singlejs/jquery.form.js"></script>
         <script src="/singlejs/jquery.validate.min.js"></script>
         <script src="/singlejs/mail-script.js"></script>
-
-        <!-- Stellar.js -->
-
-
-        <!-- Price Ranges -->
+        <!-- razorpay -->
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script src="/singlejs/price_rangs.js"></script>
-
-        <!-- Custom JS -->
         <script src="/singlejs/custom.js"></script>
 
         <script>
-          function openPopup() {
-            document.getElementById('popup').style.display = 'block';
-          }
 
-          function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-          }
-
-        </script>
-        <script>
-
-          function confirmOrder() {
-            // Make an AJAX request to the server
-            // Extract the necessary order details from the rendered HTML
-            const orderDetails = [];
-            document.querySelectorAll('.your-product-selector').forEach(item => {
-              const productName = item.querySelector('.product-name').innerText;
-              const quantity = item.querySelector('.quantity').innerText.split('X')[1].trim();
-              const uniquePriceTotal = item.querySelector('.last').innerText.trim();
-
-              orderDetails.push({
-                productName,
-                quantity,
-                uniquePriceTotal,
-              });
-            });
-            const addressid = document.getElementById('addressid').innerText
-
-            console.log(orderDetails);
-            fetch('/confirmation', {
-              method: 'POST', // Assuming you want to use a POST request
+          let onlinePay = function (e) {
+            fetch('/razorpay', {
+              method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                addressid  ,
-                // You can include any order details here
-                orderDetails
-                // For example, order ID, products, etc.
+                'amount': "5000",
               }),
             })
               .then(response => response.json())
+
+
               .then(data => {
-                // Redirect to the confirmation page or handle the response as needed
-                window.location.href = '/confirmation';
+                const orderId = data.orderId;
+                console.log("OrderId received:", orderId);
+
+                console.log("hello");
+                const options = {
+                  key: 'rzp_test_YqIuT5ZP4j00kQ',
+                  amount: 500 * 100,
+                  currency: 'INR',
+                  name: 'Pet Station',
+                  description: 'Online Payment',
+                  image: '/img/logo.png',
+                  order_id: orderId,
+                  handler: function (response) {
+                    // Create a form dynamically
+                    const form = document.createElement('form');
+                    form.method = 'post';
+                    form.action = '/signup'; // Replace with the URL you want to redirect to
+
+                    // Create an input element to hold the payment ID
+                    const paymentIdInput = document.createElement('input');
+                    paymentIdInput.type = 'hidden';
+                    paymentIdInput.name = 'razorpay_payment_id';
+                    paymentIdInput.value = response.razorpay_payment_id;
+                    form.appendChild(paymentIdInput);
+
+                    // Add hidden input fields for payment mode and address details
+                    const paymentModeInput = document.createElement('input');
+                    paymentModeInput.type = 'hidden';
+                    paymentModeInput.name = 'paymentmode';
+                    paymentModeInput.value = document.getElementById('payment-options').value; // Assumes the payment mode is selected through a dropdown
+                    form.appendChild(paymentModeInput);
+
+                    const selectedAddressInput = document.querySelector('input[name="selectedaddress"]:checked');
+                    if (selectedAddressInput) {
+                      const addressIdInput = document.createElement('input');
+                      addressIdInput.type = 'hidden';
+                      addressIdInput.name = 'selectedaddress';
+                      addressIdInput.value = selectedAddressInput.value;
+                      form.appendChild(addressIdInput);
+                    }
+
+                    // Append the form to the body
+                    document.body.appendChild(form);
+
+                    // Submit the form
+                    form.submit();
+                  },
+                };
+
+                const rzp1 = new Razorpay(options);
+
+                rzp1.on('payment.failed', function (response) {
+                  alert(response.error.code);
+                  alert(response.error.description);
+                  alert(response.error.source);
+                  alert(response.error.step);
+                  alert(response.error.reason);
+                  alert(response.error.metadata.order_id);
+                  alert(response.error.metadata.payment_id);
+                });
+
+                rzp1.open();
+                e.preventDefault();
+
               })
-              .catch(error => {
-                console.error('Error:', error);
-                // Handle errors if necessary
+              .catch(error => console.error('Error:', error));
+          };
+        </script>
+
+
+
+
+        <!-- opening popup for address add -->
+        <script>
+          function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+          }
+          function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+          } 
+        </script>
+        <script>
+
+          function confirmOrder() {
+            let paymentMode = document.getElementById('payment').selector.value
+            if (paymentMode == "COD") {
+
+
+              const orderDetails = [];
+              document.querySelectorAll('.your-product-selector').forEach(item => {
+                const productName = item.querySelector('.product-name').innerText;
+                const quantity = item.querySelector('.quantity').innerText.split('X')[1].trim();
+                const uniquePriceTotal = item.querySelector('.uniquetotalprice').innerText.trim();
+
+                orderDetails.push({
+                  productName,
+                  quantity,
+                  uniquePriceTotal,
+
+                });
               });
+              const addressid = document.getElementById('addressid').innerText
+
+              console.log(orderDetails);
+              fetch('/confirmation', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  addressid,
+                  orderDetails
+                }),
+              })
+                .then(response => response.json())
+                .then(data => {
+                  window.location.href = '/confirmation';
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+            } else {
+              onlinePay(event)
+            }
           }
         </script>
 
 
         <script>
           function removeAddress(addressId) {
-            // Make a DELETE request to your server endpoint
             fetch(`/remove-address/${addressId}`, {
               method: 'DELETE',
               headers: {
@@ -484,88 +584,84 @@
               .then(data => {
                 windows.location.href('/signup')
                 console.log('Address removed:', data);
-                // Optionally, you can update the UI or perform other actions
               })
               .catch(error => {
                 console.error('Error removing address:', error);
-                // Handle errors if necessary
               });
           }
         </script>
-        
-<script>
-  function validateForm() {
-      var name = document.getElementById("name").value;
-      var homeaddress = document.getElementById("homeaddress").value;
-      var district = document.getElementById("district").value;
-      var pincode = document.getElementById("pincode").value;
-      var phone = document.getElementById("phone").value;
-      var email = document.getElementById("email").value;
-      var state = document.getElementById("state").value;
 
-      // Reset previous error messages
-      document.getElementById("nameError").innerHTML = "";
-      document.getElementById("homeaddressError").innerHTML = "";
-      document.getElementById("districtError").innerHTML = "";
-      document.getElementById("pincodeError").innerHTML = "";
-      document.getElementById("phoneError").innerHTML = "";
-      document.getElementById("emailError").innerHTML = "";
-      document.getElementById("stateError").innerHTML = "";
+        <!-- form validation -->
+        <script>
+          function validateForm() {
+            var name = document.getElementById("name").value;
+            var homeaddress = document.getElementById("homeaddress").value;
+            var district = document.getElementById("district").value;
+            var pincode = document.getElementById("pincode").value;
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var state = document.getElementById("state").value;
 
-      // Validate name (only letters and spaces)
-      var nameRegex = /^[a-zA-Z ]+$/;
-      if (!nameRegex.test(name)) {
-          document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
-          return false;
-      }
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("homeaddressError").innerHTML = "";
+            document.getElementById("districtError").innerHTML = "";
+            document.getElementById("pincodeError").innerHTML = "";
+            document.getElementById("phoneError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("stateError").innerHTML = "";
 
-      // Validate address (optional: letters, numbers, and spaces)
-      var addressRegex = /^[a-zA-Z0-9 ]*$/;
-      if (!addressRegex.test(homeaddress)) {
-          document.getElementById("homeaddressError").innerHTML = "Address should only contain letters, numbers, and spaces.";
-          return false;
-      }
+            // Validate name (only letters and spaces)
+            var nameRegex = /^[a-zA-Z ]+$/;
+            if (!nameRegex.test(name)) {
+              document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
+              return false;
+            }
 
-      // Validate district (only letters)
-      var districtRegex = /^[a-zA-Z]+$/;
-      if (!districtRegex.test(district)) {
-          document.getElementById("districtError").innerHTML = "District should only contain letters.";
-          return false;
-      }
+            // Validate address (optional: letters, numbers, and spaces)
+            var addressRegex = /^[a-zA-Z0-9 ]*$/;
+            if (!addressRegex.test(homeaddress)) {
+              document.getElementById("homeaddressError").innerHTML = "Address should only contain letters, numbers, and spaces.";
+              return false;
+            }
 
-      // Validate pincode (5-digit number)
-      var pincodeRegex = /^\d{5}$/;
-      if (!pincodeRegex.test(pincode)) {
-          document.getElementById("pincodeError").innerHTML = "Pincode should be a 5-digit number.";
-          return false;
-      }
+            // Validate district (only letters)
+            var districtRegex = /^[a-zA-Z]+$/;
+            if (!districtRegex.test(district)) {
+              document.getElementById("districtError").innerHTML = "District should only contain letters.";
+              return false;
+            }
 
-      // Validate phone (10-digit number)
-      var phoneRegex = /^\d{10}$/;
-      if (!phoneRegex.test(phone)) {
-          document.getElementById("phoneError").innerHTML = "Phone should be a 10-digit number.";
-          return false;
-      }
+            // Validate pincode (5-digit number)
+            var pincodeRegex = /^\d{5}$/;
+            if (!pincodeRegex.test(pincode)) {
+              document.getElementById("pincodeError").innerHTML = "Pincode should be a 5-digit number.";
+              return false;
+            }
 
-      // Validate email
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-          document.getElementById("emailError").innerHTML = "Invalid email address.";
-          return false;
-      }
+            // Validate phone (10-digit number)
+            var phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+              document.getElementById("phoneError").innerHTML = "Phone should be a 10-digit number.";
+              return false;
+            }
 
-      // Validate state (only letters)
-      var stateRegex = /^[a-zA-Z]+$/;
-      if (!stateRegex.test(state)) {
-          document.getElementById("stateError").innerHTML = "State should only contain letters.";
-          return false;
-      }
+            // Validate email
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              document.getElementById("emailError").innerHTML = "Invalid email address.";
+              return false;
+            }
 
-      // Additional validation logic can be added here
+            // Validate state (only letters)
+            var stateRegex = /^[a-zA-Z]+$/;
+            if (!stateRegex.test(state)) {
+              document.getElementById("stateError").innerHTML = "State should only contain letters.";
+              return false;
+            }
 
-      return true;
-  }
-</script>
+            return true;
+          }
+        </script>
 </body>
 
 </html>

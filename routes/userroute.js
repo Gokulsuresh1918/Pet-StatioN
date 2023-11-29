@@ -6,9 +6,9 @@ const { homeGet, contactGet, contactpost, aboutget } = require('../controllers/U
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
 const { shopget, productView } = require('../controllers/Usercontroller/shop&productcontroller')
 const { cartGet, addcartpost, clearcartget, removeItem } = require('../controllers/Usercontroller/cartcontroller')
-const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost } = require('../controllers/Usercontroller/checkoutcontroller')
-const { profileGet, addressGet, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget }=require('../controllers/Usercontroller/profilecontroller')
-const{forgetpass,forgetpasspost,resendpost,otpGet,otppost,resendotpget}=require('../controllers/Usercontroller/otp&passcontroller')
+const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost } = require('../controllers/Usercontroller/checkoutcontroller')
+const { profileGet, addressGet, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget } = require('../controllers/Usercontroller/profilecontroller')
+const { forgetpass, forgetpasspost, resendpost, otpGet, otppost, resendotpget } = require('../controllers/Usercontroller/otp&passcontroller')
 // Importing middleware functions
 const { usersession } = require('../middleware/userAuth');
 
@@ -47,6 +47,8 @@ router.post('/checkoutaddress', usersession, checkoutaddress);
 router.delete('/remove-address/:addressId', usersession, addressremove);
 router.get('/confirmation', usersession, confirmationget);
 router.post('/confirmation', usersession, confirmationpost);
+router.post('/razorpay', razorpaypost);
+
 
 // Profile and Address routes
 router.get('/profile', usersession, profileGet);
