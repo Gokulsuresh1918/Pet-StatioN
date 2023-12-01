@@ -9,6 +9,7 @@ exports.cartGet = async (req, res) => {
         if (req.session.userId) {
             const user = true
             const cartdetails = await cartCollection.findOne({ userId: req.session.userId });
+          
             const productdetails = await productCollection.find();
             res.render('User/cart', { cartdetails: cartdetails, productdetails: productdetails, user });
         } else {
@@ -42,7 +43,8 @@ exports.addcartpost = async (req, res) => {
                     userId: user,
                  products:[{
                     quantity:qty,
-                    productId:productId
+                    productId:productId,
+                    price:productPrice
                  }],
                  subtotal:subtotal
                 }

@@ -14,7 +14,12 @@ const cartschema = new mongoose.Schema({
       productId:{
          type:mongoose.Schema.Types.ObjectId,
          required:true
+      },
+      price:{
+         type:Number,
+         required:true
       }
+
    }],
  
    subtotal:{

@@ -1,21 +1,58 @@
 const mongoose = require('mongoose');
+const { UserCollection } = require('./userDB');
+const addressschema = new mongoose.Schema({
+  userId:{
+     type:mongoose.Schema.Types.ObjectId,
+     ref:"UserCollection",
+     
+  }, 
+  name: {
+     type: String,
+     required: true
+  },
+  address: {
+     type: String,
+     required: true
+  },
+  district: {
+     type: String,
+     required: true
+  },
+  phone: {
+     type: String,
+     required: true
+  },
+  pincode: {
+     type: String,
+     required: true
+  },
+  state: {
+     type: String,
+     required: true
+  },
+  email: {
+     type: String,
+     required: true
+  }
 
+});
 const orderschema = new mongoose.Schema({
     userId:{
-        type:String,
-        required:true
+        type:mongoose.Schema.ObjectId,
+        ref:"UserCollection",
+        
     },
     productdetails: [{
-        productName: {
-          type: String,
+        productId: {
+          type: mongoose.Schema.ObjectId,
           required: true
         },
         quantity: {
-          type: String,
+          type: Number,
           required: true
         },
         uniquePriceTotal: {
-          type: String,
+          type: Number,
           required: true
         }
       }],
@@ -25,18 +62,15 @@ const orderschema = new mongoose.Schema({
         required: true
     },
     total: {
-        type: String,
+        type: Number,
         required: true
     },
-    address: {
-        type: String,
-        required: true
-    },
+    address: addressschema,
     // payment: {
     //     type: String,
     //     required: true
     // }
-});
+},{timestamps:true});
 
 const orderCollection = new mongoose.model('orderCollection', orderschema);
 module.exports = { orderCollection };

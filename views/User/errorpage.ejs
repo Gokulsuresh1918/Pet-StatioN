@@ -8,7 +8,54 @@
 	<%- include('../partials/layoutpage') %>
 </head>
 <body>
-	<%- include('../partials/userpartials/header') %>
+	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+		<div class="container">
+			<a class="navbar-brand" href="/home" style="font-family:Irish;">Pet Station<span>.</span></a>
+	
+	
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+	
+			<div class="collapse navbar-collapse" id="navbarsFurni">
+				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+					<li class="nav-item active">
+						<a class="nav-link" href="/home">Home</a>
+					</li>
+					<li><a class="nav-link" href="/shop">Shop</a></li>
+					<li><a class="nav-link" href="/about">About us</a></li>
+					<li><a class="nav-link" href="/contact">contact us</a></li>
+					
+				</ul>
+	
+				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img src="/assets/images/user.svg">
+						</a>
+						<%if(locals.user) {%>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #51826f; border: 1px solid #000000;">
+								<!-- Dropdown items go here -->
+								<a class="dropdown-item" href="/profile" style="color: #f9bf29;">Profile</a>
+								<a class="dropdown-item" href="/logoutuser" style="color: #ee0000;">Log Out</a>
+							</div>
+						<% }else{ %>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #51826f; border: 1px solid #000000;">
+							<!-- Dropdown items go here -->
+							<a class="dropdown-item" href="/" style="color: #f9f9f9;">Log In</a>
+							<a class="dropdown-item" href="/signup" style="color: #f9bf29;">Sign Up</a>
+						   
+						</div>
+						<%}%>
+					</li>
+				 
+				</ul>
+				
+			</div>
+		</div>
+			
+	</nav>
 	<section class="page_404">
 		<div class="container">
 			<div class="row">	

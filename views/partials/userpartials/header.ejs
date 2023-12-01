@@ -39,7 +39,22 @@
                     </div>
                     <%}%>
                 </li>
-                <li><a class="nav-link" href="/cart"><img src="/assets/images/cart.svg"></a></li>
+                <%if(locals.cartcount) { %>
+                
+                <li>
+                    <a class="nav-link" href="/cart">
+                      <img src="/assets/images/cart.svg" alt="Cart">
+                      <span id="cartItemCount"><%= cartcount %></span>
+                    </a>
+                  </li>
+                  <% }else{ %>
+                <li>
+                    <a class="nav-link" href="/cart">
+                      <img src="/assets/images/cart.svg" alt="Cart">
+                      <span id="cartItemCount">0</span>
+                    </a>
+                  </li> 
+                     <% } %>
             </ul>
             
         </div>

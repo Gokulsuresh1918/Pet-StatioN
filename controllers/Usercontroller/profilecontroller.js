@@ -2,6 +2,7 @@ const { UserCollection } = require('../../model/userDB')
 const { addressCollection } = require('../../model/addressDB')
 const { orderCollection } = require('../../model/orderDB')
 const { contactCollection } = require('../../model/contactDB')
+const { cartCollection } = require('../../model/cartDB')
 
 
 
@@ -13,8 +14,10 @@ exports.profileGet = async (req, res) => {
         if (req.session.userId) {
             const user = true
             const id = req.session.userId
+            const cartdata=  await cartCollection.find({ id: req.session.userId })
+            const cartcount =cartdata.length
             const userdetails = await UserCollection.findOne({ _id: id })
-            res.render('User/userProfile/profile', { user,userdetails })
+            res.render('User/userProfile/profile', { user,userdetails ,cartcount})
         } else {
             const user = false
             res.render('User/userProfile/profile', { user })
@@ -31,8 +34,10 @@ exports.addressGet = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
+            const cartdata=  await cartCollection.find({ id: req.session.userId })
+            const cartcount =cartdata.length
             const address = await addressCollection.find({ userId: req.session.userId });
-            res.render('User/userProfile/address', { user, address, message: "" })
+            res.render('User/userProfile/address', { user, cartcount,address, message: "" })
         } else {
             const user = false
             res.render('User/userProfile/address', { user })
@@ -73,11 +78,13 @@ exports.addresspost = async (req, res) => {
 
 
 
-exports.addaddressGet = (req, res) => {
+exports.addaddressGet =async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            res.render('User/userProfile/addaddress', { user })
+            const cartdata=  await cartCollection.find({ id: req.session.userId })
+            const cartcount =cartdata.length
+            res.render('User/userProfile/addaddress', { user,cartcount })
         } else {
             const user = false
             res.render('User/userProfile/addaddress', { user })
@@ -162,8 +169,10 @@ exports.ordersget = async (req, res) => {
            const userid = req.session.userId
 
            const orderdata = await orderCollection.find()
+           const cartdata = await cartCollection.find({ id: req.session.userId })
+           const cartcount = cartdata.length
        
-           res.render('User/userprofile/order', { orderdata,user })
+           res.render('User/userprofile/order', { orderdata,user,cartcount })
         } else {
            const user = false
            res.render('User/userprofile/order', { orderdata,user })

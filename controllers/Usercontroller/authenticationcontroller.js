@@ -1,16 +1,18 @@
 
 const { contactCollection } = require('../../model/contactDB')
-
+const { cartCollection } = require('../../model/cartDB')
 
 
 
 //controller for home get
-exports.homeGet = (req, res) => {
+exports.homeGet = async (req, res) => {
 
     try {
         if (req.session.userId) {
+            const cartdata = await cartCollection.find({ id: req.session.userId })
+            const cartcount = cartdata.length
             const user = true
-            res.render('User/home', { user })
+            res.render('User/home', { user, cartcount })
         } else {
             const user = false
             res.render('User/home', { user })
@@ -21,11 +23,13 @@ exports.homeGet = (req, res) => {
 
 }
 
-exports.contactGet = (req, res) => {
+exports.contactGet = async (req, res) => {
     try {
         if (req.session.userId) {
+            const cartdata = await cartCollection.find({ id: req.session.userId })
+            const cartcount = cartdata.length
             const user = true
-            res.render('User/contact', { user })
+            res.render('User/contact', { user ,cartcount})
         } else {
             const user = false
             res.render('User/contact', { user })
@@ -34,20 +38,22 @@ exports.contactGet = (req, res) => {
         console.error("contactget get redendering error" + "= " + error);
     }
 }
-exports.aboutget = (req, res) => {
- 
+exports.aboutget =async (req, res) => {
+
     try {
-       if (req.session.userId) {
-           const user = true
-           res.render('User/about', { user })
-       } else {
-           const user = false
-           res.render('User/about', { user })
-       }
-   } catch (error) {
-       console.error("aboutget  error" + "= " + error);
-   }
-}   
+        if (req.session.userId) {
+            const cartdata=  await cartCollection.find({ id: req.session.userId })
+            const cartcount =cartdata.length
+            const user = true
+            res.render('User/about', { user, cartcount})
+        } else {
+            const user = false
+            res.render('User/about', { user })
+        }
+    } catch (error) {
+        console.error("aboutget  error" + "= " + error);
+    }
+}
 exports.contactpost = async (req, res, next) => {
     try {
         let { name, lastname, email, message } = req.body;

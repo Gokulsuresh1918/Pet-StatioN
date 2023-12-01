@@ -35,7 +35,7 @@ const addressschema = new mongoose.Schema({
       type: String,
       required: true
    }
-
+ 
 });
 
 const addressCollection = new mongoose.model('addressCollection', addressschema)

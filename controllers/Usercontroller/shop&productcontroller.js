@@ -12,9 +12,12 @@ exports.shopget = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
+            const cartdata = await cartCollection.find({ id: req.session.userId })
+            console.log(cartdata);
+            const cartcount = cartdata.length
             const productdata = await productCollection.find()
-            res.render('User/shop', { productdata, user })
-        } else {
+            res.render('User/shop', { productdata, user,cartcount })
+        } else {      
             const user = false
             const productdata = await productCollection.find()
             res.render('User/shop', { productdata, user })
@@ -30,8 +33,9 @@ try {
     if (req.session.userId) {
         const user = true
         const productdata = await productCollection.findOne({ _id: req.params.id });
-
-        res.render('User/productview', { productdata,user })
+        const cartdata = await cartCollection.find({ id: req.session.userId })
+        const cartcount = cartdata.length
+        res.render('User/productview', { productdata,user,cartcount })
     } else {
         const user = false
         res.render('User/productview', { productdata,user })

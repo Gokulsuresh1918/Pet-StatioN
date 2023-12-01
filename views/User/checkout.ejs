@@ -226,13 +226,14 @@
               <div class="col-lg-8 ">
 
                 <h2>Billing Details</h2>
+                <p id="address" data-address="<%= addressdetails.id %>"></p>
                 <% addressdetails.forEach((row,index)=> {%>
-                  <input type="radio" id="f" name="selector1" checked /><span>Select Address</span>
+                  <input type="radio" id="deliveryaddresss" name="deliveryaddresss" checked
+                    value="<%=row.id%>"/><span>Select Address</span>
                   <address>
 
-                    <p id="addressid" style="display: none;">
-                      <%= row.id %>
-                    </p>
+
+
                     <h5>
                       <%=row.name%>
                     </h5>
@@ -273,7 +274,7 @@
                   <ul class="list">
                     <li>
                       <a style="font-weight: bold;color: black;" href="/cart">Product
-                        <span>Total</span>
+                        <span style="font-weight: bold; color: black;">Total</span>
                       </a>
                     </li>
 
@@ -281,16 +282,20 @@
                       <% if (cartdetails !==null) { %>
                         <% cartdetails.forEach(cart=> { %>
                           <% cart.products.forEach((prod, index)=> { %>
-                            <% const product=productdetails.find(item=> item._id.equals(prod.productId)); %>
+                            <% let product=productdetails.find(item=> item._id.equals(prod.productId)); %>
+                              <p id="productDetails" data-product="<%= product %>"></p>
                               <li class="your-product-selector">
                                 <a href="#" class="product-name">
+
+                                  <p class="product-id" style="display: none;"><%=product.id%></p>
                                   <%= product.name %>
-                                    <span style="margin-left: 10px;font-weight: bold; color: black;" class="quantity">
-                                      X<%= prod.quantity %>
-                                    </span>
                                     <% const uniquepricetotal=Number(product.price) * Number(prod.quantity)%>
                                       <span class="uniquetotalprice">
                                         <%=uniquepricetotal%>
+                                      </span>
+                                      <span style="margin-right: 65px;font-weight: bold; color: black;"
+                                        class="quantity">
+                                        X<%= prod.quantity %>
                                       </span>
                                       <% subtotal +=uniquepricetotal %>
                                 </a>
@@ -314,7 +319,7 @@
                       <a href="#">Subtotal
 
 
-                        <span>
+                        <span style="font-weight: bold; color: black;">
                           <%=subtotal%>
                         </span>
                       </a>
@@ -327,7 +332,7 @@
                     <li>
                       <% total=subtotal+40 %>
                         <a href="#">Total
-                          <span>
+                          <span style="font-weight: bold; color: black;">
                             <%=total %>
                           </span>
                         </a>
@@ -358,7 +363,7 @@
                 <label for="f-option4">I’ve read and accept the </label>
                 <a href="#">terms & conditions*</a>
               </div>
-              <a class="btn_3" href="#" onclick="confirmOrder()">Confirm Order</a>
+              <a class="btn_3" href="#" id="rzp-button1" onclick="confirmOrder()">Confirm Order</a>
             </div>
           </div>
         </div>
@@ -424,6 +429,8 @@
         <script src="/singlejs/custom.js"></script>
 
         <script>
+          var addressid;
+
 
           let onlinePay = function (e) {
             fetch('/razorpay', {
@@ -437,69 +444,38 @@
             })
               .then(response => response.json())
 
-
               .then(data => {
                 const orderId = data.orderId;
                 console.log("OrderId received:", orderId);
 
                 console.log("hello");
-                const options = {
-                  key: 'rzp_test_YqIuT5ZP4j00kQ',
-                  amount: 500 * 100,
-                  currency: 'INR',
-                  name: 'Pet Station',
-                  description: 'Online Payment',
-                  image: '/img/logo.png',
-                  order_id: orderId,
-                  handler: function (response) {
-                    // Create a form dynamically
-                    const form = document.createElement('form');
-                    form.method = 'post';
-                    form.action = '/signup'; // Replace with the URL you want to redirect to
 
-                    // Create an input element to hold the payment ID
-                    const paymentIdInput = document.createElement('input');
-                    paymentIdInput.type = 'hidden';
-                    paymentIdInput.name = 'razorpay_payment_id';
-                    paymentIdInput.value = response.razorpay_payment_id;
-                    form.appendChild(paymentIdInput);
 
-                    // Add hidden input fields for payment mode and address details
-                    const paymentModeInput = document.createElement('input');
-                    paymentModeInput.type = 'hidden';
-                    paymentModeInput.name = 'paymentmode';
-                    paymentModeInput.value = document.getElementById('payment-options').value; // Assumes the payment mode is selected through a dropdown
-                    form.appendChild(paymentModeInput);
-
-                    const selectedAddressInput = document.querySelector('input[name="selectedaddress"]:checked');
-                    if (selectedAddressInput) {
-                      const addressIdInput = document.createElement('input');
-                      addressIdInput.type = 'hidden';
-                      addressIdInput.name = 'selectedaddress';
-                      addressIdInput.value = selectedAddressInput.value;
-                      form.appendChild(addressIdInput);
-                    }
-
-                    // Append the form to the body
-                    document.body.appendChild(form);
-
-                    // Submit the form
-                    form.submit();
+                const addressdetails = document.getElementById('address')
+                const addressdata = addressdetails.getAttribute('data-address')
+                var options = {
+                  "key": "rzp_test_YqIuT5ZP4j00kQ", // Enter the Key ID generated from the Dashboard
+                  "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                  "currency": "INR",
+                  "name": "Petstation", //your business name
+                  "description": "Test Transaction",
+                  "image": "https://example.com/your_logo",
+                  "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                  "callback_url": "/confirmation",
+                  "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+                    "name": "Gaurav Kumar", //your customer's name
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "7902371571" //Provide the customer's phone number for better conversion rates 
                   },
+                  "notes": {
+
+                    "address": addressid
+                  },
+                  "theme": {
+                    "color": "#3399cc"
+                  }
                 };
-
-                const rzp1 = new Razorpay(options);
-
-                rzp1.on('payment.failed', function (response) {
-                  alert(response.error.code);
-                  alert(response.error.description);
-                  alert(response.error.source);
-                  alert(response.error.step);
-                  alert(response.error.reason);
-                  alert(response.error.metadata.order_id);
-                  alert(response.error.metadata.payment_id);
-                });
-
+                var rzp1 = new Razorpay(options);
                 rzp1.open();
                 e.preventDefault();
 
@@ -521,28 +497,42 @@
           } 
         </script>
         <script>
+          // addressid = document.getElementById('addressid').innerText
+          addressid = document.querySelector('input[name="deliveryaddresss"]:checked').value
+          var radioButtons = document.querySelectorAll('input[type="radio"]');
+          radioButtons.forEach(radioButton => {
+            radioButton.addEventListener('change', function () {
+              addressid = document.querySelector('input[name="deliveryaddresss"]:checked').value;
 
+            });
+          });
+          console.log(addressid);
           function confirmOrder() {
+            console.log("worked");
             let paymentMode = document.getElementById('payment').selector.value
             if (paymentMode == "COD") {
 
 
               const orderDetails = [];
               document.querySelectorAll('.your-product-selector').forEach(item => {
-                const productName = item.querySelector('.product-name').innerText;
+                const productId = item.querySelector('.product-id').innerText;
                 const quantity = item.querySelector('.quantity').innerText.split('X')[1].trim();
                 const uniquePriceTotal = item.querySelector('.uniquetotalprice').innerText.trim();
+                // const addressid = document.getElementById('addressid').innerText
+                const paymentMode = document.getElementById('payment').selector.value
+
+                // Add an event listener to each radio button
 
                 orderDetails.push({
-                  productName,
+                  productId,
                   quantity,
                   uniquePriceTotal,
 
+
                 });
               });
-              const addressid = document.getElementById('addressid').innerText
 
-              console.log(orderDetails);
+
               fetch('/confirmation', {
                 method: 'POST',
                 headers: {
@@ -550,7 +540,8 @@
                 },
                 body: JSON.stringify({
                   addressid,
-                  orderDetails
+                  orderDetails,
+                  paymentMode
                 }),
               })
                 .then(response => response.json())

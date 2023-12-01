@@ -9,10 +9,13 @@ exports.checkoutget = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            const cartdetails = await cartCollection.find()
+            const cartdetails = await cartCollection.find({ userId: req.session.userId })
+
+            const cartcount = cartdetails.length
             const productdetails = await productCollection.find();
+            req.session.productData = productdetails
             const addressdetails = await addressCollection.find({ userId: req.session.userId });
-            res.render('User/checkout', { cartdetails: cartdetails, productdetails: productdetails, addressdetails: addressdetails, user });
+            res.render('User/checkout', { cartdetails: cartdetails, productdetails: productdetails, addressdetails: addressdetails, user, cartcount });
         } else {
             const user = false
             res.render('User/checkout', { user })
@@ -50,11 +53,13 @@ exports.checkoutaddress = async (req, res) => {
 
 
 
-exports.confirmationget = ((req, res) => {
+exports.confirmationget = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            res.render('User/confirmation', { user })
+            const cartdata = await cartCollection.find({ id: req.session.userId })
+            const cartcount = cartdata.length
+            res.render('User/confirmation', { user, cartcount })
         } else {
             const user = false
             res.render('User/confirmation', { user })
@@ -62,42 +67,74 @@ exports.confirmationget = ((req, res) => {
     } catch (error) {
         console.error("confirmationget  error" + "= " + error);
     }
-});
+};
 
 
 
 exports.confirmationpost = async (req, res) => {
     try {
-        const { orderDetails, addressid } = req.body;
-        console.log('Received order details:', orderDetails);
-        console.log('Received adress details:', addressid);
 
-        let totalsum = 0;
-        orderDetails.forEach(detail => {
-            totalsum += Number(detail.uniquePriceTotal);
-        });
 
-        const userId = req.session.userId;
-        const addressdata = await addressCollection.findById({ _id: addressid });
-        const Ordernumber = Math.floor(10000000 + Math.random() * 90000000);
+        if (!req.body.razorpay_payment_id) {
 
-        let shippingAddress = "";
-        shippingAddress = shippingAddress + addressdata.address + ".";
-        const data = {
-            productdetails: orderDetails,
-            total: totalsum,
-            address: shippingAddress,
-            Ordernumber: Ordernumber,
-            userId: userId
-        };
-        await orderCollection.insertMany([data]);
-        await cartCollection.deleteMany({ userId: userId });
-        res.json({ success: true, message: 'Order confirmed successfully' });
+            const userId = req.session.userId;
+            const productDetails = req.body.orderDetails;
+            const orderNumber = generateOrderNumber();
+            const total = calculateTotal(productDetails);
+            const address = await addressCollection.findById(req.body.addressid) 
+
+            console.log(req.body);
+            const newOrder = new orderCollection({
+                userId,
+                productdetails: productDetails,
+                Ordernumber: orderNumber,
+                total,
+                address,
+            });
+
+            await newOrder.save();
+            res.status(200).json({ success: true, message: 'Order placed successfully!' });
+        } else {
+            var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET })
+
+            let data = await instance.payments.fetch(req.body.razorpay_payment_id)
+            const userId = req.session.userId;
+            const orderNumber = generateOrderNumber();
+            const cartDetails = await cartCollection.findOne({ userId: userId })
+            const address = await addressCollection.findById(data.notes.address) 
+            const productDetails = cartDetails.products.map(product => ({
+                productId: product.productId,
+                quantity: product.quantity,
+                uniquePriceTotal: Number(product.price) * Number(product.quantity)
+              }));
+              
+            const total = productDetails.reduce((acc, product) => acc + product.uniquePriceTotal, 0);
+            const newOrder = new orderCollection({
+                userId: userId,
+                productdetails: productDetails,
+                Ordernumber: orderNumber,
+                total: total,
+                address: address
+            });
+
+
+            await newOrder.save();
+            return res.redirect('/confirmation')
+        }
     } catch (error) {
-        console.error("confirmationpost error" + "= " + error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
+        console.error('Error placing order:', error);
+        res.status(500).json({ success: false, message: 'Internal Server Error ' });
     }
 };
+
+function generateOrderNumber() {
+    return 'ORD' + Date.now();
+}
+function calculateTotal(productDetails) {
+    return productDetails.reduce((total, product) => total + parseFloat(product.uniquePriceTotal), 0).toString();
+}
+
+
 
 
 
@@ -120,15 +157,20 @@ exports.addressremove = async (req, res) => {
 
 exports.razorpaypost = (req, res) => {
 
+
     try {
-        let instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET });
+
+        var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET })
 
         let options = {
-            amount: 40000,
+            amount: 50000,
             currency: "INR",
             receipt: "order_rcptid_11",
-        };
-
+            notes: {
+                key1: "value3",
+                key2: "value2"
+            }
+        }
         // Creating the order
         instance.orders.create(options, function (err, order) {
             if (err) {
@@ -140,7 +182,7 @@ exports.razorpaypost = (req, res) => {
             console.log(order);
             // Add orderprice to the response object
             res.send({ orderId: order.id });
-           
+
 
         });
     } catch (error) {
