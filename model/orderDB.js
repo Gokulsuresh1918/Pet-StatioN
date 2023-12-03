@@ -66,10 +66,11 @@ const orderschema = new mongoose.Schema({
         required: true
     },
     address: addressschema,
-    // payment: {
-    //     type: String,
-    //     required: true
-    // }
+    payment: {
+        type: String,
+    },
+    status:{String},
+
 },{timestamps:true});
 
 const orderCollection = new mongoose.model('orderCollection', orderschema);

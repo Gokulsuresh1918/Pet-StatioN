@@ -16,6 +16,7 @@ exports.shopget = async (req, res) => {
             console.log(cartdata);
             const cartcount = cartdata.length
             const productdata = await productCollection.find()
+            productdata.reverse()
             res.render('User/shop', { productdata, user,cartcount })
         } else {      
             const user = false

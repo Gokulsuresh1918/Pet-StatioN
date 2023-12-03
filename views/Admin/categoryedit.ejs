@@ -19,6 +19,8 @@
     <!-- Nucleo Icons -->
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Material Icons -->
@@ -57,15 +59,20 @@
                                             </a>
 
 
-                                            <form action="/admin/editcategory/<%= categorydata._id %>" method="post" onsubmit="return validateForm()">
+                                            <form action="/admin/editcategory/<%= categorydata._id %>" method="post"
+                                                onsubmit="return validateForm()">
                                                 <div class="mb-3">
                                                     <label for="categoryname" class="form-label">Category Name:</label>
-                                                    <input type="text" value="<%= categorydata.categoryname %>" class="form-control" id="categoryname" name="categoryname" required>
+                                                    <input type="text" value="<%= categorydata.categoryname %>"
+                                                        class="form-control text-truncate" id="categoryname"
+                                                        name="categoryname" required>
                                                     <div id="categoryNameError" class="error-message"></div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="description" class="form-label">Description:</label>
-                                                    <input type="text" value="<%= categorydata.description %>" class="form-control" id="description" name="description" required>
+                                                    <input type="text" value="<%= categorydata.description %>"
+                                                        class="form-control text-truncate" id="description"
+                                                        name="description" required>
                                                     <div id="descriptionError" class="error-message"></div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -94,32 +101,32 @@
 </body>
 
 <script>
-    function validateForm() {
-        var categoryName = document.getElementById("categoryname").value;
-        var description = document.getElementById("description").value;
+   function validateForm() {
+    var categoryName = document.getElementById("categoryname").value.trim();
+    var description = document.getElementById("description").value.trim();
 
-        // Reset previous error messages
-        document.getElementById("categoryNameError").innerHTML = "";
-        document.getElementById("descriptionError").innerHTML = "";
+    // Reset previous error messages
+    document.getElementById("categoryNameError").innerHTML = "";
+    document.getElementById("descriptionError").innerHTML = "";
 
-        // Validate category name (only letters and spaces)
-        var nameRegex = /^[a-zA-Z ]+$/;
-        if (!nameRegex.test(categoryName)) {
-            document.getElementById("categoryNameError").innerHTML = "Category name should only contain letters and spaces.";
-            return false;
-        }
-
-        // Validate description (only letters and basic punctuation)
-        var descriptionRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
-        if (!descriptionRegex.test(description)) {
-            document.getElementById("descriptionError").innerHTML = "Description should only contain letters and basic punctuation.";
-            return false;
-        }
-
-        // Additional validation logic can be added here
-
-        return true;
+    // Validate category name (only letters and spaces)
+    var nameRegex = /^[a-zA-Z ]+$/;
+    if (!nameRegex.test(categoryName)) {
+        document.getElementById("categoryNameError").innerHTML = "Category name should only contain letters and spaces.";
+        return false;
     }
+
+    // Validate description (only letters and basic punctuation)
+    if (description.length<10&&description.length>40) {
+        document.getElementById("descriptionError").innerHTML = "Description should be minimum 10 letters to maximum 50 letters";
+        return false;
+    }
+
+    // Additional validation logic can be added here
+
+    return true;
+}
+
 </script>
 
 

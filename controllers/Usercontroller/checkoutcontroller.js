@@ -79,20 +79,24 @@ exports.confirmationpost = async (req, res) => {
 
             const userId = req.session.userId;
             const productDetails = req.body.orderDetails;
+            console.log("produtdsetaila ",productDetails);
             const orderNumber = generateOrderNumber();
             const total = calculateTotal(productDetails);
-            const address = await addressCollection.findById(req.body.addressid) 
+            const address = await addressCollection.findById(req.body.addressid)
 
-            console.log(req.body);
             const newOrder = new orderCollection({
                 userId,
                 productdetails: productDetails,
                 Ordernumber: orderNumber,
-                total,
+                total, 
                 address,
             });
 
             await newOrder.save();
+            await cartCollection.deleteMany({});
+         
+
+
             res.status(200).json({ success: true, message: 'Order placed successfully!' });
         } else {
             var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET })
@@ -101,13 +105,13 @@ exports.confirmationpost = async (req, res) => {
             const userId = req.session.userId;
             const orderNumber = generateOrderNumber();
             const cartDetails = await cartCollection.findOne({ userId: userId })
-            const address = await addressCollection.findById(data.notes.address) 
+            const address = await addressCollection.findById(data.notes.address)
             const productDetails = cartDetails.products.map(product => ({
                 productId: product.productId,
                 quantity: product.quantity,
                 uniquePriceTotal: Number(product.price) * Number(product.quantity)
-              }));
-              
+            }));
+
             const total = productDetails.reduce((acc, product) => acc + product.uniquePriceTotal, 0);
             const newOrder = new orderCollection({
                 userId: userId,
@@ -119,6 +123,7 @@ exports.confirmationpost = async (req, res) => {
 
 
             await newOrder.save();
+            await cartCollection.deleteMany({})
             return res.redirect('/confirmation')
         }
     } catch (error) {

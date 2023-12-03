@@ -2,99 +2,293 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-    <link rel="stylesheet" href="/assets/css/material-dashboard.css">
-    <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
-    <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
-    <title>
-       Order Dashboard
-    </title>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
-    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
-    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-    <!-- Nepcha Analytics (nepcha.com) -->
-    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+  <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
+  <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
+  <title>
+    Order Dashboard
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
-    <!--header-->
-    <%- include('../partials/adminpartials/aside') %>
-        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-            <!-- Navbar -->
-            <%- include('../partials/adminpartials/navbar') %>
-                <!-- End Navbar -->
+  <!--header-->
+  <%- include('../partials/adminpartials/aside') %>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+      <!-- Navbar -->
+      <%- include('../partials/adminpartials/navbar') %>
+        <!-- End Navbar -->
 
-                <div class="row mb-4">
-                    <div class="row ">
-                        <div class="col-12 grid-margin">
-                          <div class="card">
-                            <div class="card-body">
-                                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                      <h6 class="text-white text-capitalize ps-3">Order Management</h6>
-                                    </div>
-                                  </div>
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Sl/no</th>
-                                      <th scope="col">Product Name</th>
-                                      <th scope="col">Quantity</th>
-                                      <th scope="col">Price</th>
-                                      <th scope="col">Order Id</th>
-                                      <th scope="col">Address</th>
-                                      <th scope="col">Download</th>
-                                      <!-- Add more headers if needed -->
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <% orderdata.forEach((order, index) => { %>
-                                      <% order.productdetails.forEach((item, itemIndex) => { %>
-                                        <tr>
-                                          <td><%= index + 1 %></td>
-                                          <td><%= item.productName %></td>
-                                          <td><%= item.quantity %></td>
-                                          <td><%= item.uniquePriceTotal %></td>
-                                          <td><%= order.Ordernumber %></td>
-                                          <td><%= order.address %></td>
-                                          <td>
-                                            <button class="btn btn-success">Download</button>
-                                            <!-- <button class="btn btn-danger">Delete</button> -->
-                                          </td>
-                                        </tr>
-                                      <% }) %>
-                                    <% }) %>
-                                  </tbody>
-                                </table>
-                                
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                </div>
-                <%- include('../partials/adminpartials/footer') %>
+        <div class="row mb-4">
+          <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                      <h6 class="text-white text-capitalize ps-3">Order Management</h6>
                     </div>
-        </main>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Sl/no</th>
+                          <th scope="col">product Details</th>
+
+                          <th scope="col">Order Id</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% orderdata.forEach((order, index)=> { %>
+                          <tr>
+                            <td>
+                              <%= index + 1 %>
+                            </td>
+                            <td>
+                              <a href="javascript:void(0);" onclick="openProductsPopup('<%=order.id%>')"
+                                style="color: #D81B60">View Products</a>
+                            </td>
 
 
+                            <td>
+                              <%= order.Ordernumber %>
+                            </td>
+                            <td>
+                              <a href="javascript:void(0);" onclick="openAddressPopup('<%=order.id%>')" style="color: #D81B60">View
+                                Address</a>
+                            </td>
+                            <td>
+                              <div class="dropdown" style="width: 150px; border-radius: 10px;">
+                                <select class="custom-select" id="statusDropdown"
+                                  style="border-radius: 10px; background-color: #f8f9fa; color: #D81B60; border: 1px solid #D81B60;">
+                                  <option selected>Select Status</option>
+                                  <option style="color: black;" value="pending">Pending</option>
+                                  <option style="color: black;" value="return">Return</option>
+                                  <option style="color: black;" value="cancel">Cancel</option>
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+                          <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <%- include('../partials/adminpartials/footer') %>
+          </div>
+    </main>
+
+
+    <!-- The modal is used to show product details as popup -->
+    <div id="productsModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeProductsPopup()">&times;</span>
+        <div id="productsModalContent"></div>
+      </div>
+    </div>
+
+    <!-- The modal is used to show address as popup -->
+    <div id="addressModal" class="modal">
+      <div class="modal-content">
+        <span class="close"  onclick="closeAddressPopup()">&times;</span>
+        <div id="addressModalContent"></div>
+      </div>
+    </div>
 
 </body>
+
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height: 550px;
+    background-color: white;
+    z-index: 1000;
+    border-radius: 8px;
+  }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1002;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+
+  function openProductsPopup(orderid) {
+    console.log("ordeer isd is ", orderid);
+    var modal = document.getElementById('productsModal');
+    var modalContent = document.getElementById('productsModalContent');
+
+    modalContent.innerHTML = "Loading...";
+    const data = {
+      id: orderid
+    }
+    fetch('/admin/viewproduct', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        modalContent.innerHTML = formatProductDetails(data);
+
+
+
+      })
+      .catch(error => {
+        console.error('Error during fetch operation:', error);
+      });
+    modal.style.display = 'block';
+  }
+
+  function formatProductDetails(data) {
+    let result = '';
+
+    data.forEach((item, index) => {
+      result += `
+      <h3>${index + 1}.</h3>
+      <h2><span style="color: black; font-weight: bold; margin-right: 7px;">Name:</span> ${item.productDetails.name}</h2>
+
+      <img style="width: 100px;height: 80px;" src="/MulterUploads/${item.productDetails.image[0]}" alt="">
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Description:</span> ${item.productDetails.description}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Price:</span>${item.productDetails.price}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Category:</span>${item.productDetails.category}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Quantity:</span>  ${item.productDetails.qty}</p>
+      <br>
+    `;
+    });
+
+    return result;
+  }
+
+  function closeProductsPopup() {
+    var modal = document.getElementById('productsModal');
+    modal.style.display = 'none';
+  }
+
+
+
+
+  //addresspopup integration
+
+  function openAddressPopup(orderid) {
+    console.log("vannu");
+    var modal = document.getElementById('addressModal');
+    var modalContent = document.getElementById('addressModalContent');
+
+    modalContent.innerHTML = "Loading...";
+    const data = {
+      id: orderid
+    }
+    fetch('/admin/viewaddress', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        modalContent.innerHTML = formataddressDetails(data)
+
+
+
+      })
+      .catch(error => {
+        console.error('Error during fetch operation:', error);
+      });
+    modal.style.display = 'block';
+  }
+  function formataddressDetails(data) {
+    let result = '';
+
+      result += `
+
+      <h3><span style="color: black; margin-right: 7px;" >Name:</span>${data.name}</h3>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Address:</span>${data.address}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">District:</span>${data.district}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Phone:</span>${data.phone}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Pin:</span>${data.pincode}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">State:</span>${data.state}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">E-mail:</span>${data.email}</p>
+    `;
+    return result;
+  }
+
+  
+
+
+  function closeAddressPopup() {
+    var modal = document.getElementById('addressModal');
+    modal.style.display = 'none';
+  }
+</script>
 
 </html>

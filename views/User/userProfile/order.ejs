@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 </head>
+
 <body>
-<%- include('../../partials/layoutpage.ejs') %>
+  <%- include('../../partials/layoutpage.ejs') %>
 
     <%- include('../../partials/userpartials/header.ejs') %>
-    <section class="breadcrumb breadcrumb_bg">
+      <section class="breadcrumb breadcrumb_bg">
         <div class="container">
           <div class="row justify-content-center">
             <div class="hero">
@@ -33,42 +35,242 @@
           </div>
         </div>
       </section>
-      
 
-    <div class="container">
+
+
+      <div class="table-responsive">
         <table class="table">
-            <thead>
+          <thead>
+            <tr>
+              <th scope="col">Sl/no</th>
+              <th scope="col">product Details</th>
+              <th scope="col">Order Id</th>
+              <th scope="col">Address</th>
+              <!-- <th scope="col">Return</th> -->
+              <th scope="col">Cancel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orderdata.forEach((order, index)=> { %>
                 <tr>
-                    <th scope="col">Sl/no</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Order Id</th>
-                    <th scope="col">Address</th>
-                    <!-- Add more headers if needed -->
+
+                  <td style="padding-left: 40px;">
+                    <%= index+1 %>
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);" onclick="openProductsPopup('<%=order.id%>')" style="color: #D81B60">Selected
+                      Products</a>
+                  </td>
+                  <td>
+                    <%= order.Ordernumber %>
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);" onclick="openAddressPopup('<%=order.id%>')" style="color: #D81B60">Selected
+                      Address</a>
+                  </td>
+                  <!-- <td>
+                    <button class="  btn-sm btn_1" type="button">Return</button>
+                  </td> -->
+                  <td>
+                    <button class="  btn-sm btn_3" type="button">Cancel</button>
+                  </td>
+                  
+                  </td>
                 </tr>
-            </thead>
-            
-            <tbody>
-                <% orderdata.forEach((order, index) => { %>
-                    <% order.productdetails.forEach((item, itemIndex) => { %>
-                        <tr>
-                          
-                            <td><%= index + 1 %></td>
-                            <td><%= item.productName %></td>
-                            <td><%= item.quantity %></td>
-                            <td><%= item.uniquePriceTotal %></td>
-                            <td><%= order.Ordernumber %></td>
-                            <td><%= order.address %></td>
-                        </tr>
-                    <% }) %>
                 <% }) %>
-                
-                <!-- Add more rows as needed -->
-            </tbody>
+
+
+
+          </tbody>
         </table>
-     </div>
-     
-<%- include('../../partials/userpartials/footer.ejs') %>
+
+      </div>
+  <!-- The modal is used to show product details as popup -->
+  <div id="productsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeProductsPopup()">&times;</span>
+      <div id="productsModalContent"></div>
+    </div>
+  </div>
+
+  <!-- The modal is used to show address as popup -->
+  <div id="addressModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeAddressPopup()">&times;</span>
+      <div id="addressModalContent"></div>
+    </div>
+  </div>
+
+      <%- include('../../partials/userpartials/footer.ejs') %>
 </body>
+
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height: 550px;
+    background-color: white;
+    z-index: 1000;
+    border-radius: 8px;
+  }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1002;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+
+  function openProductsPopup(orderid) {
+    console.log("ordeer isd is ", orderid);
+    var modal = document.getElementById('productsModal');
+    var modalContent = document.getElementById('productsModalContent');
+
+    modalContent.innerHTML = "Loading...";
+    const data = {
+      id: orderid
+    }
+    fetch('/admin/viewproduct', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        modalContent.innerHTML = formatProductDetails(data);
+
+
+
+      })
+      .catch(error => {
+        console.error('Error during fetch operation:', error);
+      });
+    modal.style.display = 'block';
+  }
+
+  function formatProductDetails(data) {
+    let result = '';
+
+    data.forEach((item, index) => {
+      result += `
+      <h3>${index + 1}.</h3>
+      <h2><span style="color: black; font-weight: bold; margin-right: 7px;">Name:</span> ${item.productDetails.name}</h2>
+
+      <img style="width: 100px;height: 80px;" src="/MulterUploads/${item.productDetails.image[0]}" alt="">
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Description:</span> ${item.productDetails.description}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Price:</span>${item.productDetails.price}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Category:</span>${item.productDetails.category}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Quantity:</span>  ${item.productDetails.qty}</p>
+      <br>
+    `;
+    });
+
+    return result;
+  }
+
+  function closeProductsPopup() {
+    var modal = document.getElementById('productsModal');
+    modal.style.display = 'none';
+  }
+
+
+
+
+  //addresspopup integration
+
+  function openAddressPopup(orderid) {
+    console.log("vannu");
+    var modal = document.getElementById('addressModal');
+    var modalContent = document.getElementById('addressModalContent');
+
+    modalContent.innerHTML = "Loading...";
+    const data = {
+      id: orderid
+    }
+    fetch('/admin/viewaddress', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        modalContent.innerHTML = formataddressDetails(data)
+
+
+
+      })
+      .catch(error => {
+        console.error('Error during fetch operation:', error);
+      });
+    modal.style.display = 'block';
+  }
+  function formataddressDetails(data) {
+    let result = '';
+
+      result += `
+
+      <h3><span style="color: black; margin-right: 7px;" >Name:</span>${data.name}</h3>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Address:</span>${data.address}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">District:</span>${data.district}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Phone:</span>${data.phone}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">Pin:</span>${data.pincode}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">State:</span>${data.state}</p>
+      <p><span style="color: black; font-weight: bold; margin-right: 7px;">E-mail:</span>${data.email}</p>
+    `;
+    return result;
+  }
+
+  
+
+
+  function closeAddressPopup() {
+    var modal = document.getElementById('addressModal');
+    modal.style.display = 'none';
+  }
+</script>
+
 </html>

@@ -143,7 +143,7 @@
               <div class="checkout_btn_inner float-right">
                 <a class="btn btn-sm btn_1" href="/shop">Add More</a>
                 <% if(cartdetails !=null) { %>
-                  <a class="btn btn-sm btn_1 checkout_btn_1" onclick="checkcart()" href="/checkout">Proceed to
+                  <a class="btn btn-sm btn_1 checkout_btn_1"  href="/checkout">Proceed to
                     checkout</a>
                   <% } %>
               </div>
@@ -204,7 +204,7 @@
               .catch(error => console.error('Error:', error));
           }
         </script>
-        <script>
+        <!-- <script>
           function checkcart(event) {
 
             const isCartEmpty = "<%=cartdetails %>";
@@ -216,7 +216,7 @@
             // If the cart is not empty, proceed with the default behavior (navigation)
             // You can also redirect to another page or perform other actions as needed
           }
-        </script>
+        </script> -->
 </body>
 
 </html>

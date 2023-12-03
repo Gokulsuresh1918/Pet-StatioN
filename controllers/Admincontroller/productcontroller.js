@@ -12,6 +12,7 @@ const { log } = require("console");
 //ProductGet----------------------------------------
 exports.productGet = async (req, res) => {
     const productdata = await productCollection.find()
+    productdata.reverse()
     res.render("Admin/product", { productdata })
 };
 

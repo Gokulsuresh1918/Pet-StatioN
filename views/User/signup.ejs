@@ -85,9 +85,10 @@
 </section>
 
 
+</body>
     <script>
       // Form validation logics
-
+      document.addEventListener("DOMContentLoaded", function() {
       const username = document.getElementById("username");
       const email = document.getElementById("email");
       const mobile = document.getElementById("mobile");
@@ -102,7 +103,6 @@
       submit.addEventListener("click", (e) => {
         console.log('submit button is clicked')
         let n = username.value.trim();
-        // console.log(n);
         let Email = email.value;
         let Mobile = mobile.value
         let pass = password.value;
@@ -162,8 +162,8 @@
           error.textContent = '';
         }
       });
+    })
        </script>
-</body>
 <script>
   function togglePasswordVisibility() {
       let passwordrepeat = document.getElementById("repassword");
@@ -179,7 +179,6 @@
 </script>
 
 <script>
-  // Add a delay of 5 seconds (5000 milliseconds)
   setTimeout(function () {
       // Hide the alert by adding the 'd-none' class
       document.getElementById('errorAlert').classList.add('d-none');

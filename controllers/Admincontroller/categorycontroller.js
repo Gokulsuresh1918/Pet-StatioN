@@ -12,7 +12,7 @@ exports.categoryGet = async (req, res) => {
         if (req.session.adminID) {
             let admin = false
             const categorydata = await categoryCollection.find()
-
+            categorydata.reverse()
             res.render("Admin/category", { categorydata, admin })
         } else {
             let admin = true

@@ -9,6 +9,7 @@ const { log } = require("console");
 
 exports.reviewget = async (req, res) => {
     const reviewdata = await contactCollection.find()
+    reviewdata.reverse()
     res.render('Admin/Reviews', { reviewdata})
 };
 
@@ -19,6 +20,7 @@ exports.reviewget = async (req, res) => {
 //userGet--------------==========================================================================
 exports.UserGet = async (req, res) => {
     const admin = await UserCollection.find()
+    admin.reverse()
     res.render("Admin/Users", { admin })
 };
 

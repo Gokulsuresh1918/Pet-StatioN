@@ -37,6 +37,7 @@ exports.addressGet = async (req, res) => {
             const cartdata=  await cartCollection.find({ id: req.session.userId })
             const cartcount =cartdata.length
             const address = await addressCollection.find({ userId: req.session.userId });
+            address.reverse()
             res.render('User/userProfile/address', { user, cartcount,address, message: "" })
         } else {
             const user = false
@@ -166,10 +167,12 @@ exports.ordersget = async (req, res) => {
     try {
        if (req.session.userId) {
            const user = true
-           const userid = req.session.userId
+           
 
            const orderdata = await orderCollection.find()
+           orderdata.reverse()
            const cartdata = await cartCollection.find({ id: req.session.userId })
+           cartdata.reverse()
            const cartcount = cartdata.length
        
            res.render('User/userprofile/order', { orderdata,user,cartcount })
