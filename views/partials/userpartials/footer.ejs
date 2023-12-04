@@ -113,15 +113,14 @@
 
         // Validate name (no numbers or special characters)
         var nameRegex = /^[a-zA-Z ]+$/;
-        if (!nameRegex.test(name)) {
-            alert("Name should only contain letters and spaces.");
+        if (!nameRegex.test(name)&&message.trim().length<3) {
+            alert("Name should only contain letters and spaces. and name should be more than 3 letters");
             return false;
         }
 
         // Validate message (no numbers or special characters)
-        var messageRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
-        if (!messageRegex.test(message)) {
-            alert("Message should only contain letters and basic punctuation.");
+        if (message.trim().length<5&&message.trim().length>50) {
+            alert("Message should be more than 5 letters and lessthan 50 letters");
             return false;
         }
 

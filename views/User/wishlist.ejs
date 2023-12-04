@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Wishlist</title>
+  <link rel="icon" href="img/favicon.png">
+    <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/productcss/animate.css">
+    <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/productcss/nice-select.css">
+    <link rel="stylesheet" href="/assets/productcss/all.css">
+    <link rel="stylesheet" href="/assets/productcss/flaticon.css">
+    <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
+    <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/productcss/slick.css">
+    <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
+    <link rel="stylesheet" href="/assets/productcss/style.css">
+</head>
+
+<body>
+  <%- include('../partials/layoutpage.ejs') %>
+    <!--::header part start::-->    
+<%- include('../partials/userpartials/header.ejs') %>
+      <!--================Home Banner Area =================-->
+      <!-- breadcrumb start-->
+      <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="hero">
+              <div class="container">
+                <div class="row justify-content-between">
+                  <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                      <h1>Wishlist </h1>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+                      nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
+                      his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- breadcrumb start-->
+
+      <!--================Cart Area =================-->
+    <!--================Cart Area =================-->
+<section class="cart_area padding_top">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Name</th>
+          
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (wishlistdata !== null && wishlistdata.length > 0) { %>
+            <% wishlistdata.forEach((wishlist, index) => { %>
+              <% wishlist.items.forEach((prod, prodIndex) => { %>
+                <tr>
+                  <td>
+                    <div class="media">
+                      <div class="d-flex">
+                        <img style="width: 100px; height: 80px;" src="/MulterUploads/<%= prod.image[0] %>" alt="" />
+                      </div>
+                      <div class="media-body">
+                        <p><%= prod.name %></p>
+                      </div>
+                    </div>
+                  </td>
+              
+                  <td>
+                    <button class="btn btn-sm btn_3" onclick="removeItem('<%= prod._id %>')">Remove</button>
+                  </td>
+                </tr>
+              <% }); %>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="4">
+                <img style="width: 400px; height: 300px; color: red;" src="/img/wishlistlatest.jpeg" alt="image">
+               <span style="font-weight: bold;font-size:large;" >  " YOUR WISHLIST IS EMPTY " Please add products to your wishlist.</span>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!--================End Cart Area =================-->
+  
+<%- include('../partials/userpartials/footer.ejs') %>
+      <!--================End Cart Area =================-->
+
+
+</body>
+
+</html>

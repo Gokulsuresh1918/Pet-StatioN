@@ -25,6 +25,10 @@ const UserLoginSchema = new mongoose.Schema({
     },
     otp:{
         type: Number,
+    },
+    wallet:{
+        type:Number,
+        default:0
     }
 });
 

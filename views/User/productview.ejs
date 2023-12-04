@@ -33,6 +33,7 @@
 
   <link href="/assets/cssUT/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  
   <link href="/assets/cssUT/tiny-slider.css" rel="stylesheet">
   <link href="/assets/cssUT/style.css" rel="stylesheet">
 
@@ -133,9 +134,13 @@
                 </div>
                 <button id="addToCartButton" onclick="addToCart('<%= productdata._id %>')" class="btn_3"
                   style="text-decoration: none;">add to cart</button>
-
-                <a href="#" class="like_us"> <i class="fa fa-heart"></i> </a>
-              </div>
+                </div>
+                
+                <button id="addToWishlistButton" data-product-id="<%= productdata._id %>" class="btn btn-danger">
+                  <i class="fas fa-heart" style="color: white;"></i>
+              </button>
+                <span id="wishlistIcon"></span>
+                                
             </div>
           </div>
         </div>
@@ -354,6 +359,38 @@
 
 <!-- Zoom Scripts -->
 <!-- <script src="/javascript/zoom.js"></script> -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const addToWishlistButton = document.getElementById('addToWishlistButton');
+      const wishlistIcon = document.getElementById('wishlistIcon');
+  
+      addToWishlistButton.addEventListener('click', async () => {
+          const productId = addToWishlistButton.getAttribute('data-product-id');
+          try {
+              const response = await fetch(`/wishlist/${productId}`, {
+                  method: 'get', 
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+              });
+              const data = await response.json();
+        
+                const { wishlistdata } = data;
+                if (wishlistdata && wishlistdata.length > 0) {
+                  addToWishlistButton.style.display = 'none';
+
+                  wishlistIcon.innerHTML = '<i class="fas fa-heart" style="color: red;"></i>';
+              } else {
+                  wishlistIcon.innerHTML = '<i class="far fa-heart"></i>';
+              }
+          } catch (error) {
+              console.error('Fetch error:', error);
+          }
+      });
+  });
+  </script>
+
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     let MainImg = document.getElementById('zoommain');

@@ -9,6 +9,7 @@
   <link rel="icon" href="img/favicon.png">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
   <!-- Font Awesome CSS -->
   <link rel="stylesheet" href="/assets/productcss/all.css">
@@ -229,7 +230,7 @@
                 <p id="address" data-address="<%= addressdetails.id %>"></p>
                 <% addressdetails.forEach((row,index)=> {%>
                   <input type="radio" id="deliveryaddresss" name="deliveryaddresss" checked
-                    value="<%=row.id%>"/><span>Select Address</span>
+                    value="<%=row.id%>" /><span>Select Address</span>
                   <address>
 
 
@@ -287,7 +288,9 @@
                               <li class="your-product-selector">
                                 <a href="#" class="product-name">
 
-                                  <p class="product-id" style="display: none;"><%=product.id%></p>
+                                  <p class="product-id" style="display: none;">
+                                    <%=product.id%>
+                                  </p>
                                   <%= product.name %>
                                     <% const uniquepricetotal=Number(product.price) * Number(prod.quantity)%>
                                       <span class="uniquetotalprice">
@@ -337,6 +340,18 @@
                           </span>
                         </a>
                     </li>
+                    <br>
+                    <li>
+                      <p id="walletamount" hidden>
+                        <%=wallet %>
+                      </p>
+                      <a href="#" style="font-weight: bold;">Wallet Amount
+                        <span style="font-weight: bold; color: rgb(239, 0, 0);">
+                          <%=wallet %>
+                        </span>
+                      </a>
+                    </li>
+                    <br>
                   </ul>
                   <form action="" id="payment">
                     <div class="payment_item">
@@ -355,14 +370,18 @@
                         </div>
                       </div>
 
+                      <div class="radion_btn">
+                        <div id="walletButton">
+                          <input type="radio" id="wallet" name="selector" value="wallet" />
+                          <label for="wallet">Pay on Wallet</label>
+                          <div class="check"></div>
+                        </div>
+                      </div>
+
                   </form>
                 </div>
               </div>
-              <div class="creat_account">
-                <input type="checkbox" id="f-option4" name="selector" />
-                <label for="f-option4">I’ve read and accept the </label>
-                <a href="#">terms & conditions*</a>
-              </div>
+
               <a class="btn_3" href="#" id="rzp-button1" onclick="confirmOrder()">Confirm Order</a>
             </div>
           </div>
@@ -450,7 +469,7 @@
 
                 console.log("hello");
 
-
+                let paymentMode = document.getElementById('payment').selector.value
                 const addressdetails = document.getElementById('address')
                 const addressdata = addressdetails.getAttribute('data-address')
                 var options = {
@@ -459,7 +478,7 @@
                   "currency": "INR",
                   "name": "Petstation", //your business name
                   "description": "Test Transaction",
-                  "image": "https://example.com/your_logo",
+                  "image": "/img/aksharalogo.png",
                   "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                   "callback_url": "/confirmation",
                   "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
@@ -468,7 +487,7 @@
                     "contact": "7902371571" //Provide the customer's phone number for better conversion rates 
                   },
                   "notes": {
-
+                    "payment": paymentMode,
                     "address": addressid
                   },
                   "theme": {
@@ -506,7 +525,7 @@
 
             });
           });
-          console.log(addressid);
+
           function confirmOrder() {
             console.log("worked");
             let paymentMode = document.getElementById('payment').selector.value
@@ -515,19 +534,17 @@
 
               const orderDetails = [];
               document.querySelectorAll('.your-product-selector').forEach(item => {
-                const productId = item.querySelector('.product-id').innerText;
+                const productId = item.querySelector('.product-id').innerText.trim()
                 const quantity = item.querySelector('.quantity').innerText.split('X')[1].trim();
                 const uniquePriceTotal = item.querySelector('.uniquetotalprice').innerText.trim();
                 // const addressid = document.getElementById('addressid').innerText
                 const paymentMode = document.getElementById('payment').selector.value
 
-                // Add an event listener to each radio button
 
                 orderDetails.push({
                   productId,
                   quantity,
                   uniquePriceTotal,
-                  paymentMode
                 });
               });
 
@@ -546,6 +563,49 @@
                 .then(response => response.json())
                 .then(data => {
                   window.location.href = '/confirmation';
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+            } else if (paymentMode == "wallet") {
+              const orderDetails = [];
+              document.querySelectorAll('.your-product-selector').forEach(item => {
+                const productId = item.querySelector('.product-id').innerText.trim()
+                const quantity = item.querySelector('.quantity').innerText.split('X')[1].trim();
+                const uniquePriceTotal = item.querySelector('.uniquetotalprice').innerText.trim();
+                const paymentMode = document.getElementById('payment').selector.value
+                const walletElement = document.getElementById('walletamount');
+                const walletAmount = walletElement.innerText.trim();
+                orderDetails.push({
+                  productId,
+                  quantity,
+                  uniquePriceTotal,
+                  walletAmount
+                });
+              });
+              fetch('/walletorder', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  addressid,
+                  orderDetails,
+                  paymentMode,
+
+                }),
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.error) {
+                    Swal.fire({
+                      icon: 'warning',
+                      title: 'Insufficient Wallet Balance',
+                      text: 'Your wallet balance is not sufficient to place this order.',
+                    });
+                  } else {
+                    window.location.href = '/confirmation';
+                  }
                 })
                 .catch(error => {
                   console.error('Error:', error);

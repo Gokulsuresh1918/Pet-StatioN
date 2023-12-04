@@ -8,7 +8,7 @@ const {upload} = require('../middleware/multer')
 
 const { LoginGet, loginPost, logoutGet, dashboard, } = require('../controllers/Admincontroller/admindashboard')
 const { reviewget, UserGet, blockUser, } = require('../controllers/Admincontroller/usercontroller')
-const { orderGet,viewProductOrder,viewAddressOrder } = require('../controllers/Admincontroller/ordercontroller')
+const { orderGet,viewProductOrder,viewAddressOrder,pendingOrder,deliveredorder,cancelorder,shippedorder } = require('../controllers/Admincontroller/ordercontroller')
 const { categoryGet, categorypost, addcategoryGet, addcategoryPost, editcategoryGet, editcategoryPost, blockcategory, } = require('../controllers/Admincontroller/categorycontroller')
 const { productGet, productpost, productaddGet, productaddpost, editproductGet, editproductpost, imagedelete, } = require('../controllers/Admincontroller/productcontroller')
 
@@ -34,6 +34,10 @@ router.get('/blockStatus', adminSession, blockUser);
 router.get('/orderdetails', adminSession, orderGet);
 router.post('/viewproduct', viewProductOrder)
 router.post('/viewaddress', viewAddressOrder)
+router.post('/pendingOrder', pendingOrder)
+router.post('/cancelOrder', cancelorder)
+router.post('/deliveryOrder', deliveredorder)
+router.post('/shippedOrder', shippedorder)
 
 
 

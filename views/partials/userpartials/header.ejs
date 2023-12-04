@@ -20,6 +20,14 @@
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+              
+                <li>
+                    <a class="nav-link" href="/wishlist">
+                        <img style="height: 32px;" src="/img/heart.svg" alt="Heart">
+                        <span id="heartCount"></span>
+                    </a>
+                </li>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="/assets/images/user.svg">
@@ -39,12 +47,12 @@
                     </div>
                     <%}%>
                 </li>
-                <%if(locals.cartcount) { %>
+                <%if(cartcount) { %>
                 
                 <li>
                     <a class="nav-link" href="/cart">
                       <img src="/assets/images/cart.svg" alt="Cart">
-                      <span id="cartItemCount"><%= cartcount %></span>
+                      <span style="font-weight: bold; color: #ee0000;" id="cartItemCount"><%= cartcount %></span>
                     </a>
                   </li>
                   <% }else{ %>

@@ -9,11 +9,13 @@ exports.cartGet = async (req, res) => {
         if (req.session.userId) {
             const user = true
             const cartdetails = await cartCollection.findOne({ userId: req.session.userId });
+             const cartdata = await cartCollection.find({ userId: req.session.userId  })
+            const cartcount = cartdata[0].products.length
             const productdetails = await productCollection.find();
-            res.render('User/cart', { cartdetails: cartdetails, productdetails: productdetails, user });
+            res.render('User/cart', { cartdetails: cartdetails, cartcount,productdetails: productdetails, user });
         } else {
             const user = false
-            res.render('User/cart', { user })
+            res.render('User/cart', { user,cartcount:0 })
         }
     } catch (error) {
         console.error("cartget  error" + "= " + error);
@@ -35,7 +37,6 @@ exports.addcartpost = async (req, res) => {
             if (!cart) {
                 productPrice = productPrice.price;
                 let subtotal = productPrice * parseInt(qty);
-                console.log("data chrck" + productPrice, subtotal, user);
                 let cart = {
                     userId: user,
                     products: [{
@@ -49,12 +50,10 @@ exports.addcartpost = async (req, res) => {
             } else {
 
                 const existingProduct = cart.products.findIndex((item) => item.productId.equals(productId))
-                console.log("index fo " + existingProduct);
                 ;
                 if (existingProduct == -1) {
                     const productPriceData = await productCollection.findOne({ _id: productId }, { _id: 0, price: 1 });
                     const productPrice = productPriceData.price; // Extract the price property
-                    console.log(productPrice);
                     cart.products.push(
                         {
                             quantity: qty,

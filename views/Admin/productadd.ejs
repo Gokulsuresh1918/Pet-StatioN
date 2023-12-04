@@ -25,10 +25,71 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
+
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
+
+<style>
+  body{
+    position: relative;
+}
+
+/* user side image previewer */
+
+#imagePreview img{
+    height: 50px;
+    max-width: 80px;
+}
+
+#cropper110Modal{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(53, 52, 52, 0.532);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#cropper110Modal img {
+	max-width: 100%;
+}
+
+.cropper110-page {
+	margin: 1em auto;
+	max-width: 768px;
+	height: 100%;
+}
+
+.cropper110-box {
+	padding: 0.5em;
+	width: calc(100%/2 - 1em);
+    max-height: 60vh;
+}
+
+
+
+.cropper110-crop , .cropper110-close {
+    padding: .5rem 1rem;
+    background-color: rgb(0,0,0);
+    color: #fff;
+    font-weight: bold;
+}
+
+.cropper110-close{
+    background-color: red;
+}
+
+
+
+
+
+
+</style>
 
 <body class="g-sidenav-show  bg-gray-200">
   <!--header-->
@@ -40,16 +101,24 @@
 
         <div class="row mb-4">
 
+
+         
+
           <div class="row mb-4">
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
+
+
+                  
+
                   <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                       <h6 class="text-white text-capitalize ps-3">Product Management</h6>
                     </div>
                   </div>
                   <div class="table-responsive">
+
                     <form action="/admin/productadd" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                       <div class="row">
                           <div class="col-md-6">
@@ -70,9 +139,10 @@
                               </div>
                               <div class="form-group">
                                   <label for="image" class="form-label">Image:</label>
-                                  <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png, .gif"
+                                  <input type="file" class="form-control" id="fileUploader"  name="image"  data-image-preview="#imagePreview" accept=".jpg, .jpeg, .png, .gif"
                                       required multiple>
                                   <div id="imageError" class="error-message"></div>
+
                               </div>
                           </div>
                           <div class="col-md-6">
@@ -92,10 +162,12 @@
                                   <div id="qtyError" class="error-message"></div>
                               </div>
                           </div>
+                          <div id="imagePreview"></div>
+
                       </div>
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                   </form>
-                  
+                 
                   </div>
                 </div>
               </div>
@@ -106,6 +178,22 @@
         </div>
         </div>
     </main>
+    <div id="cropper110Modal">
+      <div id="imageCropBox">
+          <div style="text-align: end;">
+              <button class="cropper110-close">close</button>
+          </div>
+          <section class="cropper110-page">
+              <div class="cropper110-box">
+                  <div class="cropper110-cropping-box"></div>
+              </div>
+
+              <div>
+                  <button class="cropper110-crop mx-3">Crop</button>
+              </div>
+          </section>
+      </div>
+  </div>
 </body>
 
 <script>
@@ -114,7 +202,7 @@
       var description = document.getElementById("description").value;
       var price = document.getElementById("price").value;
       var qty = document.getElementById("qty").value;
-      var image = document.getElementById("image").value;
+      var image = document.getElementById("fileUploader").value;
 
       // Reset previous error messages
       document.getElementById("nameError").innerHTML = "";
@@ -160,4 +248,112 @@
       return true;
   }
 </script>
+
+
 </html>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+
+<script>
+  let fileInputs = document.querySelectorAll('[data-image-preview]')
+
+
+let croppingBox = document.querySelector('.cropper110-cropping-box'),
+    crop = document.querySelector('.cropper110-crop'),
+    cropper = '',
+    currentInput = null,
+    imgNames = null,
+    imgSrc = null;
+
+fileInputs.forEach(fileInput => {
+    fileInput.addEventListener('change', () => {
+        let previewDiv = document.querySelector(fileInput.dataset.imagePreview)
+        previewDiv.innerHTML = ""
+        for (let each of fileInput.files) {
+            let imgSrc = URL.createObjectURL(each)
+            let img = document.createElement('img')
+            img.src = imgSrc
+            img.dataset.fileName = each.name
+            console.log(fileInput.id, 'file inut id')
+            img.dataset.input = fileInput.id
+            img.addEventListener('click', cropImage)
+
+            previewDiv.append(img)
+
+        }
+    })
+})
+
+
+function cropImage(e) {
+    
+    document.getElementById('cropper110Modal').style.display = 'flex'
+
+    let img = document.createElement('img');
+    img.id = 'image';
+    img.src = e.target.src;
+    croppingBox.innerHTML = '';
+    croppingBox.appendChild(img);
+    cropper = new Cropper(img);
+
+    imgNames = e.target.dataset.fileName
+    currentInput = e.target.dataset.input
+
+}
+
+
+
+//crop and save on click
+crop.addEventListener('click', e => {
+    e.preventDefault();
+    // get result to data uri
+
+    let imgSrc = cropper.getCroppedCanvas({
+        width: 300 // input value
+    }).toDataURL();
+
+    if (imgSrc && imgNames !== null) {
+        let fileUploader = document.getElementById(currentInput)
+        fetch(imgSrc)
+            .then(res => res.blob())
+            .then(blob => {
+                console.log(imgNames)
+                let file = new File([blob], `${imgNames}-${Date.now()}.png`, { type: "image/jpeg" })
+
+                const dt = new DataTransfer()
+                for (let each of fileUploader.files) {
+                    if (each.name !== imgNames) {
+                        dt.items.add(each)
+                    } else {
+                        dt.items.add(file)
+                    }
+                }
+
+
+                fileUploader.files = dt.files
+
+                console.log(fileUploader.files)
+
+                let previewDiv = document.querySelector(fileUploader.dataset.imagePreview)
+                previewDiv.innerHTML = ""
+                let res = ""
+
+                for (let each of fileUploader.files) {
+                    let src = URL.createObjectURL(each)
+                    res += `<img src="${src}" data-file-name="${each.name}" data-input="${fileUploader.id}" onclick="cropImage(event)" class="previewImages">`
+                }
+
+                previewDiv.innerHTML = res
+
+
+            })
+    }
+
+    document.querySelector('.cropper110-close').click()
+});
+
+document.querySelector('.cropper110-close')
+    .addEventListener('click', () => {
+        document.getElementById('cropper110Modal').style.display = 'none'
+    })
+
+</script>

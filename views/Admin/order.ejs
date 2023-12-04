@@ -55,13 +55,14 @@
 
                           <th scope="col">Order Id</th>
                           <th scope="col">Address</th>
+                          <th scope="col">Payment</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% orderdata.forEach((order, index)=> { %>
                           <tr>
-                            <td>
+                            <td style="padding-left: 35px;">
                               <%= index + 1 %>
                             </td>
                             <td>
@@ -74,20 +75,42 @@
                               <%= order.Ordernumber %>
                             </td>
                             <td>
-                              <a href="javascript:void(0);" onclick="openAddressPopup('<%=order.id%>')" style="color: #D81B60">View
+                              <a href="javascript:void(0);" onclick="openAddressPopup('<%=order.id%>')"
+                                style="color: #D81B60">View
                                 Address</a>
                             </td>
+                            <td style="padding-left: 25px;">
+                              <%= order.payment %>
+                            </td>
+                            <% if (order.status!=="Delivered"&&order.status!=="Returned" ) { %>
                             <td>
                               <div class="dropdown" style="width: 150px; border-radius: 10px;">
-                                <select class="custom-select" id="statusDropdown"
-                                  style="border-radius: 10px; background-color: #f8f9fa; color: #D81B60; border: 1px solid #D81B60;">
-                                  <option selected>Select Status</option>
-                                  <option style="color: black;" value="pending">Pending</option>
-                                  <option style="color: black;" value="return">Return</option>
-                                  <option style="color: black;" value="cancel">Cancel</option>
-                                </select>
-                              </div>
-                            </td>
+
+                                  <select class="status" id="status" onchange="status('<%= order.id %>', value)"
+                                    style="border-radius: 10px; background-color: #f8f9fa; color: #D81B60; border: 1px solid #D81B60;">
+                                    <option selected>
+                                      <%= order.status %>
+                                    </option>
+                                    <% if (order.status !=="Cancelled" ) { %>
+                                      <option style="color: black;" value="Cancel">Cancel</option>
+                                      <% } %>
+                                        <% if (order.status !=="Pending" ) { %>
+                                          <option style="color: black;" value="Pending">Pending</option>
+                                          <% } %>
+                                            <% if (order.status !=="Shiped" ) { %>
+                                              <option style="color: black;" value="Shipped">Shipped</option>
+                                              <% } %>
+                                                <option style="color: black;" value="delivered">Delivered</option>
+                                  </select>
+                                  
+                                  
+                                </div>
+                              </td>
+                              <% } else if (order.status=="Returned" ) { %>
+                                <td>Returned</td>
+                              <% } else {%>
+                                <td>Delivered</td>
+                                <% } %>
                           </tr>
                           <% }) %>
                       </tbody>
@@ -115,7 +138,7 @@
     <!-- The modal is used to show address as popup -->
     <div id="addressModal" class="modal">
       <div class="modal-content">
-        <span class="close"  onclick="closeAddressPopup()">&times;</span>
+        <span class="close" onclick="closeAddressPopup()">&times;</span>
         <div id="addressModalContent"></div>
       </div>
     </div>
@@ -269,7 +292,7 @@
   function formataddressDetails(data) {
     let result = '';
 
-      result += `
+    result += `
 
       <h3><span style="color: black; margin-right: 7px;" >Name:</span>${data.name}</h3>
       <p><span style="color: black; font-weight: bold; margin-right: 7px;">Address:</span>${data.address}</p>
@@ -282,13 +305,87 @@
     return result;
   }
 
-  
+
 
 
   function closeAddressPopup() {
     var modal = document.getElementById('addressModal');
     modal.style.display = 'none';
   }
+</script>
+<!-- status onchange integration -->
+
+<script>
+  function status(orderid, value) {
+    const select = document.getElementById('status')
+    const selectedvalue = value
+    if (selectedvalue == "Pending") {
+      pendingorder(orderid)
+    } else if (selectedvalue == "Cancel") {
+      cancelorder(orderid)
+    } else if (selectedvalue == "delivered") {
+      deliveredorder(orderid)
+    }
+  };
+
+
+  function pendingorder(orderid) {
+    fetch('/admin/pendingOrder', {
+      method: "POST",
+      body: JSON.stringify({ id: orderid }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => {
+        console.log('Response from server:', res);
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  };
+
+
+  function deliveredorder(orderid) {
+    fetch('/admin/deliveryOrder', {
+      method: "POST",
+      body: JSON.stringify({ id: orderid }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => {
+        console.log('Response from server:', res);
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  };
+
+
+  function cancelorder(orderid) {
+    fetch('/admin/cancelOrder', {
+      method: "POST",
+      body: JSON.stringify({ id: orderid }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => {
+        console.log('Response from server:', res);
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  }
+
+
 </script>
 
 </html>

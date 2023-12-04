@@ -4,10 +4,10 @@ const router = express.Router();
 
 const { homeGet, contactGet, contactpost, aboutget } = require('../controllers/Usercontroller/authenticationcontroller')
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
-const { shopget, productView } = require('../controllers/Usercontroller/shop&productcontroller')
+const { shopget, productView,wishlistget,wishlistdataget } = require('../controllers/Usercontroller/shop&productcontroller')
 const { cartGet, addcartpost, clearcartget, removeItem } = require('../controllers/Usercontroller/cartcontroller')
-const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost } = require('../controllers/Usercontroller/checkoutcontroller')
-const { profileGet, addressGet, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget } = require('../controllers/Usercontroller/profilecontroller')
+const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder } = require('../controllers/Usercontroller/checkoutcontroller')
+const { profileGet, addressGet, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget } = require('../controllers/Usercontroller/profilecontroller')
 const { forgetpass, forgetpasspost, resendpost, otpGet, otppost, resendotpget } = require('../controllers/Usercontroller/otp&passcontroller')
 // Importing middleware functions
 const { usersession } = require('../middleware/userAuth');
@@ -29,6 +29,8 @@ router.get('/about', aboutget);
 
 // Shop and Product routes
 router.get('/shop', shopget);
+router.get('/wishlist/:id', wishlistget);
+router.get('/wishlist', wishlistdataget);
 router.get('/productview/:id', usersession, productView);
 
 
@@ -48,6 +50,7 @@ router.delete('/remove-address/:addressId', usersession, addressremove);
 router.get('/confirmation', usersession, confirmationget);
 router.post('/confirmation', usersession, confirmationpost);
 router.post('/razorpay', razorpaypost);
+router.post('/walletorder', walletorder);
 
 
 // Profile and Address routes
@@ -58,7 +61,10 @@ router.get('/add-address', usersession, addaddressGet);
 router.post('/add-address', usersession, addaddresspost);
 router.get('/edit-address/:id', usersession, editaddressGet);
 router.post('/edit-address', usersession, editaddresspost);
+
+//order routes
 router.get('/orders', usersession, ordersget);
+router.post('/returnOrder', usersession, Returnget);
 
 
 // Password-related routes

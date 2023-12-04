@@ -40,14 +40,17 @@
 
       <div class="table-responsive">
         <table class="table">
+
           <thead>
             <tr>
               <th scope="col">Sl/no</th>
               <th scope="col">product Details</th>
               <th scope="col">Order Id</th>
               <th scope="col">Address</th>
-              <!-- <th scope="col">Return</th> -->
-              <th scope="col">Cancel</th>
+              <th scope="col">Payment</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+          
             </tr>
           </thead>
           <tbody>
@@ -68,12 +71,28 @@
                     <a href="javascript:void(0);" onclick="openAddressPopup('<%=order.id%>')" style="color: #D81B60">Selected
                       Address</a>
                   </td>
-                  <!-- <td>
-                    <button class="  btn-sm btn_1" type="button">Return</button>
-                  </td> -->
-                  <td>
-                    <button class="  btn-sm btn_3" type="button">Cancel</button>
+                  <td style="padding-left: 25px;" >
+                    <%= order.payment %>
                   </td>
+                  <% if(order.status!=="Cancel") { %> 
+                    <td style="padding-left: 15px;">
+                      <%= order.status %>
+                    </td>
+                    <% } %>
+                  
+                  <% if(order.status=="Delivered") {%>
+                    <td>
+                      <button class="btn-sm btn_3" type="button" onclick="ReturnOrder('<%=order.id%>')"  >Return</button>
+                    </td>
+                    <% }else if(order.status=="Cancel") { %> 
+                      <td>Cancelled</td>
+                      <% } else if(order.status=="Returned"){ %>  
+                        <td>Credicted</td>
+                        <% }else{ %>
+                      <td>
+                        <button class="btn-sm btn_3" type="button" onclick="Cancelorder('<%=order.id%>')" >Cancel</button>
+                      </td>
+                      <% } %>
                   
                   </td>
                 </tr>
@@ -272,5 +291,49 @@
     modal.style.display = 'none';
   }
 </script>
+<script>
+  
 
+
+  function Cancelorder(orderid) {
+    fetch('/admin/cancelOrder', {
+      method: "POST",
+      body: JSON.stringify({ id: orderid }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => {
+        console.log('Response from server:', res);
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  };
+
+
+  function ReturnOrder(orderid) {
+    fetch('/returnOrder', {
+      method: "POST",
+      body: JSON.stringify({ id: orderid }),
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => {
+        window.location.reload()
+        console.log('Response from server:', res);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+  };
+
+
+
+
+</script>
 </html>
