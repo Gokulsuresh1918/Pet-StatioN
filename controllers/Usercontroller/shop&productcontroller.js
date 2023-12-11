@@ -1,7 +1,7 @@
 const { productCollection } = require('../../model/productDB')
 const { cartCollection } = require('../../model/cartDB')
 const { contactCollection } = require('../../model/contactDB')
-const {Wishlistcollection}=require('../../model/wishlistDb')
+const { Wishlistcollection } = require('../../model/wishlistDb')
 const { UserCollection } = require('../../model/userDB')
 
 
@@ -12,18 +12,18 @@ exports.shopget = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            const cartdata = await cartCollection.find({ userId: req.session.userId  })
-            const cartcount = cartdata[0].products.length
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
             const productdata = await productCollection.find()
             productdata.reverse()
-            res.render('User/shop', { productdata, user,cartcount })
-        } else {      
+            res.render('User/shop', { productdata, user, cartcount })
+        } else {
             const user = false
             const productdata = await productCollection.find()
-            res.render('User/shop', { productdata, user,cartcount:0 })
+            res.render('User/shop', { productdata, user, cartcount: 0 })
         }
     } catch (error) {
-        console.error("shopget error"+"= "+error); 
+        console.error("shopget error" + "= " + error);
     }
 };
 
@@ -58,37 +58,37 @@ exports.wishlistget = async (req, res) => {
 
 
 exports.productView = async (req, res) => {
-try {
-    if (req.session.userId) {
-        const user = true
-        const productdata = await productCollection.findOne({ _id: req.params.id });
-        const cartdata = await cartCollection.find({ userId: req.session.userId  })
-        const cartcount = cartdata[0].products.length
-        res.render('User/productview', { productdata,user,cartcount })
-    } else {
-        const user = false
-        res.render('User/productview', { productdata,user ,cartcount:0})
+    try {
+        if (req.session.userId) {
+            const user = true
+            const productdata = await productCollection.findOne({ _id: req.params.id });
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
+            res.render('User/productview', { productdata, user, cartcount })
+        } else {
+            const user = false
+            res.render('User/productview', { productdata, user, cartcount: 0 })
+        }
+    } catch (error) {
+        console.error("productView  error" + "= " + error);
     }
-} catch (error) {
-    console.error("productView  error" + "= " + error);
-}
 }
 
 
 exports.cartGet = async (req, res) => {
-try {
-    if (req.session.userId) {
-        const user = true 
-    const cartdetails = await cartCollection.findOne({ userId: req.session.userId });
-    const productdetails = await productCollection.find();
-        res.render('User/cart', { cartdetails: cartdetails, productdetails: productdetails,user });
-    } else {
-        const user = false
-        res.render('User/cart', { cartdetails: cartdetails, productdetails: productdetails,user });
+    try {
+        if (req.session.userId) {
+            const user = true
+            const cartdetails = await cartCollection.findOne({ userId: req.session.userId });
+            const productdetails = await productCollection.find();
+            res.render('User/cart', { cartdetails: cartdetails, productdetails: productdetails, user });
+        } else {
+            const user = false
+            res.render('User/cart', { cartdetails: cartdetails, productdetails: productdetails, user });
+        }
+    } catch (error) {
+        console.error("aboutget  error" + "= " + error);
     }
-} catch (error) {
-    console.error("aboutget  error" + "= " + error);
-}
 };
 
 
@@ -96,25 +96,14 @@ try {
 
 exports.wishlistdataget = async (req, res) => {
     try {
-     
-        const wishlistdata = await Wishlistcollection.find({ userId: req.session.userId });
-        
-        let cartcount = 0;
+        const wishlistdata = await Wishlistcollection.findOne({ userId: req.session.userId })
         const cartdata = await cartCollection.find({ userId: req.session.userId });
-
-        if (cartdata.length > 0) {
-            if (cartdata[0].hasOwnProperty('products')) {
-                cartcount = cartdata[0].products.length;
-            }
-        }
-
-        console.log("Cart Count:", cartcount);
-        console.log("Wishlist Data:", wishlistdata);
-
-        res.render('User/wishlist', { wishlistdata, cartcount });
+        cartcount = cartdata[0]?.products.length;
+        const productData = await productCollection.find();
+        res.render('User/wishlist', { wishlistdata, cartcount, productData });
     } catch (error) {
         console.error("wishlistdataget error: ", error);
-        // Handle the error, e.g., display an error page or send an error response
         res.status(500).send("Internal Server Error");
     }
 };
+

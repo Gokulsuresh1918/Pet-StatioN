@@ -9,13 +9,14 @@ exports.cartGet = async (req, res) => {
         if (req.session.userId) {
             const user = true
             const cartdetails = await cartCollection.findOne({ userId: req.session.userId });
-             const cartdata = await cartCollection.find({ userId: req.session.userId  })
-            const cartcount = cartdata[0].products.length
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
             const productdetails = await productCollection.find();
-            res.render('User/cart', { cartdetails: cartdetails, cartcount,productdetails: productdetails, user });
+            console.log(productdetails);
+            res.render('User/cart', { cartdetails: cartdetails, cartcount, productdetails: productdetails, user });
         } else {
             const user = false
-            res.render('User/cart', { user,cartcount:0 })
+            res.render('User/cart', { user, cartcount: 0 })
         }
     } catch (error) {
         console.error("cartget  error" + "= " + error);
@@ -50,7 +51,7 @@ exports.addcartpost = async (req, res) => {
             } else {
 
                 const existingProduct = cart.products.findIndex((item) => item.productId.equals(productId))
-                ;
+                    ;
                 if (existingProduct == -1) {
                     const productPriceData = await productCollection.findOne({ _id: productId }, { _id: 0, price: 1 });
                     const productPrice = productPriceData.price; // Extract the price property
@@ -89,7 +90,7 @@ exports.clearcartget = async (req, res) => {
 
 
 
-  
+
 
 
 
@@ -97,7 +98,7 @@ exports.clearcartget = async (req, res) => {
 exports.removeItem = async (req, res) => {
     const productId = req.params.productId;
     try {
-        const cart = await cartCollection.findOne({ 'products.productId':new ObjectId(productId) });
+        const cart = await cartCollection.findOne({ 'products.productId': new ObjectId(productId) });
         if (cart) {
             const result = await cartCollection.updateOne(
                 { _id: cart._id },
@@ -112,7 +113,7 @@ exports.removeItem = async (req, res) => {
         } else {
             res.status(404).json({ success: false, error: 'Item not found' });
         }
-   
+
     } catch (error) {
         console.error('removeItem error:', error);
         res.status(500).json({ success: false, error: 'Internal Server Error' });

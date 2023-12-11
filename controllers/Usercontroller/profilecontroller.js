@@ -14,13 +14,13 @@ exports.profileGet = async (req, res) => {
         if (req.session.userId) {
             const user = true
             const id = req.session.userId
-            const cartdata = await cartCollection.find({ userId: req.session.userId  })
-            const cartcount = cartdata[0].products.length
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
             const userdetails = await UserCollection.findOne({ _id: id })
             res.render('User/userProfile/profile', { user, userdetails, cartcount })
         } else {
             const user = false
-            res.render('User/userProfile/profile', { user,cartcount:0 })
+            res.render('User/userProfile/profile', { user, cartcount: 0 })
         }
     } catch (error) {
         console.error("profileGet  error" + "= " + error);
@@ -34,14 +34,14 @@ exports.addressGet = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            const cartdata = await cartCollection.find({  userId: req.session.userId })
-            const cartcount = cartdata[0].products.length
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
             const address = await addressCollection.find({ userId: req.session.userId });
             address.reverse()
             res.render('User/userProfile/address', { user, cartcount, address, message: "" })
         } else {
             const user = false
-            res.render('User/userProfile/address', { user,cartcount:0 })
+            res.render('User/userProfile/address', { user, cartcount: 0 })
         }
     } catch (error) {
         console.error("addressGet  error" + "= " + error);
@@ -83,12 +83,12 @@ exports.addaddressGet = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            const cartdata = await cartCollection.find({  userId: req.session.userId  })
-            const cartcount = cartdata[0].products.length
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
             res.render('User/userProfile/addaddress', { user, cartcount })
         } else {
             const user = false
-            res.render('User/userProfile/addaddress', { user ,cartcount:0})
+            res.render('User/userProfile/addaddress', { user, cartcount: 0 })
         }
     } catch (error) {
         console.error("addaddressGet  error" + "= " + error);
@@ -134,12 +134,12 @@ exports.editaddressGet = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            const cartdata = await cartCollection.find({  userId: req.session.userId  })
-            const cartcount = cartdata[0].products.length
-            res.render('User/userProfile/editaddress', { user,cartcount })
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
+            res.render('User/userProfile/editaddress', { user, cartcount })
         } else {
             const user = false
-            res.render('User/userProfile/editaddress', { user,cartcount:0})
+            res.render('User/userProfile/editaddress', { user, cartcount: 0 })
         }
     } catch (error) {
         console.error("editaddressGet  error" + "= " + error);
@@ -170,17 +170,17 @@ exports.ordersget = async (req, res) => {
         if (req.session.userId) {
             const user = true
 
-        
+
             const orderdata = await orderCollection.find()
             orderdata.reverse()
-            const cartdata = await cartCollection.find({ userId: req.session.userId  })
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
             cartdata.reverse()
-            const cartcount = cartdata[0].products.length
+            const cartcount = cartdata[0]?.products.length
 
             res.render('User/userprofile/order', { orderdata, user, cartcount })
         } else {
             const user = false
-            res.render('User/userprofile/order', { orderdata, user,cartcount:0 })
+            res.render('User/userprofile/order', { orderdata, user, cartcount: 0 })
         }
     } catch (error) {
         console.error("ordersget  error" + "= " + error);
@@ -189,8 +189,8 @@ exports.ordersget = async (req, res) => {
 exports.Returnget = async (req, res) => {
     const orderId = req.body.id;
     const orderdata = await orderCollection.findOne({ _id: orderId });
-   const total = orderdata.total 
-    
+    const total = orderdata.total
+
     try {
         const userId = req.session.userId;
         const orderAmount = total;

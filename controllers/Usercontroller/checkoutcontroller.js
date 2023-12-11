@@ -13,7 +13,8 @@ exports.checkoutget = async (req, res) => {
             const cartdetails = await cartCollection.find({ userId: req.session.userId })
             const userdata = await UserCollection.findOne({ _id: req.session.userId });
             const wallet = userdata.wallet
-            const cartcount = cartdetails[0].products.length
+
+            const cartcount = cartdetails[0]?.products.length
             const productdetails = await productCollection.find();
             req.session.productData = productdetails
             const addressdetails = await addressCollection.find({ userId: req.session.userId });
@@ -60,11 +61,11 @@ exports.confirmationget = async (req, res) => {
         if (req.session.userId) {
             const user = true
             const cartdata = await cartCollection.find({ userId: req.session.userId })
-            const cartcount = cartdata[0].products.length
+            const cartcount = cartdata[0]?.products.length
             res.render('User/confirmation', { user, cartcount })
         } else {
             const user = false
-            res.render('User/confirmation', { user,cartcount:0 })
+            res.render('User/confirmation', { user, cartcount: 0 })
         }
     } catch (error) {
         console.error("confirmationget  error" + "= " + error);
@@ -193,7 +194,7 @@ exports.walletorder = async (req, res) => {
         const productDetails = req.body.orderDetails;
         const paymentMode = req.body.paymentMode
         const orderNumber = generateOrderNumber();
-        const total = parseInt( calculateTotal(productDetails));
+        const total = parseInt(calculateTotal(productDetails));
         const address = await addressCollection.findById(req.body.addressid)
         const currentstatus = "pending"
         const walletAmount = productDetails[0].walletAmount;

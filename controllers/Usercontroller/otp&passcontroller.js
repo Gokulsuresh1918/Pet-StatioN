@@ -1,6 +1,7 @@
 const { UserCollection } = require('../../model/userDB')
 const { tempCollection } = require('../../model/temporyDB')
 const { contactCollection } = require('../../model/contactDB')
+const { cartCollection } = require('../../model/cartDB')
 const nodemailer = require('nodemailer');
 
 
@@ -35,14 +36,16 @@ const generateotp = () => {
 
 
 
-exports.forgetpass = (req, res) => {
+exports.forgetpass =async  (req, res) => {
 try {
     if (req.session.userId) {
         const user = true
-        res.render('User/forget-pass', { user })
+        const cartdata = await cartCollection.find({ userId: req.session.userId })
+        const cartcount = cartdata[0]?.products.length
+        res.render('User/forget-pass', { user,cartcount })
     } else {
         const user = false
-        res.render('User/forget-pass', { user })
+        res.render('User/forget-pass', { user ,cartcount:0})
     }
 } catch (error) {
     console.error("forgetpass  error" + "= " + error);
@@ -55,6 +58,8 @@ exports.forgetpasspost = async (req, res) => {
         data = {
             email: req.body.email,
         };
+        const cartdata = await cartCollection.find({ userId: req.session.userId })
+        const cartcount = cartdata[0]?.products.length
         const existinguser = await UserCollection.findOne({ email: data.email })
         if (existinguser) {
             //otp generation through e mail
@@ -82,7 +87,7 @@ exports.forgetpasspost = async (req, res) => {
                     console.log('Error sending OTP:', error);
                 } else {
                     console.log('OTP sent:', info.response);
-                    res.render('User/forget-otp')
+                    res.render('User/forget-otp',cartcount)
                 }
             });
         } else {
@@ -99,11 +104,12 @@ exports.resendpost = async (req, res) => {
         const { digit } = req.body;
         const userEnteredOTP = digit;
         const temporary = await tempCollection.findOne({ otp: userEnteredOTP })
-    
+        const cartdata = await cartCollection.find({ userId: req.session.userId })
+        const cartcount = cartdata[0]?.products.length
         const otpdata = temporary.otp
         if (userEnteredOTP == otpdata) {
             const user = true
-            res.render('User/otpsucces', { user })
+            res.render('User/otpsucces', { user,cartcount })
         } else {
             res.redirect("/otppage")
         }
@@ -113,14 +119,16 @@ exports.resendpost = async (req, res) => {
 };
 
 //otp get controller
-exports.otpGet = (req, res) => {
+exports.otpGet =async (req, res) => {
 try {
     if (req.session.userId) {
         const user = true
-        res.render('User/otppage', { user })
+        const cartdata = await cartCollection.find({ userId: req.session.userId })
+        const cartcount = cartdata[0]?.products.length
+        res.render('User/otppage', { user,cartcount })
     } else {
         const user = false
-        res.render('User/otppage', { user })
+        res.render('User/otppage', { user,cartcount:0 })
     }
 } catch (error) {
     console.error("otpGet  error" + "= " + error);
@@ -135,17 +143,16 @@ exports.otppost = async (req, res) => {
         const { digit1 } = req.body;
         const userEnteredOTP = digit1;
         const temporary = await tempCollection.findOne({ otp: userEnteredOTP })
-    
+        const cartdata = await cartCollection.find({ userId: req.session.userId })
+        const cartcount = cartdata[0]?.products.length
         const otpdata = temporary.otp
         if (userEnteredOTP == otpdata) {
             await UserCollection.insertMany([temporary]);
-            // req.session.destroy((err) => {
-            //     res.render("User/errorpage")
-            // })
+         
             console.log("User registered successfully!!");
-            res.render('User/otpsucces')
+            res.render('User/otpsucces',{cartcount})
         } else {
-            res.redirect("/otppage")
+            res.redirect("/otppage",cartcount)
         }
     } catch (error) {
         console.error("otppost error"+"= "+error);  
@@ -160,16 +167,17 @@ exports.resendotpget = async (req, res) => {
         console.log(otp);
         const userEmail = req.session.userEmail;
         const temporary = await tempCollection.findOne({ email: userEmail })
-    
+        const cartdata = await cartCollection.find({ userId: req.session.userId })
+        const cartcount = cartdata[0]?.products.length
         const existingUser = await UserCollection.findOne({ email: temporary.email });
         const existingUserMobile = await UserCollection.findOne({ mobile: temporary.mobile });
     
         if (existingUser) {
-            return res.render('User/signup', { message: 'E-mail already exists' });
+            return res.render('User/signup', { cartcount,message: 'E-mail already exists' });
         }
     
         if (existingUserMobile) {
-            return res.render('User/signup', { message: 'Mobile already exists' });
+            return res.render('User/signup', { cartcount,message: 'Mobile already exists' });
         }
         const userdetails = await tempCollection.findOneAndUpdate({ email: temporary.email }, { $set: { otp: otp } })
         const emailText = `  Hi this is from PetStation you just signup 
