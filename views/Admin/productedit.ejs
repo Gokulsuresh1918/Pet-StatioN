@@ -86,7 +86,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="description" class="form-label">Description:</label>
-                                                        <input type="text" value="<%=productdata.description%>" class="form-control" id="description"
+                                                        <input type="text" value="<%=productdata.description%>" class="form-control " id="description"
                                                             name="description" required>
                                                         <div id="descriptionError" class="error-message"></div>
                                                     </div>
@@ -137,9 +137,8 @@
         }
 
         // Validate description (only letters and basic punctuation)
-        var descriptionRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
-        if (!descriptionRegex.test(description)) {
-            document.getElementById("descriptionError").innerHTML = "Description should only contain letters and basic punctuation.";
+        if (test(description)) {
+            document.getElementById("descriptionError").innerHTML = "Description should only contain ";
             return false;
         }
 
