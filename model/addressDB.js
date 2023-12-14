@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const { UserCollection } = require('./userDB');
 
 const addressschema = new mongoose.Schema({
    userId:{

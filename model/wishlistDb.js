@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const { UserCollection } = require('./userDB');
+
 
 const wishlistSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref:'UserCollection',
         required: true
     },
     items: [{

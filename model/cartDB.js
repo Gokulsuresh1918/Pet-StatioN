@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
-
+const { UserCollection } = require('./userDB');
 
 const cartschema = new mongoose.Schema({
   userId: {
       type: mongoose.Schema.Types.ObjectId,
+      ref:'UserCollection',
       required: true
    },
    products:[{
