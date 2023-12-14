@@ -1,6 +1,7 @@
 const { productCollection } = require('../../model/productDB')
 const { cartCollection } = require('../../model/cartDB')
-const { contactCollection } = require('../../model/contactDB')
+const { contactCollection } = require('../../model/contactDB');
+const { Wishlistcollection } = require('../../model/wishlistDb');
 const { ObjectId } = require('mongoose').Types;
 
 
@@ -86,6 +87,14 @@ exports.addcartpost = async (req, res) => {
 exports.clearcartget = async (req, res) => {
     await cartCollection.deleteMany({});
     res.redirect('/cart');
+};
+
+
+
+
+exports.clearwishlistget = async (req, res) => {
+    await Wishlistcollection.deleteMany({});
+    res.redirect('/wishlist');
 };
 
 

@@ -5,7 +5,7 @@ const router = express.Router();
 const { homeGet, contactGet, contactpost, aboutget } = require('../controllers/Usercontroller/authenticationcontroller')
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
 const { shopget, productView,wishlistget,wishlistdataget } = require('../controllers/Usercontroller/shop&productcontroller')
-const { cartGet, addcartpost, clearcartget, removeItem } = require('../controllers/Usercontroller/cartcontroller')
+const { cartGet, addcartpost, clearcartget, removeItem,clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')
 const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder } = require('../controllers/Usercontroller/checkoutcontroller')
 const { profileGet, addressGet, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget } = require('../controllers/Usercontroller/profilecontroller')
 const { forgetpass, forgetpasspost, resendpost, otpGet, otppost, resendotpget } = require('../controllers/Usercontroller/otp&passcontroller')
@@ -39,6 +39,7 @@ router.get('/productview/:id', usersession, productView);
 router.get('/cart', usersession, cartGet);
 router.post('/addcart', usersession, addcartpost);
 router.get('/clearcart', usersession, clearcartget);
+router.get('/clearwishlist', usersession, clearwishlistget);
 router.delete('/removeItem/:productId', usersession, removeItem);
 
 

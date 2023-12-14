@@ -24,7 +24,7 @@ exports.imagedelete = async (req, res) => {
         const { id } = req.params;
 
         // Convert id to a valid ObjectId
-        const validId = new mongoose.Types.ObjectId(id);
+        // const validId = new mongoose.Types.ObjectId(id);
         const productData = await productCollection.findByIdAndUpdate(
             { _id: id },
             { $pull: { image: req.params.image } },

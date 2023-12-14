@@ -64,6 +64,7 @@
                                 <th scope="col">Image</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>
+                                <th scope="col">Action</th>
                               
                             </tr>
                         </thead>
@@ -92,9 +93,15 @@
                                                 <%= product.price %>
                                             </h5>
                                         </td>
-                                    
+                                        <td>
+
+                                            <button id="addToCartButton" onclick="addToCart('<%= product.id %>')" class="btn_3"
+                                                style="text-decoration: none;">add to cart</button>
+                                        </td>
                                     </tr>
+                                    
                                 <% }); %>
+                            
                             <% } else { %>
                                 <tr>
                                     <td colspan="5">
@@ -103,9 +110,14 @@
                                     </td>
                                 </tr>
                             <% } %>
+                           
                         </tbody>
+                        
                     </table>
+                    
                 </div>
+                <a class="btn btn-sm btn_3" href="/clearwishlist">Clear Wishlist</a>
+         
             </div>
         </section>
     </main>
@@ -117,5 +129,42 @@
       <!--================End Cart Area =================-->
 
 </body>
+
+<script>
+    function addToCart(productId) {
+        let val = 1
+        const data = {
+          productId: productId,
+          quantity: val
+        }
+        fetch('/addcart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data) // Convert data to JSON string
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data.message == "noUser") {
+              window.location.href = '/';
+            }
+          })
+        // Change button text and redirect
+        var button = document.getElementById('addToCartButton');
+        button.textContent = 'Go to Cart';
+        button.onclick = () => {
+          window.location.href = '/cart';
+        };
+      }
+
+  </script>
+
+
 
 </html>
