@@ -7,7 +7,7 @@ const { adminSession } = require('../middleware/adminAuth');
 const {upload} = require('../middleware/multer')
 
 const { LoginGet, loginPost, logoutGet, dashboard, } = require('../controllers/Admincontroller/admindashboard')
-const { reviewget, UserGet, blockUser, } = require('../controllers/Admincontroller/usercontroller')
+const { reviewget, UserGet, blockUser,couponGet } = require('../controllers/Admincontroller/usercontroller')
 const { orderGet,viewProductOrder,viewAddressOrder,pendingOrder,deliveredorder,cancelorder,shippedorder } = require('../controllers/Admincontroller/ordercontroller')
 const { categoryGet, categorypost, addcategoryGet, addcategoryPost, editcategoryGet, editcategoryPost, blockcategory, } = require('../controllers/Admincontroller/categorycontroller')
 const { productGet, productpost, productaddGet, productaddpost, editproductGet, editproductpost, imagedelete, } = require('../controllers/Admincontroller/productcontroller')
@@ -25,6 +25,7 @@ router.post('/admin', loginPost);
 router.get('/logoutadmin', adminSession, logoutGet);
 router.get('/dashboard', adminSession, dashboard);
 router.get('/reviewdetails', adminSession, reviewget);
+router.get('/coupon', adminSession, couponGet);
 router.get('/userdetails', adminSession, UserGet);
 router.get('/blockStatus', adminSession, blockUser);
 

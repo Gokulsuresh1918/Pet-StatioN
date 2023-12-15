@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
+    <title>
+        Category Dashboard
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+</head>
+
+<body style="overflow: hidden;" class="g-sidenav-show  bg-gray-200">
+    <!--header-->
+    <%- include('../partials/adminpartials/aside') %>
+        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+            <!-- Navbar -->
+            <%- include('../partials/adminpartials/navbar') %>
+                <!-- End Navbar -->
+                <!--================Checkout Area =================-->
+                <section class="checkout_area ">
+                    <div class="container">
+                        <div class="popup" id="popup" style="position: fixed; z-index: 10;">
+                            <div class="popup-content">
+                                <span class="close" onclick="closePopup()">&times;</span>
+                                <h2>Add New Coupon</h2>
+                                <form id="addressForm" action="/checkoutaddress" class="horizontal-form" method="POST"
+                                   >
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Coupon Code:</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                        <div id="nameError" class="error-message"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="homeaddress" class="form-label">Description:</label>
+                                        <input type="text" class="form-control" id="homeaddress" name="homeaddress"
+                                            required>
+                                        <div id="homeaddressError" class="error-message"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="form-label">Discount Type</label>
+                                        <select name="discountType" style="border-radius: 10px;padding: 10px;" >
+                                          <option value="Percentage">Percentage</option>
+                                          <option value="Fixed Amount">Fixed Amount</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="pincode" class="form-label">Discount Value:</label>
+                                        <input type="text" class="form-control" id="pincode" name="pincode" required>
+                                        <div id="pincodeError" class="error-message"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">Minimum Purchase:</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" required>
+                                        <div id="phoneError" class="error-message"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Start Date:</label>
+                                        <input type="date" class="form-control" id="email" name="email" required>
+                                        <div id="emailError" class="error-message"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="state" class="form-label"> End Date:</label>
+                                        <input type="date" class="form-control" id="state" name="state" required>
+                                        <div id="stateError" class="error-message"></div>
+                                    </div>
+
+                                    <button type="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12 grid-margin">
+                                <div class="card">
+                                    <div class="card-body" style="overflow: hidden;">
+                                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                                <h6 class="text-white text-capitalize ps-3">Coupon Management</h6>
+
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <button class="btn btn-primary btn-block .addcategory" onclick="openPopup()">ADD New Coupon</button>
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Coupon Code</th>
+                                                        <th>Discount Type</th>
+                                                        <th>Discount Value</th>
+                                                        <th> Start Date</th>
+                                                        <th> End Date</th>
+                                                        <th> Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><a href="/admin/editcategory/479"><button
+                                                                    class="btn btn-success dltBtn">Edit</button></a>
+                                                            <a href="/admin/editcategory/479"><button
+                                                                    class="btn btn-danger dltBtn">Delete</button></a>
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <%- include('../partials/adminpartials/footer') %>
+                    </div>
+        </main>
+        <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+        
+            .popup {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100dvw;
+              height: 100dvh;
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+        
+            .popup-content {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              background-color: rgb(235, 229, 229);
+              padding: 20px;
+              border-radius: 8px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+        
+            .close {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              font-size: 40px;
+              cursor: pointer;
+            }
+        
+            .horizontal-form {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 10px;
+            }
+        
+            .form-group {
+              display: flex;
+              flex-direction: column;
+            }
+        
+            .form-label {
+              margin-bottom: 5px;
+            }
+        
+            .form-control {
+              padding: 8px;
+              margin-bottom: 10px;
+            }
+        
+            button {
+              grid-column: span 2;
+              /* Make the button span two columns */
+              padding: 10px;
+              background-color: #4caf50;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+        
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              /* Reset default body margin */
+            }
+        
+            .btn_3 {
+              padding: 10px;
+              background-color: #4caf50;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              margin: 20px 0;
+              /* Add margin top and bottom */
+            }
+        
+            /* Responsive margin adjustments */
+            @media screen and (max-width: 600px) {
+              .btn_1 {
+                margin: 10px 0;
+                /* Adjust margin for smaller screens */
+              }
+            }
+          </style>
+           <script>
+            function openPopup() {
+              document.getElementById('popup').style.display = 'block';
+            }
+            function closePopup() {
+              document.getElementById('popup').style.display = 'none';
+            } 
+          </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+
+
+
+
+</html>

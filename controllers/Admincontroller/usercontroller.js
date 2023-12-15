@@ -15,6 +15,12 @@ exports.reviewget = async (req, res) => {
 
 
 
+exports.couponGet = async (req, res) => {
+    res.render('Admin/coupon')
+};
+
+
+
 
 
 //userGet--------------==========================================================================

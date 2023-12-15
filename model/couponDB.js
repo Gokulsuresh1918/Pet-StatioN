@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { UserCollection } = require('./userDB');
 
 
-var DiscountCodesSchema = new mongoose.Schema(
+var CouponSchema = new mongoose.Schema(
     {
         userId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -12,28 +12,33 @@ var DiscountCodesSchema = new mongoose.Schema(
         code: {
             type: String,
             require: true,
+            unique: true,
         },
-        isPercent: {
-            type: Boolean,
-            require: true,
-        },
-        amount: {
-            type: Number,
-            required: true
-        }, // if is percent, then number must be ≤ 100, else it’s amount of discount
-        expireDate: {
+        discountType: {
             type: String,
-            require: true,
-            default: ''
+            enum: ['Percentage', 'Fixed Amount'], // Assuming two types of discounts
+            required: true,
         },
-        isActive: {
-            type: Boolean,
-            require: true,
-        }
+        discountValue: {
+            type: Number,
+            required: true,
+        },
+        minimumPurchase: {
+            type: Number,
+            default: 0, // Assuming a default value of 0 if not provided
+        },
+        startDate: {
+            type: Date,
+            required: true,
+        },
+        endDate: {
+            type: Date,
+            required: true,
+        },
     });
 
 
-const CouponCollection = new mongoose.model('CouponCollection', DiscountCodesSchema);
+const CouponCollection = new mongoose.model('CouponCollection', CouponSchema);
 module.exports = { CouponCollection };
 
 

@@ -97,10 +97,10 @@
                               <td>
                                 <% if ( prod.quantity> product.qty ) { %>
                                   <h6>
-                                    <%=  product.qty  %>
-                                    <h5 style="color: red;" > Quantity redused
-                                       From   <%= prod.quantity %> to <%=  product.qty  %>
-                                       because Only <%=  product.qty  %> Left</h5>
+                                    <%= product.qty %>
+                                      <h5 style="color: red;"> Quantity redused
+                                        From <%= prod.quantity %> to <%= product.qty %>
+                                            because Only <%= product.qty %> Left</h5>
                                   </h6>
                                   <% }else{ %>
                                     <h6>
@@ -108,12 +108,19 @@
                                     </h6>
                                     <% } %>
                               </td>
-                              <% const pricetotal=Number(product.price) * Number(prod.quantity) %>
+                              <% let pricetotal=Number(product.price) * Number(prod.quantity) %>
                                 <td>
-                                  <h5>
-                                    <%= pricetotal %>
-                                  </h5>
-                                  <% subtotal +=pricetotal %>
+                                  <% if (  product.qty<=0 ) { %>
+                                    <h5>
+                                      Out of Stock
+                                      <% pricetotal=0 %>
+                                    </h5>
+                                    <% }else{ %>
+                                      <h5>
+                                        <%= pricetotal %>
+                                      </h5>
+                                      <% } %>
+                                        <% subtotal +=pricetotal %>
                                 </td>
 
                                 <td>
@@ -151,10 +158,17 @@
 
               <div class="checkout_btn_inner float-right">
                 <a class="btn btn-sm btn_1" href="/shop">Add More</a>
+                <%if (err) {%>
+                  <p>Product quantity not Awailable</p>
+
+                <%}%>
                 <% if(cartdetails !=null) { %>
-                  <a class="btn btn-sm btn_1 checkout_btn_1" href="/checkout">Proceed to
-                    checkout</a>
-                  <% } %>
+               
+                      
+                          <a class="btn btn-sm btn_1 checkout_btn_1" href="/checkout">Proceed to
+                            checkout</a>
+                          <% } %>
+                            
               </div>
             </div>
           </div>
