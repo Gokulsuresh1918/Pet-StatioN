@@ -281,8 +281,8 @@
 
                     <% let subtotal=0 %>
                       <% if (cartdetails !==null) { %>
-                        <% cartdetails.forEach(cart=> { %>
-                          <% cart.products.forEach((prod, index)=> { %>
+                  
+                          <% cartdetails.products.forEach((prod, index)=> { %>
                             <% let product=productdetails.find(item=> item._id.equals(prod.productId)); %>
                               <p id="productDetails" data-product="<%= product %>"></p>
                               <li class="your-product-selector">
@@ -304,7 +304,7 @@
                                 </a>
                               </li>
                               <% }); %>
-                                <% }) %>
+                
 
                                   <% } else { %>
                                     <tr>
@@ -616,7 +616,7 @@
           }
         </script>
 
-
+<!-- remove-address -->
         <script>
           function removeAddress(addressId) {
             fetch(`/remove-address/${addressId}`, {

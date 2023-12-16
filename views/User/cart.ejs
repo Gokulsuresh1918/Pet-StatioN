@@ -158,27 +158,24 @@
 
               <div class="checkout_btn_inner float-right">
                 <a class="btn btn-sm btn_1" href="/shop">Add More</a>
-                <%if (err) {%>
-                  <p>Product quantity not Awailable</p>
-
-                <%}%>
                 <% if(cartdetails !=null) { %>
-               
-                      
-                          <a class="btn btn-sm btn_1 checkout_btn_1" href="/checkout">Proceed to
-                            checkout</a>
-                          <% } %>
-                            
+                  
+                  
+                  <a class="btn btn-sm btn_1 checkout_btn_1" href="/checkout">Proceed to
+                    checkout</a>
+                    <% } %>
+                    
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!--================End Cart Area =================-->
-
-      <!--::footer_part start::-->
-      <%- include('../partials/userpartials/footer.ejs') %>
+          </section>
+        
+          
+          <!--================End Cart Area =================-->
+          
+          <!--::footer_part start::-->
+          <%- include('../partials/userpartials/footer.ejs') %>
         <!--::footer_part end::-->
 
         <!-- jquery plugins here-->
@@ -208,8 +205,21 @@
         <script src="/singlejs/mail-script.js"></script>
         <script src="/singlejs/stellar.js"></script>
         <script src="/singlejs/price_rangs.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- custom js -->
-        <script src="/singlejs/custom.js"></script>
+        <% if (err) { %>
+          <script>
+              // Show SweetAlert for product quantity not available
+              Swal.fire({
+                  title: 'Error',
+                  text: 'Product quantity not available',
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+              });
+          </script>
+      <% } %>
+      
         <script>
           function removeItem(productId) {
             console.log(productId);
@@ -227,19 +237,7 @@
               .catch(error => console.error('Error:', error));
           }
         </script>
-        <!-- <script>
-          function checkcart(event) {
-
-            const isCartEmpty = "<%=cartdetails %>";
-            if (isCartEmpty) {
-              event.preventDefault();
-              alert('Your cart is empty. Please add items to proceed to checkout.');
-            }
-
-            // If the cart is not empty, proceed with the default behavior (navigation)
-            // You can also redirect to another page or perform other actions as needed
-          }
-        </script> -->
+       
 </body>
 
 </html>

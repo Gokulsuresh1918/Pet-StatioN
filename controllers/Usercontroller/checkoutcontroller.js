@@ -11,22 +11,26 @@ exports.checkoutget = async (req, res) => {
         if (req.session.userId) {
             const user = true
             const products=await productCollection.find()
-            const qtyError=false
+            let qtyError=false
             const cartdetails = await cartCollection.findOne({ userId: req.session.userId })
             // const a = cartdetails[0].products
             // const result = cartdetails.products.filter(item => item.quantity === 1);
             // console.log("dfasjkgh", result);
             cartdetails.products.forEach(prod => {
                 console.log("products" + typeof(products));
-                let product=products.filter((ele)=>{return ele._id.equals(prod.productId)})
-                console.log("ind prod"+product);
-                console.log(product.qty+"producty"+prod.quantity);
-                if(product.qty<prod.quantity){
+                let productQty
+                products.forEach((ele)=>{
+                    if(ele._id.equals(prod.productId)){
+                        productQty=ele.qty
+                    }})
+                
+                // console.log(product.qty+" producty "+prod.quantity);
+                if(productQty<prod.quantity){
                     qtyError=true
                 }
             });
             if (qtyError) {
-                return res.redirect('/cart?err"ITEM OUT of Stock')
+                return res.redirect('/cart?err="OOF')
                 
             }
             const userdata = await UserCollection.findOne({ _id: req.session.userId });
@@ -244,7 +248,9 @@ exports.walletorder = async (req, res) => {
 
 
 
-
+exports.couponpost=(req,res)=>{
+    console.log("vannu");
+}
 
 
 

@@ -2,251 +2,253 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-  <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/material-dashboard.css">
-  <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
-  <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
-  <title>
-    Product Dashboard
-  </title>
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <!-- Nucleo Icons -->
-  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- CSS Files -->
-  <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
+    <title>
+        Product Dashboard
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
 
-  <!-- Nepcha Analytics (nepcha.com) -->
-  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
 <style>
-  body{
-    position: relative;
-}
+    body {
+        position: relative;
+    }
 
-/* user side image previewer */
+    /* user side image previewer */
 
-#imagePreview img{
-    height: 50px;
-    max-width: 80px;
-}
+    #imagePreview img {
+        height: 50px;
+        max-width: 80px;
+    }
 
-#cropper110Modal{
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(53, 52, 52, 0.532);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: none;
-}
+    #cropper110Modal {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(53, 52, 52, 0.532);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        display: none;
+    }
 
-#cropper110Modal img {
-	max-width: 100%;
-}
+    #cropper110Modal img {
+        max-width: 100%;
+    }
 
-.cropper110-page {
-	margin: 1em auto;
-	max-width: 768px;
-	height: 100%;
-}
+    .cropper110-page {
+        margin: 1em auto;
+        max-width: 768px;
+        height: 100%;
+    }
 
-.cropper110-box {
-	padding: 0.5em;
-	width: calc(100%/2 - 1em);
-    max-height: 60vh;
-}
-
-
-
-.cropper110-crop , .cropper110-close {
-    padding: .5rem 1rem;
-    background-color: rgb(0,0,0);
-    color: #fff;
-    font-weight: bold;
-}
-
-.cropper110-close{
-    background-color: red;
-}
+    .cropper110-box {
+        padding: 0.5em;
+        width: calc(100%/2 - 1em);
+        max-height: 60vh;
+    }
 
 
 
+    .cropper110-crop,
+    .cropper110-close {
+        padding: .5rem 1rem;
+        background-color: rgb(0, 0, 0);
+        color: #fff;
+        font-weight: bold;
+    }
 
-
-
+    .cropper110-close {
+        background-color: red;
+    }
 </style>
 
 <body class="g-sidenav-show  bg-gray-200">
-  <!--header-->
-  <%- include('../partials/adminpartials/aside') %>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-      <!-- Navbar -->
-      <%- include('../partials/adminpartials/navbar') %>
-        <!-- End Navbar -->
+    <!--header-->
+    <%- include('../partials/adminpartials/aside') %>
+        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+            <!-- Navbar -->
+            <%- include('../partials/adminpartials/navbar') %>
+                <!-- End Navbar -->
 
-        <div class="row mb-4">
-
-
-         
-
-          <div class="row mb-4">
-            <div class="col-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
+                <div class="row mb-4">
 
 
-                  
 
-                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                      <h6 class="text-white text-capitalize ps-3">Product Management</h6>
+
+                    <div class="row mb-4">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+
+
+
+
+                                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                            <h6 class="text-white text-capitalize ps-3">Product Management</h6>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+
+                                        <form action="/admin/productadd" method="post" enctype="multipart/form-data"
+                                            onsubmit="return validateForm()">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name" class="form-label">Name:</label>
+                                                        <input type="text" class="form-control" id="name" name="name"
+                                                            required>
+                                                        <div id="nameError" class="error-message"></div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="category" class="form-label">Category Name:</label>
+                                                        <select class="form-select" id="category" name="category"
+                                                            required>
+                                                            <% categoryoption.forEach((item )=> { %>
+                                                                <option value="<%= item.categoryname %>">
+                                                                    <%= item.categoryname %>
+                                                                </option>
+                                                                <% }) %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="image" class="form-label">Image:</label>
+                                                        <input type="file" class="form-control" id="fileUploader"
+                                                            name="image" data-image-preview="#imagePreview"
+                                                            accept=".jpg, .jpeg, .png, .gif" required multiple>
+                                                        <div id="imageError" class="error-message"></div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="description" class="form-label">Description:</label>
+                                                        <input type="text" class="form-control" id="description"
+                                                            name="description" required>
+                                                        <div id="descriptionError" class="error-message"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="price" class="form-label">Price:</label>
+                                                        <input type="number" class="form-control" id="price"
+                                                            name="price" required>
+                                                        <div id="priceError" class="error-message"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="qty" class="form-label">Qty:</label>
+                                                        <input type="number" class="form-control" id="qty" name="qty"
+                                                            required>
+                                                        <div id="qtyError" class="error-message"></div>
+                                                    </div>
+                                                </div>
+                                                <div id="imagePreview"></div>
+
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                  </div>
-                  <div class="table-responsive">
 
-                    <form action="/admin/productadd" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <label for="name" class="form-label">Name:</label>
-                                  <input type="text" class="form-control" id="name" name="name" required>
-                                  <div id="nameError" class="error-message"></div>
-                              </div>
-                              <div class="mb-3">
-                                  <label for="category" class="form-label">Category Name:</label>
-                                  <select class="form-select" id="category" name="category" required>
-                                      <% categoryoption.forEach((item )=> { %>
-                                      <option value="<%= item.categoryname %>">
-                                          <%= item.categoryname %>
-                                      </option>
-                                      <% }) %>
-                                  </select>
-                              </div>
-                              <div class="form-group">
-                                  <label for="image" class="form-label">Image:</label>
-                                  <input type="file" class="form-control" id="fileUploader"  name="image"  data-image-preview="#imagePreview" accept=".jpg, .jpeg, .png, .gif"
-                                      required multiple>
-                                  <div id="imageError" class="error-message"></div>
-
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <label for="description" class="form-label">Description:</label>
-                                  <input type="text" class="form-control" id="description" name="description" required>
-                                  <div id="descriptionError" class="error-message"></div>
-                              </div>
-                              <div class="form-group">
-                                  <label for="price" class="form-label">Price:</label>
-                                  <input type="number" class="form-control" id="price" name="price" required>
-                                  <div id="priceError" class="error-message"></div>
-                              </div>
-                              <div class="form-group">
-                                  <label for="qty" class="form-label">Qty:</label>
-                                  <input type="number" class="form-control" id="qty" name="qty" required>
-                                  <div id="qtyError" class="error-message"></div>
-                              </div>
-                          </div>
-                          <div id="imagePreview"></div>
-
-                      </div>
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                  </form>
-                 
-                  </div>
                 </div>
-              </div>
+                </div>
+        </main>
+        <div id="cropper110Modal">
+            <div id="imageCropBox">
+                <div style="text-align: end;">
+                    <button class="cropper110-close">close</button>
+                </div>
+                <section class="cropper110-page">
+                    <div class="cropper110-box">
+                        <div class="cropper110-cropping-box"></div>
+                    </div>
+
+                    <div>
+                        <button class="cropper110-crop mx-3">Crop</button>
+                    </div>
+                </section>
             </div>
-
-          </div>
-
         </div>
-        </div>
-    </main>
-    <div id="cropper110Modal">
-      <div id="imageCropBox">
-          <div style="text-align: end;">
-              <button class="cropper110-close">close</button>
-          </div>
-          <section class="cropper110-page">
-              <div class="cropper110-box">
-                  <div class="cropper110-cropping-box"></div>
-              </div>
-
-              <div>
-                  <button class="cropper110-crop mx-3">Crop</button>
-              </div>
-          </section>
-      </div>
-  </div>
 </body>
 
 <script>
-  function validateForm() {
-      var name = document.getElementById("name").value;
-      var description = document.getElementById("description").value;
-      var price = document.getElementById("price").value;
-      var qty = document.getElementById("qty").value;
-      var image = document.getElementById("fileUploader").value;
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var description = document.getElementById("description").value;
+        var price = document.getElementById("price").value;
+        var qty = document.getElementById("qty").value;
+        var image = document.getElementById("fileUploader").value;
 
-      // Reset previous error messages
-      document.getElementById("nameError").innerHTML = "";
-      document.getElementById("descriptionError").innerHTML = "";
-      document.getElementById("priceError").innerHTML = "";
-      document.getElementById("qtyError").innerHTML = "";
-      document.getElementById("imageError").innerHTML = "";
+        // Reset previous error messages
+        document.getElementById("nameError").innerHTML = "";
+        document.getElementById("descriptionError").innerHTML = "";
+        document.getElementById("priceError").innerHTML = "";
+        document.getElementById("qtyError").innerHTML = "";
+        document.getElementById("imageError").innerHTML = "";
 
-      // Validate name (only letters and spaces)
-      var nameRegex = /^[a-zA-Z ]+$/;
-      if (!nameRegex.test(name)) {
-          document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
-          return false;
-      }
+        // Validate name (only letters and spaces)
+        var nameRegex = /^[a-zA-Z ]+$/;
+        if (!nameRegex.test(name)) {
+            document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
+            return false;
+        }
 
-      // Validate description (only letters and basic punctuation)
-      var descriptionRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
-      if (!descriptionRegex.test(description)) {
-          document.getElementById("descriptionError").innerHTML = "Description should only contain letters and basic punctuation.";
-          return false;
-      }
+        // Validate description (only letters and basic punctuation)
+        var descriptionRegex = /^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/;
+        if (!descriptionRegex.test(description)) {
+            document.getElementById("descriptionError").innerHTML = "Description should only contain letters and basic punctuation.";
+            return false;
+        }
 
-      // Validate price (positive number)
-      if (isNaN(price) || price <= 0) {
-          document.getElementById("priceError").innerHTML = "Price should be a positive number.";
-          return false;
-      }
+        // Validate price (positive number)
+        if (isNaN(price) || price <= 0) {
+            document.getElementById("priceError").innerHTML = "Price should be a positive number.";
+            return false;
+        }
 
-      // Validate qty (positive integer)
-      if (!Number.isInteger(Number(qty)) || qty <= 0) {
-          document.getElementById("qtyError").innerHTML = "Quantity should be a positive integer.";
-          return false;
-      }
+        // Validate qty (positive integer)
+        if (!Number.isInteger(Number(qty)) || qty <= 0) {
+            document.getElementById("qtyError").innerHTML = "Quantity should be a positive integer.";
+            return false;
+        }
 
-      // Validate image (optional: check if file is selected)
-      if (!image) {
-          document.getElementById("imageError").innerHTML = "Please select an image.";
-          return false;
-      }
+        // Validate image (optional: check if file is selected)
+        if (!image) {
+            document.getElementById("imageError").innerHTML = "Please select an image.";
+            return false;
+        }
 
-      // Additional validation logic can be added here
+        // Additional validation logic can be added here
 
-      return true;
-  }
+        return true;
+    }
 </script>
 
 
@@ -254,106 +256,79 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
 
 <script>
-  let fileInputs = document.querySelectorAll('[data-image-preview]')
-
-
-let croppingBox = document.querySelector('.cropper110-cropping-box'),
-    crop = document.querySelector('.cropper110-crop'),
-    cropper = '',
-    currentInput = null,
-    imgNames = null,
-    imgSrc = null;
-
-fileInputs.forEach(fileInput => {
-    fileInput.addEventListener('change', () => {
-        let previewDiv = document.querySelector(fileInput.dataset.imagePreview)
-        previewDiv.innerHTML = ""
-        for (let each of fileInput.files) {
-            let imgSrc = URL.createObjectURL(each)
-            let img = document.createElement('img')
-            img.src = imgSrc
-            img.dataset.fileName = each.name
-            console.log(fileInput.id, 'file inut id')
-            img.dataset.input = fileInput.id
-            img.addEventListener('click', cropImage)
-
-            previewDiv.append(img)
-
-        }
+    let fileInputs = document.querySelectorAll('[data-image-preview]')
+    let croppingBox = document.querySelector('.cropper110-cropping-box'),
+        crop = document.querySelector('.cropper110-crop'),
+        cropper = '',
+        currentInput = null,
+        imgNames = null,
+        imgSrc = null;
+    fileInputs.forEach(fileInput => {
+        fileInput.addEventListener('change', () => {
+            let previewDiv = document.querySelector(fileInput.dataset.imagePreview)
+            previewDiv.innerHTML = ""
+            for (let each of fileInput.files) {
+                let imgSrc = URL.createObjectURL(each)
+                let img = document.createElement('img')
+                img.src = imgSrc
+                img.dataset.fileName = each.name
+                console.log(fileInput.id, 'file inut id')
+                img.dataset.input = fileInput.id
+                img.addEventListener('click', cropImage)
+                previewDiv.append(img)
+            }
+        })
     })
-})
+    function cropImage(e) {
 
-
-function cropImage(e) {
-    
-    document.getElementById('cropper110Modal').style.display = 'flex'
-
-    let img = document.createElement('img');
-    img.id = 'image';
-    img.src = e.target.src;
-    croppingBox.innerHTML = '';
-    croppingBox.appendChild(img);
-    cropper = new Cropper(img);
-
-    imgNames = e.target.dataset.fileName
-    currentInput = e.target.dataset.input
-
-}
-
-
-
-//crop and save on click
-crop.addEventListener('click', e => {
-    e.preventDefault();
-    // get result to data uri
-
-    let imgSrc = cropper.getCroppedCanvas({
-        width: 300 // input value
-    }).toDataURL();
-
-    if (imgSrc && imgNames !== null) {
-        let fileUploader = document.getElementById(currentInput)
-        fetch(imgSrc)
-            .then(res => res.blob())
-            .then(blob => {
-                console.log(imgNames)
-                let file = new File([blob], `${imgNames}-${Date.now()}.png`, { type: "image/jpeg" })
-
-                const dt = new DataTransfer()
-                for (let each of fileUploader.files) {
-                    if (each.name !== imgNames) {
-                        dt.items.add(each)
-                    } else {
-                        dt.items.add(file)
-                    }
-                }
-
-
-                fileUploader.files = dt.files
-
-                console.log(fileUploader.files)
-
-                let previewDiv = document.querySelector(fileUploader.dataset.imagePreview)
-                previewDiv.innerHTML = ""
-                let res = ""
-
-                for (let each of fileUploader.files) {
-                    let src = URL.createObjectURL(each)
-                    res += `<img src="${src}" data-file-name="${each.name}" data-input="${fileUploader.id}" onclick="cropImage(event)" class="previewImages">`
-                }
-
-                previewDiv.innerHTML = res
-
-
-            })
+        document.getElementById('cropper110Modal').style.display = 'flex'
+        let img = document.createElement('img');
+        img.id = 'image';
+        img.src = e.target.src;
+        croppingBox.innerHTML = '';
+        croppingBox.appendChild(img);
+        cropper = new Cropper(img);
+        imgNames = e.target.dataset.fileName
+        currentInput = e.target.dataset.input
     }
-
-    document.querySelector('.cropper110-close').click()
-});
-
-document.querySelector('.cropper110-close')
-    .addEventListener('click', () => {
-        document.getElementById('cropper110Modal').style.display = 'none'
-    })
-
-</script>
+    //crop and save on click
+    crop.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = cropper.getCroppedCanvas({
+            width: 300 // input value
+        }).toDataURL();
+        if (imgSrc && imgNames !== null) {
+            let fileUploader = document.getElementById(currentInput)
+            fetch(imgSrc)
+                .then(res => res.blob())
+                .then(blob => {
+                    console.log(imgNames)
+                    let file = new File([blob], `${imgNames}-${Date.now()}.png`, { type: "image/jpeg" })
+                    const dt = new DataTransfer()
+                    for (let each of fileUploader.files) {
+                        if (each.name !== imgNames) {
+                            dt.items.add(each)
+                        } else {
+                            dt.items.add(file)
+                        }
+                    }
+                    fileUploader.files = dt.files
+                    console.log(fileUploader.files)
+                    let previewDiv = document.querySelector(fileUploader.dataset.imagePreview)
+                    previewDiv.innerHTML = ""
+                    let res = ""
+                    for (let each of fileUploader.files) {
+                        let src = URL.createObjectURL(each)
+                        res += `<img src="${src}" data-file-name="${each.name}" data-input="${fileUploader.id}" onclick="cropImage(event)" class="previewImages">`
+                    }
+                    previewDiv.innerHTML = res
+                })
+        }
+        document.querySelector('.cropper110-close').click()
+    });
+    document.querySelector('.cropper110-close')
+        .addEventListener('click', () => {
+            document.getElementById('cropper110Modal').style.display = 'none'
+        })
+</script>'

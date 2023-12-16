@@ -7,7 +7,7 @@ const { ObjectId } = require('mongoose').Types;
 
 exports.cartGet = async (req, res) => {
     try {
-        let err=req.query?.err??''
+        let err=req.query.err??''
         console.log("errorr",err);
         if (req.session.userId) {
             const user = true
@@ -15,7 +15,7 @@ exports.cartGet = async (req, res) => {
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
             const productdetails = await productCollection.find();
-            console.log(productdetails);
+            // console.log(productdetails);
             res.render('User/cart', { cartdetails: cartdetails, cartcount, productdetails: productdetails, user,err:err });
         } else {
             const user = false
