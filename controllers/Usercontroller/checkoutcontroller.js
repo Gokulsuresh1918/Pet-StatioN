@@ -248,10 +248,6 @@ exports.walletorder = async (req, res) => {
 
 
 
-exports.couponpost=(req,res)=>{
-    console.log("vannu");
-}
-
 
 
 

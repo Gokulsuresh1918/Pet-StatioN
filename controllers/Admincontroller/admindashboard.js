@@ -94,7 +94,7 @@ exports.dashboard = async (req, res) => {
           }
         }
       ])
-      console.log("Monthly Orders:", monthlyresult)
+      // console.log("Monthly Orders:", monthlyresult)
       let data=[0,0,0,0,0,0,0,0,0,0,0,0]
       let k=0
       dailyData =data.map((ele,i)=>{

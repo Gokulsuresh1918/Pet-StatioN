@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const { UserCollection } = require('./userDB');
 
 
-var CouponSchema = new mongoose.Schema(
+let CouponSchema = new mongoose.Schema(
     {
         userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'UserCollection',
-            required: true
+            // required: true
         },
         code: {
             type: String,

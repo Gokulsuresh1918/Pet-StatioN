@@ -66,7 +66,6 @@ router.post('/edit-address', usersession, editaddresspost);
 //order routes
 router.get('/orders', usersession, ordersget);
 router.post('/returnOrder', usersession, Returnget);
-router.post('/coupon',usersession, couponpost)
 
 // Password-related routes
 router.get('/forgetpass', usersession, forgetpass);

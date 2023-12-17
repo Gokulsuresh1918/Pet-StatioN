@@ -1,6 +1,6 @@
 
 const { UserCollection } = require("../../model/userDB");
-const { contactCollection } = require("../../model/contactDB");
+const { CouponCollection } = require("../../model/couponDB");
 const path = require('path');
 const { log } = require("console");
 
@@ -10,25 +10,20 @@ const { log } = require("console");
 exports.reviewget = async (req, res) => {
     const reviewdata = await contactCollection.find()
     reviewdata.reverse()
-    res.render('Admin/Reviews', { reviewdata})
-};
-
-
-
-exports.couponGet = async (req, res) => {
-    res.render('Admin/coupon')
+    res.render('Admin/Reviews', { reviewdata })
 };
 
 
 
 
 
-//userGet--------------==========================================================================
-exports.UserGet = async (req, res) => {
-    const admin = await UserCollection.find()
-    admin.reverse()
-    res.render("Admin/Users", { admin })
-};
+
+    //userGet--------------==========================================================================
+    exports.UserGet = async (req, res) => {
+        const admin = await UserCollection.find()
+        admin.reverse()
+        res.render("Admin/Users", { admin })
+    };
 
 
 
