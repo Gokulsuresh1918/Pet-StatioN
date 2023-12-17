@@ -1,6 +1,7 @@
 
 const { UserCollection } = require("../../model/userDB");
 const { CouponCollection } = require("../../model/couponDB");
+const { contactCollection } = require("../../model/contactDB");
 const path = require('path');
 const { log } = require("console");
 

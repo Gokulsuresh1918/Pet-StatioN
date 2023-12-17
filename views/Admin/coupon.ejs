@@ -40,6 +40,8 @@
         <!--================Checkout Area =================-->
         <section class="checkout_area ">
           <div class="container">
+            
+            <!-- coupon add modal -->
             <div class="popup" id="popup" style="position: fixed; z-index: 10;">
               <div class="popup-content">
                 <span class="close" onclick="closePopup()">&times;</span>
@@ -89,6 +91,49 @@
               </div>
             </div>
 
+            <!-- coupon edit modal  -->
+            <div class="popup" id="editpopup" style="position: fixed; z-index: 10;">
+              <div class="popup-content">
+                <span class="close" onclick="closeeditPopup()">&times;</span>
+                <h2>Add New Coupon</h2>
+                <form id="addressForm" action="/admin/couponedit" class="horizontal-form" method="get">
+                  <div class="form-group">
+                    <label for="code" class="form-label">Coupon Code:</label>
+                    <input type="text" value="" class="form-control" id="code" name="code" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="description" class="form-label">Description:</label>
+                    <input type="text" value=""  class="form-control" id="description" name="description" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Discount Type</label>
+                    <select name="discountType" style="border-radius: 10px; padding: 10px;">
+                      <option value="Percentage">Percentage</option>
+                      <option value="Fixed Amount">Fixed Amount</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="discountvalue"  class="form-label">Discount Value:</label>
+                    <input type="text"value=""  class="form-control" id="discountvalue" name="discountvalue" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="Minimum" class="form-label">Minimum Purchase:</label>
+                    <input type="text" value=""  class="form-control" id="Minimum" name="Minimum" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="startDate" class="form-label">Start Date:</label>
+                    <input type="date " value=""  class="form-control" id="startDate" name="startDate" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="endDate" class="form-label"> End Date:</label>
+                    <input type="date" value=""  class="form-control" id="endDate" name="endDate" required>
+                  </div>
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+            </div>
+
+
             <div class="row mb-4">
               <div class="col-12 grid-margin">
                 <div class="card">
@@ -96,12 +141,13 @@
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                       <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">Coupon Management</h6>
-                        <% if (errorMessage) { %>
-                          <h1 style="color: red;">
-                            <%= errorMessage %>
-                          </h1>
-                          <% } %>
+                     
                       </div>
+                      <% if (errorMessage) { %>
+                        <h1 style="color: red;">
+                          <%= errorMessage %>
+                        </h1>
+                        <% } %>
                       <div class="col-12 mt-3">
                         <button class="btn btn-primary btn-block .addcategory" onclick="openPopup()">ADD New
                           Coupon</button>
@@ -122,14 +168,16 @@
                             <th> Action</th>
                           </tr>
                         </thead>
-                        <%coupondata.forEach((row,index)=> {%>
+                        <tbody>
+                          <%coupondata.forEach((row,index)=> {%>
 
-                          <tbody>
                             <tr>
                               <td style="padding-left: 15px;">
                                 <%= row.code %>
                               </td>
-                              <td></td>
+                              <td>
+                                <%= row.discountType%>
+                              </td>
                               <td>
                                 <%= row.discountValue %>
                               </td>
@@ -138,20 +186,19 @@
                               </td>
 
                               <td>
-                                <% let date=new Date(row.startDate); let year=date.getFullYear(); let
-                                  month=date.getMonth() + 1; // getMonth() is zero-based let day=date.getDate(); // Add
-                                  leading zeros to month and day if they are less than 10 if (month < 10) { month='0' +
-                                  month; } if (day < 10) { day='0' + day; } let
-                                  formattedStartDate=`${day}-${month}-${year}`; let date2=new Date(row.endDate); let
-                                  year2=date2.getFullYear(); let month2=date2.getMonth() + 1; // getMonth() is
-                                  zero-based let day2=date2.getDate(); // Add leading zeros to month and day if they are
-                                  less than 10 if (month2 < 10) { month2='0' + month2; } if (day2 < 10) { day2='0' +
-                                  day2; } let formattedEndDate=`${day2}-${month2}-${year2}`; %>
+                                <% let startDate=new Date(row.startDate); let endDate=new Date(row.endDate); let
+                                  formattedStartDate=`${startDate.getDate().toString().padStart(2, '0'
+                                  )}-${(startDate.getMonth() + 1).toString().padStart(2, '0'
+                                  )}-${startDate.getFullYear()}`; let
+                                  formattedEndDate=`${endDate.getDate().toString().padStart(2, '0'
+                                  )}-${(endDate.getMonth() + 1).toString().padStart(2, '0' )}-${endDate.getFullYear()}`;
+                                  %>
 
                                   <%= formattedStartDate %> to <%= formattedEndDate %>
                               </td>
 
-                              <td><button onclick=" confirmEdit('<%= row.id %>')"
+
+                              <td><button onclick="confirmedit('<%= row.id %>')"
                                   class="btn btn-success dltBtn">Edit</button>
 
                                 <button class="btn btn-danger dltBtn"
@@ -165,8 +212,8 @@
                             </tr>
 
                             </tr>
-                          </tbody>
-                          <%}); %>
+                        </tbody>
+                        <%}); %>
                       </table>
                     </div>
                   </div>
@@ -282,6 +329,7 @@
   } 
 </script>
 
+
 <script>
   function confirmDelete(id) {
     Swal.fire({
@@ -306,7 +354,7 @@
           .then(data => {
             console.log(data);
             Swal.fire('Deleted!', 'Your coupon has been deleted.', 'success');
-
+            window.location.reload();
           })
           .catch(error => {
             console.error('Fetch error:', error);
@@ -316,6 +364,39 @@
     });
   }
 </script>
+
+
+<script>
+
+    function confirmedit(couponId) {
+      // Fetch the coupon details using the couponId
+      fetch(`/admin/getCouponDetails/${couponId}`)
+        .then(response => response.json())
+        .then(data => {
+          // Check if the elements are found
+          console.log(document.getElementById('code'));
+
+          // Update the modal fields with the fetched data
+          document.getElementById('code').value = data.code;
+          document.getElementById('description').value = data.description;
+          document.getElementById('discountType').value = data.discountType;
+          document.getElementById('discountvalue').value = data.discountValue;
+          document.getElementById('Minimum').value = data.minimumPurchase;
+          document.getElementById('startDate').value = data.startDate;
+          document.getElementById('endDate').value = data.endDate;
+
+          // Show the edit modal
+          document.getElementById('editpopup').style.display = 'block';
+        })
+        .catch(error => console.error('Fetch error:', error));
+    }
+
+    function closeeditPopup() {
+      document.getElementById('editpopup').style.display = 'none';
+    }
+
+</script>
+
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

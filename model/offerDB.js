@@ -29,5 +29,5 @@ const OfferSchema = new mongoose.Schema({
 });
 
 
-const offerCollection = new mongoose.model('offer', OfferSchema, "offer")
+const offerCollection = new mongoose.model('offerCollection', OfferSchema)
 module.exports = { offerCollection }

@@ -2,127 +2,325 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-  <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/material-dashboard.css">
-  <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
-  <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
-  <title>
-    Product Dashboard
-  </title>
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <!-- Nucleo Icons -->
-  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- CSS Files -->
-  <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
-  <!-- Nepcha Analytics (nepcha.com) -->
-  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
+    <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
+    <title>
+        Product Dashboard
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
-  <!--header-->
-  <%- include('../partials/adminpartials/aside') %>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-      <!-- Navbar -->
-      <%- include('../partials/adminpartials/navbar') %>
-        <!-- End Navbar -->
+    <!--header-->
+    <%- include('../partials/adminpartials/aside') %>
+        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+            <!-- Navbar -->
+            <%- include('../partials/adminpartials/navbar') %>
+                <!-- End Navbar -->
 
-        <div class="row mb-4">
-          <div class="col-12 mt-3">
-            <a href="/admin/productadd"> <button class="btn btn-primary btn-block">Add Product</button></a>
-          </div>
-          <div class="row mb-4">
-            <div class="col-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                      <h6 class="text-white text-capitalize ps-3">Product Management</h6>
+                <div class="row mb-4">
+                    <div class="col-12 mt-3">
+                        <button onclick="openPopup()" class="btn btn-primary btn-block">Add Offer</button>
                     </div>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table">
-                      <% if(productdata!="" ){%>
-                      
-                          
-                       
-                        <thead>
-                          <tr>
-                            <th>Sl/no</th>
-                            <th>Product</th>
-                            <th>Product name</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                    
-                            <th>Qty</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
+                    <div class="row mb-4">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                            <h6 class="text-white text-capitalize ps-3">Offer Management</h6>
+                                        </div>
+                                    </div>
 
-                        <tbody>
-                         
-                          <%productdata.forEach((row,index)=>{%>
-                            <tr>
-                              <td>
-                                <%=index+1 %>
-                              </td>
-                              <td>
-                                
-                                      <div class="" >
+                                    <!-- modal for form  -->
+                                    <div class="popup" id="popup" style="position: fixed; z-index: 10;">
+                                        <div class="popup-content">
+                                            <span class="close" onclick="closePopup()">&times;</span>
 
-                                        <img src="/MulterUploads/<%= row.image[0]%>" alt=""class="w-20" >
-                                      </div>
-                                        <!-- <img src="assets/images/faces/face1.jpg" alt="image" /> -->
+                                            <form id="offerform" action="/admin/addOffer" method="post">
+                                                <div id="error-message" style="color: red; margin-bottom: 10px;"></div>
 
-                                        <!-- <span class="pl-2">Henry Klein</span> -->
-                              </td>
-                              <td>
-                                <!-- style="white-space:break-spaces;word-break: break-all;" -->
-                                <%= row.name %>
-                              </td>
-                              <td style="white-space:break-spaces;word-break: break-all;" >
-                                <%= row.description %>
-                              </td>
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Type" class="form-control" id="type"
+                                                        name="type" required>
+                                                </div>
 
-                              <td>
-                                <%= row.category %>
-                              </td>
-                              <td>
-                                <%= row.price %>
-                              </td>
-                              
-                              <td>
-                                <%= row.qty %>
-                              </td>
-                              <td><a href="/admin/productedit/<%= row._id%>"><button class="btn btn-success">Edit</button></a></td>
-                              <%})%>
-                            </tr>
-                            <%}%>
-                            
-                        </tbody>
-                    </table>
-                  </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="startDate" class="form-label">Code:</label>
+                                                    <input type="text" class="form-control" id="code" name="code"
+                                                        required>
+                                                    <div id="qtyError" class="error-message"></div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="discount" class="form-label">Discount:</label>
+                                                    <input type="number" class="form-control" id="discount"
+                                                        name="discount" required>
+                                                </div>
+                                                <label for="startDate">Start Date:</label>
+                                                <input type="date" id="startDate" name="startDate">
+
+                                                <label for="endDate">End Date:</label>
+                                                <input type="date" id="endDate" name="endDate">
+
+
+                                                <label for="isActive">Is Active:</label>
+                                                <input style="align-items:flex-start ;" type="checkbox" id="isActive"
+                                                    name="isActive" checked>
+
+
+                                                <div>
+                                                    <% if(productdb.length> 0) { %>
+                                                        <% productdb.forEach(product=> { %>
+                                                            <input type="checkbox" id="product_<%= product.name %>"
+                                                                name="selectedProducts[]" value="<%= product.name %>">
+                                                            <label for="product_<%= product.name %>">
+                                                                <%= product.name %>
+                                                            </label><br>
+                                                            <% }); %>
+                                                                <% } %>
+
+                                                </div>
+
+
+                                                <label for="applicableCategories">Applicable Categories:</label>
+                                                <div>
+                                                    <% if(categories.length> 0) { %>
+                                                        <% categories.forEach(category=> { %>
+                                                            <input type="checkbox"
+                                                                id="category_<%= category.categoryname %>"
+                                                                name="selectedCategories[]"
+                                                                value="<%= category.categoryname %>">
+                                                            <label for="category_<%= category.categoryname %>">
+                                                                <%= category.categoryname %>
+                                                            </label><br>
+                                                            <% }); %>
+                                                                <% } %>
+                                                </div>
+                                                <button type="submit" onclick="submitForm()">Add Offer</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+
+
+
+                                            <thead>
+                                                <tr>
+                                                    <th>type</th>
+                                                    <th>code</th>
+                                                    <th>discount</th>
+                                                    <th>isActive</th>
+                                                    <th>Product</th>
+                                                    <th>Category</th>
+                                                    <th>Action</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <% offers.forEach((offer, index)=> { %>
+                                                    <tr>
+
+                                                        <td>
+                                                            <%= offer.type %>
+                                                        </td>
+                                                        <td>
+                                                            <%= offer.code %>
+                                                        </td>
+                                                        <td>
+                                                            <%= offer.discount%>%
+                                                        </td>
+                                                        <td>
+                                                            <%= offer.isActive %>
+                                                        </td>
+                                                        <td>
+                                                            <%= offer.applicableProducts.join(', ') %></td>
+                                                        <td><%= offer.applicableCategories.join(' , ') %></td>
+                                  
+                                                            <td><button onclick="confirmedit(' <%=offer.id %>')"
+                                                                class="btn btn-success dltBtn">Edit</button>
+
+                                                                <button class="btn btn-danger dltBtn"
+                                                                    onclick="confirmDelete('<%= offer.id %>')">Delete</button>
+
+
+                                                        </td>
+                                                    </tr>
+                                                    <% }); %>
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-        </div>
-    </main>
+                </div>
+        </main>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100dvw;
+        height: 100dvh;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgb(235, 229, 229);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 40px;
+        cursor: pointer;
+    }
+
+    .horizontal-form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        grid-column: span 2;
+        /* Make the button span two columns */
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        /* Reset default body margin */
+    }
+
+    .btn_3 {
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 20px 0;
+        /* Add margin top and bottom */
+    }
+
+    /* Responsive margin adjustments */
+    @media screen and (max-width: 600px) {
+        .btn_1 {
+            margin: 10px 0;
+            /* Adjust margin for smaller screens */
+        }
+    }
+</style>
+<script>
+    function openPopup() {
+        document.getElementById('popup').style.display = 'block';
+    } function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    } </script>
+
+ <script>
+    function confirmDelete(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`/admin/coupondelete/${id}`, {
+          method: 'POST',
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log(data);
+            Swal.fire('Deleted!', 'Your coupon has been deleted.', 'success');
+            window.location.reload();
+          })
+          .catch(error => {
+            console.error('Fetch error:', error);
+            Swal.fire('Error!', 'An error occurred while deleting the coupon.', 'error');
+          });
+      }
+    });
+  }
+ </script>
 </html>
