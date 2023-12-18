@@ -8,7 +8,7 @@ const {upload} = require('../middleware/multer')
 
 const { LoginGet, loginPost, logoutGet, dashboard, } = require('../controllers/Admincontroller/admindashboard')
 const { reviewget, UserGet, blockUser, } = require('../controllers/Admincontroller/usercontroller')
-const {couponGet,couponpost,couponDelete,editCoupon,offerGet,offerpost}=require('../controllers/Admincontroller/couponcontroller')
+const {couponGet,couponpost,couponDelete,editCoupon,offerGet,offerpost,couponapply}=require('../controllers/Admincontroller/couponcontroller')
 const { orderGet,viewProductOrder,viewAddressOrder,pendingOrder,deliveredorder,cancelorder,shippedorder } = require('../controllers/Admincontroller/ordercontroller')
 const { categoryGet, categorypost, addcategoryGet, addcategoryPost, editcategoryGet, editcategoryPost, blockcategory, } = require('../controllers/Admincontroller/categorycontroller')
 const { productGet, productpost, productaddGet, productaddpost, editproductGet, editproductpost, imagedelete, } = require('../controllers/Admincontroller/productcontroller')
@@ -47,6 +47,7 @@ router.post('/coupondelete/:_id',adminSession, couponDelete)
 router.get('/getCouponDetails/:_id',adminSession, editCoupon)
 router.get('/offer', adminSession, offerGet);
 router.post('/addOffer', adminSession, offerpost);
+router.post('/couponapply/:_id', adminSession, couponapply);
 
 
 

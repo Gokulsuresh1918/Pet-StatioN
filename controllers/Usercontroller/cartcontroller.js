@@ -8,7 +8,6 @@ const { ObjectId } = require('mongoose').Types;
 exports.cartGet = async (req, res) => {
     try {
         let err=req.query.err??''
-        console.log("errorr",err);
         if (req.session.userId) {
             const user = true
             const cartdetails = await cartCollection.findOne({ userId: req.session.userId });

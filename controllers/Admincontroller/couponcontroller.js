@@ -156,10 +156,9 @@ exports.offerpost = async (req, res) => {
       startDate,
       endDate,
       isActive,
-      selectedProducts,
+      selectedProducts  ,
       selectedCategories,
     } = req.body;
-    // console.log(req.body);
 
     const newOffer = new offerCollection({
       type,
@@ -184,3 +183,6 @@ exports.offerpost = async (req, res) => {
 
 
 
+exports.couponapply=(req,res)=>{
+  console.log("vannu");
+}

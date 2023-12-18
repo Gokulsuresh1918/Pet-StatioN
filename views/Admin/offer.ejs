@@ -95,7 +95,7 @@
                                                     <% if(productdb.length> 0) { %>
                                                         <% productdb.forEach(product=> { %>
                                                             <input type="checkbox" id="product_<%= product.name %>"
-                                                                name="selectedProducts[]" value="<%= product.name %>">
+                                                                name="selectedProducts" value="<%= product.name %>">
                                                             <label for="product_<%= product.name %>">
                                                                 <%= product.name %>
                                                             </label><br>
@@ -111,7 +111,7 @@
                                                         <% categories.forEach(category=> { %>
                                                             <input type="checkbox"
                                                                 id="category_<%= category.categoryname %>"
-                                                                name="selectedCategories[]"
+                                                                name="selectedCategories"
                                                                 value="<%= category.categoryname %>">
                                                             <label for="category_<%= category.categoryname %>">
                                                                 <%= category.categoryname %>

@@ -10,28 +10,28 @@ exports.checkoutget = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = true
-            const products=await productCollection.find()
-            let qtyError=false
+            const products = await productCollection.find()
+            let qtyError = false
             const cartdetails = await cartCollection.findOne({ userId: req.session.userId })
             // const a = cartdetails[0].products
             // const result = cartdetails.products.filter(item => item.quantity === 1);
             // console.log("dfasjkgh", result);
             cartdetails.products.forEach(prod => {
-                console.log("products" + typeof(products));
                 let productQty
-                products.forEach((ele)=>{
-                    if(ele._id.equals(prod.productId)){
-                        productQty=ele.qty
-                    }})
-                
+                products.forEach((ele) => {
+                    if (ele._id.equals(prod.productId)) {
+                        productQty = ele.qty
+                    }
+                })
+
                 // console.log(product.qty+" producty "+prod.quantity);
-                if(productQty<prod.quantity){
-                    qtyError=true
+                if (productQty < prod.quantity) {
+                    qtyError = true
                 }
             });
             if (qtyError) {
                 return res.redirect('/cart?err="OOF')
-                
+
             }
             const userdata = await UserCollection.findOne({ _id: req.session.userId });
             const wallet = userdata.wallet

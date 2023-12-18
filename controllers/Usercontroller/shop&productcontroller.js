@@ -3,6 +3,7 @@ const { cartCollection } = require('../../model/cartDB')
 const { contactCollection } = require('../../model/contactDB')
 const { Wishlistcollection } = require('../../model/wishlistDb')
 const { UserCollection } = require('../../model/userDB')
+const { offerCollection } = require('../../model/offerDB')
 
 
 
@@ -64,7 +65,9 @@ exports.productView = async (req, res) => {
             const productdata = await productCollection.findOne({ _id: req.params.id });
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
-            res.render('User/productview', { productdata, user, cartcount })
+            const currentdate = new Date()
+            const offers = await offerCollection.find({ startDate: { $lte: currentdate }, endDate: { $gte: currentdate } })
+            res.render('User/productview', { productdata, user, cartcount, offers })
         } else {
             const user = false
             res.render('User/productview', { productdata, user, cartcount: 0 })
