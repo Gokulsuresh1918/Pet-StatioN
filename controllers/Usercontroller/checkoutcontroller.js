@@ -3,6 +3,7 @@ const { addressCollection } = require('../../model/addressDB')
 const { orderCollection } = require('../../model/orderDB')
 const { cartCollection } = require('../../model/cartDB')
 const { contactCollection } = require('../../model/contactDB')
+const { CouponCollection } = require('../../model/couponDB')
 const Razorpay = require('razorpay');
 const { UserCollection } = require('../../model/userDB')
 
@@ -101,7 +102,7 @@ exports.confirmationpost = async (req, res) => {
         if (!req.body.razorpay_payment_id) {
             const userId = req.session.userId;
             const productDetails = req.body.orderDetails;
-            console.log("cd product ", productDetails);
+            // console.log("cd product ", productDetails);
             const paymentMode = req.body.paymentMode
             const orderNumber = generateOrderNumber();
             const total = calculateTotal(productDetails);
@@ -197,7 +198,6 @@ exports.razorpaypost = (req, res) => {
                 res.status(500).send("Error creating order");
                 return;
             }
-            console.log(order);
             // Add orderprice to the response object
             res.send({ orderId: order.id });
         });
@@ -247,8 +247,20 @@ exports.walletorder = async (req, res) => {
 
 
 
-
-
+exports.couponapply = async (req, res) => {
+    const code = req.params.code
+    const subtotal = req.body.subtotal
+    const coupon = await CouponCollection.find({ code: code })
+    if (subtotal > coupon[0].minimumPurchase) {
+        if (coupon.length > 0) {
+            res.json({ type: coupon[0].discountType, value: coupon[0].discountValue });
+        } else {
+            res.json({ message: "Coupon not found or invalid" });
+        }
+    } else {
+        res.json({message:`Minimum amount required ${coupon[0].minimumPurchase}`});
+    }
+}
 
 
 

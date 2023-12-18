@@ -182,7 +182,3 @@ exports.offerpost = async (req, res) => {
 }
 
 
-
-exports.couponapply=(req,res)=>{
-  console.log("vannu");
-}

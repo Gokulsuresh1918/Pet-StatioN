@@ -107,43 +107,62 @@
               <h4>Category <span>|</span>
                 <%= productdata.category %>
               </h4>
-              <h1>
+              <h1 style="color: black; font-weight: bold;">
                 <%= productdata.name %>
               </h1>
-              <h2>Rs:<%= productdata.price %>
-              </h2>
 
-              <ul class="list">
-                <li>
-                  <% if (productdata.qty>0) { %>
+              <% if (offers) { %>
+                <h2  class="text-decoration-line-through offerprice ">Rs: <%= productdata.price %>
+                </h2>
 
-                    <h5>Availability <span>:</span> <span style="color: green; font-weight: bold;">In Stocks</span>
-                    </h5>
-                    <% }else{ %>
-                      <h5>Availability <span>:</span><span style="color: red; font-weight: bold;">Out of Stocks</span>
-                      </h5>
-                      <% } %>
-                </li>
-              </ul>
-              <p>
-                Give your furry friend the gift of a peaceful night's sleep with our Comfort Paws Orthopedic Dog Bed.
-                Specially designed to provide optimal comfort and support, this bed is perfect for dogs of all ages,
-                sizes, and breeds.
-              </p>
-              <div class="card_area d-flex justify-content-between align-items-center">
-                <div class="product_count">
-                  <span class="inumber-decrement"> <i class="fa fa-minus"></i></span>
-                  <input id="Qty" class="input-number" type="text" value="1" min="0" max="10">
-                  <span class="number-increment"> <i class="fa fa-plus"></i></span>
-                </div>
-                <button id="addToCartButton" onclick="addToCart('<%= productdata._id %>')" class="btn_3"
-                  style="text-decoration: none;">add to cart</button>
-              </div>
+                <% }else{ %>
+                  <h2>Rs:<%= productdata.price %>
+                  </h2>
+                  <%}%>
+                    <ul>
+                      <li>
+                        <h1 class="text-success fw-bold">
+                          Rs: <span id="offerprice" ><%=productdata.price- offers[0].discount %></span> 
+                        </h1>
+                      </li>
+                    </ul>
+                    <p>
+                      Give your furry friend the gift of a peaceful night's sleep with our Comfort Paws Orthopedic Dog
+                      Bed.
+                      Specially designed to provide optimal comfort and support, this bed is perfect for dogs of all
+                      ages,
+                      sizes, and breeds.
+                    </p>
+                    <ul>
+                      <li>
+                        <% if (productdata.qty>0) { %>
 
-              <button id="addToWishlistButton" data-product-id="<%= productdata._id %>" class="btn btn-danger">
-                <i class="fas fa-heart" style="color: white;"></i>
-              </button>
-              <span id="wishlistIcon"></span>
+                          <h4>Availability <span>:</span> <span style="color: green; font-weight: bold;">In
+                              Stocks</span>
+                          </h4>
+                          <% }else{ %>
+                            <h4>Availability <span>:</span><span style="color: red; font-weight: bold;">Out of
+                                Stocks</span>
+                            </h4>
+                            <% } %>
+                      </li>
+
+                    </ul>
+
+                    <div class="card_area d-flex justify-content-between align-items-center">
+                      <div class="product_count">
+                        <span class="inumber-decrement"> <i class="fa fa-minus"></i></span>
+                        <input id="Qty" class="input-number" type="text" value="1" min="0" max="10">
+                        <span class="number-increment"> <i class="fa fa-plus"></i></span>
+                      </div>
+                      <button id="addToCartButton" onclick="addToCart('<%= productdata._id %>')" class="btn_3"
+                        style="text-decoration: none;">add to cart</button>
+                    </div>
+
+                    <button id="addToWishlistButton" data-product-id="<%= productdata._id %>" class="btn btn-danger">
+                      <i class="fas fa-heart" style="color: white;"></i>
+                    </button>
+                    <span id="wishlistIcon"></span>
 
             </div>
           </div>
@@ -414,11 +433,10 @@
 
       <script>
         function addToCart(productId) {
-          const originalqty =Number('<%=productdata.qty%>')
-          console.log(typeof originalqty);
+          const originalqty = Number('<%=productdata.qty%>')
           var qty = document.getElementById('Qty');
+          var price = document.getElementById('offerprice').innerText
           var val = Number(qty.value);
-          console.log(typeof val);
           if (val > originalqty) {
             Swal.fire({
               title: 'Out of Stock',
@@ -429,7 +447,8 @@
           } else {
             const data = {
               productId: productId,
-              quantity: val
+              quantity: val,
+              price:price
             }
             fetch('/addcart', {
               method: 'POST',

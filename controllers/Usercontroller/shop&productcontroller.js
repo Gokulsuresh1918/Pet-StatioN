@@ -67,6 +67,7 @@ exports.productView = async (req, res) => {
             const cartcount = cartdata[0]?.products.length
             const currentdate = new Date()
             const offers = await offerCollection.find({ startDate: { $lte: currentdate }, endDate: { $gte: currentdate } })
+         
             res.render('User/productview', { productdata, user, cartcount, offers })
         } else {
             const user = false

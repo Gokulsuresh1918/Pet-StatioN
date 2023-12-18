@@ -40,6 +40,7 @@
   <!-- Custom Style CSS -->
   <link rel="stylesheet" href="/assets/productcss/style.css">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -277,7 +278,8 @@
                         <input type="text" id="couponCode" class="form-control me-2" placeholder="Enter coupon code">
                       </div>
                       <div class="text-end">
-                        <button class="btn btn-primary" onclick="applyCoupon()">Apply</button>
+                        <button id="applyButton" class="btn btn-primary" onclick="applyCoupon()">Apply</button>
+
                       </div>
                     </li>
                   </ul>
@@ -330,7 +332,7 @@
                       <a href="#">Subtotal
 
 
-                        <span style="font-weight: bold; color: black;">
+                        <span id="subtotal" style="font-weight: bold; color: black;">
                           <%=subtotal%>
                         </span>
                       </a>
@@ -343,11 +345,13 @@
                     <li>
                       <% total=subtotal+40 %>
                         <a href="#">Total
-                          <span style="font-weight: bold; color: black;">
+                          <span id="totalprice" style="font-weight: bold; color: black;">
                             <%=total %>
                           </span>
                         </a>
-                    </li>
+                        <li>
+                          <h4 id="animation" style="font-weight: bold; color: red;" ></h4>
+                      </li>
                     <br>
                     <li>
                       <p id="walletamount" hidden>
@@ -390,7 +394,7 @@
                 </div>
               </div>
 
-              <a class="btn_3" href="#" id="rzp-button1" onclick="confirmOrder()">Confirm Order</a>
+              <button class="btn_3" id="rzp-button1" onclick="confirmOrder()">Confirm Order</button>
             </div>
           </div>
         </div>
@@ -417,6 +421,7 @@
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
         <!-- Bootstrap and Popper.js -->
         <script src="/singlejs/popper.min.js"></script>
@@ -457,8 +462,6 @@
 
         <script>
           var addressid;
-
-
           let onlinePay = function (e) {
             fetch('/razorpay', {
               method: 'POST',
@@ -512,33 +515,61 @@
 
         <script>
           function applyCoupon() {
-            // Get the coupon code entered by the user
             const couponCode = document.getElementById('couponCode').value;
-            console.log('Coupon Code:', couponCode);
-            fetch(`/admin/couponapply/${couponCode}`, {
-              method: 'POST'
+            const getsubtotal = document.getElementById('subtotal').innerText;
+            const totalprice = document.getElementById('totalprice').innerText;
+            const applyCouponBtn = document.getElementById('applyCouponBtn');
+            fetch(`/couponapply/${couponCode}`, {
+              method: 'POST',
+              headers: { 'content-Type': 'application/json' },
+              body: JSON.stringify({
+                subtotal: getsubtotal,
+                couponCode: couponCode
+              })
             })
-
               .then(response => {
-                if (!response.ok) {
+                if (response.ok) {
+                  return response.json();
+                } else {
                   throw new Error('Network response was not ok');
+                }
+              })
+              .then(data => {
+              console.log(data);
+               if(data.type=='Fixed Amount'){
+                let subtotal = getsubtotal - data.value;
+                document.getElementById('subtotal').innerText = subtotal;
+                document.getElementById('totalprice').innerText = subtotal + 40;
+               }else{
+                document.getElementById('totalprice').innerText = (subtotal *  data.value/100);
+               }
+                if (data.message) {
+                  document.getElementById('animation').innerText = data.message
+                  document.getElementById('rzp-button1').disabled = true;
+
                 } else {
                   Swal.fire({
                     position: "top-end",
-                    icon: "Success",
-                    title: "Your Coupon Added succesfully",
+                    icon: "success",
+                    title: "Your Coupon Added successfully",
                     showConfirmButton: false,
                     timer: 2000
                   });
                 }
 
-                return response.json();
+                // Disable the button after a successful fetch
+                document.getElementById('applyButton').disabled = true;
               })
+              .catch(error => {
+                console.error('Fetch error:', error);
 
-            // Clear the input field after applying the coupon (optional)
-            document.getElementById('couponCode').value = '';
+                // Enable the button in case of an error
+                document.getElementById('applyButton').disabled = true;
+              });
           }
         </script>
+
+
 
 
 
@@ -551,6 +582,7 @@
             document.getElementById('popup').style.display = 'none';
           } 
         </script>
+
         <script>
           // addressid = document.getElementById('addressid').innerText
           addressid = document.querySelector('input[name="deliveryaddresss"]:checked').value
@@ -563,7 +595,7 @@
           });
 
           function confirmOrder() {
-            console.log("worked");
+            // console.log("worked");
             let paymentMode = document.getElementById('payment').selector.value
             if (paymentMode == "COD") {
 
