@@ -10,7 +10,7 @@ const path = require('path');
 const mongoose = require("mongoose");
 const { orderCollection } = require("../../model/orderDB");
 const PDFDocument = require("pdfkit-table");
-
+const ExcelJS = require("exceljs");
 
 
 exports.couponGet = async (req, res) => {
@@ -185,71 +185,147 @@ exports.offerpost = async (req, res) => {
 
 // Pdf Download
 exports.salesReport = async (req, res) => {
-  try {
-    // const startingDate = new Date(req.body.startingdate);
-    // const endingDate = new Date(req.body.endingdate);
+  // Create a PDF document
+  const mode = req.params.id
 
-    // const orders = await orderCollection.find()
-    // console.log(orders);
-    // ({
-    //   orderDate: { $gte: startingDate, $lte: endingDate },
-    // });
-
-    // Create a PDF document
-    const orders = await orderCollection.find();
-
-    const doc = new PDFDocument();
-    const filename = "PetStation Sales Report.pdf";
-
-    res.setHeader("Content-Disposition", `attachment; filename=${filename}`);
-    res.setHeader("Content-Type", "application/pdf");
-
-    doc.pipe(res);
-
-    // Add content to the PDF document
-    doc.font("Helvetica-Bold").text("Sales Report", {font:30, align: "center", margin: 10 });
-    
-    doc.moveDown(); // Move down after the title
-    const tableData = {
-      headers: [
-        "Username",
-        "Product ",
-        "Price",
-        "Quantity",
-        "Address",
-        "Pincode",
-        "State",
-      ],
-      rows: orders.map((order) => {
-        const productRows = order.productdetails.map((productDetail) => [
-          order.address.name,
-          productDetail.productId,
-          productDetail.uniquePriceTotal,
-          productDetail.quantity,
-          order.address.address,
-          order.address.pincode,
-          order.address.state,
-        ]);
-
-        return productRows;
-      }).flat(),
-    };
+  if (mode == "pdf") {
+    try {
+      const startingDate = new Date(req.body.startDate);
+      const endingDate = new Date(req.body.endDate);
+      const orders = await orderCollection.find({
+        createdAt: { $gte: startingDate, $lte: endingDate },
+      });
 
 
-   
-    // Customize the appearance of the table
-    await doc.table(tableData, {
-      prepareHeader: () => doc.font("Helvetica-Bold"),
-      prepareRow: (row, i) => doc.font("Helvetica").fontSize(12),
-      hLineColor: '#b2b2b2', // Horizontal line color
-      vLineColor: '#b2b2b2', // Vertical line color
-      textMargin: 5, // Margin between text and cell border
-    });
+      const doc = new PDFDocument();
+      const filename = "PetStation Sales Report.pdf";
 
-    // Finalize the PDF document
-    doc.end();
-  } catch (error) {
-    console.error("Error generating PDF:", error);
-    res.status(500).send("Internal Server Error");
+      res.setHeader("Content-Disposition", `attachment; filename=${filename}`);
+      res.setHeader("Content-Type", "application/pdf");
+
+      doc.pipe(res);
+
+      // Add content to the PDF document
+      doc.font("Helvetica-Bold").text("Sales Report", { font: 30, align: "center", margin: 10 });
+
+      doc.moveDown(); // Move down after the title
+      const tableData = {
+        headers: [
+          "Username",
+          "Product ",
+          "Price",
+          "Quantity",
+          "Address",
+          "Pincode",
+          "State",
+        ],
+        rows: orders.map((order) => {
+          const productRows = order.productdetails.map((productDetail) => [
+            order.address.name,
+            productDetail.productId,
+            productDetail.uniquePriceTotal,
+            productDetail.quantity,
+            order.address.address,
+            order.address.pincode,
+            order.address.state,
+          ]);
+
+          return productRows;
+        }).flat(),
+      };
+
+
+
+      // Customize the appearance of the table
+      await doc.table(tableData, {
+        prepareHeader: () => doc.font("Helvetica-Bold"),
+        prepareRow: (row, i) => doc.font("Helvetica").fontSize(12),
+        hLineColor: '#b2b2b2', // Horizontal line color
+        vLineColor: '#b2b2b2', // Vertical line color
+        textMargin: 5, // Margin between text and cell border
+      });
+
+      // Finalize the PDF document
+      doc.end();
+
+    } catch (error) {
+      console.error("Error generating pdf:", error);
+      res.status(500).send("Internal Server Error");
+    }
+
+  } else {
+    try {
+      // Chart Excel Download-------------------------------
+      
+      const excelstartingDate =  req.body.startDate;
+      const excelendingDate =  req.body.endDate;
+
+      const orderCursor = await orderCollection.find({
+        createdAt: { $gte: excelstartingDate, $lte: excelendingDate },
+      });
+
+
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Sheet 1");
+      
+      // Add data to the worksheet
+      worksheet.columns = [
+        { header: "Order Number", key: "ordernumber", width: 15 },
+        { header: "User ID", key: "userId", width: 20 },
+        { header: "Product Name", key: "productname", width: 20 },
+        { header: "Quantity", key: "quantity", width: 15 },
+        { header: "Price", key: "price", width: 15 },
+        { header: "Status", key: "status", width: 15 },
+        { header: "Order Date", key: "orderdate", width: 18 },
+        { header: "Address", key: "address", width: 30 },
+        { header: "City", key: "city", width: 20 },
+        { header: "Pincode", key: "pincode", width: 15 },
+        { header: "State", key: "state", width: 15 },
+      ];
+      
+      for (const orderItem of orderCursor) {
+        // Fetch address details based on the address ID
+      
+        worksheet.addRow({
+          ordernumber: orderItem.Ordernumber,
+          userId: orderItem.userId,
+          productname: orderItem.productdetails
+            .map((productDetail) => productDetail.productId)
+            .join(", "),
+          quantity: orderItem.productdetails
+            .map((productDetail) => productDetail.quantity)
+            .join(", "),
+          price: orderItem.productdetails
+            .map((productDetail) => productDetail.uniquePriceTotal)
+            .join(", "),
+          status: orderItem.status,
+          orderdate: orderItem.createdAt.toISOString(), // Assuming createdAt is a valid Date object
+          address: orderItem.address.address,
+          city: orderItem.address.district, // Assuming district is the city field
+          pincode: orderItem.address.pincode,
+          state: orderItem.address.state,
+        });
+      }
+      
+      // Generate the Excel file and send it as a response
+      workbook.xlsx.writeBuffer().then((buffer) => {
+        const excelBuffer = Buffer.from(buffer);
+        res.setHeader(
+          "Content-Type",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        );
+        res.setHeader("Content-Disposition", "attachment; filename=excel.xlsx");
+        res.send(excelBuffer);
+      });
+      
+
+
+
+    } catch (error) {
+      console.error("Error generating excel:", error);
+      res.status(500).send("Internal Server Error");
+    }
   }
+
+
 };

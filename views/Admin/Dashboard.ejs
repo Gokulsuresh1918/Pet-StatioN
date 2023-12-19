@@ -38,17 +38,38 @@
                 <div class="card-header p-3 pt-2">
                   <div
                     class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">weekend</i>
+                    <i class="material-icons opacity-10">payments</i>
                   </div>
-                  <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                    <h4 class="mb-0">$53k</h4>
-                  </div>
+                  <% let paymentCount={}; %>
+
+                    <% for (let i=0; i < data.length; i++) { %>
+                      <% const paymentMethod=data[i].payment; %>
+                        <% paymentCount[paymentMethod]=(paymentCount[paymentMethod] || 0) + 1; %>
+                          <% } %>
+
+                            <% let mostCommonPaymentMethod=null; %>
+                              <% let maxCount=0; %>
+
+                                <% for (const method in paymentCount) { %>
+                                  <% if (paymentCount[method]> maxCount) { %>
+                                    <% maxCount=paymentCount[method]; %>
+                                      <% mostCommonPaymentMethod=method; %>
+                                        <% } %>
+                                          <% } %>
+
+                                            <div class="text-end pt-1">
+                                              <p class="text-sm mb-0 text-capitalize">Most Common Payment </p>
+                                              <h4 class="mb-0">
+                                                <%= mostCommonPaymentMethod %>
+                                              </h4>
+                                            </div>
+
                 </div>
                 <hr class="dark horizontal my-0">
                 <div class="card-footer p-3">
-                  <p class="mb-0"><span style="margin-right: 15px;" class="text-success text-sm font-weight-bolder">+55%
-                    </span>than last week</p>
+                  <p class="mb-0"><span style="margin-right: 15px;"
+                      class="text-success text-sm font-weight-bolder">Online
+                    </span>Target Online</p>
                 </div>
               </div>
             </div>
@@ -57,34 +78,26 @@
                 <div class="card-header p-3 pt-2">
                   <div
                     class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person</i>
+                    <i class="material-icons opacity-10 "> production_quantity_limits</i>
                   </div>
+
+
+
+
                   <% let totalQuantity=0; %>
 
                     <% for (let i=0; i < data.length; i++) { %>
-                      <% totalQuantity +=data[i].productdetails.quantity; %>
-                        <% } %>
-                          <div class="text-end pt-1">
-                            <p class="text-sm mb-0 text-capitalize">Total Quantity</p>
-                            <h4 class="mb-0">
-                              <%= totalQuantity %>
-                            </h4>
-                          </div>
+                      <% for (let j=0; j < data[i].productdetails.length; j++) { %>
+                        <% totalQuantity +=data[i].productdetails[j].quantity; %>
+                          <% } %>
+                            <% } %>
 
-                          <% let totalQuantity=0; %=>
-
-                            <% for (let i=0; i < data.length; i++) { %>
-                              <% for (let j=0; j < data[i].productdetails.length; j++) { %>
-                                <% totalQuantity +=data[i].productdetails[j].quantity; %>
-                                  <% } %>
-                                    <% } %>
-
-                                      <div class="text-end pt-1">
-                                        <p class="text-sm mb-0 text-capitalize">Total Quantity</p>
-                                        <h4 class="mb-0">
-                                          <%= totalQuantity %>
-                                        </h4>
-                                      </div>
+                              <div class="text-end pt-1">
+                                <p class="text-sm mb-0 text-capitalize">Total Quantity Sale</p>
+                                <h4 class="mb-0">
+                                  <%= totalQuantity %>
+                                </h4>
+                              </div>
 
 
 
@@ -101,7 +114,8 @@
                 <div class="card-header p-3 pt-2">
                   <div
                     class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">person</i>
+                    <i class="material-icons opacity-10"> real_estate_agent</i>
+
                   </div>
                   <% let totalOrders=0; %>
 
@@ -131,7 +145,7 @@
                 <div class="card-header p-3 pt-2">
                   <div onclick="salesreport()"
                     class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                    <i class="material-icons opacity-10">weekend</i>
+                    <i class="material-icons opacity-10">picture_as_pdf</i>
                   </div>
                   <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">Report</p>
@@ -169,10 +183,17 @@
 
           <%- include('../partials/adminpartials/footer') %>
         </div>
+
+
+
+
+        v
     </main>
 
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"
   integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A=="
@@ -270,10 +291,67 @@
 </script> -->
 
 
+
 <script>
   function salesreport() {
-    fetch('/admin/salesReport', {
-      method: 'POST'
+    Swal.fire({
+      title: 'Select Date Range',
+      html:
+        '<input id="start-date" type="date" placeholder="Start Date" class="swal2-input">' +
+        '<input id="end-date" type="date" placeholder="End Date" class="swal2-input">',
+      showCancelButton: true,
+      confirmButtonText: 'Download',
+      cancelButtonText: 'Cancel',
+      preConfirm: () => {
+        const startDate = document.getElementById('start-date').value;
+        const endDate = document.getElementById('end-date').value;
+
+        // Validate the input (optional)
+        if (!startDate || !endDate) {
+          Swal.showValidationMessage('Please select both start and end dates');
+        }
+
+        return { startDate, endDate };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        selectmode(result.value);
+      }
+    });
+  }
+
+
+
+
+  function selectmode({ startDate, endDate }) {
+
+    Swal.fire({
+      title: 'Download Sales Report',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'PDF',
+      cancelButtonText: 'Excel',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        downloadSalesReport('pdf', startDate, endDate);
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        downloadSalesReport('excel', startDate, endDate);
+      }
+    })
+  }
+
+  function downloadSalesReport(format, startDate, endDate) {
+
+    // Adjust the fetch URL to include the desired format
+    const fetchUrl = `/admin/salesReport/${format}`;
+
+    fetch(fetchUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ startDate, endDate }),
     })
       .then(response => {
         if (!response.ok) {
@@ -288,7 +366,8 @@
       })
       .catch(error => {
         console.error('Fetch error of sales report:', error);
-        // Swal.fire('Error!', 'An error occurred while downloading sales report', 'error');
+        // Handle errors if necessary
+        Swal.fire('Error!', 'An error occurred while downloading sales report', 'error');
       });
   }
 </script>

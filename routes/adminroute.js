@@ -47,7 +47,7 @@ router.post('/coupondelete/:_id',adminSession, couponDelete)
 router.get('/getCouponDetails/:_id',adminSession, editCoupon)
 router.get('/offer', adminSession, offerGet);
 router.post('/addOffer', adminSession, offerpost);
-router.post('/salesReport', adminSession, salesReport);
+router.post('/salesReport/:id', adminSession, salesReport);
 
 
 
