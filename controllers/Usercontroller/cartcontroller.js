@@ -71,7 +71,7 @@ exports.addcartpost = async (req, res) => {
                     cart.products[existingProduct].quantity += parseInt(qty)
                     await cart.save()
 
-                    console.log("THeis is cart" + cart);
+                    // console.log("THeis is cart" + cart);
                 }
             }
 

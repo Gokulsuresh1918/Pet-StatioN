@@ -7,8 +7,9 @@ const { productCollection } = require("../../model/productDB");
 const { categoryCollection } = require("../../model/categoryDB");
 const { offerCollection } = require("../../model/offerDB");
 const path = require('path');
-const mongoose = require("mongoose")
-
+const mongoose = require("mongoose");
+const { orderCollection } = require("../../model/orderDB");
+const PDFDocument = require("pdfkit-table");
 
 
 
@@ -105,7 +106,7 @@ exports.couponDelete = async (req, res) => {
     }
     const offer = await offerCollection.find({ _id: id })
     if (offer) {
-     const offerdeleted= await offerCollection.deleteOne({ _id: id });
+      const offerdeleted = await offerCollection.deleteOne({ _id: id });
 
       if (offerdeleted.deletedCount === 1) {
         return res.status(200).json({ message: 'offer deleted successfully' });
@@ -156,7 +157,7 @@ exports.offerpost = async (req, res) => {
       startDate,
       endDate,
       isActive,
-      selectedProducts  ,
+      selectedProducts,
       selectedCategories,
     } = req.body;
 
@@ -182,3 +183,73 @@ exports.offerpost = async (req, res) => {
 }
 
 
+// Pdf Download
+exports.salesReport = async (req, res) => {
+  try {
+    // const startingDate = new Date(req.body.startingdate);
+    // const endingDate = new Date(req.body.endingdate);
+
+    // const orders = await orderCollection.find()
+    // console.log(orders);
+    // ({
+    //   orderDate: { $gte: startingDate, $lte: endingDate },
+    // });
+
+    // Create a PDF document
+    const orders = await orderCollection.find();
+
+    const doc = new PDFDocument();
+    const filename = "PetStation Sales Report.pdf";
+
+    res.setHeader("Content-Disposition", `attachment; filename=${filename}`);
+    res.setHeader("Content-Type", "application/pdf");
+
+    doc.pipe(res);
+
+    // Add content to the PDF document
+    doc.font("Helvetica-Bold").text("Sales Report", {font:30, align: "center", margin: 10 });
+    
+    doc.moveDown(); // Move down after the title
+    const tableData = {
+      headers: [
+        "Username",
+        "Product ",
+        "Price",
+        "Quantity",
+        "Address",
+        "Pincode",
+        "State",
+      ],
+      rows: orders.map((order) => {
+        const productRows = order.productdetails.map((productDetail) => [
+          order.address.name,
+          productDetail.productId,
+          productDetail.uniquePriceTotal,
+          productDetail.quantity,
+          order.address.address,
+          order.address.pincode,
+          order.address.state,
+        ]);
+
+        return productRows;
+      }).flat(),
+    };
+
+
+   
+    // Customize the appearance of the table
+    await doc.table(tableData, {
+      prepareHeader: () => doc.font("Helvetica-Bold"),
+      prepareRow: (row, i) => doc.font("Helvetica").fontSize(12),
+      hLineColor: '#b2b2b2', // Horizontal line color
+      vLineColor: '#b2b2b2', // Vertical line color
+      textMargin: 5, // Margin between text and cell border
+    });
+
+    // Finalize the PDF document
+    doc.end();
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};

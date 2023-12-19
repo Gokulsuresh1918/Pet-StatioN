@@ -87,33 +87,33 @@ exports.dashboard = async (req, res) => {
         },
         {
           $sort: { "_id.year": 1, "_id.month": 1 },
-        },{
-          $project:{
-            _id:1,
-            totalOrders:1
+        }, {
+          $project: {
+            _id: 1,
+            totalOrders: 1
           }
         }
       ])
       // console.log("Monthly Orders:", monthlyresult)
-      let data=[0,0,0,0,0,0,0,0,0,0,0,0]
-      let k=0
-      dailyData =data.map((ele,i)=>{
-            if (monthlyresult[k]._id.month==i+1) {
-              return monthlyresult[k++]?.totalOrders
-            }else{
-              return 0
-            }
-        })
-          
-      } catch (error) {
-        console.error("Error aggregating daily orders:", error);
-      }
-    };
-    
-    
-    // Aggregate yearly orders
-    const yearlyOrders = async () => {
-      try {
+      let data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      let k = 0
+      dailyData = data.map((ele, i) => {
+        if (monthlyresult[k]._id.month == i + 1) {
+          return monthlyresult[k++]?.totalOrders
+        } else {
+          return 0
+        }
+      })
+
+    } catch (error) {
+      console.error("Error aggregating daily orders:", error);
+    }
+  };
+
+
+  // Aggregate yearly orders
+  const yearlyOrders = async () => {
+    try {
       const yearlyresult = await orderCollection.aggregate([
         {
           $group: {
@@ -125,48 +125,21 @@ exports.dashboard = async (req, res) => {
           $sort: { "_id.year": 1 },
         },
       ]);
-      monthlyData=yearlyresult.map((ele)=>{
+      monthlyData = yearlyresult.map((ele) => {
         return ele.totalOrders
       })
       console.log(monthlyData);
-      
+
     } catch (error) {
       console.error("Error aggregating yearly orders:", error);
     }
   };
-  
+  const data = await orderCollection.find()
+  console.log(data);
   await monthlyOrders();
   await yearlyOrders();
-  return res.render('Admin/Dashboard', { admin, dailyOrdersData:dailyData,monthlyData, errmsg: "please login" });
-  
-  // Aggregate daily orders
-  // const dailyOrders = async () => {
-  //   try {
-    //     const dailyresult = await orderCollection.aggregate([
-  //       {
-    //         $group: {
-  //           _id: { day: { $dayOfMonth: "$createdAt" }, month: { $month: "$createdAt" }, year: { $year: "$createdAt" } },
-  //           totalOrders: { $sum: 1 },
-  //           totalSales: { $sum: "$total" },
-  // dailyOrders();
-  //         },
-  //       },
-  //       {
-  //         $sort: { "_id.year": 1, "_id.month": 1, "_id.day": 1 },
-  //       },
-  //     ]);
+  return res.render('Admin/Dashboard', { admin, dailyOrdersData: dailyData, data, monthlyData, errmsg: "please login" });
 
-  //     console.log("Daily Orders:", dailyresult);
-  //   } catch (error) {
-  //     console.error("Error aggregating daily orders:", error);
-  //     res.render('Admin/Dashboard', { admin, errmsg: "please login" });
-
-  //   }
-  // };
-
-
-
-  // Call the functions to get the aggregated results
 
 
 };

@@ -32,7 +32,7 @@
         <!-- End Navbar -->
 
         <div class="container-fluid py-4">
-          <!-- <div class="row">
+          <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
               <div class="card">
                 <div class="card-header p-3 pt-2">
@@ -47,7 +47,8 @@
                 </div>
                 <hr class="dark horizontal my-0">
                 <div class="card-footer p-3">
-                  <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last week</p>
+                  <p class="mb-0"><span style="margin-right: 15px;" class="text-success text-sm font-weight-bolder">+55%
+                    </span>than last week</p>
                 </div>
               </div>
             </div>
@@ -58,14 +59,40 @@
                     class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
                     <i class="material-icons opacity-10">person</i>
                   </div>
-                  <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                    <h4 class="mb-0">2,300</h4>
-                  </div>
+                  <% let totalQuantity=0; %>
+
+                    <% for (let i=0; i < data.length; i++) { %>
+                      <% totalQuantity +=data[i].productdetails.quantity; %>
+                        <% } %>
+                          <div class="text-end pt-1">
+                            <p class="text-sm mb-0 text-capitalize">Total Quantity</p>
+                            <h4 class="mb-0">
+                              <%= totalQuantity %>
+                            </h4>
+                          </div>
+
+                          <% let totalQuantity=0; %=>
+
+                            <% for (let i=0; i < data.length; i++) { %>
+                              <% for (let j=0; j < data[i].productdetails.length; j++) { %>
+                                <% totalQuantity +=data[i].productdetails[j].quantity; %>
+                                  <% } %>
+                                    <% } %>
+
+                                      <div class="text-end pt-1">
+                                        <p class="text-sm mb-0 text-capitalize">Total Quantity</p>
+                                        <h4 class="mb-0">
+                                          <%= totalQuantity %>
+                                        </h4>
+                                      </div>
+
+
+
                 </div>
                 <hr class="dark horizontal my-0">
                 <div class="card-footer p-3">
-                  <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
+                  <p class="mb-0"><span style="margin-right: 15px;"
+                      class="text-danger text-sm font-weight-bolder">500</span>Target of this Month</p>
                 </div>
               </div>
             </div>
@@ -76,45 +103,55 @@
                     class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
                     <i class="material-icons opacity-10">person</i>
                   </div>
-                  <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                    <h4 class="mb-0">3,462</h4>
-                  </div>
+                  <% let totalOrders=0; %>
+
+                    <% for (let i=0; i < data.length; i++) { %>
+                      <% totalOrders +=data[i].total; %>
+                        <% } %>
+
+                          <div class="text-end pt-1">
+                            <p class="text-sm mb-0 text-capitalize">
+                              Total profit
+                            </p>
+                            <h4 class="mb-0">
+                              <%= totalOrders %>
+                            </h4>
+                          </div>
+
                 </div>
                 <hr class="dark horizontal my-0">
                 <div class="card-footer p-3">
-                  <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+                  <p class="mb-0"><span style="margin-right: 15px;" class="text-danger text-sm font-weight-bolder">1
+                      Lakh</span>Target of this Month</p>
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-sm-6">
+            <div onclick="salesreport()" class="col-xl-3 col-sm-6">
               <div class="card">
                 <div class="card-header p-3 pt-2">
-                  <div
+                  <div onclick="salesreport()"
                     class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
                     <i class="material-icons opacity-10">weekend</i>
                   </div>
                   <div class="text-end pt-1">
-                    <p class="text-sm mb-0 text-capitalize">Sales</p>
-                    <h4 class="mb-0">$103,430</h4>
+                    <p class="text-sm mb-0 text-capitalize">Report</p>
+                    <h4 onclick="salesreport()" class="mb-0">Download</h4>
                   </div>
                 </div>
                 <hr class="dark horizontal my-0">
                 <div class="card-footer p-3">
-                  <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+                  <p class="mb-0"><span style="margin-right: 15px;" class="text-success text-sm font-weight-bolder">Pet
+                      Station </span>Sales Report
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-       -->
+
 
           <!-- chart -->
-          <!-- <br>
-          <h1 style="text-align: center;">Yearly Chart</h1>
-          <br>
-          <div>
-            <canvas data-total="" id="myPieChart"></canvas>
-          </div> -->
+
+
           <br>
           <h1 style="text-align: center;">Yearly Chart</h1>
           <br>
@@ -152,7 +189,7 @@
       labels: monthlyChartLabels,
       datasets: [{
         label: 'Total Orders',
-        data: monthlyOrdersData.map(Number), 
+        data: monthlyOrdersData.map(Number),
         fill: false,
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
@@ -179,7 +216,7 @@
   const yearlyChartData = {
     type: 'bar',
     data: {
-      labels: [2023,2024,2024] , 
+      labels: [2023, 2024, 2024],
       datasets: [{
         label: 'Total Orders',
         data: totalOrders,
@@ -231,5 +268,30 @@
   const linectx2 = document.getElementById('myPieChart').getContext('2d');
   const mypiechart = new Chart(linectx2, PieChartdata);
 </script> -->
+
+
+<script>
+  function salesreport() {
+    fetch('/admin/salesReport', {
+      method: 'POST'
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.blob(); // Use blob() to get the response as a Blob
+      })
+      .then(blob => {
+        // Create a blob URL and open it in a new tab
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      })
+      .catch(error => {
+        console.error('Fetch error of sales report:', error);
+        // Swal.fire('Error!', 'An error occurred while downloading sales report', 'error');
+      });
+  }
+</script>
+
 
 </html>
