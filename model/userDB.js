@@ -23,6 +23,9 @@ const UserLoginSchema = new mongoose.Schema({
         default: false,
         required: true
     },
+    referal:{
+        type:String
+    },
     otp:{
         type: Number,
     },

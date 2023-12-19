@@ -24,8 +24,15 @@ const tempLoginSchema = new mongoose.Schema({
         default: false,
         required: true
     },
+    wallet:{
+        type:Number,
+        default:0
+    },
     otp:{
         type:Number
+    },
+    referal:{
+        type:String
     }
 });
 

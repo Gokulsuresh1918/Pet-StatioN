@@ -11,17 +11,17 @@ const { contactCollection } = require('../../model/contactDB')
 
 //controller for login get
 exports.loginGet = (req, res) => {
-try { 
-    if (!req.session.userId) {
-        const user = true
-        res.render('User/login', { user })
-    } else {
-        const user = false
-        res.redirect('admin/home')
+    try {
+        if (!req.session.userId) {
+            const user = true
+            res.render('User/login', { user })
+        } else {
+            const user = false
+            res.redirect('admin/home')
+        }
+    } catch (error) {
+        console.error("loginget error" + "=" + error);
     }
-} catch (error) {
-    console.error("loginget error"+"="+error);
-}
 };
 
 //controller for login post
@@ -45,24 +45,25 @@ exports.loginPost = async (req, res) => {
             }
         }
     } catch (err) {
-        console.error("loginpost error"+"="+error);    }
+        console.error("loginpost error" + "=" + error);
+    }
 };
 
 
 
 //controller for signup get
 exports.signupGet = (req, res) => {
-try {
-    if (req.session.userId) {
-        const user = true
-        res.render('User/signup', { user })
-    } else {
-        const user = false
-        res.render('User/signup', { user })
+    try {
+        if (req.session.userId) {
+            const user = true
+            res.render('User/signup', { user })
+        } else {
+            const user = false
+            res.render('User/signup', { user })
+        }
+    } catch (error) {
+        console.error("signupGet  error" + "= " + error);
     }
-} catch (error) {
-    console.error("signupGet  error" + "= " + error);
-}
 };
 
 
@@ -72,17 +73,39 @@ exports.signupPost = async (req, res) => {
     try {
         // OTP generation through e-mail
         const otp = generateotp();
-        console.log(otp);
+        console.log("OTP IS ", otp);
+        const referal = referalgenerator()
+        console.log("Referal is", referal);
+
+        const referalexicst = req.body.Referal
         const data = {
             name: req.body.username,
             email: req.body.email,
             mobile: req.body.mobile,
             password: req.body.password,
-            otp: otp
+            otp: otp,
+            referal: referal
         };
         req.session.userEmail = data.email
+
         const existingUser = await UserCollection.findOne({ email: data.email });
+        const existingreferal = await UserCollection.find({ referal: referalexicst });
         const existingUserMobile = await UserCollection.findOne({ mobile: data.mobile });
+  
+        if (existingreferal && existingreferal.length > 0) {
+            existingreferal.forEach(async (referral) => {
+                referral.wallet += 1000;
+                await referral.save();
+                console.log('Wallet updated successfully');
+            });
+
+            data.wallet = 500;
+
+        } else {
+            console.log('Referral not found');
+        }
+
+
         if (existingUser) {
             return res.render('User/signup', { message: 'E-mail already exists' });
         }
@@ -143,22 +166,36 @@ const generateotp = () => {
 
 exports.logoutuser = (req, res) => {
     try {
-    if (req.session.userId) {
+        if (req.session.userId) {
 
-        req.session.destroy((err) => {
-            if (err) {
-                console.error('Error', err);
-            }
-            console.log("session destriyod sucessfully");
+            req.session.destroy((err) => {
+                if (err) {
+                    console.error('Error', err);
+                }
+                console.log("session destriyod sucessfully");
+                res.redirect('/');
+            });
+
+        } else {
             res.redirect('/');
-        });
-
-    } else {
-        res.redirect('/');
+        }
+    } catch (error) {
+        console.error("logoutuser error" + "=" + error);
     }
-} catch (error) {
-    console.error("logoutuser error"+"="+error);     
 }
+
+
+
+function referalgenerator() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const codeLength = 6;
+    let randomCode = '';
+
+    for (let i = 0; i < codeLength; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        randomCode += characters.charAt(randomIndex);
+    }
+
+    return randomCode;
 }
-    
 
