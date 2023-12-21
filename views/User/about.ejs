@@ -73,7 +73,20 @@
 			font-size: 18px;
 		}
 	</style>
+		<style>
+			/* Default styles for screens above 980 pixels */
+			.hero-img-wrap {
+				overflow-x: visible
+			}
 	
+			/* Media query for screens 980 pixels or below */
+			@media only screen and (max-width: 980px) {
+				.hero-img-wrap {
+					overflow-x: hidden;
+					/* or auto, or any other value you prefer for smaller screens */
+				}
+			}
+		</style>
 </head>
 
 <body>

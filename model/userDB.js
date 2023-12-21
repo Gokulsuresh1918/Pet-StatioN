@@ -32,7 +32,10 @@ const UserLoginSchema = new mongoose.Schema({
     wallet:{
         type:Number,
         default:0
-    }
+    },
+    profileImage: {
+        Type: String
+    },
 });
 
 const UserCollection = new mongoose.model('UserCollection', UserLoginSchema)

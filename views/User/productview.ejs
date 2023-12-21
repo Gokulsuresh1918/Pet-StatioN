@@ -434,9 +434,10 @@
       <script>
         function addToCart(productId) {
           const originalqty = Number('<%=productdata.qty%>')
-          var qty = document.getElementById('Qty');
-          var price = document.getElementById('offerprice').innerText
-          var val = Number(qty.value);
+          let qty = document.getElementById('Qty');
+          let price = document.getElementById('offerprice').innerText
+         
+          let val = Number(qty.value);
           if (val > originalqty) {
             Swal.fire({
               title: 'Out of Stock',

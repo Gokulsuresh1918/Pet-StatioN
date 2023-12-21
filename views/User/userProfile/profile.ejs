@@ -57,7 +57,7 @@
           <li>
             <a class="nav-link" href="/cart">
               <img src="/assets/images/cart.svg" alt="Cart">
-              <span id="cartItemCount">
+              <span style="color: red; font-weight: bold;" id="cartItemCount">
                 <%= cartcount %>
               </span>
             </a>
@@ -75,7 +75,9 @@
     <div class="ui-bg-overlay bg-dark opacity-50"></div>
     <div class="container">
       <div class="text-center py-5">
-        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="ui-w-100 rounded-circle">
+        <img src="/img/143a1c908befd8145abec642056d0846.jpg" id="profileImage" alt=""
+          class="profileimage ui-w-100 rounded-circle" style="max-width: 300px; max-height: 300px;">
+
 
         <div class="col-md-8 col-lg-6 col-xl-5 p-0 mx-auto">
           <h4 class="font-weight-bold my-4 text-green">
@@ -103,6 +105,11 @@
             class="d-inline-block text-black ml-3 bg-gradient-success border-radius-lg px-4 py-2 my-3">
             <span class="opacity-75">Wallet</span>
           </a>
+          <a onclick="addImage()"
+            class="d-inline-block text-black ml-3 bg-gradient-success border-radius-lg px-4 py-2 my-3">
+
+            <span class="opacity-75">Add image</span>
+          </a>
           <a href="/logoutuser"
             class="d-inline-block text-black ml-3 bg-gradient-danger border-radius-lg px-4 py-2 my-3">
 
@@ -113,19 +120,21 @@
     </div>
 
     <%-include('../../partials/userpartials/footer.ejs') %>
-    <!-- The modal -->
-    <div id="walletModal" class="modal"> 
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <br>
-        <h1 style="font-weight: bold;" >Wallet Amount: <span style="color:#ee0000;" id="walletAmount"><%=userdetails.wallet%></span></h1>
-        <br>
-        <h3>Now you can Buy Product using your Wallet</h3>
-        <br>
-        <a href="/cart"><button class="btn btm_3 bg-gradient-success" >Go to Cart</button></a>
-        <a href="/shop"><button class="btn btm_3 bg-gradient-success" >Go to Shop</button></a>
+      <!-- The modal -->
+      <div id="walletModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <br>
+          <h1 style="font-weight: bold;">Wallet Amount: <span style="color:#ee0000;" id="walletAmount">
+              <%=userdetails.wallet%>
+            </span></h1>
+          <br>
+          <h3>Now you can Buy Product using your Wallet</h3>
+          <br>
+          <a href="/cart"><button class="btn btm_3 bg-gradient-success">Go to Cart</button></a>
+          <a href="/shop"><button class="btn btm_3 bg-gradient-success">Go to Shop</button></a>
+        </div>
       </div>
-    </div>
   </div>
 </body>
 <style>
@@ -189,11 +198,67 @@
   }
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
   integrity="sha384-qjnXahWFSzoaUaxh3cFYsFAJ7U/xfxVcY8JgTajJ9TI9PqWBYxBGqBEKaQ29iYz1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
   integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyUEm2AUahfFlrBxIj2I6dXJlEnKz7khp" crossorigin="anonymous"></script>
+
+<script>
+  function addImage() {
+    // Display SweetAlert input dialog for image selection
+    Swal.fire({
+      title: 'Select Image',
+      input: 'file',
+      inputAttributes: {
+        accept: 'image/*',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      showLoaderOnConfirm: true,
+      preConfirm: (file) => {
+        return new Promise((resolve) => {
+          // Read the selected file as data URL
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            const imageData = event.target.result;
+            resolve(imageData);
+          };
+          reader.readAsDataURL(file);
+        });
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const imageData = result.value;
+
+        document.getElementById('profileImage').src = imageData;
+
+        // Make a POST request to the server to handle the image
+        fetch('/addimage', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ image: imageData }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Handle the response from the server (if needed)
+            console.log('Image added successfully on the server:', data);
+          })
+          .catch(error => {
+            console.error('Error adding image profile on the server:', error);
+          });
+      }
+    });
+
+  }
+       
+</script>
+
 
 </html>

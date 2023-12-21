@@ -7,7 +7,7 @@ const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../c
 const { shopget, productView,wishlistget,wishlistdataget } = require('../controllers/Usercontroller/shop&productcontroller')
 const { cartGet, addcartpost, clearcartget, removeItem,clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')
 const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder,couponapply } = require('../controllers/Usercontroller/checkoutcontroller')
-const { profileGet, addressGet, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget } = require('../controllers/Usercontroller/profilecontroller')
+const { profileGet, addressGet,addimagepost, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget } = require('../controllers/Usercontroller/profilecontroller')
 const { forgetpass, forgetpasspost, resendpost, otpGet, otppost, resendotpget } = require('../controllers/Usercontroller/otp&passcontroller')
 // Importing middleware functions
 const { usersession } = require('../middleware/userAuth');
@@ -62,6 +62,7 @@ router.get('/add-address', usersession, addaddressGet);
 router.post('/add-address', usersession, addaddresspost);
 router.get('/edit-address/:id', usersession, editaddressGet);
 router.post('/edit-address', usersession, editaddresspost);
+router.post('/addimage', usersession, addimagepost);
 
 //order routes
 router.get('/orders', usersession, ordersget);

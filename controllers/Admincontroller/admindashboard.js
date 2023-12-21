@@ -128,7 +128,6 @@ exports.dashboard = async (req, res) => {
       monthlyData = yearlyresult.map((ele) => {
         return ele.totalOrders
       })
-      console.log(monthlyData);
 
     } catch (error) {
       console.error("Error aggregating yearly orders:", error);
@@ -139,9 +138,6 @@ exports.dashboard = async (req, res) => {
   await monthlyOrders();
   await yearlyOrders();
   return res.render('Admin/Dashboard', { admin, dailyOrdersData: dailyData, data, monthlyData, errmsg: "please login" });
-
-
-
 };
 
 

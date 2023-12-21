@@ -1,49 +1,67 @@
-
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Untree.co">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
 
-  <meta name="description" content="" />
-  <meta name="keywords" content="bootstrap, bootstrap4" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
 
-		<!-- Bootstrap CSS -->
-		<link href="/assets/cssUT/bootstrap.min.css" rel="stylesheet">
-		
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-		<link href="/assets/cssUT/tiny-slider.css" rel="stylesheet">
-		<link href="/assets/cssUT/style.css" rel="stylesheet">
+	<!-- Bootstrap CSS -->
+	<link href="/assets/cssUT/bootstrap.min.css" rel="stylesheet">
 
-		<title>Pet Station </title>
-	</head>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<link href="/assets/cssUT/tiny-slider.css" rel="stylesheet">
+	<link href="/assets/cssUT/style.css" rel="stylesheet">
 
-	<body>
+	<title>Pet Station </title>
+	<style>
+		/* Default styles for screens above 980 pixels */
+		.hero-img-wrap {
+			overflow-x: visible
+		}
 
-		<!-- Start Header/Navigation -->
-		<%- include('../partials/userpartials/header.ejs') %>
+		/* Media query for screens 980 pixels or below */
+		@media only screen and (max-width: 980px) {
+			.hero-img-wrap {
+				overflow-x: hidden;
+				/* or auto, or any other value you prefer for smaller screens */
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Start Header/Navigation -->
+	<%- include('../partials/userpartials/header.ejs') %>
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
-			<div class="hero">
-				<div class="container">
-					<div class="row justify-content-between">
-						<div class="col-lg-5">
-							<div class="intro-excerpt">
-								<h1>Hands for <span clsas="d-block">PAWS</span></h1>
-								<p class="mb-4">Pets are humanizing. They remind us we have an obligation and responsibility to preserve and nurture and care for all life. Money can buy you a fine dog, but only love can make him wag his tail. The trouble with a kitten is that eventually it becomes a cat.</p>
-								<p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="/shop" class="btn btn-white-outline">Explore</a></p>
-							</div>
+		<div class="hero">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-5">
+						<div class="intro-excerpt">
+							<h1>Hands for <span clsas="d-block">PAWS</span></h1>
+							<p class="mb-4">Pets are humanizing. They remind us we have an obligation and responsibility
+								to preserve and nurture and care for all life. Money can buy you a fine dog, but only
+								love can make him wag his tail. The trouble with a kitten is that eventually it becomes
+								a cat.</p>
+							<p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="/shop"
+									class="btn btn-white-outline">Explore</a></p>
 						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="/img/milli-2l0CWTpcChI-unsplash.png" class="img-fluid">
-							</div>
+					</div>
+					<div class="col-lg-7">
+						<div class="hero-img-wrap">
+							<img src="/img/milli-2l0CWTpcChI-unsplash.png" class="img-fluid">
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		<!-- End Hero Section -->
 
 		<!-- Start Product Section -->
@@ -54,9 +72,12 @@
 					<!-- Start Column 1 -->
 					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 						<h2 class="mb-4 section-title">Best therapist has fur and four legs</h2>
-						<p class="mb-4">“Until one has loved an animal, a part of one's soul remains unawakened.” “Animals are my friends…and I don't eat my friends.” “Animals are such agreeable friends—they ask no questions; they pass no criticisms.” “An animal's eyes have the power to speak a great language.” </p>
+						<p class="mb-4">“Until one has loved an animal, a part of one's soul remains unawakened.”
+							“Animals are my friends…and I don't eat my friends.” “Animals are such agreeable
+							friends—they ask no questions; they pass no criticisms.” “An animal's eyes have the power to
+							speak a great language.” </p>
 						<p><a href="/shop" class="btn">Explore</a></p>
-					</div> 
+					</div>
 					<!-- End Column 1 -->
 
 					<!-- Start Column 2 -->
@@ -70,7 +91,7 @@
 								<img src="/assets/images/cross.svg" class="img-fluid">
 							</span>
 						</a>
-					</div> 
+					</div>
 					<!-- End Column 2 -->
 
 					<!-- Start Column 3 -->
@@ -112,7 +133,10 @@
 				<div class="row justify-content-between">
 					<div class="col-lg-6">
 						<h2 class="section-title">Why Choose Us</h2>
-						<p>"We choose because our choices reflect our preferences, needs, and desires. When it comes to selecting a pet from a pet shop, there are several factors that influence our choices. Some of these factors include the type of pet we are looking for, our lifestyle, living arrangements, and personal preferences.</p>
+						<p>"We choose because our choices reflect our preferences, needs, and desires. When it comes to
+							selecting a pet from a pet shop, there are several factors that influence our choices. Some
+							of these factors include the type of pet we are looking for, our lifestyle, living
+							arrangements, and personal preferences.</p>
 
 						<div class="row my-5">
 							<div class="col-6 col-md-6">
@@ -121,7 +145,9 @@
 										<img src="/assets/images/truck.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Fast &amp; Free Shipping</h3>
-									<p>At PET STATION, we understand that your pets are part of your family, and we want to make shopping for their needs as convenient as possible. That's why we offer lightning-fast and free shipping on all your pet essentials.</p>
+									<p>At PET STATION, we understand that your pets are part of your family, and we want
+										to make shopping for their needs as convenient as possible. That's why we offer
+										lightning-fast and free shipping on all your pet essentials.</p>
 								</div>
 							</div>
 
@@ -131,7 +157,10 @@
 										<img src="/assets/images/bag.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Easy to Shop</h3>
-									<p>"Welcome to our pet shop, your one-stop destination for all your pet's needs! Here at PET STATION, we offer a wide range of products and services to cater to your furry, feathered, or scaly friends. Whether you're a proud pet parent or just getting started, we have something for everyone.</p>
+									<p>"Welcome to our pet shop, your one-stop destination for all your pet's needs!
+										Here at PET STATION, we offer a wide range of products and services to cater to
+										your furry, feathered, or scaly friends. Whether you're a proud pet parent or
+										just getting started, we have something for everyone.</p>
 								</div>
 							</div>
 
@@ -141,7 +170,10 @@
 										<img src="/assets/images/support.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>24/7 Support</h3>
-									<p>At PET STATION, we understand that your pets are not just animals; they are beloved members of your family. That's why we are proud to offer round-the-clock, 24/7 support to ensure the well-being and happiness of your furry, feathered, or scaled companions.</p>
+									<p>At PET STATION, we understand that your pets are not just animals; they are
+										beloved members of your family. That's why we are proud to offer
+										round-the-clock, 24/7 support to ensure the well-being and happiness of your
+										furry, feathered, or scaled companions.</p>
 								</div>
 							</div>
 
@@ -151,7 +183,11 @@
 										<img src="/assets/images/return.svg" alt="Image" class="imf-fluid">
 									</div>
 									<h3>Hassle Free Returns</h3>
-									<p>"At PET STATION, we are committed to ensuring that every pet you adopt from us is a happy and healthy addition to your family. We understand that sometimes, despite your best intentions and efforts, a pet may not be the right fit for your home or lifestyle. That's why we offer a hassle-free return policy designed to make the process as straightforward and stress-free as possible.</p>
+									<p>"At PET STATION, we are committed to ensuring that every pet you adopt from us is
+										a happy and healthy addition to your family. We understand that sometimes,
+										despite your best intentions and efforts, a pet may not be the right fit for
+										your home or lifestyle. That's why we offer a hassle-free return policy designed
+										to make the process as straightforward and stress-free as possible.</p>
 								</div>
 							</div>
 
@@ -175,20 +211,29 @@
 				<div class="row justify-content-between">
 					<div class="col-lg-7 mb-5 mb-lg-0">
 						<div class="imgs-grid">
-							<div class="grid grid-1"><img src="/img/d35bde4f-3647-4b50-9e97-ec7e809367df.jpeg" alt="Untree.co"></div>
-							<div class="grid grid-2"><img src="/img/karsten-winegeart-Qb7D1xw28Co-unsplash.jpg" alt="Untree.co"></div>
+							<div class="grid grid-1"><img src="/img/d35bde4f-3647-4b50-9e97-ec7e809367df.jpeg"
+									alt="Untree.co"></div>
+							<div class="grid grid-2"><img src="/img/karsten-winegeart-Qb7D1xw28Co-unsplash.jpg"
+									alt="Untree.co"></div>
 							<!-- <div class="grid grid-3"><img src="/img/oscar-sutton-yihlaRCCvd4-unsplash.jpg" alt="Untree.co"></div> -->
 						</div>
 					</div>
 					<div class="col-lg-5 ps-lg-5">
 						<h2 class="section-title mb-4">We Help You buy unique Pets</h2>
-						<p>"Welcome to PET STATION, your one-stop destination for a wide variety of delightful and lovable pets! We take pride in offering a diverse selection of animals that can bring joy, companionship, and unique personalities to your life. Whether you're a first-time pet owner or a seasoned enthusiast, we have something for everyone.</p>
+						<p>"Welcome to PET STATION, your one-stop destination for a wide variety of delightful and
+							lovable pets! We take pride in offering a diverse selection of animals that can bring joy,
+							companionship, and unique personalities to your life. Whether you're a first-time pet owner
+							or a seasoned enthusiast, we have something for everyone.</p>
 
 						<ul class="list-unstyled custom-list my-4">
-							<li>"Playful puppies, from Labradors to Terriers, eager to be your family's furry companion."</li>
-							<li>"Elegant cats, like Persian and Siamese, bring grace and independence to your home."</li>
-							<li>"Adorable hamsters, gerbils, and guinea pigs  the perfect pint-sized family or compact companions."</li>
-							<li>"Vibrant, exotic fish species in our stocked aquarium section, for your underwater paradise."</li>
+							<li>"Playful puppies, from Labradors to Terriers, eager to be your family's furry
+								companion."</li>
+							<li>"Elegant cats, like Persian and Siamese, bring grace and independence to your home."
+							</li>
+							<li>"Adorable hamsters, gerbils, and guinea pigs the perfect pint-sized family or compact
+								companions."</li>
+							<li>"Vibrant, exotic fish species in our stocked aquarium section, for your underwater
+								paradise."</li>
 						</ul>
 						<p><a herf="/shop" class="btn">Explore</a></p>
 					</div>
@@ -265,19 +310,25 @@
 							</div>
 
 							<div class="testimonial-slider">
-								
+
 								<div class="item">
 									<div class="row justify-content-center">
 										<div class="col-lg-8 mx-auto">
 
 											<div class="testimonial-block text-center">
 												<blockquote class="mb-5">
-													<p>&ldquo;I can't thank  PET STATION enough for helping me find my perfect furry friend. Their selection of puppies is outstanding, and the staff's knowledge and care made the process a breeze. My Labrador, Max, is the joy of our family, and we owe it all to this wonderful pet shop. We couldn't be happier with our experience.&rdquo;</p>
+													<p>&ldquo;I can't thank PET STATION enough for helping me find my
+														perfect furry friend. Their selection of puppies is outstanding,
+														and the staff's knowledge and care made the process a breeze. My
+														Labrador, Max, is the joy of our family, and we owe it all to
+														this wonderful pet shop. We couldn't be happier with our
+														experience.&rdquo;</p>
 												</blockquote>
 
 												<div class="author-info">
 													<div class="author-pic">
-														<img src="/assets/images/person-1.png" alt="Maria Jones" class="img-fluid">
+														<img src="/assets/images/person-1.png" alt="Maria Jones"
+															class="img-fluid">
 													</div>
 													<h3 class="font-weight-bold">Arya</h3>
 													<span class="position d-block mb-3">Social Activist.</span>
@@ -286,7 +337,7 @@
 
 										</div>
 									</div>
-								</div> 
+								</div>
 								<!-- END item -->
 
 								<div class="item">
@@ -295,14 +346,20 @@
 
 											<div class="testimonial-block text-center">
 												<blockquote class="mb-5">
-													<p>&ldquo;As a cat lover, I'm over the moon with PET STATION. Their range of charming feline companions is unparalleled. I found my Siamese beauty, Luna, who has brought so much grace and joy into my life. The staff's dedication and expertise are truly remarkable. I highly recommend [Pet Shop Name] to all cat enthusiasts!
+													<p>&ldquo;As a cat lover, I'm over the moon with PET STATION. Their
+														range of charming feline companions is unparalleled. I found my
+														Siamese beauty, Luna, who has brought so much grace and joy into
+														my life. The staff's dedication and expertise are truly
+														remarkable. I highly recommend [Pet Shop Name] to all cat
+														enthusiasts!
 
 														&rdquo;</p>
 												</blockquote>
 
 												<div class="author-info">
 													<div class="author-pic">
-														<img src="/assets/images/person-1.png" alt="Maria Jones" class="img-fluid">
+														<img src="/assets/images/person-1.png" alt="Maria Jones"
+															class="img-fluid">
 													</div>
 													<h3 class="font-weight-bold">Ashik M.S</h3>
 													<span class="position d-block mb-3">Entrephenur</span>
@@ -311,7 +368,7 @@
 
 										</div>
 									</div>
-								</div> 
+								</div>
 								<!-- END item -->
 
 								<div class="item">
@@ -320,14 +377,19 @@
 
 											<div class="testimonial-block text-center">
 												<blockquote class="mb-5">
-													<p>&ldquo; PET STATION is a one-stop paradise for pet lovers. We discovered our lovable hamster trio, Peanut, Jelly, and Butter, here. The staff's advice on caring for these pint-sized pets was invaluable. Our family adores these furry companions, and we are grateful for the fantastic support we received at the pet shop.
+													<p>&ldquo; PET STATION is a one-stop paradise for pet lovers. We
+														discovered our lovable hamster trio, Peanut, Jelly, and Butter,
+														here. The staff's advice on caring for these pint-sized pets was
+														invaluable. Our family adores these furry companions, and we are
+														grateful for the fantastic support we received at the pet shop.
 
 														&rdquo;</p>
 												</blockquote>
 
 												<div class="author-info">
 													<div class="author-pic">
-														<img src="/assets/images/person-1.png" alt="Maria Jones" class="img-fluid">
+														<img src="/assets/images/person-1.png" alt="Maria Jones"
+															class="img-fluid">
 													</div>
 													<h3 class="font-weight-bold">Neethu</h3>
 													<span class="position d-block mb-3">Pet lover</span>
@@ -336,7 +398,7 @@
 
 										</div>
 									</div>
-								</div> 
+								</div>
 								<!-- END item -->
 
 							</div>
@@ -403,16 +465,16 @@
 				</div>
 			</div>
 		</div> -->
-		<!-- End Blog Section -->	
+		<!-- End Blog Section -->
 
 		<!-- Start Footer Section -->
 		<%- include('../partials/userpartials/footer') %>
-		<!-- End Footer Section -->	
+			<!-- End Footer Section -->
 
 
-		<script src="/jsUT/bootstrap.bundle.min.js"></script>
-		<script src="/jsUT/tiny-slider.js"></script>
-		<script src="/jsUT/custom.js"></script>
-	</body>
+			<script src="/jsUT/bootstrap.bundle.min.js"></script>
+			<script src="/jsUT/tiny-slider.js"></script>
+			<script src="/jsUT/custom.js"></script>
+</body>
 
 </html>

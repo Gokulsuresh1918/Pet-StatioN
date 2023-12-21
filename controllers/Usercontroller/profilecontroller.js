@@ -165,6 +165,42 @@ exports.editaddresspost = async (req, res) => {
     }
 }
 
+
+
+
+exports.addimagepost = async (req, res) => {
+    try {
+        const userId = req.session.userId; 
+        const image = req.body.image;
+
+        // Find the user by ID
+        const user = await UserCollection.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Update the user's profileImage
+        user.profileImage = image
+        
+
+        // Save the updated user to the database
+        await user.save();
+
+        return res.status(200).json({ message: 'Image added successfully' });
+    } catch (error) {
+        console.error('Error adding image:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+}
+
+
+
+
+
+
+
 exports.ordersget = async (req, res) => {
     try {
         if (req.session.userId) {

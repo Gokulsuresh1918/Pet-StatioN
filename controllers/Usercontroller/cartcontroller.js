@@ -35,8 +35,10 @@ exports.addcartpost = async (req, res) => {
             const productId = req.body.productId;
 
             const qty = req.body.quantity;
+            const price = req.body.price;
             let productPrice = await productCollection.findOne({ _id: productId }, { _id: 0, price: 1 });
             const cart = await cartCollection.findOne({ userId: user });
+            
             if (!cart) {
                 productPrice = productPrice.price;
                 let subtotal = productPrice * parseInt(qty);
@@ -71,7 +73,7 @@ exports.addcartpost = async (req, res) => {
                     cart.products[existingProduct].quantity += parseInt(qty)
                     await cart.save()
 
-                    // console.log("THeis is cart" + cart);
+                    console.log("THeis is cart" + cart);
                 }
             }
 
