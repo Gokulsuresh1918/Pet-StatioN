@@ -4,7 +4,7 @@
   "description": "my first project to of an e commerce ,a per seilling and renting platform that buyers can sel and buy pets",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon app.js"
   },
   "author": "Gokul Suresh S.V",
   "license": "ISC",

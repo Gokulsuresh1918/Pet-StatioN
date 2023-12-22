@@ -4,7 +4,7 @@ const session = require("express-session")
 const path = require("path")
 require('dotenv').config();
 
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt") 
 // const env = require('dotenv')
 const crypto = require('crypto')
 const mongoose = require("mongoose")
