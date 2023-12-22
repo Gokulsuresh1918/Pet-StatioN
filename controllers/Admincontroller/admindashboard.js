@@ -18,7 +18,7 @@ exports.LoginGet = (req, res) => {
       res.render('Admin/adminLogin')
     } else {
       let admin = true
-      res.render('admin/adminLogin', { admin })
+      res.render('Admin/adminLogin', { admin })
     }
   } catch (error) {
     console.log(error.message);
