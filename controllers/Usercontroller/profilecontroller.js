@@ -213,10 +213,10 @@ exports.ordersget = async (req, res) => {
             cartdata.reverse()
             const cartcount = cartdata[0]?.products.length
 
-            res.render('User/userprofile/order', { orderdata, user, cartcount })
+            res.render('User/userProfile/order', { orderdata, user, cartcount })
         } else {
             const user = false
-            res.render('User/userprofile/order', { orderdata, user, cartcount: 0 })
+            res.render('User/userProfile/order', { orderdata, user, cartcount: 0 })
         }
     } catch (error) {
         console.error("ordersget  error" + "= " + error);
