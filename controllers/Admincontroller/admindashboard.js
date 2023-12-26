@@ -14,12 +14,13 @@ const { log } = require("console");
 //Admin login get
 exports.LoginGet = (req, res) => {
   try {
+    console.log('hello');
     if (req.session.adminID) {
       res.render('Admin/adminLogin')
     } else {
       let admin = true
       res.render('Admin/adminLogin', { admin });
-      
+
     }
   } catch (error) {
     console.log(error.message);
