@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const { homeGet, contactGet, contactpost, aboutget } = require('../controllers/Usercontroller/authenticationcontroller')
+const { homeGet, contactGet, contactpost, aboutget ,demo} = require('../controllers/Usercontroller/authenticationcontroller')
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
 const { shopget, productView,wishlistget,wishlistdataget } = require('../controllers/Usercontroller/shop&productcontroller')
 const { cartGet, addcartpost, clearcartget, removeItem,clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')

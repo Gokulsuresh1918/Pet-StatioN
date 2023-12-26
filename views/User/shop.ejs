@@ -12,36 +12,57 @@
 
     <!-- Bootstrap CSS -->
 
-    <%- include('../partials/layoutpage.ejs') %>
         <title>Shoping page</title>
+        <style>
+			/* Default styles for screens above 980 pixels */
+			.hero-img-wrap {
+				overflow-x: visible
+			}
+	
+			/* Media query for screens 980 pixels or below */
+			@media only screen and (max-width: 980px) {
+				.hero-img-wrap {
+					overflow-x: hidden;
+					/* or auto, or any other value you prefer for smaller screens */
+				}
+			}
+		</style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 
 <body>
+    <%- include('../partials/layoutpage.ejs') %>
 
     <!-- Start Header/Navigation -->
     <%- include('../partials/userpartials/header.ejs') %>
         <!-- End Header/Navigation -->
 
-        <!-- Start Hero Section -->
-        <div class="hero">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-lg-5">
-                        <div class="intro-excerpt">
-                            <h1>Shop</h1>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+        
+	<!-- Start Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                        <h1>Shop </h1>
+                        <p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
                             nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
                             his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                        <p><a href="/contact" class="btn btn-secondary me-2">Contact </a><a href="/about"
+                                class="btn btn-white-outline">About</a></p>
                     </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="hero-img-wrap">
+                        <img src="/img/shoppage.png" class="img-fluid">
+                    </div>
+                    
                 </div>
             </div>
         </div>
-        <!-- End Hero Section -->
-
+    </div>
+    <!-- End Hero Section -->
 
 
         <div class="untree_co-section product-section before-footer-section">
@@ -157,10 +178,10 @@
         <%- include('../partials/userpartials/footer.ejs') %>
             <!-- End Footer Section -->
 
-
-            <script src="js/bootstrap.bundle.min.js"></script>
-            <script src="js/tiny-slider.js"></script>
-            <script src="js/custom.js"></script>
+	<script src="/jsUT/bootstrap.bundle.min.js"></script>
+		<script src="/jsUT/tiny-slider.js"></script>
+		<script src="/jsUT/custom.js"></script>
+   
 </body>
 
 </html>

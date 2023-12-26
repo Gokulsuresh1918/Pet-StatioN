@@ -9,13 +9,35 @@
   <link href="/assets/cssUT/tiny-slider.css" rel="stylesheet">
   <link href="/assets/cssUT/style.css" rel="stylesheet">
 </head>
+<style>
+  body {
+    background-color: #e1e1e1;
+    height: 100dvh;
+    width: 100dvw;
+    margin: 0;
+    /* Remove default margin */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  }
+
+  .card-body {
+    text-align: center;
+  }
+</style>
 
 <body>
+  <%- include('../partials/layoutpage.ejs') %>
 
-  <%- include('../partials/userpartials/header.ejs') %>
   <div class="vh-100 vw-100 align-items-center justify-content-center">
+    <%- include('../partials/userpartials/header.ejs') %>
 
-      <div class="container mt-5 vh-70">
+      <div class="container mt-10 mb-10 ">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">OTP Verification Successful</h5>
@@ -27,27 +49,7 @@
       <%- include('../partials/userpartials/footer.ejs') %>
 
   </div>
-  <style>
-    body {
-      background-color: #e1e1e1;
-      height: 100dvh;
-      width: 100dvw;
-      margin: 0;
-      /* Remove default margin */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
-    .card {
-      border: none;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    }
-
-    .card-body {
-      text-align: center;
-    }
-  </style>
 </body>
 
 </html>

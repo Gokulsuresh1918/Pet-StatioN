@@ -4,192 +4,205 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../../css/usercss/signup.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Signup</title>
- 
+
 </head>
 
 <body>
-  <nav class="custom-navbar navbar navbar-expand-md" style="background-color: #3B5D50;" aria-label="Furni navigation bar">
+  <nav class="custom-navbar navbar navbar-expand-md" style="background-color: #3B5D50;"
+    aria-label="Furni navigation bar">
     <div class="container">
-        <a class="navbar-brand" href="/home" style="font-family: Irish; color: white;">Pet Station<span>.</span></a>
+      <a class="navbar-brand" href="/home" style="font-family: Irish; color: white;">Pet Station<span>.</span></a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+        aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarsFurni">
-            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/home" style="color: white;">Home</a>
-                </li>
-                <li><a class="nav-link" href="/shop" style="color: white;">Shop</a></li>
-                <li><a class="nav-link" href="/about" style="color: white;">About Us</a></li>
-                <li><a class="nav-link" href="/contact" style="color: white;">Contact Us</a></li>
-            </ul>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarsFurni">
+        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home" style="color: white;">Home</a>
+          </li>
+          <li><a class="nav-link" href="/shop" style="color: white;">Shop</a></li>
+          <li><a class="nav-link" href="/about" style="color: white;">About Us</a></li>
+          <li><a class="nav-link" href="/contact" style="color: white;">Contact Us</a></li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
 
 
 
-<section class="vh-100 form-container">
-  <div class="card form-card" style="background-color: #3B5D50;">
-    <h2 class="text-uppercase text-center mb-4" style="color: white;">Create an account</h2>
+  <section class="vh-100% form-container mt-5 mt-md-6">
+    <div class="card form-card" style="background-color: #3B5D50;">
+      <h2 class="text-uppercase text-center mb-4" style="color: white;">Create an account</h2>
 
       <form action="/signup" method="post">
-          <% if (locals.message) { %>
-          <div class="alert alert-danger text-center error"id="errorAlert">
-              <strong style="color: red;"><%= message %> </strong>
+        <% if (locals.message) { %>
+          <div class="alert alert-danger text-center error" id="errorAlert">
+            <strong style="color: red;">
+              <%= message %>
+            </strong>
           </div>
           <% } %>
-          <div class="row mb-3">
+            <div class="row mb-3">
               <div class="col-md-6">
-                  <label for="username" style="color: white;" class="form-label">Your Name</label>
-                  <input type="text" id="username"  name="username" class="form-control" />
+                <label for="username" style="color: white;" class="form-label">Your Name</label>
+                <input type="text" id="username" name="username" class="form-control" />
               </div>
               <div class="col-md-6">
-                  <label for="email" style="color: white;" class="form-label">Your Email</label>
-                  <input type="email" id="email" name="email" class="form-control" />
+                <label for="email" style="color: white;" class="form-label">Your Email</label>
+                <input type="email" id="email" name="email" class="form-control" />
               </div>
-          </div>
-          <div class="row mb-3">
+            </div>
+            <div class="row mb-3">
               <div class="col-md-6">
-                  <label for="mobile" style="color: white;" class="form-label">Mobile Number</label>
-                  <input type="number" id="mobile" name="mobile" class="form-control" />
+                <label for="mobile" style="color: white;" class="form-label">Mobile Number</label>
+                <input type="number" id="mobile" name="mobile" class="form-control" />
               </div>
               <div class="col-md-6">
-                  <label for="password" style="color: white;" class="form-label">Password</label>
-                  <input type="password"  id="password" name="password" class="form-control" />
+                <label for="password" style="color: white;" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" />
               </div>
-          </div>
-          <div class="row mb-3">
+            </div>
+            <div class="row mb-3">
               <div class="col-md-6">
-                  <label for="Referal" style="color: white;" class="form-label">Referal</label>
-                  <input type="text" id="Referal" name="Referal" class="form-control" />
+                <label for="Referal" style="color: white;" class="form-label">Referal</label>
+                <input type="text" id="Referal" name="Referal" class="form-control" />
               </div>
               <div class="col-md-6">
                 <label for="repassword" style="color: white;" class="form-label">Repeat your password</label>
-                <input type="password"id="repassword" name="confirmpass" class="form-control" />
+                <input type="password" id="repassword" name="confirmpass" class="form-control" />
+              </div>
             </div>
-          </div>
-          <!-- Show Password Checkbox -->
-       
-         
-          <div class="form-check mt-2">
+            <!-- Show Password Checkbox -->
+
+
+            <div class="form-check mt-2">
               <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
               <label class="form-check-label" style="color:blanchedalmond;" for="showPassword">Show Password</label>
-          </div>
+            </div>
 
-          <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center">
               <button type="submit" id="submit" class="btn btn-success btn-block text-white">Register</button>
-          </div>
-          <p class="text-center mt-4 mb-0" style="color: #ff0000;">Already have an account?</p>
-          <a href="/" class="text-center mt-4 mb-0 fw-bold "style="color: #ffffff; text-decoration:none"><h6>Sign in</h6></a>
+            </div>
+            <a href="/" class="text-center mt-4 mb-0" style="color: #ff0000;text-decoration: none; "><p>Already have an account?</p> </a>
+            <a href="/" class="text-center mt-4 mb-0 fw-bold " style="color: #ffffff; text-decoration:none">
+              <h6>Sign in</h6>
+            </a>
       </form>
-  </div>
-</section>
+    </div>
+  </section>
 
 
 </body>
-    <script>
-      // Form validation logics
-      document.addEventListener("DOMContentLoaded", function() {
-      const username = document.getElementById("username");
-      const email = document.getElementById("email");
-      const mobile = document.getElementById("mobile");
-      const password = document.getElementById("password");
-      const cpass = document.getElementById("repassword");
-      const submit = document.getElementById("submit");
-      const error = document.querySelector(".error");
+<script>
+  // Form validation logics
+  document.addEventListener("DOMContentLoaded", function () {
+    const username = document.getElementById("username");
+    const email = document.getElementById("email");
+    const mobile = document.getElementById("mobile");
+    const password = document.getElementById("password");
+    const cpass = document.getElementById("repassword");
+    const submit = document.getElementById("submit");
+    const error = document.querySelector(".error");
 
 
-      //Form validation
+    //Form validation
 
-      submit.addEventListener("click", (e) => {
-        console.log('submit button is clicked')
-        let n = username.value.trim();
-        let Email = email.value;
-        let Mobile = mobile.value
-        let pass = password.value;
-        let confirmpass = cpass.value
-        let message = [];
+    submit.addEventListener("click", (e) => {
+      console.log('submit button is clicked')
+      let n = username.value.trim();
+      let Email = email.value;
+      let Mobile = mobile.value
+      let pass = password.value;
+      let confirmpass = cpass.value
+      let message = [];
 
-        // Name validation
-        let validateName = (trimmed) => {
-          if (trimmed.length >= 3) {
-            return true;
-          }
-          return false;
-        };
-        // Email validation:
-        let validateEmail = (Email) => {
-          var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-          return emailRegex.test(Email);
-        };
-
-        //mobile number validation
-        let validateMobile = (Mobile) => {
-          const mobileNumberRegex = /^\d{10}$/;
-          return mobileNumberRegex.test(Mobile);
+      // Name validation
+      let validateName = (trimmed) => {
+        if (trimmed.length >= 3) {
+          return true;
         }
+        return false;
+      };
+      // Email validation:
+      let validateEmail = (Email) => {
+        var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        return emailRegex.test(Email);
+      };
 
-        // Password validation
-        let validatePassword = (pass) => {
-          const symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-          const lowercaseRegex = /[a-z]+/;
-          const uppercaseRegex = /[A-Z]+/;
-          const numericRegex = /\d+/;
+      //mobile number validation
+      let validateMobile = (Mobile) => {
+        const mobileNumberRegex = /^\d{10}$/;
+        return mobileNumberRegex.test(Mobile);
+      }
 
-          const hasSymbol = symbolRegex.test(pass);
-          const hasLowercase = lowercaseRegex.test(pass);
-          const hasUppercase = uppercaseRegex.test(pass);
-          const hasNumeric = numericRegex.test(pass);
-          return hasSymbol && hasLowercase && hasUppercase && hasNumeric;
-        };
+      // Password validation
+      let validatePassword = (pass) => {
+        const symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        const lowercaseRegex = /[a-z]+/;
+        const uppercaseRegex = /[A-Z]+/;
+        const numericRegex = /\d+/;
 
-
-        if (n.length === 0) message.push("Enter username");
-        else if (!validateName(n)) message.push("Invalid name");
-        else if (!validateEmail(Email)) message.push("Invalid email");
-        else if (!validateMobile(Mobile)) message.push("Invalid Mobile number");
-        else if (pass.length === 0) message.push("Enter the password");
-        else if (!validatePassword(pass))
-          message.push(
-            "Password must contain a symbol, uppercase letter, and a number"
-          );
-        else if (pass !== confirmpass) message.push("Passwords doesn't match");
+        const hasSymbol = symbolRegex.test(pass);
+        const hasLowercase = lowercaseRegex.test(pass);
+        const hasUppercase = uppercaseRegex.test(pass);
+        const hasNumeric = numericRegex.test(pass);
+        return hasSymbol && hasLowercase && hasUppercase && hasNumeric;
+      };
 
 
-        if (message.length > 0) {
-          e.preventDefault();
-          error.textContent = message.join("");
-        } else {
-          error.textContent = '';
-        }
-      });
-    })
-       </script>
+      if (n.length === 0) message.push("Enter username");
+      else if (!validateName(n)) message.push("Invalid name");
+      else if (!validateEmail(Email)) message.push("Invalid email");
+      else if (!validateMobile(Mobile)) message.push("Invalid Mobile number");
+      else if (pass.length === 0) message.push("Enter the password");
+      else if (!validatePassword(pass))
+        message.push(
+          "Password must contain a symbol, uppercase letter, and a number"
+        );
+      else if (pass !== confirmpass) message.push("Passwords doesn't match");
+
+
+      if (message.length > 0) {
+        e.preventDefault();
+        error.textContent = message.join("");
+      } else {
+        error.textContent = '';
+      }
+    });
+  })
+</script>
 <script>
   function togglePasswordVisibility() {
-      let passwordrepeat = document.getElementById("repassword");
-      let password = document.getElementById("password")
-      if (passwordrepeat.type === "password"||password.type==="password") {
-        passwordrepeat.type = "text";
-        password.type="text"
-      } else {
-        passwordrepeat.type = "password";
-        password.type="password"
-      }
+    let passwordrepeat = document.getElementById("repassword");
+    let password = document.getElementById("password")
+    if (passwordrepeat.type === "password" || password.type === "password") {
+      passwordrepeat.type = "text";
+      password.type = "text"
+    } else {
+      passwordrepeat.type = "password";
+      password.type = "password"
+    }
   }
 </script>
 
 <script>
   setTimeout(function () {
-      // Hide the alert by adding the 'd-none' class
-      document.getElementById('errorAlert').classList.add('d-none');
+    // Hide the alert by adding the 'd-none' class
+    document.getElementById('errorAlert').classList.add('d-none');
   }, 3000);
 </script>
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

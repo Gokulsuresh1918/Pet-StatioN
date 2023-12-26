@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Wishlist</title>
   <link rel="icon" href="img/favicon.png">
+  
     <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/productcss/animate.css">
     <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
@@ -18,39 +19,50 @@
     <link rel="stylesheet" href="/assets/productcss/slick.css">
     <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
     <link rel="stylesheet" href="/assets/productcss/style.css">
-</head>
 
+
+    
+</head>
+<style>
+  .hero-img-wrap {
+    overflow-x: visible
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .hero-img-wrap {
+      overflow-x: hidden;
+ 
+    }
+  }
+</style>
 <body>
   <%- include('../partials/layoutpage.ejs') %>
     <!--::header part start::-->    
     
     
     <%- include('../partials/userpartials/header.ejs') %>
-    <!--================Home Banner Area =================-->
-    <!-- breadcrumb start-->
-    <section class="breadcrumb breadcrumb_bg">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="hero">
-              <div class="container">
-                <div class="row justify-content-between">
-                  <div class="col-lg-5">
-                    <div class="intro-excerpt">
-                      <h1>Wishlist </h1>
-                    </div>
-                  </div>
-                  <div class="col-lg-7">
-                    <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
-                      nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
-                      his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- breadcrumb start-->
+
+      <!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Wishlist</h1>
+								<p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+                  nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
+                  his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="hero-img-wrap">
+								<img src="/img/wishlisrt.png" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
       
       <!--================Cart Area =================-->
       <!--================Cart Area =================-->
@@ -166,5 +178,8 @@
   </script>
 
 
+<script src="/jsUT/bootstrap.bundle.min.js"></script>
+<script src="/jsUT/tiny-slider.js"></script>
+<script src="/jsUT/custom.js"></script>
 
 </html>

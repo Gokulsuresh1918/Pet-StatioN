@@ -6,38 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orders</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .hero-img-wrap {
+      overflow-x: visible
+    }
 
+    @media only screen and (max-width: 980px) {
+      .hero-img-wrap {
+        overflow-x: hidden;
+   
+      }
+    }
+  </style>
 </head>
 
 <body>
   <%- include('../../partials/layoutpage.ejs') %>
 
     <%- include('../../partials/userpartials/header.ejs') %>
-      <section class="breadcrumb breadcrumb_bg">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="hero">
-              <div class="container">
-                <div class="row justify-content-between">
-                  <div class="col-lg-5">
-                    <div class="intro-excerpt">
-                      <h1>Your Orders </h1>
-                    </div>
-                  </div>
-                  <div class="col-lg-7">
-                    <p>"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
-                      nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
-                      his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+
+	<!-- Start Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-5">
+          <div class="intro-excerpt">
+            <h1>Your Orders</h1>
+            <p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+              nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
+              his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
           </div>
         </div>
-      </section>
-
-
-
+        <div class="col-lg-7">
+          <div class="hero-img-wrap">
+            <img  src="/img/order3.png" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- End Hero Section -->
       <div class="table-responsive">
         <table class="table">
 
@@ -336,4 +345,8 @@
 
 
 </script>
+
+<script src="/jsUT/bootstrap.bundle.min.js"></script>
+<script src="/jsUT/tiny-slider.js"></script>
+<script src="/jsUT/custom.js"></script>
 </html>

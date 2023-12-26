@@ -14,7 +14,6 @@ const { log } = require("console");
 //Admin login get
 exports.LoginGet = (req, res) => {
   try {
-    console.log('hello');
     if (req.session.adminID) {
       res.render('Admin/adminLogin')
     } else {
