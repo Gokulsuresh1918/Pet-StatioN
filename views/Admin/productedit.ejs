@@ -118,10 +118,10 @@
 
 <script>
     function validateForm() {
-        var name = document.getElementById("name").value;
-        var description = document.getElementById("description").value;
-        var price = document.getElementById("price").value;
-        var qty = document.getElementById("qty").value;
+        let name = document.getElementById("name").value;
+        let description = document.getElementById("description").value;
+        let price = document.getElementById("price").value;
+        let qty = document.getElementById("qty").value;
 
         // Reset previous error messages
         document.getElementById("nameError").innerHTML = "";
@@ -130,7 +130,7 @@
         document.getElementById("qtyError").innerHTML = "";
 
         // Validate name (only letters and spaces)
-        var nameRegex = /^[a-zA-Z ]+$/;
+        let nameRegex = /^[a-zA-Z ]+$/;
         if (!nameRegex.test(name)) {
             document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
             return false;

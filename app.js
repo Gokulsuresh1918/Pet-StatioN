@@ -3,8 +3,8 @@ const app = express()
 const session = require("express-session")
 const path = require("path")
 require('dotenv').config();
-   
-const bcrypt = require("bcrypt") 
+
+const bcrypt = require("bcrypt")
 // const env = require('dotenv')
 const crypto = require('crypto')
 const mongoose = require("mongoose")
@@ -20,13 +20,13 @@ const errorpage = require('./middleware/error/error')
 
 
 //setting up view engine
-app.set("view engine","ejs")
+app.set("view engine", "ejs")
 
 
 //setting of public , JSON , urlencodedd
 app.use(express.static("public"))
 app.use(express.json());
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(nocache())
 
 
@@ -55,11 +55,12 @@ app.use('/admin', require('./routes/adminroute'));
 
 //multer image path
 app.use('/MulterUploads', express.static(path.resolve(__dirname, '/MulterUploads')));
+console.log(path.resolve(__dirname, '/MulterUploads'))
 
 // 404 error page
 app.use(errorpage)
 
 //port settimg
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`http://127.0.0.1:${port}/home`);
 }) 
