@@ -55,7 +55,9 @@ app.use('/admin', require('./routes/adminroute'));
 
 //multer image path
 app.use('/MulterUploads', express.static(path.resolve(__dirname, '/MulterUploads')));
-console.log(path.resolve(__dirname, '/MulterUploads'))
+//<y!---------This code is By Aswin ------------------------------------>
+// console.log(path.resolve(__dirname, '/MulterUploads'))
+//<y!---------This code is By Aswin ------------------------------------->
 
 // 404 error page
 app.use(errorpage)

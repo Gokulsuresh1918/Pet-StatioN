@@ -181,9 +181,10 @@ exports.addressremove = async (req, res) => {
 
 exports.razorpaypost = (req, res) => {
     try {
+        let amount= req.body.amount
         var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET })
         let options = {
-            amount: 50000,
+            amount: Number(amount)*100,
             currency: "INR",
             receipt: "order_rcptid_11",
             notes: {

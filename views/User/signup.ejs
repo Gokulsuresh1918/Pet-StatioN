@@ -40,13 +40,10 @@
       <h2 class="text-uppercase text-center mb-4" style="color: white;">Create an account</h2>
 
       <form action="/signup" method="post">
-        <% if (locals.message) { %>
-          <div class="alert alert-danger text-center error" id="errorAlert">
-            <strong style="color: red;">
-              <%= message %>
-            </strong>
-          </div>
-          <% } %>
+     
+          <div class="alert alert-danger text-center error" id="errorAlert"></div>
+       
+          
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="username" style="color: white;" class="form-label">Your Name</label>
@@ -107,7 +104,7 @@
     const password = document.getElementById("password");
     const cpass = document.getElementById("repassword");
     const submit = document.getElementById("submit");
-    const error = document.querySelector(".error");
+    const error = document.querySelector("#errorAlert");
 
 
     //Form validation
@@ -168,6 +165,7 @@
 
 
       if (message.length > 0) {
+        console.log(message);
         e.preventDefault();
         error.textContent = message.join("");
       } else {
@@ -191,10 +189,10 @@
 </script>
 
 <script>
-  setTimeout(function () {
-    // Hide the alert by adding the 'd-none' class
-    document.getElementById('errorAlert').classList.add('d-none');
-  }, 3000);
+  // setTimeout(function () {
+  //   // Hide the alert by adding the 'd-none' class
+  //   document.getElementById('errorAlert').classList.add('d-none');
+  // }, 3000);
 </script>
 <!-- Font Awesome CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

@@ -459,9 +459,10 @@
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script src="/singlejs/price_rangs.js"></script>
         <script src="/singlejs/custom.js"></script>
-
+        
         <script>
           var addressid;
+          const totalprice = document.getElementById('totalprice').innerText
           let onlinePay = function (e) {
             fetch('/razorpay', {
               method: 'POST',
@@ -469,7 +470,7 @@
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                'amount': "5000",
+                'amount': totalprice,
               }),
             })
               .then(response => response.json())
@@ -484,7 +485,7 @@
                 const addressdata = addressdetails.getAttribute('data-address')
                 var options = {
                   "key": "rzp_test_YqIuT5ZP4j00kQ", // Enter the Key ID generated from the Dashboard
-                  "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                  "amount":Number(totalprice)*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                   "currency": "INR",
                   "name": "Petstation", //your business name
                   "description": "Test Transaction",
