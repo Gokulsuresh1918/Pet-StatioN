@@ -67,73 +67,91 @@ exports.viewAddressOrder = async (req, res) => {
 
 
 
-
-
-exports.cancelorder = async (req, res) => {
-  const orderId = req.body.id;
-  try {
-    const updatedOrder = await orderCollection.findOneAndUpdate(
-      { _id: orderId },
-      { $set: { status: "Cancel" } },
-      { new: true } 
-    );
-    res.status(200).send('Order is canceled');
-  } catch (error) {
-    console.error('Error canceling order:', error);
-    res.status(500).send('Internal Server Error');
-  }
-};
-
-exports.shippedorder = async (req, res) => {
-  const orderId = req.body.id;
-  try {
-    const updatedOrder = await orderCollection.findOneAndUpdate(
-      { _id: orderId },
-      { $set: { status: "Shipped" } },
-      { new: true } 
-    );
-    res.status(200).send('Order is Shipped');
-  } catch (error) {
-    console.error('Error Shipped order:', error);
-    res.status(500).send('Internal Server Error');
-  }
-};
-
-
-
-
-exports.deliveredorder = async (req, res) => {
+exports.manageOrder = async (req, res) => {
   const orderId = req.body.id
+  const statusOfOrder = req.body.value
+
   try {
-    const updatedOrder = await orderCollection.findOneAndUpdate(
-      { _id: orderId },
-      { $set: { status: "Delivered" } },
-      { new: true } 
-    );
-    res.status(200).send('Order is canceled');
-  } catch (error) {
-    console.error('Error canceling order:', error);
-    res.status(500).send('Internal Server Error');
-  }
-};
+    if (statusOfOrder == "Pending") {
+      const updatedOrder = await orderCollection.findOneAndUpdate(
+        { _id: orderId },
+        { $set: { status: "Pending" } },
+        { new: true }
+      );
+      res.status(200).send('Order is canceled');
 
+    } else if (statusOfOrder == "Cancel") {
+      const updatedOrder = await orderCollection.findOneAndUpdate(
+        { _id: orderId },
+        { $set: { status: "Cancel" } },
+        { new: true }
+      );
+      res.status(200).send('Order is canceled');
 
+    }else if(statusOfOrder == "delivered"){
+      const updatedOrder = await orderCollection.findOneAndUpdate(
+        { _id: orderId },
+        { $set: { status: "Delivered" } },
+        { new: true }
+      );
+      res.status(200).send('Order is canceled');
+    }else if(statusOfOrder == "Shipped"){
+      const updatedOrder = await orderCollection.findOneAndUpdate(
+        { _id: orderId },
+        { $set: { status: "Shipped" } },
+        { new: true }
+      );
+      res.status(200).send('Order is Shipped');
+    }
 
-
-
-
-
-exports.pendingOrder = async (req, res) => {
-  const orderId = req.body.id
-  try {
-    const updatedOrder = await orderCollection.findOneAndUpdate(
-      { _id: orderId },
-      { $set: { status: "Pending" } },
-      { new: true } 
-    );
-    res.status(200).send('Order is canceled');
   } catch (error) {
     console.error('Error canceling order:', error);
     res.status(500).send('Internal Server Error');
   }
 }
+
+// exports.cancelorder = async (req, res) => {
+//   const orderId = req.body.id;
+//   try {
+//     const updatedOrder = await orderCollection.findOneAndUpdate(
+//       { _id: orderId },
+//       { $set: { status: "Cancel" } },
+//       { new: true }
+//     );
+//     res.status(200).send('Order is canceled');
+//   } catch (error) {
+//     console.error('Error canceling order:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// };
+
+// exports.deliveredorder = async (req, res) => {
+//   const orderId = req.body.id
+//   try {
+//     const updatedOrder = await orderCollection.findOneAndUpdate(
+//       { _id: orderId },
+//       { $set: { status: "Delivered" } },
+//       { new: true }
+//     );
+//     res.status(200).send('Order is canceled');
+//   } catch (error) {
+//     console.error('Error canceling order:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// };
+
+// exports.shippedorder = async (req, res) => {
+//   const orderId = req.body.id;
+//   try {
+//     const updatedOrder = await orderCollection.findOneAndUpdate(
+//       { _id: orderId },
+//       { $set: { status: "Shipped" } },
+//       { new: true }
+//     );
+//     res.status(200).send('Order is Shipped');
+//   } catch (error) {
+//     console.error('Error Shipped order:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// };
+

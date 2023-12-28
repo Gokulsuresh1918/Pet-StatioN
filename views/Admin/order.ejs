@@ -84,7 +84,7 @@
                             <td>
                               <div class="dropdown" style="width: 150px; border-radius: 10px;">
 
-                                  <select class="status" id="status" onchange="status('<%= order.id %>', value)"
+                                  <select class="status" id="status" onchange="statusOfOrder('<%= order.id %>', value)"
                                     style="border-radius: 10px; background-color: #f8f9fa; color: #D81B60; border: 1px solid #D81B60;">
                                     <option selected>
                                       <%= order.status %>
@@ -314,23 +314,14 @@
 <!-- status onchange integration -->
 
 <script>
-  function status(orderid, value) {
+  function statusOfOrder(orderid, value) {
     const select = document.getElementById('status')
     const selectedvalue = value
-    if (selectedvalue == "Pending") {
-      pendingorder(orderid)
-    } else if (selectedvalue == "Cancel") {
-      cancelorder(orderid)
-    } else if (selectedvalue == "delivered") {
-      deliveredorder(orderid)
-    }
-  };
 
 
-  function pendingorder(orderid) {
-    fetch('/admin/pendingOrder', {
+    fetch('/admin/manageOrder', {
       method: "POST",
-      body: JSON.stringify({ id: orderid }),
+      body: JSON.stringify({ id: orderid ,value:selectedvalue}),
       headers: {
         "Content-Type": "application/json",
       }
@@ -342,46 +333,75 @@
       .catch((error) => {
         console.error('Error:', error);
       });
-
+      window.location.reload()
   };
 
+  
 
-  function deliveredorder(orderid) {
-    fetch('/admin/deliveryOrder', {
-      method: "POST",
-      body: JSON.stringify({ id: orderid }),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
-      .then((res) => {
-        console.log('Response from server:', res);
-        window.location.reload()
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-  };
+    // if (selectedvalue == "Pending") {
+    //   pendingorder(orderid)
+    // } else if (selectedvalue == "Cancel") {
+    //   cancelorder(orderid)
+    // } else if (selectedvalue == "delivered") {
+    //   deliveredorder(orderid)
+    // }
 
 
-  function cancelorder(orderid) {
-    fetch('/admin/cancelOrder', {
-      method: "POST",
-      body: JSON.stringify({ id: orderid }),
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
-      .then((res) => {
-        console.log('Response from server:', res);
-        window.location.reload()
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+  // function pendingorder(orderid) {
+  //   fetch('/admin/pendingOrder', {
+  //     method: "POST",
+  //     body: JSON.stringify({ id: orderid }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     }
+  //   })
+  //     .then((res) => {
+  //       console.log('Response from server:', res);
+  //       window.location.reload()
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });
 
-  }
+  // };
+
+
+  // function deliveredorder(orderid) {
+  //   fetch('/admin/deliveryOrder', {
+  //     method: "POST",
+  //     body: JSON.stringify({ id: orderid }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     }
+  //   })
+  //     .then((res) => {
+  //       console.log('Response from server:', res);
+  //       window.location.reload()
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });
+
+  // };
+
+
+  // function cancelorder(orderid) {
+  //   fetch('/admin/cancelOrder', {
+  //     method: "POST",
+  //     body: JSON.stringify({ id: orderid }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     }
+  //   })
+  //     .then((res) => {
+  //       console.log('Response from server:', res);
+  //       window.location.reload()
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });
+
+  // }
 
 
 </script>

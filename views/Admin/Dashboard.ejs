@@ -97,9 +97,6 @@
                                   <%= totalQuantity %>
                                 </h4>
                               </div>
-
-
-
                 </div>
                 <hr class="dark horizontal my-0">
                 <div class="card-footer p-3">
@@ -161,21 +158,27 @@
             </div>
           </div>
 
-
+          <br>
+          <div class="form-check">
+            <label style="color: black; font-weight: bold;">Select Chart Type:</label>
+            <input class="form-check-input chartType" type="radio" name="chartType" id="yearlyChart" value="yearly"
+              checked>
+            <label class="form-check-label" for="yearlyChart">Yearly Chart</label>
+            <input class="form-check-input chartType" type="radio" name="chartType" id="monthlyChart" value="monthly">
+            <label class="form-check-label" for="monthlyChart">Monthly Chart</label>
+          </div>
           <!-- chart -->
 
-
-          <br>
-          <h1 style="text-align: center;">Yearly Chart</h1>
-          <br>
-          <div>
-            <canvas id="myYearly"></canvas>
-          </div>
-          <br>
-          <h1 style="text-align: center;">Monthly Chart</h1>
-          <br>
-          <div>
-            <canvas id="monthlyChart" style="width:100%;max-width:1000px"></canvas>
+          <div class="container">
+            <div class="row">
+             
+              <div class="col-md-9">
+                <div>
+                  <canvas id="myMonthly"></canvas>
+                </div>
+                <br>
+              </div>
+            </div>
           </div>
 
 
@@ -197,98 +200,65 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"
   integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
 <!-- Monthly Chart Script -->
 <script>
-  const monthlyOrdersData = '<%= dailyOrdersData %>'.split(',');
+  document.querySelectorAll('.chartType').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      let selectedValue = document.querySelector('input[name="chartType"]:checked').value;
+      updateCharts(selectedValue);
+    });
+  });
+  let label
+  let data
+  let myChart
+  let type
+  function updateCharts(selectedValue) {
+    if(myChart){
+      myChart.destroy();
+    }
+    const totalOrders = '<%=monthlyData%>'.split(',');
 
-  const monthlyChartLabels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    const monthlyOrdersData = '<%= dailyOrdersData %>'.split(',');
+  if (selectedValue == "monthly") {
+label= ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+data=monthlyOrdersData.map(Number)
+type= 'line'
 
-  const monthlyChartData = {
-    type: 'line',
-    data: {
-      labels: monthlyChartLabels,
-      datasets: [{
-        label: 'Total Orders',
-        data: monthlyOrdersData.map(Number),
-        fill: false,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+} else if (selectedValue == "yearly") {
+  label= [2023, 2024, 2025]
+  data=totalOrders
+  type='bar'
+  
+}
+  const Data = {
+      type: type,
+      data: {
+        labels:  label,
+        datasets: [{
+          label: 'Total Orders',
+          data: data,
+          fill: false,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
       }
-    }
-  };
+    };
+    
+    const myMonthlyCtx = document.getElementById('myMonthly').getContext('2d');
+    myChart= new Chart(myMonthlyCtx, Data);
+  }
+  window.onload=updateCharts('yearly')
 
-  const monthlyChartCtx = document.getElementById('monthlyChart').getContext('2d');
-  new Chart(monthlyChartCtx, monthlyChartData);
 </script>
-
-<!-- Yearly Chart Script -->
-
-<script>
-  const totalOrders = '<%=monthlyData%>'.split(',');
-
-  const yearlyChartData = {
-    type: 'bar',
-    data: {
-      labels: [2023, 2024, 2024],
-      datasets: [{
-        label: 'Total Orders',
-        data: totalOrders,
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  };
-
-  const yearlyChartCtx = document.getElementById('myYearly').getContext('2d');
-  new Chart(yearlyChartCtx, yearlyChartData);
-</script>
-
-
-<!-- <script>
-  const PieChart = document.getElementById('myPieChart')
-
-  const PieChartdata = {
-    type: 'polarArea',
-    data: {
-      labels: [
-        'Red',
-        'Green',
-        'Yellow',
-        'Grey',
-        'Blue'
-      ], datasets: [{
-        label: 'My First Dataset',
-        data: [11, 16, 7, 3, 14],
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(75, 192, 192)',
-          'rgb(255, 205, 86)',
-          'rgb(201, 203, 207)',
-          'rgb(54, 162, 235)'
-        ]
-      }]
-    },
-    options: {
-
-    }
-  };
-  const linectx2 = document.getElementById('myPieChart').getContext('2d');
-  const mypiechart = new Chart(linectx2, PieChartdata);
-</script> -->
-
 
 
 <script>
