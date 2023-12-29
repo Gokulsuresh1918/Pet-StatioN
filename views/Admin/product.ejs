@@ -63,11 +63,8 @@
                             <th>Sl/no</th>
                             <th>Product</th>
                             <th>Product name</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                    
-                            <th>Qty</th>
+
+                            <th>Details</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -86,18 +83,20 @@
                               <td >
                                 <%= row.name %>
                               </td>
-                              <td style="white-space:initial  ;word-break: break-all;" >
+                              <td class="details-link" style="color: rgb(206, 99, 117);">Details</td>
+
+                              <td style="white-space:initial  ;word-break: break-all; display: none;" >
                                 <%= row.description %>
                               </td>
 
-                              <td>
+                              <td style="display: none;">
                                 <%= row.category %>
                               </td>
-                              <td>
+                              <td  style="display: none;">
                                 <%= row.price %>
                               </td>
                               
-                              <td>
+                              <td  style="display: none;">
                                 <%= row.qty %>
                               </td>
                               <td><a href="/admin/productedit/<%= row._id%>"><button class="btn btn-success">Edit</button></a></td>
@@ -116,7 +115,89 @@
 
         </div>
         </div>
+        <div id="productDetailsModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="productDetails"></div>
+          </div>
+        </div>
     </main>
 </body>
+<style>
+  /* styles.css */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10001;
+}
 
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  let detailLinks = document.querySelectorAll('.details-link');
+
+  detailLinks.forEach(function (link, index) {
+    link.addEventListener('click', function () {
+      // Get the product details from the corresponding row
+      let row = link.closest('tr');
+      let productName = row.cells[2].textContent; 
+      let productImage = row.cells[1].querySelector('img').src; 
+      let description = row.cells[4].textContent; 
+      let category = row.cells[5].textContent; 
+      let price = row.cells[6].textContent; 
+      let qty = row.cells[7].textContent; 
+ 
+      // Add more details as needed
+
+      // Display the product details in the modal
+      let productDetailsContainer = document.getElementById('productDetails');
+      productDetailsContainer.innerHTML = `
+        <h2><span> Name:</span>${productName}</h2>
+        <img src="${productImage}" alt="Product image" class="w-20">
+        <h5><h3>Description :</h3>${description}</h5>
+        <h4><h3>Category :</h3>${category}</h4>
+        <h4><h3>Price :</h3>${price}</h4>
+        <h4><h3>Quantiy :</h3>${qty}</h4>
+        <!-- Add more details here -->
+      `;
+
+      // Show the modal
+      document.getElementById('productDetailsModal').style.display = 'block';
+    });
+  });
+});
+
+function closeModal() {
+  document.getElementById('productDetailsModal').style.display = 'none';
+}
+
+
+// Function to close the modal
+function closeModal() {
+  document.getElementById('productDetailsModal').style.display = 'none';
+}
+
+</script>
 </html>

@@ -138,7 +138,7 @@ exports.dashboard = async (req, res) => {
   // console.log(data);
   await monthlyOrders();
   await yearlyOrders();
-  return res.render('Admin/Dashboard', { admin, dailyOrdersData: dailyData, data, monthlyData, errmsg: "please login" });
+  return res.render('Admin/Dashboard', { admin, dailyOrdersData: dailyData, data,page:1, monthlyData, errmsg: "please login" });
 };
 
 

@@ -13,7 +13,7 @@ exports.categoryGet = async (req, res) => {
             let admin = false
             const categorydata = await categoryCollection.find()
             categorydata.reverse()
-            res.render("Admin/category", { categorydata, admin })
+            res.render("Admin/category", { categorydata, admin ,page:3})
         } else {
             let admin = true
             res.render('/Admin/adminLogin', { admin, errmsg: "Please login" })
@@ -57,7 +57,7 @@ exports.categorypost = async (req, res) => {
 
 
 exports.addcategoryGet = async (req, res) => {
-    res.render('Admin/categoryadd');
+    res.render('Admin/categoryadd',{page:3});
 };
 exports.addcategoryPost = async (req, res) => {
     let categorydetails = {
@@ -79,7 +79,7 @@ exports.editcategoryGet = async (req, res) => {
     const categoryid = req.params._id
 
     const categorydata = await categoryCollection.findOne({ _id: categoryid })
-    res.render('Admin/categoryedit', { categorydata });
+    res.render('Admin/categoryedit', { categorydata ,page:1});
 };
 exports.editcategoryPost = async (req, res) => {
     const categoryid = req.params._id

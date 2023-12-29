@@ -24,7 +24,7 @@ exports.orderGet = async (req, res) => {
     orderdata.reverse()
     const addresses = orderdata.map(order => order.address);
 
-    res.render("Admin/order", { orderdata, addresses });
+    res.render("Admin/order", { orderdata, addresses,page:4});
   } catch (error) {
     console.error('Error fetching order details:', error);
     res.status(500).json({ error: 'Internal Server Error' });

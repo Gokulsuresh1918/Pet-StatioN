@@ -13,7 +13,7 @@ const { log } = require("console");
 exports.productGet = async (req, res) => {
     const productdata = await productCollection.find()
     productdata.reverse()
-    res.render("Admin/product", { productdata })
+    res.render("Admin/product", { productdata,page:8})
 };
 
 
@@ -45,7 +45,7 @@ exports.imagedelete = async (req, res) => {
 exports.productaddGet = async (req, res) => {
     const categoryoption = await categoryCollection.find()
 
-    res.render('Admin/productadd', { categoryoption })
+    res.render('Admin/productadd', { categoryoption ,page:1})
 
 };
 
@@ -83,7 +83,7 @@ exports.editproductGet = async (req, res) => {
         const categoryoption = await categoryCollection.find()
 
 
-        res.render('Admin/productedit', { productdata, categoryoption })
+        res.render('Admin/productedit', { productdata, categoryoption ,page:1})
     } catch (error) {
         console.log(error.message);
         res.status(500).send("Internal error")

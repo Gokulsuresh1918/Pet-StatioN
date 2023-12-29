@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const { orderCollection } = require("../../model/orderDB");
 const PDFDocument = require("pdfkit-table");
 const ExcelJS = require("exceljs");
+const { ADDRGETNETWORKPARAMS } = require("dns");
 
 
 exports.couponGet = async (req, res) => {
@@ -24,7 +25,7 @@ exports.couponGet = async (req, res) => {
     }
 
     // Render the template after resolving the asynchronous operation
-    res.render('Admin/coupon', { coupondata, errorMessage: err });
+    res.render('Admin/coupon', { coupondata, errorMessage: err,page:6 });
 
   } catch (error) {
     console.log(error);
@@ -139,7 +140,7 @@ exports.offerGet = async (req, res) => {
       await offer.save();
     }
   }
-  res.render('Admin/offer', { offers, productdb, categories })
+  res.render('Admin/offer', { offers, productdb, categories,page:7 })
 }
 
 
@@ -196,7 +197,6 @@ exports.salesReport = async (req, res) => {
         createdAt: { $gte: startingDate, $lte: endingDate },
       });
 
-
       const doc = new PDFDocument();
       const filename = "PetStation Sales Report.pdf";
 
@@ -205,6 +205,7 @@ exports.salesReport = async (req, res) => {
 
       doc.pipe(res);
 
+      // Add content to the PDF document
       // Add content to the PDF document
       doc.font("Helvetica-Bold").text("Sales Report", { font: 30, align: "center", margin: 10 });
 
@@ -219,22 +220,28 @@ exports.salesReport = async (req, res) => {
           "Pincode",
           "State",
         ],
-        rows: orders.map((order) => {
-          const productRows = order.productdetails.map((productDetail) => [
+        rows: orders.flatMap((order) => {
+          return order.productdetails.map((productDetail) => [
             order.address.name,
-            productDetail.productId,
+            // Limit the productId to a certain length or implement word wrapping
+            truncateText(productDetail.productId, 20), // Adjust the length as needed
             productDetail.uniquePriceTotal,
             productDetail.quantity,
             order.address.address,
             order.address.pincode,
             order.address.state,
           ]);
-
-          return productRows;
-        }).flat(),
+        }),
       };
 
-
+      // Function to truncate or wrap text
+      function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+          // Truncate the text or implement word wrapping logic
+          return text.substring(0, maxLength) + '...';
+        }
+        return text;
+      }
 
       // Customize the appearance of the table
       await doc.table(tableData, {
@@ -248,6 +255,7 @@ exports.salesReport = async (req, res) => {
       // Finalize the PDF document
       doc.end();
 
+
     } catch (error) {
       console.error("Error generating pdf:", error);
       res.status(500).send("Internal Server Error");
@@ -256,9 +264,9 @@ exports.salesReport = async (req, res) => {
   } else {
     try {
       // Chart Excel Download-------------------------------
-      
-      const excelstartingDate =  req.body.startDate;
-      const excelendingDate =  req.body.endDate;
+
+      const excelstartingDate = req.body.startDate;
+      const excelendingDate = req.body.endDate;
 
       const orderCursor = await orderCollection.find({
         createdAt: { $gte: excelstartingDate, $lte: excelendingDate },
@@ -267,7 +275,7 @@ exports.salesReport = async (req, res) => {
 
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet("Sheet 1");
-      
+
       // Add data to the worksheet
       worksheet.columns = [
         { header: "Order Number", key: "ordernumber", width: 15 },
@@ -282,10 +290,10 @@ exports.salesReport = async (req, res) => {
         { header: "Pincode", key: "pincode", width: 15 },
         { header: "State", key: "state", width: 15 },
       ];
-      
+
       for (const orderItem of orderCursor) {
         // Fetch address details based on the address ID
-      
+
         worksheet.addRow({
           ordernumber: orderItem.Ordernumber,
           userId: orderItem.userId,
@@ -306,7 +314,7 @@ exports.salesReport = async (req, res) => {
           state: orderItem.address.state,
         });
       }
-      
+
       // Generate the Excel file and send it as a response
       workbook.xlsx.writeBuffer().then((buffer) => {
         const excelBuffer = Buffer.from(buffer);
@@ -317,7 +325,7 @@ exports.salesReport = async (req, res) => {
         res.setHeader("Content-Disposition", "attachment; filename=excel.xlsx");
         res.send(excelBuffer);
       });
-      
+
 
 
 

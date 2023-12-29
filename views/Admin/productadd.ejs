@@ -40,8 +40,8 @@
     /* user side image previewer */
 
     #imagePreview img {
-        height: 50px;
-        max-width: 80px;
+        height: 100px;
+        max-width: 100px;
     }
 
     #cropper110Modal {
@@ -143,6 +143,7 @@
                                                         <div id="imageError"style="color: red;" class="error-message"></div>
 
                                                     </div>
+                                                    
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -164,7 +165,12 @@
                                                         <div id="qtyError"style="color: red;" class="error-message"></div>
                                                     </div>
                                                 </div>
-                                                <div id="imagePreview"></div>
+                                                <div id="imagePreview">
+                                                    <a style="position: absolute; top: 0; right: 0; color: red" class="fas fa-times "
+                                                    href=""></a>
+                                            
+                                                </div>
+                                                  
 
                                             </div>
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -295,7 +301,7 @@
         e.preventDefault();
         // get result to data uri
         let imgSrc = cropper.getCroppedCanvas({
-            width: 300 // input value
+            width: 400 // input value
         }).toDataURL();
         if (imgSrc && imgNames !== null) {
             let fileUploader = document.getElementById(currentInput)
