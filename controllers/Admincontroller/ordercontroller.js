@@ -60,12 +60,12 @@ exports.viewProductOrder = async (req, res) => {
 
 exports.viewAddressOrder = async (req, res) => {
   const orderid = req.body.id
-  const orderData = await orderCollection.findOne({ _id: orderid });
+   const orderData = await orderCollection.findOne({ _id: orderid });
   const addressDetails = orderData.address;
   res.status(200).json(addressDetails);
 };
 
-
+ 
 
 exports.manageOrder = async (req, res) => {
   const orderId = req.body.id
@@ -110,20 +110,20 @@ exports.manageOrder = async (req, res) => {
   }
 }
 
-// exports.cancelorder = async (req, res) => {
-//   const orderId = req.body.id;
-//   try {
-//     const updatedOrder = await orderCollection.findOneAndUpdate(
-//       { _id: orderId },
-//       { $set: { status: "Cancel" } },
-//       { new: true }
-//     );
-//     res.status(200).send('Order is canceled');
-//   } catch (error) {
-//     console.error('Error canceling order:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// };
+exports.cancelorder = async (req, res) => {
+  const orderId = req.body.id;
+  try {
+    const updatedOrder = await orderCollection.findOneAndUpdate(
+      { _id: orderId },
+      { $set: { status: "Cancel" } },
+      { new: true }
+    );
+    res.status(200).send('Order is canceled');
+  } catch (error) {
+    console.error('Error canceling order:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
 
 // exports.deliveredorder = async (req, res) => {
 //   const orderId = req.body.id

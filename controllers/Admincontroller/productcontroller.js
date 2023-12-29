@@ -32,7 +32,7 @@ exports.imagedelete = async (req, res) => {
         );
 
         res.redirect(`/admin/productedit/${productData._id}`);
-    } catch (error) {
+    } catch (error) {                                                                                                
         console.error('Error in imagedelete:', error.message);
         res.status(500).send('Internal error');
     }

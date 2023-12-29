@@ -9,7 +9,7 @@ const { upload } = require('../middleware/multer')
 const { LoginGet, loginPost, logoutGet, dashboard, } = require('../controllers/Admincontroller/admindashboard')
 const { reviewget, UserGet, blockUser, } = require('../controllers/Admincontroller/usercontroller')
 const { couponGet, couponpost, couponDelete, editCoupon, offerGet, offerpost, salesReport } = require('../controllers/Admincontroller/couponcontroller')
-const { orderGet, viewProductOrder, viewAddressOrder, manageOrder } = require('../controllers/Admincontroller/ordercontroller')
+const { orderGet, viewProductOrder, viewAddressOrder, manageOrder,cancelorder } = require('../controllers/Admincontroller/ordercontroller')
 const { categoryGet, categorypost, addcategoryGet, addcategoryPost, editcategoryGet, editcategoryPost, blockcategory, } = require('../controllers/Admincontroller/categorycontroller')
 const { productGet, productpost, productaddGet, productaddpost, editproductGet, editproductpost, imagedelete, } = require('../controllers/Admincontroller/productcontroller')
 
@@ -33,10 +33,10 @@ router.get('/blockStatus', adminSession, blockUser);
 
 // Ordercontroller-------------------------------------------------------
 router.get('/orderdetails', adminSession, orderGet);
-router.post('/viewproduct', adminSession, viewProductOrder)
-router.post('/viewaddress', adminSession, viewAddressOrder)
+router.post('/viewproduct', viewProductOrder)
+router.post('/viewaddress', viewAddressOrder)
 router.post('/manageOrder', adminSession, manageOrder)
-
+router.post('/cancelOrder',cancelorder)
 
 //couponcontroller----------------------------------------
 router.get('/coupon', adminSession, couponGet);

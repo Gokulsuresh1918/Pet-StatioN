@@ -25,13 +25,13 @@ router.get('/logoutuser', logoutuser);
 router.get('/home', homeGet);
 router.get('/contact', contactGet);
 router.post('/contact', usersession, contactpost);
-router.get('/about', aboutget);
+router.get('/about',usersession, aboutget);
 
 // Shop and Product routes
 router.get('/shop', shopget);
 router.get('/wishlist/:id', wishlistget);
 router.get('/wishlist', wishlistdataget);
-router.get('/productview/:id', usersession, productView);
+router.get('/productview/:id', productView);
 
 
 

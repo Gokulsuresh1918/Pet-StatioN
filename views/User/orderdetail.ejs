@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/adminpartials/navbar.ejs') %>
+    <%- include('../partials/adminpartials/aside.ejs') %>
+    <div class="container mt-3 p-3 overflow-x-hidden">
+        <div class="w-full overflow-auto">
+          <div class="border-bottom-2 mt-5 mb-5  p-4">
+            <div class="d-flex justify-content-between">
+              <h2 class="h2 mb-2 font-bold">ORDER #ORDER_ID</h2>
+              <p class="font-medium">Date: ORDER_DATE</p>
+            </div>
+            <div>
+              <p>User Id: USER_ID</p>
+              <p>Order Status: ORDER_STATUS</p>
+              <p>Payment Mode: PAYMENT_MODE</p>
+              <p>Payment ID: PAYMENT_ID</p>
+              <div class="d-flex justify-content-between">
+                <p class="flex p-3 md:p-0">Shipping Address: SHIPPING_ADDRESS</p>
+                <p class="text-xl font-semibold">ORDER_STATUS_TEXT</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+            <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+              <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="PRODUCT_IMAGE" alt="" />
+              <div class="flex w-full flex-col px-4 py-4">
+                <span class="font-semibold">PRODUCT_NAME</span>
+                <span class="float-right text-gray-600">Price: ₹PRODUCT_PRICE</span>
+                <span class="float-right text-gray-600">Quantity: PRODUCT_QUANTITY</span>
+                <p class="text-lg font-semibold">Total: ₹PRODUCT_TOTAL</p>
+              </div>
+            </div>
+          </div>
+          <div class="border-top-2 mt-5 mb-5  p-4">
+            <p class="h2 font-bold">SUB TOTAL: SUB_TOTAL_AMOUNT</p>
+            <p class="h2 font-bold">Coupon Discount: ORDER_OFFER</p>
+            <p class="h2 font-bold">GRAND TOTAL: ₹ORDER_TOTAL</p>
+          </div>
+        </div>
+      </div>
+      
+</body>
+</html>

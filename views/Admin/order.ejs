@@ -80,7 +80,7 @@
                             <td style="padding-left: 25px;">
                               <%= order.payment %>
                             </td>
-                            <% if (order.status!=="Delivered"&&order.status!=="Returned" ) { %>
+                            <% if (order.status!=="Delivered"&&order.status!=="Returned"&&order.status!=="Cancel" ) { %>
                             <td>
                               <div class="dropdown" style="width: 150px; border-radius: 10px;">
 
@@ -106,9 +106,11 @@
                               </td>
                               <% } else if (order.status=="Returned" ) { %>
                                 <td>Returned</td>
-                              <% } else {%>
-                                <td>Delivered</td>
-                                <% } %>
+                              <% } else  if (order.status=="Cancel" ) {%>
+                                <td>Cancelled</td>
+                                <% }else{ %>
+                                  <td>Delivered</td>
+                                  <% } %>
                           </tr>
                           <% }) %>
                       </tbody>
