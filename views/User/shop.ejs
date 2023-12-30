@@ -12,127 +12,157 @@
 
     <!-- Bootstrap CSS -->
 
-        <title>Shoping page</title>
-        <style>
-			/* Default styles for screens above 980 pixels */
-			.hero-img-wrap {
-				overflow-x: visible
-			}
-	
-			/* Media query for screens 980 pixels or below */
-			@media only screen and (max-width: 980px) {
-				.hero-img-wrap {
-					overflow-x: hidden;
-					/* or auto, or any other value you prefer for smaller screens */
-				}
-			}
-		</style>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Shoping page</title>
+    <style>
+        /* Default styles for screens above 980 pixels */
+        .hero-img-wrap {
+            overflow-x: visible
+        }
+
+        /* Media query for screens 980 pixels or below */
+        @media only screen and (max-width: 980px) {
+            .hero-img-wrap {
+                overflow-x: hidden;
+                /* or auto, or any other value you prefer for smaller screens */
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 
 <body>
     <%- include('../partials/layoutpage.ejs') %>
 
-    <!-- Start Header/Navigation -->
-    <%- include('../partials/userpartials/header.ejs') %>
-        <!-- End Header/Navigation -->
-
-        
-	<!-- Start Hero Section -->
-    <div class="hero">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-5">
-                    <div class="intro-excerpt">
-                        <h1>Shop </h1>
-                        <p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
-                            nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
-                            his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
-                        <p><a href="/contact" class="btn btn-secondary me-2">Contact </a><a href="/about"
-                                class="btn btn-white-outline">About</a></p>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero-img-wrap">
-                        <img src="/img/shoppage.png" class="img-fluid">
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Hero Section -->
-  
-      
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="filter-container">
-                    <label for="categoryFilter" class="form-label">Filter by Category:</label>
-                    <select id="categoryFilter" class="form-select" onchange="filterByCategory()">
-                        <!-- Add your category options here -->
-                        <option value="category1">Category 1</option>
-                        <option value="category2">Category 2</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="filter-container">
-                    <label for="priceFilter" class="form-label">Filter by Price:</label>
-                    <select id="priceFilter" class="form-select" onchange="filterByPrice()">
-                        <option value="lowToHigh">Low to High</option>
-                        <option value="highToLow">High to Low</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="filter-container">
-                    <label for="searchInput" class="form-label">Search:</label>
-                    <input type="text" id="searchInput" class="form-control" oninput="filterBySearch()">
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-        <div class="untree_co-section product-section before-footer-section">
-            <div class="container">
-                <div class="row">
-                    <div id="productView"  class="row">  
-                    <!-- Start Column 1 -->
-                    <%productdata.forEach((row,index)=>{%>
-                        <div class="col-12 col-md-4 col-lg-3 mb-5 "  data-price="<%=row.price %>">
-                            <div class=" d-flex">
-                                <a class="product-item " href="/productview/<%= row._id %>">
+        <!-- Start Header/Navigation -->
+        <%- include('../partials/userpartials/header.ejs') %>
+            <!-- End Header/Navigation -->
 
 
-                                    <div style="overflow: hidden;height: 393px;width: 262px;">
-                                        <img src="/MulterUploads/<%= row.image[0] %> "
-                                            class="img-fluid product-thumbnail">
-                                    </div>
-                                    <br>
-                                    <h2 class="product-title">
-                                        <%= row.name %>
-                                    </h2>
-                                    <strong class="product-price">Rs:<%= row.price %></strong>
-                                    <p style="white-space:initial  ;word-break: break-all;" >
-                                        <%= row.description %>
-                                    </p>
-                                    <span class="icon-cross">
-                                        <img src="/assets/images/cross.svg" class="img-fluid">
-                                    </span>
-
-                                </a>
+            <!-- Start Hero Section -->
+            <div class="hero">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-5">
+                            <div class="intro-excerpt">
+                                <h1>Shop </h1>
+                                <p class="mb-4">"Pets are humanizing. They remind us we have an obligation and
+                                    responsibility to preserve and
+                                    nurture and care for all life. Money can buy you a fine dog, but only love can make
+                                    him wag
+                                    his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                                <p><a href="/contact" class="btn btn-secondary me-2">Contact </a><a href="/about"
+                                        class="btn btn-white-outline">About</a></p>
                             </div>
                         </div>
-                        <%})%>
-                            <!-- End Column 1 -->
+                        <div class="col-lg-7">
+                            <div class="hero-img-wrap">
+                                <img src="/img/shoppage.png" class="img-fluid">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Hero Section -->
+
+
+            <div class="container mt-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="filter-container">
+                            <label for="categoryFilter" class="form-label">Filter by Category:</label>
+                            <select id="categoryFilter" class="form-select" onchange="filterByCategory()">
+                                <!-- Add your category options here -->
+                                <option value="category1">Category 1</option>
+                                <option value="category2">Category 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="filter-container">
+                            <label for="priceFilter" class="form-label">Filter by Price:</label>
+                            <select id="priceFilter" class="form-select" onchange="filterByPrice()">
+                                <option value="lowToHigh">Low to High</option>
+                                <option value="highToLow">High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="filter-container">
+                            <label for="searchInput" class="form-label">Search:</label>
+                            <input type="text" id="searchInput" class="form-control" oninput="filterBySearch()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="untree_co-section product-section before-footer-section">
+                <div class="container">
+                    <div class="row">
+                        <div id="productView" class="row">
+                            <!-- Start Column 1 -->
+                            <%productdata.forEach((row,index)=>{%>
+                                <div class="col-12 col-md-4 col-lg-3 mb-5 " data-price="<%=row.price %>">
+                                    <div class=" d-flex">
+                                        <a class="product-item " href="/productview/<%= row._id %>">
+
+
+                                            <div style="overflow: hidden;height: 393px;width: 262px;">
+                                                <img src="/MulterUploads/<%= row.image[0] %> "
+                                                    class="img-fluid product-thumbnail">
+                                            </div>
+                                            <br>
+                                            <h2 class="product-title">
+                                                <%= row.name %>
+                                            </h2>
+                                            <strong class="product-price">Rs:<%= row.price %></strong>
+                                            <p style="white-space:initial  ;word-break: break-all;">
+                                                <%= row.description %>
+                                            </p>
+                                            <span class="icon-cross">
+                                                <img src="/assets/images/cross.svg" class="img-fluid">
+                                            </span>
+
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <%})%>
+                                    <!-- End Column 1 -->
+                                
+
+                                    <!-- Pagination Ending -->
                         </div>
 
 
-                            <!-- poppular product -->
-                         
+                        <!-- poppular product -->
+
+
+       <!-- Pagination Starting -->
+       <div class="pagination justify-content-center mt-2 mb-2">
+        <% if (currentPage> 1) { %>
+            <a href="?page=<%= currentPage - 1 %>" class="prev-arrow"
+                aria-label="Previous">
+                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            </a>
+            <% } %>
+                <% for (let i=1; i <=totalPages; i++) { %>
+                    <a href="?page=<%= i %>"
+                        class="<%= i === currentPage ? 'active page-link' : 'page-link' %>">
+                        <%= i %>
+                    </a>
+                    <% } %>
+                        <% if (currentPage < totalPages) { %>
+                            <a href="?page=<%= currentPage + 1 %>" class="next-arrow"
+                                aria-label="Next">
+                                <i class="fa fa-long-arrow-right"
+                                    aria-hidden="true"></i>
+                            </a>
+                            <% } %>
+    </div>
 
 
 
@@ -141,104 +171,104 @@
 
 
 
-
-
-                            <div class="blog-section">
-                                <div class="container">
-                                    <div class="row mb-5">
-                                        <div class="col-md-6">
-                                            <h2 class="section-title">Recent Blog</h2>
-                                        </div>
-                                        <div class="col-md-6 text-start text-md-end">
-                                            <a href="#" class="more">View All Posts</a>
-                                        </div>
+                        <div class="blog-section">
+                            <div class="container">
+                                <div class="row mb-5">
+                                    <div class="col-md-6">
+                                        <h2 class="section-title">Recent Blog</h2>
                                     </div>
-
-                                    <div class="row">
-
-                                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                                            <div class="post-entry">
-                                                <a href="#" class="post-thumbnail"><img
-                                                        src="/img/27 Heartwarming Photos Of Pets Rescued After Sandy.jpeg"
-                                                        alt="Image" class="img-fluid"></a>
-                                                <div class="post-content-entry">
-                                                    <h3><a href="#">Grooming & Accessories</a></h3>
-                                                    <div class="meta">
-                                                        <span>All Grooming Accessories</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                                            <div class="post-entry">
-                                                <a href="#" class="post-thumbnail"><img
-                                                        src="/img/Here’s the Perfect Pet to Own Based On Your Sign – Makeful.jpeg"
-                                                        alt="Image" class="img-fluid"></a>
-                                                <div class="post-content-entry">
-                                                    <h3><a href="#">Adoption </a></h3>
-                                                    <div class="meta">
-                                                        <span>All Adoption</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                                            <div class="post-entry">
-                                                <a href="#" class="post-thumbnail"><img
-                                                        src="/img/How to Introduce a New Puppy to Your Cat _ PawLeaks.jpeg"
-                                                        alt="Image" class="img-fluid"></a>
-                                                <div class="post-content-entry">
-                                                    <h3><a href="#">Sales & Rent</a></h3>
-                                                    <div class="meta">
-                                                        <span>All Sales</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                    <div class="col-md-6 text-start text-md-end">
+                                        <a href="#" class="more">View All Posts</a>
                                     </div>
                                 </div>
+
+                                <div class="row">
+
+                                    <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                        <div class="post-entry">
+                                            <a href="#" class="post-thumbnail"><img
+                                                    src="/img/27 Heartwarming Photos Of Pets Rescued After Sandy.jpeg"
+                                                    alt="Image" class="img-fluid"></a>
+                                            <div class="post-content-entry">
+                                                <h3><a href="#">Grooming & Accessories</a></h3>
+                                                <div class="meta">
+                                                    <span>All Grooming Accessories</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                        <div class="post-entry">
+                                            <a href="#" class="post-thumbnail"><img
+                                                    src="/img/Here’s the Perfect Pet to Own Based On Your Sign – Makeful.jpeg"
+                                                    alt="Image" class="img-fluid"></a>
+                                            <div class="post-content-entry">
+                                                <h3><a href="#">Adoption </a></h3>
+                                                <div class="meta">
+                                                    <span>All Adoption</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                        <div class="post-entry">
+                                            <a href="#" class="post-thumbnail"><img
+                                                    src="/img/How to Introduce a New Puppy to Your Cat _ PawLeaks.jpeg"
+                                                    alt="Image" class="img-fluid"></a>
+                                            <div class="post-content-entry">
+                                                <h3><a href="#">Sales & Rent</a></h3>
+                                                <div class="meta">
+                                                    <span>All Sales</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-              
-            </div>
-        </div>
+                        </div>
+
+                    </div>
+
+                </div>
 
 
-        <!-- Start Footer Section -->
-        <%- include('../partials/userpartials/footer.ejs') %>
-            <!-- End Footer Section -->
+                <!-- Start Footer Section -->
+                <%- include('../partials/userpartials/footer.ejs') %>
+                    <!-- End Footer Section -->
 
-	<script src="/jsUT/bootstrap.bundle.min.js"></script>
-		<script src="/jsUT/tiny-slider.js"></script>
-		<script src="/jsUT/custom.js"></script>
-   
+                    <script src="/jsUT/bootstrap.bundle.min.js"></script>
+                    <script src="/jsUT/tiny-slider.js"></script>
+                    <script src="/jsUT/custom.js"></script>
+
 </body>
 <script>
-   function filterByPrice() {
- let sortBy = document.getElementById("priceFilter").value;
- // Grab all the elements of #productView and convert its children (each product) into an array.
- const elements = [...document.getElementById('productView').children];
- 
- let sortedElements = elements.sort(function (a, b) {
-   let priceA = parseInt(a.dataset.price);
-   let priceB = parseInt(b.dataset.price);
-   if (sortBy === "highToLow") {
-       return priceB - priceA;
-   } else {
-     return priceA - priceB;
-   }
- });
- document.getElementById('productView').replaceChildren(...elements)
+    function filterByPrice() {
+        let sortBy = document.getElementById("priceFilter").value;
+        // Grab all the elements of #productView and convert its children (each product) into an array.
+        const elements = [...document.getElementById('productView').children];
 
-}
+        let sortedElements = elements.sort(function (a, b) {
+            let priceA = parseInt(a.dataset.price);
+            let priceB = parseInt(b.dataset.price);
+            if (sortBy === "highToLow") {
+                return priceB - priceA;
+            } else {
+                return priceA - priceB;
+            }
+        });
+        document.getElementById('productView').replaceChildren(...elements)
+
+    }
 
 </script>
 <script>
-  function  filterByCategory(){
-    fetch('/category filter',
-    )
-  }
+    function filterByCategory() {
+        fetch('/category filter',
+        )
+    }
 </script>
+
 </html>

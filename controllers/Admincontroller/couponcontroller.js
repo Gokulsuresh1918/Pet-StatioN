@@ -25,7 +25,7 @@ exports.couponGet = async (req, res) => {
     }
 
     // Render the template after resolving the asynchronous operation
-    res.render('Admin/coupon', { coupondata, errorMessage: err,page:6 });
+    res.render('Admin/coupon', { coupondata, errorMessage: err, page: 6 });
 
   } catch (error) {
     console.log(error);
@@ -140,7 +140,7 @@ exports.offerGet = async (req, res) => {
       await offer.save();
     }
   }
-  res.render('Admin/offer', { offers, productdb, categories,page:7 })
+  res.render('Admin/offer', { offers, productdb, categories, page: 7 })
 }
 
 
@@ -196,7 +196,11 @@ exports.salesReport = async (req, res) => {
       const orders = await orderCollection.find({
         createdAt: { $gte: startingDate, $lte: endingDate },
       });
-
+      // Check if orders array is empty
+      if (orders.length === 0) {
+        res.status(404).json({ message: 'No data found for the given date range' });
+        return;
+      }
       const doc = new PDFDocument();
       const filename = "PetStation Sales Report.pdf";
 
@@ -205,15 +209,36 @@ exports.salesReport = async (req, res) => {
 
       doc.pipe(res);
 
-      // Add content to the PDF document
-      // Add content to the PDF document
-      doc.font("Helvetica-Bold").text("Sales Report", { font: 30, align: "center", margin: 10 });
+
+      // Add company name, logo, place, pincode, etc.
+      doc.font("Helvetica-Bold").text("PetStation", { font: 36, align: "center", margin: 10 });
+
+      // Add logo to the left side
+      doc.image('public/img/Cat & Dog 3a.jpeg', {
+        width: 100,
+        x: 410, // Adjust for desired left margin
+        y: 80 // Adjust for vertical position
+    });
+    
+
+      doc.moveDown();
+
+      // Add other invoice details
+      doc.text(`Address:  Dotspace Business Park`, { font: 10 });
+      doc.text(`Pincode: 695582`, { font: 10 });
+      doc.text(`Phone: 7902371571`, { font: 10 });
+
+      // Move to the next line after the details
+      doc.moveDown();
+
+      doc.moveDown(); // Move down after the title
+      doc.font("Helvetica-Bold").text(`Sales Report `, { font: 10, align: "center", margin: 10 });
+      doc.font("Helvetica-Bold").text(` From  ${startingDate.getDay()}-${startingDate.getMonth()}-${startingDate.getFullYear()}  To ${endingDate.getDay()}- ${endingDate.getMonth()}- ${endingDate.getFullYear()} `, { font: 14, align: "center", margin: 10 });
 
       doc.moveDown(); // Move down after the title
       const tableData = {
         headers: [
           "Username",
-          "Product ",
           "Price",
           "Quantity",
           "Address",
@@ -223,8 +248,6 @@ exports.salesReport = async (req, res) => {
         rows: orders.flatMap((order) => {
           return order.productdetails.map((productDetail) => [
             order.address.name,
-            // Limit the productId to a certain length or implement word wrapping
-            truncateText(productDetail.productId, 20), // Adjust the length as needed
             productDetail.uniquePriceTotal,
             productDetail.quantity,
             order.address.address,
@@ -234,14 +257,7 @@ exports.salesReport = async (req, res) => {
         }),
       };
 
-      // Function to truncate or wrap text
-      function truncateText(text, maxLength) {
-        if (text.length > maxLength) {
-          // Truncate the text or implement word wrapping logic
-          return text.substring(0, maxLength) + '...';
-        }
-        return text;
-      }
+
 
       // Customize the appearance of the table
       await doc.table(tableData, {
@@ -271,7 +287,11 @@ exports.salesReport = async (req, res) => {
       const orderCursor = await orderCollection.find({
         createdAt: { $gte: excelstartingDate, $lte: excelendingDate },
       });
-
+      // Check if orders array is empty
+      if (orders.length === 0) {
+        res.status(404).json({ message: 'No data found for the given date range' });
+        return;
+      }
 
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet("Sheet 1");

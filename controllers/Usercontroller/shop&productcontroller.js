@@ -15,18 +15,65 @@ exports.shopget = async (req, res) => {
             const user = true
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
-            const productdata = await productCollection.find()
-            productdata.reverse()
-            res.render('User/shop', { productdata, user, cartcount })
+            // const productdata = await productCollection.find()
+            // productdata.reverse()
+
+
+            // Pagination
+            const page = parseInt(req.query.page) || 1;
+            const limit = 4; // Set the number of products per page
+            const skip = (page - 1) * limit;
+
+            // Fetch products with pagination
+            const data = await productCollection.find()
+                .skip(skip)
+                .limit(limit);
+            data.reverse()
+            const totalProducts = await productCollection.countDocuments();
+
+            // Calculate total number of pages
+            const totalPages = Math.ceil(totalProducts / limit);
+
+            // Adjust current page if it exceeds total pages
+            const currentPage = Math.min(page, totalPages);
+
+            res.render('User/shop', { productdata: data, user, cartcount, totalPages, currentPage })
         } else {
             const user = false
-            const productdata = await productCollection.find()
-            res.render('User/shop', { productdata, user, cartcount: 0 })
+
+
+
+            // Pagination
+            const page = parseInt(req.query.page) || 1;
+            const limit = 4; // Set the number of products per page
+            const skip = (page - 1) * limit;
+            // Fetch products with pagination
+            const data = await productCollection.find()
+                .skip(skip)
+                .limit(limit);
+            data.reverse()
+
+            const totalProducts = await productCollection.countDocuments();
+
+            // Calculate total number of pages
+            const totalPages = Math.ceil(totalProducts / limit);
+
+            // Adjust current page if it exceeds total pages
+            const currentPage = Math.min(page, totalPages);
+
+
+
+            res.render('User/shop', { productdata: data, user, cartcount: 0, currentPage, totalPages })
         }
     } catch (error) {
         console.error("shopget error" + "= " + error);
     }
 };
+
+
+
+
+
 
 
 

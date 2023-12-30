@@ -9,9 +9,29 @@ const { log } = require("console");
 
 
 exports.reviewget = async (req, res) => {
-    const reviewdata = await contactCollection.find()
-    reviewdata.reverse()
-    res.render('Admin/Reviews', { reviewdata ,page:5})
+
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = 7; // Set the number of products per page
+    const skip = (page - 1) * limit;
+
+    // Fetch products with pagination
+    const data = await contactCollection.find()
+        .skip(skip)
+        .limit(limit);
+    data.reverse()
+    const totalcontact = await contactCollection.countDocuments();
+
+    // Calculate total number of pages
+    const totalPages = Math.ceil(totalcontact / limit);
+
+    // Adjust current page if it exceeds total pages
+    const currentPage = Math.min(page, totalPages);
+
+
+
+
+    res.render('Admin/Reviews', { reviewdata:data, page: 5,totalPages, currentPage})
 };
 
 
@@ -19,12 +39,31 @@ exports.reviewget = async (req, res) => {
 
 
 
-    //userGet--------------==========================================================================
-    exports.UserGet = async (req, res) => {
-        const admin = await UserCollection.find()
-        admin.reverse()
-        res.render("Admin/Users", { admin ,page:2})
-    };
+//userGet--------------==========================================================================
+exports.UserGet = async (req, res) => {
+
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5; // Set the number of products per page
+    const skip = (page - 1) * limit;
+
+    // Fetch products with pagination
+    const data = await UserCollection.find()
+        .skip(skip)
+        .limit(limit);
+    data.reverse()
+    const totaluser = await UserCollection.countDocuments();
+
+    // Calculate total number of pages
+    const totalPages = Math.ceil(totaluser / limit);
+
+    // Adjust current page if it exceeds total pages
+    const currentPage = Math.min(page, totalPages);
+
+
+
+    res.render("Admin/Users", { admin: data, page: 2, totalPages, currentPage })
+};
 
 
 

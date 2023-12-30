@@ -77,7 +77,10 @@
                                 <%=index+1 %>
                               </td>
                               <td>
-                                <img src="/MulterUploads/<%= row.image[0]%>" alt="Product image"class="w-20" >
+                                <% row.image.forEach(img => {%>
+                                  
+                                  <img src="/MulterUploads/<%=img%>" alt="Product image"class="w-20" >
+                                  <%}); %>
                               
                               </td>
                               <td >
@@ -107,6 +110,31 @@
                         </tbody>
                     </table>
                   </div>
+
+
+                   <!-- Pagination Starting -->
+       <div class="pagination justify-content-center mt-2 mb-2">
+        <% if (currentPage> 1) { %>
+            <a href="?page=<%= currentPage - 1 %>" class="prev-arrow"
+                aria-label="Previous">
+                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            </a>
+            <% } %>
+                <% for (let i=1; i <=totalPages; i++) { %>
+                    <a href="?page=<%= i %>"
+                        class="<%= i === currentPage ? 'active page-link' : 'page-link' %>">
+                        <%= i %>
+                    </a>
+                    <% } %>
+                        <% if (currentPage < totalPages) { %>
+                            <a href="?page=<%= currentPage + 1 %>" class="next-arrow"
+                                aria-label="Next">
+                                <i class="fa fa-long-arrow-right"
+                                    aria-hidden="true"></i>
+                            </a>
+                            <% } %>
+    </div>
+
                 </div>
               </div>
             </div>
@@ -139,7 +167,7 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 2% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -189,9 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-function closeModal() {
-  document.getElementById('productDetailsModal').style.display = 'none';
-}
+
 
 
 // Function to close the modal

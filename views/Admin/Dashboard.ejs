@@ -336,7 +336,7 @@ type= 'line'
       .catch(error => {
         console.error('Fetch error of sales report:', error);
         // Handle errors if necessary
-        Swal.fire('Error!', 'An error occurred while downloading sales report', 'error');
+        Swal.fire('NO ORDERS!', 'There is no orders in that date', 'error');
       });
   }
 </script>

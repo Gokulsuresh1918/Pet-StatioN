@@ -11,9 +11,26 @@ const { log } = require("console");
 
 //ProductGet----------------------------------------
 exports.productGet = async (req, res) => {
-    const productdata = await productCollection.find()
-    productdata.reverse()
-    res.render("Admin/product", { productdata,page:8})
+
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = 2; // Set the number of products per page
+    const skip = (page - 1) * limit;
+
+    // Fetch products with pagination
+    const data = await productCollection.find()
+        .skip(skip)
+        .limit(limit);
+    data.reverse()
+    const totalProducts = await productCollection.countDocuments();
+
+    // Calculate total number of pages
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    // Adjust current page if it exceeds total pages
+    const currentPage = Math.min(page, totalPages);
+
+    res.render("Admin/product", { productdata:data, page: 8, totalPages, currentPage })
 };
 
 
@@ -32,7 +49,7 @@ exports.imagedelete = async (req, res) => {
         );
 
         res.redirect(`/admin/productedit/${productData._id}`);
-    } catch (error) {                                                                                                
+    } catch (error) {
         console.error('Error in imagedelete:', error.message);
         res.status(500).send('Internal error');
     }
@@ -45,7 +62,7 @@ exports.imagedelete = async (req, res) => {
 exports.productaddGet = async (req, res) => {
     const categoryoption = await categoryCollection.find()
 
-    res.render('Admin/productadd', { categoryoption ,page:1})
+    res.render('Admin/productadd', { categoryoption, page: 1 })
 
 };
 
@@ -83,7 +100,7 @@ exports.editproductGet = async (req, res) => {
         const categoryoption = await categoryCollection.find()
 
 
-        res.render('Admin/productedit', { productdata, categoryoption ,page:1})
+        res.render('Admin/productedit', { productdata, categoryoption, page: 1 })
     } catch (error) {
         console.log(error.message);
         res.status(500).send("Internal error")
@@ -102,7 +119,7 @@ exports.editproductpost = async (req, res) => {
             price: req.body.price,
             qty: req.body.qty,
         };
-   
+
 
 
         await productCollection.findByIdAndUpdate(id, updatedData);

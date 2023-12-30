@@ -101,31 +101,31 @@ exports.addaddresspost = async (req, res) => {
     try {
         const Address = {
             name: req.body.name,
-            userId:req.session.userId,
+            userId: req.session.userId,
             address: req.body.homeaddress,
             district: req.body.district,
             pincode: req.body.pincode,
             phone: req.body.phone,
             email: req.body.email,
             state: req.body.state
-        } 
+        }
         // const address = await addressCollection.find({ phone: req.body.phone })
         try {
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
             const check = await addressCollection.find({ phone: req.body.phone })
             if (check[0]) {
-                res.render('User/userProfile/address', { check,cartcount, message: "already exicts" })
+                res.render('User/userProfile/address', { check, cartcount, message: "already exicts" })
             } else {
-             await addressCollection.insertMany([Address]);
-             const  address= await addressCollection.find({ userId: req.session.userId })
-             console.log(address);
-                res.render('User/userProfile/address', { address, message: "",cartcount:0 })
+                await addressCollection.insertMany([Address]);
+                const address = await addressCollection.find({ userId: req.session.userId })
+                console.log(address);
+                res.render('User/userProfile/address', { address, message: "", cartcount: 0 })
             }
         } catch (error) {
             console.error(error); hh
         }
-    } catch (error) { 
+    } catch (error) {
         console.error("addaddresspost  error" + "= " + error);
     }
 }
@@ -175,7 +175,7 @@ exports.editaddresspost = async (req, res) => {
 
 exports.addimagepost = async (req, res) => {
     try {
-        const userId = req.session.userId; 
+        const userId = req.session.userId;
         const image = req.body.image;
 
         // Find the user by ID
@@ -187,7 +187,7 @@ exports.addimagepost = async (req, res) => {
 
         // Update the user's profileImage
         user.profileImage = image
-        
+
 
         // Save the updated user to the database
         await user.save();
@@ -212,13 +212,34 @@ exports.ordersget = async (req, res) => {
             const user = true
 
 
-            const orderdata = await orderCollection.find()
-            orderdata.reverse()
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             cartdata.reverse()
             const cartcount = cartdata[0]?.products.length
 
-            res.render('User/userProfile/order', { orderdata, user, cartcount })
+
+            // Pagination
+            const page = parseInt(req.query.page) || 1;
+            const limit = 8; // Set the number of products per page
+            const skip = (page - 1) * limit;
+
+          
+            // Fetch products with pagination
+            const data = await orderCollection.find()
+                .skip(skip)
+                .limit(limit);
+            data.reverse()
+            const totalorders = await orderCollection.countDocuments();
+
+            // Calculate total number of pages
+            const totalPages = Math.ceil(totalorders / limit);
+
+            // Adjust current page if it exceeds total pages
+            const currentPage = Math.min(page, totalPages);
+
+
+
+
+            res.render('User/userProfile/order', { orderdata:data,totalPages,currentPage, user, cartcount })
         } else {
             const user = false
             res.render('User/userProfile/order', { orderdata, user, cartcount: 0 })
