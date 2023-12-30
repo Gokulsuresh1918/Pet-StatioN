@@ -31,7 +31,7 @@ router.get('/about',usersession, aboutget);
 router.get('/shop', shopget);
 router.get('/wishlist/:id', wishlistget);
 router.get('/wishlist', wishlistdataget);
-router.get('/productview/:id', productView);
+router.get('/productview/:id',usersession, productView);
 
 
 

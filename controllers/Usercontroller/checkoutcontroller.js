@@ -6,6 +6,7 @@ const { contactCollection } = require('../../model/contactDB')
 const { CouponCollection } = require('../../model/couponDB')
 const Razorpay = require('razorpay');
 const { UserCollection } = require('../../model/userDB')
+const { loginGet } = require('./publiccontroller')
 
 exports.checkoutget = async (req, res) => {
     try {
@@ -102,7 +103,7 @@ exports.confirmationpost = async (req, res) => {
         if (!req.body.razorpay_payment_id) {
             const userId = req.session.userId;
             const productDetails = req.body.orderDetails;
-            // console.log("cd product ", productDetails);
+            console.log(productDetails);
             const paymentMode = req.body.paymentMode
             const orderNumber = generateOrderNumber();
             const total = calculateTotal(productDetails);

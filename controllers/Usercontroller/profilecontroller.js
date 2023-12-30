@@ -101,26 +101,31 @@ exports.addaddresspost = async (req, res) => {
     try {
         const Address = {
             name: req.body.name,
+            userId:req.session.userId,
             address: req.body.homeaddress,
             district: req.body.district,
             pincode: req.body.pincode,
             phone: req.body.phone,
             email: req.body.email,
             state: req.body.state
-        }
-        const address = await addressCollection.find()
+        } 
+        // const address = await addressCollection.find({ phone: req.body.phone })
         try {
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
             const check = await addressCollection.find({ phone: req.body.phone })
             if (check[0]) {
-                res.render('User/userProfile/address', { address, message: "already exicts" })
+                res.render('User/userProfile/address', { check,cartcount, message: "already exicts" })
             } else {
-                await addressCollection.insertMany([Address]);
-                res.render('User/userProfile/address', { address, message: "" })
+             await addressCollection.insertMany([Address]);
+             const  address= await addressCollection.find({ userId: req.session.userId })
+             console.log(address);
+                res.render('User/userProfile/address', { address, message: "",cartcount:0 })
             }
         } catch (error) {
             console.error(error); hh
         }
-    } catch (error) {
+    } catch (error) { 
         console.error("addaddresspost  error" + "= " + error);
     }
 }

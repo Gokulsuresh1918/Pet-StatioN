@@ -45,7 +45,7 @@ exports.loginPost = async (req, res) => {
             }
         }
     } catch (err) {
-        console.error("loginpost error" + "=" + error);
+        console.error("loginpost error" + "=" + err);
     }
 };
 

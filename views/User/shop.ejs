@@ -63,15 +63,46 @@
         </div>
     </div>
     <!-- End Hero Section -->
-
+  
+      
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="filter-container">
+                    <label for="categoryFilter" class="form-label">Filter by Category:</label>
+                    <select id="categoryFilter" class="form-select" onchange="filterByCategory()">
+                        <!-- Add your category options here -->
+                        <option value="category1">Category 1</option>
+                        <option value="category2">Category 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="filter-container">
+                    <label for="priceFilter" class="form-label">Filter by Price:</label>
+                    <select id="priceFilter" class="form-select" onchange="filterByPrice()">
+                        <option value="lowToHigh">Low to High</option>
+                        <option value="highToLow">High to Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="filter-container">
+                    <label for="searchInput" class="form-label">Search:</label>
+                    <input type="text" id="searchInput" class="form-control" oninput="filterBySearch()">
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
         <div class="untree_co-section product-section before-footer-section">
             <div class="container">
                 <div class="row">
-
+                    <div id="productView"  class="row">  
                     <!-- Start Column 1 -->
                     <%productdata.forEach((row,index)=>{%>
-                        <div class="col-12 col-md-4 col-lg-3 mb-5 ">
+                        <div class="col-12 col-md-4 col-lg-3 mb-5 "  data-price="<%=row.price %>">
                             <div class=" d-flex">
                                 <a class="product-item " href="/productview/<%= row._id %>">
 
@@ -97,7 +128,7 @@
                         </div>
                         <%})%>
                             <!-- End Column 1 -->
-
+                        </div>
 
 
                             <!-- poppular product -->
@@ -170,7 +201,7 @@
                                     </div>
                                 </div>
                             </div>
-                </div>
+              
             </div>
         </div>
 
@@ -184,5 +215,30 @@
 		<script src="/jsUT/custom.js"></script>
    
 </body>
+<script>
+   function filterByPrice() {
+ let sortBy = document.getElementById("priceFilter").value;
+ // Grab all the elements of #productView and convert its children (each product) into an array.
+ const elements = [...document.getElementById('productView').children];
+ 
+ let sortedElements = elements.sort(function (a, b) {
+   let priceA = parseInt(a.dataset.price);
+   let priceB = parseInt(b.dataset.price);
+   if (sortBy === "highToLow") {
+       return priceB - priceA;
+   } else {
+     return priceA - priceB;
+   }
+ });
+ document.getElementById('productView').replaceChildren(...elements)
 
+}
+
+</script>
+<script>
+  function  filterByCategory(){
+    fetch('/category filter',
+    )
+  }
+</script>
 </html>

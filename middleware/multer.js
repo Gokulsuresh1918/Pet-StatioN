@@ -1,14 +1,13 @@
 const multer = require('multer');
-
-
+const path = require('path');
 
 
 // Multer for products images upload
 const allowedFileTypes = ['image/jpeg', 'image/png', 'image/webp'];
 
-const storage = multer.diskStorage({
+const storage = multer.diskStorage({  
   destination: (req, file, cb) => {
-    cb(null, '/MulterUploads/'); // Destination folder for uploaded images
+    cb(null, path.join(__dirname,'../public/MulterUploads/') ); // Destination folder for uploaded images
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);

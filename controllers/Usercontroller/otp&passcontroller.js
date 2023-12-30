@@ -184,7 +184,7 @@ exports.resendotpget = async (req, res) => {
           Your  Resend OTP is: ${otp}`;
         const mailOptions = {
             from: 'petstation2002@gmail.com',
-            to: userdetails.email,
+            to: userdetails.email,       
             subject: 'OTP Verification',
             text: emailText,  
         };

@@ -60,14 +60,14 @@ exports.wishlistget = async (req, res) => {
 
 exports.productView = async (req, res) => {
     try {
-        if (req.session.userId) {
+        if (req.session?.userId) {
             const user = true
             const productdata = await productCollection.findOne({ _id: req.params.id });
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
             const currentdate = new Date()
             const offers = await offerCollection.find({ startDate: { $lte: currentdate }, endDate: { $gte: currentdate } })
-         
+
             res.render('User/productview', { productdata, user, cartcount, offers })
         } else {
             const user = false
