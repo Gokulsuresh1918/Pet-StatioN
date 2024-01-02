@@ -42,7 +42,7 @@
 
       <form action="/signup" method="post">
      
-          <div class="alert alert-danger text-center error" id="errorAlert"></div>
+          <div class="alert alert-danger text-center error" style="display:none;" id="errorAlert"></div>
        
           
             <div class="row mb-3">
@@ -168,8 +168,10 @@
       if (message.length > 0) {
         console.log(message);
         e.preventDefault();
+        error.style.display='block'
         error.textContent = message.join("");
       } else {
+        error.style.display='none'
         error.textContent = '';
       }
     });
