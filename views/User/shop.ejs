@@ -75,11 +75,13 @@
                             <label for="categoryFilter" class="form-label">Filter by Category:</label>
                             <select id="categoryFilter" class="form-select" onchange="filterByCategory()">
                                 <option value="all">All Categories</option>
-                                <% categoryNames.forEach(element=> {%>
+                             <% if(categoryNames){ %>
+                                   <% categoryNames.forEach(element=> {%>
                                     <option value="<%=element%>">
                                         <%=element%>
                                     </option>
                                     <% }); %>
+                            <% } %>
                             </select>
                         </div>
 

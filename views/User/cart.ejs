@@ -9,17 +9,17 @@
   <link rel="shortcut icon" href="/img/Cat & Dog 3a.png">
 
   <link rel="icon" href="img/favicon.png">
-    <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/productcss/animate.css">
-    <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
-    <link rel="stylesheet" href="/assets/productcss/nice-select.css">
-    <link rel="stylesheet" href="/assets/productcss/all.css">
-    <link rel="stylesheet" href="/assets/productcss/flaticon.css">
-    <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
-    <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
-    <link rel="stylesheet" href="/assets/productcss/slick.css">
-    <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
-    <link rel="stylesheet" href="/assets/productcss/style.css">
+  <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/productcss/animate.css">
+  <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/productcss/nice-select.css">
+  <link rel="stylesheet" href="/assets/productcss/all.css">
+  <link rel="stylesheet" href="/assets/productcss/flaticon.css">
+  <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
+  <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
+  <link rel="stylesheet" href="/assets/productcss/slick.css">
+  <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
+  <link rel="stylesheet" href="/assets/productcss/style.css">
 </head>
 <style>
   .hero-img-wrap {
@@ -29,46 +29,52 @@
   @media only screen and (max-width: 980px) {
     .hero-img-wrap {
       overflow-x: hidden;
- 
+
     }
   }
 </style>
+
 <body>
   <%- include('../partials/layoutpage.ejs') %>
     <!--::header part start::-->
     <%- include('../partials/userpartials/header.ejs') %>
       <!-- Header part end-->
-	<!--PreLoader-->
-  <div class="loader">
-    <div class="loader-inner">
-        <div class="circle"></div>
-    </div>
-</div>
-<!--PreLoader Ends-->
+      <!--PreLoader-->
+      <div class="loader">
+        <div class="loader-inner">
+          <div class="circle"></div>
+        </div>
+      </div>
+      <!--PreLoader Ends-->
 
-  
-<!-- Start Hero Section -->
-<div class="hero">
-  <div class="container">
-    <div class="row justify-content-between">
-      <div class="col-lg-5">
-        <div class="intro-excerpt">
-          <h1>CART </h1>
-          <p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
-            nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
-            his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
-          <p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="/shop" class="btn btn-white-outline">Explore</a></p>
+
+      <!-- Start Hero Section -->
+      <div class="hero">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-lg-5">
+              <div class="intro-excerpt">
+                <h1>CART </h1>
+                <p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to
+                  preserve and
+                  nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
+                  his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
+                <p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="/shop"
+                    class="btn btn-white-outline">Explore</a></p>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="hero-img-wrap">
+                <img style="height:600px;" src="/img/cartimage.png" class="img-fluid">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-7">
-        <div class="hero-img-wrap">
-          <img style="height:600px;" src="/img/cartimage.png" class="img-fluid">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End Hero Section -->
+
+
+   
+      <!-- End Hero Section -->
       <!--================Cart Area =================-->
       <section class="cart_area padding_top">
         <div class="container">
@@ -86,7 +92,7 @@
                 </thead>
                 <tbody>
                   <% let subtotal=0 %>
-                    <% if (cartdetails !==null) { %>
+                    <% if (cartdetails?.products.length>0) { %>
                       <% cartdetails.products.forEach((prod, index)=> { %>
                         <% let total=0 %>
                           <% const product=productdetails.find(item=> item._id.equals(prod.productId)); %>
@@ -125,7 +131,7 @@
                               </td>
                               <% let pricetotal=Number(product.price) * Number(prod.quantity) %>
                                 <td>
-                                  <% if (  product.qty<=0 ) { %>
+                                  <% if ( product.qty<=0 ) { %>
                                     <h5>
                                       Out of Stock
                                       <% pricetotal=0 %>
@@ -173,24 +179,24 @@
 
               <div class="checkout_btn_inner float-right">
                 <a class="btn btn-sm btn_1" href="/shop">Add More</a>
-                <% if(cartdetails !=null) { %>
-                  
-                  
+                <% if(cartdetails?.products.length>0) { %>
+
+
                   <a class="btn btn-sm btn_1 checkout_btn_1" href="/checkout">Proceed to
                     checkout</a>
-                    <% } %>
-                    
-                  </div>
-                </div>
+                  <% } %>
+
               </div>
             </div>
-          </section>
-        
-          
-          <!--================End Cart Area =================-->
-          
-          <!--::footer_part start::-->
-          <%- include('../partials/userpartials/footer.ejs') %>
+          </div>
+        </div>
+      </section>
+
+
+      <!--================End Cart Area =================-->
+
+      <!--::footer_part start::-->
+      <%- include('../partials/userpartials/footer.ejs') %>
         <!--::footer_part end::-->
 
         <!-- jquery plugins here-->
@@ -225,34 +231,41 @@
         <!-- custom js -->
         <% if (err) { %>
           <script>
-              // Show SweetAlert for product quantity not available
-              Swal.fire({
-                  title: 'Error',
-                  text: 'Product quantity not available',
-                  icon: 'error',
-                  confirmButtonText: 'OK'
-              });
+            // Show SweetAlert for product quantity not available
+            Swal.fire({
+              title: 'Error',
+              text: 'Product quantity not available',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
           </script>
-      <% } %>
-      
-        <script>
-          function removeItem(productId) {
-            console.log(productId);
-            fetch(`/removeItem/${productId}`,
-              {
-                method: 'DELETE',
-                headers: { "Content-Type": "application/json" }
-              })
+          <% } %>
 
-              .then(response => response.json())
-              .then(data => {
-                window.location.reload();
-              })
+            <script>
+              function removeItem(productId) {
+                console.log(productId);
+                fetch(`/removeItem/${productId}`,
+                  {
+                    method: 'DELETE',
+                    headers: { "Content-Type": "application/json" }
+                  })
 
-              .catch(error => console.error('Error:', error));
-          }
-        </script>
-       
+                  .then(response => response.json())
+                  .then(data => {
+               
+                    window.location.reload();
+                  })
+
+                  .catch(error => console.error('Error:', error));
+              }
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"></script>
+            <script>
+              bodymovin.loadAnimation({
+                container: document.getElementById('emptyCart'),
+                path: '/json/emptycart.json',
+              });
+            </script>
 </body>
 
 </html>

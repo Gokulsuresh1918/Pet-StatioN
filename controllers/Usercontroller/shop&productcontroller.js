@@ -11,14 +11,16 @@ const path = require('path')
 
 
 exports.shopget = async (req, res) => {
-    try {
+    try { 
+        let categoryNames='';
         if (req.session.userId) {
             const user = true
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
            
             const categories = await categoryCollection.find({}, 'categoryname'); 
-            const categoryNames = categories.map(category => category.categoryname);
+            categoryNames = categories.map(category => category.categoryname);
+          
             
 
             // Pagination
@@ -65,7 +67,7 @@ exports.shopget = async (req, res) => {
 
 
 
-            res.render('User/shop', { productdata: data, user, cartcount: 0, currentPage, totalPages })
+            res.render('User/shop', { productdata: data, user, cartcount: 0,totalPages, currentPage,categoryNames })
         }
     } catch (error) {
         console.error("shopget error" + "= " + error);
