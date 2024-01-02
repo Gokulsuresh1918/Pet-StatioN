@@ -76,7 +76,7 @@ exports.blockUser = async (req, res) => {
         const userId = req.query.userid;
         console.log(userId);
         // Find user by ID      
-        const user = await UserCollection.findOne({userId});
+        const user = await UserCollection.findOne({_id:userId});
         if (!user) {
             console.log('User not found');
             // Handle the case where the user is not found

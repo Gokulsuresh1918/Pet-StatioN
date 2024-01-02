@@ -75,13 +75,16 @@
                             <label for="categoryFilter" class="form-label">Filter by Category:</label>
                             <select id="categoryFilter" class="form-select" onchange="filterByCategory()">
                                 <option value="all">All Categories</option>
-                                <% categoryNames.forEach(element => {%> 
-                                    <option value="<%=element%>"><%=element%></option>
-                                <% }); %>
+                                <% categoryNames.forEach(element=> {%>
+                                    <option value="<%=element%>">
+                                        <%=element%>
+                                    </option>
+                                    <% }); %>
                             </select>
                         </div>
-                        
-                        
+
+
+
                     </div>
                     <div class="col-md-3">
                         <div class="filter-container">
@@ -271,10 +274,17 @@
 
 </script>
 <script>
+
     function filterByCategory() {
-        fetch('/category filter',
-        )
-    }
+    const categoryFilter = document.getElementById('categoryFilter');
+    const productView = document.getElementById('productView');  // Initialize productView here
+    categoryFilter.addEventListener('change', async (e) => {
+        const htmlResult = await fetch(`/categoryfilter?category=${categoryFilter.value}`, { method: "GET" });
+
+        productView.innerHTML = await htmlResult.text();
+    })
+}
+
 </script>
 <script>
     const searchBarElement = document.getElementById('searchBar');
@@ -284,19 +294,6 @@
         productView.innerHTML = await htmlResult.text();
     })
 </script>
-<script>
-    function filterByCategory() {
-        const categoryFilter = document.getElementById('categoryFilter');
-        const selectedCategory = categoryFilter.value;
 
-        fetch(`/categoryfilter${selectedCategory}`, { method: 'GET' })
-            .then(response => response.text())
-            .then(html => {
-                const productView = document.getElementById('productView');
-                productView.innerHTML = html;
-            })
-            .catch(error => console.error(error));
-    }
-</script>
 
 </html>
