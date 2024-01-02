@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 
-const { homeGet, contactGet, contactpost, aboutget ,demo} = require('../controllers/Usercontroller/authenticationcontroller')
+const { homeGet, contactGet, contactpost, aboutget ,categoryfilter} = require('../controllers/Usercontroller/authenticationcontroller')
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
-const { shopget, productView,wishlistget,wishlistdataget } = require('../controllers/Usercontroller/shop&productcontroller')
+const { shopget, productView,wishlistget,wishlistdataget, shopsearch } = require('../controllers/Usercontroller/shop&productcontroller')
 const { cartGet, addcartpost, clearcartget, removeItem,clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')
 const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder,couponapply } = require('../controllers/Usercontroller/checkoutcontroller')
 const { profileGet, addressGet,addimagepost, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget } = require('../controllers/Usercontroller/profilecontroller')
@@ -26,6 +26,7 @@ router.get('/home', homeGet);
 router.get('/contact', contactGet);
 router.post('/contact', usersession, contactpost);
 router.get('/about',usersession, aboutget);
+router.get('/categoryfilter',usersession, categoryfilter);
 
 // Shop and Product routes
 router.get('/shop', shopget);
@@ -39,8 +40,9 @@ router.get('/productview/:id',usersession, productView);
 router.get('/cart', usersession, cartGet);
 router.post('/addcart', usersession, addcartpost);
 router.get('/clearcart', usersession, clearcartget);
-router.get('/clearwishlist', usersession, clearwishlistget);
 router.delete('/removeItem/:productId', usersession, removeItem);
+router.get('/clearwishlist', usersession, clearwishlistget);
+router.get('/search', shopsearch );
 
 
 

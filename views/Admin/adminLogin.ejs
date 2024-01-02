@@ -118,7 +118,7 @@
             if (passwordVal === '') {
                 success = false;
                 setError(password, 'Password is required')
-            } else if (passwordVal.length < 5) {
+            } else if (passwordVal.length < 4) {
                 success = false;
                 setError(password, 'Password must be at least 5 characters long')
             } else {

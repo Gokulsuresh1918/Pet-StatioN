@@ -247,12 +247,12 @@ exports.salesReport = async (req, res) => {
         ],
         rows: orders.flatMap((order) => {
           return order.productdetails.map((productDetail) => [
-            order.address.name,
-            productDetail.uniquePriceTotal,
-            productDetail.quantity,
-            order.address.address,
-            order.address.pincode,
-            order.address.state,
+            order?.address?.name,
+            productDetail?.uniquePriceTotal,
+            productDetail?.quantity,
+            order.address?.address,
+            order.address?.pincode,
+            order.address?.state,
           ]);
         }),
       };

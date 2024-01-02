@@ -2,6 +2,7 @@
 const { contactCollection } = require('../../model/contactDB')
 const { cartCollection } = require('../../model/cartDB')
 const { Wishlistcollection } = require('../../model/wishlistDb')
+const ejs = require('ejs');
 
 
 
@@ -80,3 +81,26 @@ exports.contactpost = async (req, res, next) => {
 }
 
 
+// Assuming you have a route like this in your server
+exports.categoryfilter= async (req, res) => {
+    const selectedCategory = req.query.category;
+
+    // Add logic to filter products based on the selected category
+    // Example: fetch products from the database based on the category
+
+    try {
+        // Your logic to fetch products based on the selected category
+        // Replace the following line with your actual logic
+        const filteredProducts = await Product.find({ category: selectedCategory });
+
+        // Render the filtered products using your template engine
+        let html = await ejs.renderFile('./views/products_template.ejs', {
+            productData: filteredProducts,
+        });
+
+        res.send(html);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};

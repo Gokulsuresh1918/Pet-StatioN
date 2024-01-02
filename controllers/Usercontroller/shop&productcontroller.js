@@ -4,8 +4,9 @@ const { contactCollection } = require('../../model/contactDB')
 const { Wishlistcollection } = require('../../model/wishlistDb')
 const { UserCollection } = require('../../model/userDB')
 const { offerCollection } = require('../../model/offerDB')
-
-
+const { categoryCollection } = require('../../model/categoryDB')
+const ejs = require('ejs')
+const path = require('path')
 
 
 
@@ -15,9 +16,10 @@ exports.shopget = async (req, res) => {
             const user = true
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
-            // const productdata = await productCollection.find()
-            // productdata.reverse()
-
+           
+            const categories = await categoryCollection.find({}, 'categoryname'); 
+            const categoryNames = categories.map(category => category.categoryname);
+            
 
             // Pagination
             const page = parseInt(req.query.page) || 1;
@@ -37,7 +39,7 @@ exports.shopget = async (req, res) => {
             // Adjust current page if it exceeds total pages
             const currentPage = Math.min(page, totalPages);
 
-            res.render('User/shop', { productdata: data, user, cartcount, totalPages, currentPage })
+            res.render('User/shop', { productdata: data, user, cartcount, totalPages, currentPage,categoryNames })
         } else {
             const user = false
 
@@ -158,3 +160,24 @@ exports.wishlistdataget = async (req, res) => {
     }
 };
 
+exports.shopsearch = async (req, res) => {
+
+    try {
+        const searchQuery = req.query.q;
+
+        const results = await productCollection.find({
+            name: { $regex: new RegExp(`^${searchQuery}`, "i") },
+        });
+
+
+        let html = await ejs.renderFile("views/tempsearch.ejs", {
+            productdata: results,
+        });
+        res.send(html);
+
+    } catch (error) {
+        console.error(error.message); // Log the error message
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+
+};
