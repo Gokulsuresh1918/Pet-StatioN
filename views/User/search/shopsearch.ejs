@@ -1,0 +1,27 @@
+<%productdata.forEach((row,index)=>{%>
+    <div class="col-12 col-md-4 col-lg-3 mb-5 " data-price="<%=row.price %>">
+        <div class=" d-flex">
+            <a class="product-item " href="/productview/<%= row._id %>">
+
+
+                <div style="overflow: hidden;height: 393px;width: 262px;">
+                    <img src="/MulterUploads/<%= row.image[0] %> "
+                        class="img-fluid product-thumbnail">
+                </div>
+                <br>
+                <h2 class="product-title">
+                    <%= row.name %>
+                </h2>
+                <strong class="product-price">Rs:<%= row.price %></strong>
+                <p style="white-space:initial  ;word-break: break-all;">
+                    <%= row.description %>
+                </p>
+                <span class="icon-cross">
+                    <img src="/assets/images/cross.svg" class="img-fluid">
+                </span>
+
+            </a>
+        </div>
+
+    </div>
+    <%})%>

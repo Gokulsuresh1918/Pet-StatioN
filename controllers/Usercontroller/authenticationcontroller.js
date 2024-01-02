@@ -91,7 +91,7 @@ exports.categoryfilter= async (req, res) => {
         const filteredProducts = await productCollection.find({ category: selectedCategory });
 
         // Render the filtered products using your template engine
-        let html = await ejs.renderFile('views/User/searchejss/tempsearch.ejs', {
+        let html = await ejs.renderFile('views/User/search/shopsearch.ejs', {
             productdata: filteredProducts,
         });
 

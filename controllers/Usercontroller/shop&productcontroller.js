@@ -172,7 +172,7 @@ exports.shopsearch = async (req, res) => {
         });
 
 
-        let html = await ejs.renderFile("views/User/searchejss/tempsearch.ejs", {
+        let html = await ejs.renderFile("views/User/search/shopsearch.ejs", {
             productdata: results,
         });
         res.send(html);

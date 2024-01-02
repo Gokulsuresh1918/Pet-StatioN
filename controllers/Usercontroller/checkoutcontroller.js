@@ -103,7 +103,12 @@ exports.confirmationpost = async (req, res) => {
         if (!req.body.razorpay_payment_id) {
             const userId = req.session.userId;
             const productDetails = req.body.orderDetails;
-            console.log(productDetails);
+            //stock management
+            const productid = productDetails.map(ele=>ele.productId)
+            const stockmanage = await productCollection.findOne({ _id: productid })
+            stockmanage.qty-=Number(productDetails[0].quantity)
+            stockmanage.save()
+
             const paymentMode = req.body.paymentMode
             const orderNumber = generateOrderNumber();
             const total = calculateTotal(productDetails);
@@ -117,7 +122,6 @@ exports.confirmationpost = async (req, res) => {
                 address,
                 payment: paymentMode,
                 status: currentstatus
-
             });
             await newOrder.save();
             await cartCollection.deleteMany({});
@@ -128,6 +132,7 @@ exports.confirmationpost = async (req, res) => {
             const userId = req.session.userId;
             const orderNumber = generateOrderNumber();
             const cartDetails = await cartCollection.findOne({ userId: userId })
+                 
             const address = await addressCollection.findById(data.notes.address)
             const productDetails = cartDetails.products.map(product => ({
                 productId: product.productId,
@@ -135,6 +140,12 @@ exports.confirmationpost = async (req, res) => {
                 uniquePriceTotal: Number(product.price) * Number(product.quantity)
             }));
             const currentstatus = "pending"
+
+              //stock management
+              const productid = productDetails.map(ele=>ele.productId)
+              const stockmanage = await productCollection.findOne({ _id: productid })
+              stockmanage.qty-=Number(productDetails[0].quantity)
+              stockmanage.save()
             const paymentMode = data.notes.payment
             const total = productDetails.reduce((acc, product) => acc + product.uniquePriceTotal, 0);
             const newOrder = new orderCollection({
@@ -182,10 +193,10 @@ exports.addressremove = async (req, res) => {
 
 exports.razorpaypost = (req, res) => {
     try {
-        let amount= req.body.amount
+        let amount = req.body.amount
         let instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET })
         let options = {
-            amount: Number(amount)*100,
+            amount: Number(amount) * 100,
             currency: "INR",
             receipt: "order_rcptid_11",
             notes: {
@@ -260,7 +271,7 @@ exports.couponapply = async (req, res) => {
             res.json({ message: "Coupon not found or invalid" });
         }
     } else {
-        res.json({message:`Minimum amount required ${coupon[0].minimumPurchase}`});
+        res.json({ message: `Minimum amount required ${coupon[0].minimumPurchase}` });
     }
 }
 
