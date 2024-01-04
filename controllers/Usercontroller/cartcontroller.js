@@ -14,7 +14,8 @@ exports.cartGet = async (req, res) => {
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
             const productdetails = await productCollection.find();
-            // console.log(productdetails);
+            // console.log(cartdetails);
+
             res.render('User/cart', { cartdetails: cartdetails, cartcount, productdetails: productdetails, user,err:err });
         } else {
             const user = false

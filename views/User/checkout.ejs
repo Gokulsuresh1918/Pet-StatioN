@@ -350,9 +350,9 @@
                             <%=total %>
                           </span>
                         </a>
-                        <li>
-                          <h4 id="animation" style="font-weight: bold; color: red;" ></h4>
-                      </li>
+                    <li>
+                      <h4 id="animation" style="font-weight: bold; color: red;"></h4>
+                    </li>
                     <br>
                     <li>
                       <p id="walletamount" hidden>
@@ -460,7 +460,7 @@
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script src="/singlejs/price_rangs.js"></script>
         <script src="/singlejs/custom.js"></script>
-        
+
         <script>
           var addressid;
           const totalprice = document.getElementById('totalprice').innerText
@@ -477,6 +477,9 @@
               .then(response => response.json())
 
               .then(data => {
+
+                if (data.success) {
+                
                 const orderId = data.orderId;
                 console.log("OrderId received:", orderId);
 
@@ -486,7 +489,7 @@
                 const addressdata = addressdetails.getAttribute('data-address')
                 var options = {
                   "key": "rzp_test_YqIuT5ZP4j00kQ", // Enter the Key ID generated from the Dashboard
-                  "amount":Number(totalprice)*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                  "amount": Number(totalprice) * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                   "currency": "INR",
                   "name": "Petstation", //your business name
                   "description": "Test Transaction",
@@ -510,7 +513,18 @@
                 rzp1.open();
                 e.preventDefault();
 
-              })
+            
+            } else {
+                    // Show animated warning using SweetAlert2
+                    Swal.fire({
+                      icon: 'warning',
+                      title: 'Address Not Found',
+                      text: 'Please provide a valid address.',
+                      confirmButtonText: 'OK',
+                      timer: 3000, // Automatically close after 5 seconds
+                    });
+                  }
+                })
               .catch(error => console.error('Error:', error));
           };
         </script>
@@ -537,14 +551,14 @@
                 }
               })
               .then(data => {
-              console.log(data);
-               if(data.type=='Fixed Amount'){
-                let subtotal = getsubtotal - data.value;
-                document.getElementById('subtotal').innerText = subtotal;
-                document.getElementById('totalprice').innerText = subtotal + 40;
-               }else{
-                document.getElementById('totalprice').innerText = (subtotal *  data.value/100);
-               }
+                console.log(data);
+                if (data.type == 'Fixed Amount') {
+                  let subtotal = getsubtotal - data.value;
+                  document.getElementById('subtotal').innerText = subtotal;
+                  document.getElementById('totalprice').innerText = subtotal + 40;
+                } else {
+                  document.getElementById('totalprice').innerText = (subtotal * data.value / 100);
+                }
                 if (data.message) {
                   document.getElementById('animation').innerText = data.message
                   document.getElementById('rzp-button1').disabled = true;
@@ -632,7 +646,19 @@
               })
                 .then(response => response.json())
                 .then(data => {
-                  window.location.href = '/confirmation';
+                  if (data.success) {
+                    // Redirect to confirmation page on success
+                    window.location.href = '/confirmation';
+                  } else {
+                    // Show animated warning using SweetAlert2
+                    Swal.fire({
+                      icon: 'warning',
+                      title: 'Address Not Found',
+                      text: 'Please provide a valid address.',
+                      confirmButtonText: 'OK',
+                      timer: 3000, // Automatically close after 5 seconds
+                    });
+                  }
                 })
                 .catch(error => {
                   console.error('Error:', error);
@@ -673,8 +699,18 @@
                       title: 'Insufficient Wallet Balance',
                       text: 'Your wallet balance is not sufficient to place this order.',
                     });
+                  } else if (!data.success) {
+                    // Show animated warning using SweetAlert2
+                    Swal.fire({
+                      icon: 'warning',
+                      title: 'Address Not Found',
+                      text: 'Please provide a valid address.',
+                      confirmButtonText: 'OK',
+                      timer: 3000, // Automatically close after 5 seconds
+                    });
                   } else {
                     window.location.href = '/confirmation';
+
                   }
                 })
                 .catch(error => {

@@ -11,17 +11,17 @@ const path = require('path')
 
 
 exports.shopget = async (req, res) => {
-    try { 
-        let categoryNames='';
+    try {
+        let categoryNames = '';
         if (req.session.userId) {
             const user = true
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
-           
-            const categories = await categoryCollection.find({}, 'categoryname'); 
+
+            const categories = await categoryCollection.find({}, 'categoryname');
             categoryNames = categories.map(category => category.categoryname);
-          
-            
+
+
 
             // Pagination
             const page = parseInt(req.query.page) || 1;
@@ -41,7 +41,7 @@ exports.shopget = async (req, res) => {
             // Adjust current page if it exceeds total pages
             const currentPage = Math.min(page, totalPages);
 
-            res.render('User/shop', { productdata: data, user, cartcount, totalPages, currentPage,categoryNames })
+            res.render('User/shop', { productdata: data, user, cartcount, totalPages, currentPage, categoryNames })
         } else {
             const user = false
 
@@ -67,7 +67,7 @@ exports.shopget = async (req, res) => {
 
 
 
-            res.render('User/shop', { productdata: data, user, cartcount: 0,totalPages, currentPage,categoryNames })
+            res.render('User/shop', { productdata: data, user, cartcount: 0, totalPages, currentPage, categoryNames })
         }
     } catch (error) {
         console.error("shopget error" + "= " + error);
@@ -183,3 +183,49 @@ exports.shopsearch = async (req, res) => {
     }
 
 };
+exports.quantityUpdation = async (req, res) => {
+    try {
+        const { cartId, productId, count } = req.body;
+       const userid = req.session.userId
+        // Find the cart by ID
+        const cart = await cartCollection.findOne({ userId: userid });
+
+        if (!cart) {
+            return res.status(404).json({ message: 'Cart not found' });
+        }
+
+        // Find the product by ID
+        const product = await productCollection.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        // Update the quantity in the cart's products array
+        const productIndex = cart.products.findIndex(item => item.productId.equals(productId));
+
+        if (productIndex !== -1) {
+            // Update quantity and calculate subtotal
+            if (count==1) {
+                cart.products[productIndex].quantity +=1;
+                cart.products[productIndex].subtotal =   cart.products[productIndex].quantity * product.price;
+
+            }else{
+                cart.products[productIndex].quantity -=1;
+                cart.products[productIndex].subtotal =   cart.products[productIndex].quantity * product.price;
+
+            }
+
+
+            // Save the updated cart
+            await cart.save();
+
+            return res.status(200).json({ message: 'Quantity updated successfully', cart });
+        } else {
+            return res.status(404).json({ message: 'Product not found in the cart' });
+        }
+    } catch (error) {
+        console.error('quantity updation post', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+}

@@ -114,19 +114,24 @@ exports.confirmationpost = async (req, res) => {
             const orderNumber = generateOrderNumber();
             const total = calculateTotal(productDetails);
             const address = await addressCollection.findById(req.body.addressid)
-            const currentstatus = "pending"
-            const newOrder = new orderCollection({
-                userId,
-                productdetails: productDetails,
-                Ordernumber: orderNumber,
-                total,
-                address,
-                payment: paymentMode,
-                status: currentstatus
-            });
-            await newOrder.save();
-            await cartCollection.deleteMany({});
-            res.status(200).json({ success: true, message: 'Order placed successfully!' });
+            if (!address) {
+                res.status(400).json({ success: false, message: 'Address not found.' });
+            }else {
+                const currentstatus = "pending"
+                const newOrder = new orderCollection({
+                    userId,
+                    productdetails: productDetails,
+                    Ordernumber: orderNumber,
+                    total,
+                    address,
+                    payment: paymentMode,
+                    status: currentstatus
+                });
+                await newOrder.save();
+                await cartCollection.deleteMany({});
+                res.status(200).json({ success: true, message: 'Order placed successfully!' });   
+            }
+        
         } else {
             var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET })
             let data = await instance.payments.fetch(req.body.razorpay_payment_id)

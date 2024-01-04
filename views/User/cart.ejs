@@ -96,6 +96,7 @@
                     <% if (cartdetails?.products.length>0) { %>
                       <% cartdetails.products.forEach((prod, index)=> { %>
                         <% let total=0 %>
+
                           <% const product=productdetails.find(item=> item._id.equals(prod.productId)); %>
                             <tr>
                               <td>
@@ -116,35 +117,44 @@
                                   <%= product.price %>
                                 </h5>
                               </td>
-                           
 
 
-                              <% if ( prod.quantity> product.qty ) { %>
+
                               <td class="py-4 text-center">
                                 <div class="justify-center items-center">
-                                  <button class="border rounded-md py-2 px-4 mr-2 minus" id="minus"  data-item-id="">-</button>
-                                  <h6>
-                                     
-                                        <h5 style="color: red;"> Quantity redused
-                                          From <%= prod.quantity %> to <%= product.qty %>
-                                              because Only <%= product.qty %> Left</h5>
-                                    </h6>
-                                    <% }else{ %>
-                                      <span class="text-center w-8 amount" id="amount" data-item-id=""><%= product.qty %></span>
-
-                                      <% } %>
+                                  <% if (prod.quantity>1) { %>
+                                    <button class="border rounded-md py-2 px-4 mr-2 minus"
+                                    style="font-size: larger; font-weight: bold;"
+                                    onclick="changequantity('<%= prod.id %>','<%= product.id %>',-1)">-</button>
                                     
+                                   <% } %>
 
-                                    <button class="border rounded-md py-2 px-4 ml-2 plus" id="plus" data-item-id="">+</button>
+                                  <% if (prod.quantity> product.qty) { %>
+                                    <h6>
+                                      <%= product.qty %>
+                                        <h5 style="color: red;"> Quantity reduced
+                                          From <%= prod.quantity %> to <%= product.qty %>
+                                              because Only <%= product.qty %> Left
+                                        </h5>
+                                    </h6>
+                                    <% } else { %>
+                                      <span class="text-center w-8 amount"
+                                        style="font-size: larger; font-weight: bold;">
+                                        <%=prod.quantity %>
+                                      </span>
+                                      <% } %>
+
+                                        <button class="border rounded-md py-2 px-4 ml-2 plus"
+                                          onclick="changequantity('<%= prod.id %>','<%= product.id %>',1)">+</button>
                                 </div>
-                            </td>
+                              </td>
 
 
 
 
-                          
 
-                              
+
+
                               <% let pricetotal=Number(product.price) * Number(prod.quantity) %>
                                 <td>
                                   <% if ( product.qty<=0 ) { %>
@@ -208,6 +218,35 @@
         </div>
       </section>
       <script>
+        function changequantity(cartid, productid, count) {
+          // Make a fetch request to your backend
+          fetch('/quantityUpdation', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              cartId: cartid,
+              productId: productid,
+              count: count
+            }),
+          })
+            .then(response => response.json())
+            .then(data => {
+              // Handle the response data if needed
+              console.log('Success:', data);
+              window.location.reload()
+            })
+            .catch(error => {
+              // Handle errors
+              console.error('Error:', error);
+            });
+        }
+
+      </script>
+
+
+      <!-- <script>
         let pluses = document.getElementsByClassName('plus');
         let minuses = document.getElementsByClassName('minus');
         let amounts = document.getElementsByClassName('amount');
@@ -274,7 +313,7 @@
             minuses[i].style.display = (parseInt(amounts[i].innerHTML)===1)? 'none': 'inline-block';
         }
 
-    </script>
+    </script> -->
 
       <!--================End Cart Area =================-->
 
