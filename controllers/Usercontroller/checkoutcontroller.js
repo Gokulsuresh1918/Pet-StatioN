@@ -140,7 +140,7 @@ exports.confirmationpost = async (req, res) => {
                 uniquePriceTotal: Number(product.price) * Number(product.quantity)
             }));
             const currentstatus = "pending"
-
+//here i done stock managewment
               //stock management
               const productid = productDetails.map(ele=>ele.productId)
               const stockmanage = await productCollection.findOne({ _id: productid })
