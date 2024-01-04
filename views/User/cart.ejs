@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="/assets/productcss/slick.css">
   <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
   <link rel="stylesheet" href="/assets/productcss/style.css">
+
 </head>
 <style>
   .hero-img-wrap {
@@ -73,7 +74,7 @@
       </div>
 
 
-   
+
       <!-- End Hero Section -->
       <!--================Cart Area =================-->
       <section class="cart_area padding_top">
@@ -115,20 +116,35 @@
                                   <%= product.price %>
                                 </h5>
                               </td>
-                              <td>
-                                <% if ( prod.quantity> product.qty ) { %>
+                           
+
+
+                              <% if ( prod.quantity> product.qty ) { %>
+                              <td class="py-4 text-center">
+                                <div class="justify-center items-center">
+                                  <button class="border rounded-md py-2 px-4 mr-2 minus" id="minus"  data-item-id="">-</button>
                                   <h6>
-                                    <%= product.qty %>
-                                      <h5 style="color: red;"> Quantity redused
-                                        From <%= prod.quantity %> to <%= product.qty %>
-                                            because Only <%= product.qty %> Left</h5>
-                                  </h6>
-                                  <% }else{ %>
-                                    <h6>
-                                      <%= prod.quantity %>
+                                     
+                                        <h5 style="color: red;"> Quantity redused
+                                          From <%= prod.quantity %> to <%= product.qty %>
+                                              because Only <%= product.qty %> Left</h5>
                                     </h6>
-                                    <% } %>
-                              </td>
+                                    <% }else{ %>
+                                      <span class="text-center w-8 amount" id="amount" data-item-id=""><%= product.qty %></span>
+
+                                      <% } %>
+                                    
+
+                                    <button class="border rounded-md py-2 px-4 ml-2 plus" id="plus" data-item-id="">+</button>
+                                </div>
+                            </td>
+
+
+
+
+                          
+
+                              
                               <% let pricetotal=Number(product.price) * Number(prod.quantity) %>
                                 <td>
                                   <% if ( product.qty<=0 ) { %>
@@ -191,7 +207,74 @@
           </div>
         </div>
       </section>
+      <script>
+        let pluses = document.getElementsByClassName('plus');
+        let minuses = document.getElementsByClassName('minus');
+        let amounts = document.getElementsByClassName('amount');
 
+        for(let i=0; i< pluses.length; i++){
+
+            pluses[i].addEventListener("click",function (){
+                amounts[i].innerHTML = parseInt(amounts[i].innerHTML) +1;
+                let itemId = this.dataset.itemId;
+                let newAmount = parseInt(amounts[i].innerHTML);
+                fetch('/updateCart',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({itemId:itemId, amount:newAmount}),
+                    
+                })
+                .then(response => response.json())
+                .then(data=>{
+                    console.log('Success:', data);
+                })
+                .catch((error)=>{
+                    console.error('Error:', error);
+                });
+                
+                window.location.reload();
+            });
+                
+            minuses[i].addEventListener("click", function(){
+                
+                if(parseInt(amounts[i].innerHTML) > 1){
+                    
+                    amounts[i].innerHTML = parseInt(amounts[i].innerHTML) -1;
+                }
+                minuses[i].style.display = (parseInt(amounts[i].innerHTML)===1)? 'none': 'inline-block';
+
+                    let itemId = this.dataset.itemId;
+                    console.log(itemId);
+                    let newAmount = parseInt(amounts[i].innerHTML);
+
+                    if(newAmount>0){
+                    
+                        fetch('/updateCart',{
+                            method:'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+
+                            },
+                            body:JSON.stringify({itemId: itemId,amount:newAmount}),
+                        })
+                        .then(response => response.json())
+                    .then(data => {
+                    console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                    console.error('Error:', error);
+                    });
+                    window.location.reload();
+                    
+                }
+            });
+
+            minuses[i].style.display = (parseInt(amounts[i].innerHTML)===1)? 'none': 'inline-block';
+        }
+
+    </script>
 
       <!--================End Cart Area =================-->
 
@@ -252,7 +335,7 @@
 
                   .then(response => response.json())
                   .then(data => {
-               
+
                     window.location.reload();
                   })
 

@@ -49,7 +49,7 @@
     </div>
   </div>
 <!-- End Hero Section -->
-      <div class="table-responsive">
+      <div class="table-responsive container-fluid p-3">
         <table class="table">
 
           <thead>
@@ -92,7 +92,7 @@
                   
                   <% if(order.status=="Delivered") {%>
                     <td>
-                      <button class="btn-sm btn_3" type="button" onclick="showReturnConfirmation('<%=order.id%>')"  >Return</button>
+                      <button class="btn-sm btn_3" type="button" onclick="showReturnConfirmation('<%=order.id%>', '<%= order.Ordernumber %>')"  >Return</button>
                     </td>
                     <% }else if(order.status=="Cancel") { %> 
                       <td>Cancelled</td>
@@ -100,10 +100,11 @@
                         <td>Credicted</td>
                         <% }else{ %>
                      
+                    
                       <td>
-                        <button class="btn-sm btn_3" type="button" onclick="showCancelConfirmation('<%=order.id%>')">Cancel</button>
-                      </td>
-                      
+                        <button class="btn-sm btn_3" type="button" onclick="showCancelConfirmation('<%=order.id%>', '<%= order.Ordernumber %>')">Cancel</button>
+                    </td>
+                    
                       <% } %>
                   
                   </td>
@@ -324,7 +325,7 @@
   }
 </script>
 <script>
-function showCancelConfirmation(orderid) {
+function showCancelConfirmation(orderid,Ordernumber) {
   Swal.fire({
     title: 'Are you sure?',
     text: 'You won\'t be able to revert this!',
@@ -336,15 +337,15 @@ function showCancelConfirmation(orderid) {
   }).then((result) => {
     if (result.isConfirmed) {
       // User clicked "Yes, cancel it!"
-      cancelOrder(orderid);
+      cancelOrder(orderid,Ordernumber);
     }
   });
 }
 
-function cancelOrder(orderid) {
-  fetch('/admin/cancelOrder', {
+function cancelOrder(orderid,Ordernumber) {
+  fetch('/cancelOrder', {
     method: "POST",
-    body: JSON.stringify({ id: orderid }),
+    body: JSON.stringify({ id: orderid ,Ordernumber:Ordernumber}),
     headers: {
       "Content-Type": "application/json",
     }
@@ -360,7 +361,7 @@ function cancelOrder(orderid) {
 
 
 
-function showReturnConfirmation(orderid) {
+function showReturnConfirmation(orderid,Ordernumber) {
   Swal.fire({
     title: 'Are you sure?',
     text: 'You won\'t be able to revert this!',
@@ -368,25 +369,25 @@ function showReturnConfirmation(orderid) {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, cancel it!'
+    confirmButtonText: 'Yes, return it!'
   }).then((result) => {
     if (result.isConfirmed) {
-      // User clicked "Yes, cancel it!"
-      ReturnOrder(orderid);
+      ReturnOrder(orderid,Ordernumber);
     }
   });
 }
-  function ReturnOrder(orderid) {
+  function ReturnOrder(orderid,Ordernumber) {
     fetch('/returnOrder', {
       method: "POST",
-      body: JSON.stringify({ id: orderid }),
+      body: JSON.stringify({ id: orderid,Ordernumber:Ordernumber }),
       headers: {
         "Content-Type": "application/json",
       }
     })
       .then((res) => {
-        window.location.reload()
         console.log('Response from server:', res);
+        window.location.reload();
+
       })
       .catch((error) => {
         console.error('Error:', error);

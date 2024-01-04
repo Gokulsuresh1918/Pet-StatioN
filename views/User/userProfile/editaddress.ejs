@@ -20,11 +20,14 @@
     }
   </style>
 </head>
-<%- include('../../partials/layoutpage.ejs') %>
+
 
 <body class="g-sidenav-show bg-gray-200">
+  <%- include('../../partials/layoutpage.ejs') %>
+
+  <%- include('../../partials/userpartials/header.ejs') %>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-    <div class="container-fluid">
+    <div class="container-fluid mt-4">
       <div class="row mb-4">
         <div class="col-12 grid-margin">
           <div class="card">
@@ -34,7 +37,7 @@
                   <h6 class="text-white text-capitalize ps-3">Edit Address</h6>
                 </div>
               </div>
-              <div class="table-responsive">
+                <div class="container-fluid table-responsive mt-4">
                 <%addressedit.forEach((row,index) => {%>
                   
                   <form action="/address" method="post" onsubmit="return validateForm()">
@@ -91,7 +94,6 @@
                 <%})%>
               </div>
             </div>
-            <%- include('../../partials/userpartials/footer.ejs') %>
           </body>
           
 <script>
@@ -169,3 +171,14 @@
 </script>
 
           </html>
+
+
+
+
+
+
+
+
+
+
+

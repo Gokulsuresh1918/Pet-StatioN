@@ -95,7 +95,7 @@
         <div class="text-center ">
           <a href="/address" class="d-inline-block text-black bg-gradient-success border-radius-lg px-4 py-2 my-3">
 
-            <span class="opacity-75 ">Address</span>
+            <span class="opacity-75 ">Edit</span>
           </a>
 
 
@@ -103,7 +103,7 @@
 
             <span class="opacity-75">Order</span>
           </a>
-          <a href="#" id="openWalletPopup"
+          <a href="/wallet" id="openWalletPopup"
             class="d-inline-block text-black ml-3 bg-gradient-success border-radius-lg px-4 py-2 my-3">
             <span class="opacity-75">Wallet</span>
           </a>
@@ -122,21 +122,7 @@
     </div>
 
     <%-include('../../partials/userpartials/footer.ejs') %>
-      <!-- The modal -->
-      <div id="walletModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <br>
-          <h1 style="font-weight: bold;">Wallet Amount: <span style="color:#ee0000;" id="walletAmount">
-              <%=userdetails.wallet%>
-            </span></h1>
-          <br>
-          <h3>Now you can Buy Product using your Wallet</h3>
-          <br>
-          <a href="/cart"><button class="btn btm_3 bg-gradient-success">Go to Cart</button></a>
-          <a href="/shop"><button class="btn btm_3 bg-gradient-success">Go to Shop</button></a>
-        </div>
-      </div>
+   
   </div>
 </body>
 <style>
@@ -176,30 +162,9 @@
     cursor: pointer;
   }
 </style>
-<script>
-  // Open the modal when the "Wallet" link is clicked
-  document.getElementById('openWalletPopup').addEventListener('click', function () {
-    document.getElementById('walletModal').style.display = 'block';
-  });
 
-  // Close the modal when the close button is clicked
-  document.getElementsByClassName('close')[0].addEventListener('click', function () {
-    document.getElementById('walletModal').style.display = 'none';
-  });
 
-  // Function to simulate going to the cart
-  function goToCart() {
-    alert('Going to Cart');
-    // Add your logic for navigating to the cart
-  }
 
-  // Function to simulate going to the shop
-  function goToShop() {
-    alert('Going to Shop');
-    // Add your logic for navigating to the shop
-  }
-
-</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

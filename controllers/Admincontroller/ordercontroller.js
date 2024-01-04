@@ -113,6 +113,7 @@ exports.manageOrder = async (req, res) => {
 exports.cancelorder = async (req, res) => {
   const orderId = req.body.id;
   try {
+    
     const updatedOrder = await orderCollection.findOneAndUpdate(
       { _id: orderId },
       { $set: { status: "Cancel" } },

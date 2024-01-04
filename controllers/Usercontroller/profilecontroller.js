@@ -3,6 +3,7 @@ const { addressCollection } = require('../../model/addressDB')
 const { orderCollection } = require('../../model/orderDB')
 const { contactCollection } = require('../../model/contactDB')
 const { cartCollection } = require('../../model/cartDB')
+const { walletcollection } = require('../../model/wallethistory')
 
 
 
@@ -159,11 +160,12 @@ exports.editaddresspost = async (req, res) => {
             const addressid = req.body.id
 
             const addressedit = await addressCollection.find({ _id: addressid })
-
-            res.render('User/userProfile/editaddress', { addressedit, user })
+            const cartdata = await cartCollection.find({ userId: req.session.userId })
+            const cartcount = cartdata[0]?.products.length
+            res.render('User/userProfile/editaddress', { addressedit, user, cartcount })
         } else {
             const user = false
-            res.render('User/userProfile/editaddress', { addressedit, user })
+            res.render('User/userProfile/editaddress', { addressedit, user, cartcount: 0 })
         }
     } catch (error) {
         console.error("editaddresspost  error" + "= " + error);
@@ -202,6 +204,23 @@ exports.addimagepost = async (req, res) => {
 
 
 
+exports.wallethistory = async (req, res) => {
+    const cartdata = await cartCollection.find({ userId: req.session.userId })
+    const cartcount = cartdata[0]?.products.length
+      // Fetch wallet data
+      const wallet = await walletcollection.find({ userId: req.session.userId });
+        
+      // Fetch wallet amount from UserCollection
+      const user = await UserCollection.findOne({ _id: req.session.userId });
+      const walletAmount = user ? user.wallet : 0;
+
+      // Log wallet data and wallet amount for debugging
+      console.log('Wallet:', wallet);
+      console.log('Wallet Amount from UserCollection:', walletAmount);
+
+      // Render the view with the necessary data
+      res.render('User/userProfile/walllet.ejs', { cartcount, wallet, walletAmount });
+}
 
 
 
@@ -222,7 +241,7 @@ exports.ordersget = async (req, res) => {
             const limit = 8; // Set the number of products per page
             const skip = (page - 1) * limit;
 
-          
+
             // Fetch products with pagination
             const data = await orderCollection.find()
                 .skip(skip)
@@ -239,7 +258,7 @@ exports.ordersget = async (req, res) => {
 
 
 
-            res.render('User/userProfile/order', { orderdata:data,totalPages,currentPage, user, cartcount })
+            res.render('User/userProfile/order', { orderdata: data, totalPages, currentPage, user, cartcount })
         } else {
             const user = false
             res.render('User/userProfile/order', { orderdata, user, cartcount: 0 })
@@ -252,6 +271,7 @@ exports.Returnget = async (req, res) => {
     const orderId = req.body.id;
     const orderdata = await orderCollection.findOne({ _id: orderId });
     const total = orderdata.total
+    const Ordernumber = req.body.Ordernumber;
 
     try {
         const userId = req.session.userId;
@@ -261,6 +281,14 @@ exports.Returnget = async (req, res) => {
             { $inc: { wallet: orderAmount } },
             { new: true }
         );
+
+        // Create a new wallet record or update an existing one in walletcollection
+         const walletRecord = await walletcollection.create({
+            userId: userId,
+            orderId: Ordernumber,
+            transactionAmount: orderAmount,
+            description: "Deposit", 
+        });
         const updatedOrder = await orderCollection.findOneAndUpdate(
             { _id: orderId },
             { $set: { status: "Returned" } },
@@ -268,5 +296,48 @@ exports.Returnget = async (req, res) => {
         );
     } catch (error) {
         console.error("ordersget  error" + "= " + error);
+    }
+};
+
+exports.cancelorder = async (req, res) => {
+    const orderId = req.body.id;
+    const Ordernumber = req.body.Ordernumber;
+
+    const orderdata = await orderCollection.findOne({ _id: orderId });
+    const total = orderdata.total
+    const payment = orderdata.payment
+    console.log(payment);
+    try {
+        if (payment == "online") {
+            const userId = req.session.userId;
+            const orderAmount = total;
+            const updatedUser = await UserCollection.findOneAndUpdate(
+                { _id: userId },
+                { $inc: { wallet: orderAmount } },
+                { new: true }
+            );
+            // console.log(updatedUser);
+            // Create a new wallet record or update an existing one in walletcollection
+            const walletRecord = await walletcollection.create({
+                userId: userId,
+                orderId: Ordernumber,
+                transactionAmount: orderAmount,
+                description: "Deposit", // You can customize the description based on your needs
+            });
+            // console.log(walletRecord);
+        }
+        
+
+        const updatedOrder = await orderCollection.findOneAndUpdate(
+            { _id: orderId },
+            { $set: { status: "Cancel" } },
+            { new: true }
+        );
+
+
+        res.status(200).send('Order is canceled');
+    } catch (error) {
+        console.error('Error canceling order:', error);
+        res.status(500).send('Internal Server Error');
     }
 };

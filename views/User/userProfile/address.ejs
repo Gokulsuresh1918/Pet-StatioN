@@ -2,14 +2,20 @@
 <html lang="en">
 
 <head>
+  <!-- Meta tags for character set and viewport -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Shortcut icon link -->
   <link rel="shortcut icon" href="/img/Cat & Dog 3a.png">
 
+  <!-- Page title -->
   <title>User Details</title>
 
+  <!-- Stylesheets -->
   <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
   <style>
+    /* Custom styles */
     .btn-primary-left {
       margin-right: 10px;
     }
@@ -19,86 +25,89 @@
     }
   </style>
 </head>
+
+<!-- Include layout partials -->
 <%- include('../../partials/layoutpage.ejs') %>
-  <%- include('../../partials/userpartials/header.ejs') %>
+<%- include('../../partials/userpartials/header.ejs') %>
 
-    <body class="g-sidenav-show bg-gray-200">
-      <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        <div class="container-fluid">
+<body class="g-sidenav-show bg-gray-200">
+  <main class="main-content position-relative  border-radius-lg container-fluid">
+    <!-- Add container-fluid class -->
+    <div class="container-fluid">
 
-                <div class="card-body">
-              
-                    <br>
+      <!-- Card body -->
+      <div class="card-body">
 
-                    <a href="/add-address"><button type="button" class="btn btn-primary btn-primary-left"
-                        style="padding-top: 10px;">Add Address</button></a>
-                    <% if(locals.message){ %>
-                      <p style="color: red;font-size: large;">
-                        <%= message %>
-                      </p>
-                      <% } %>
-                        <h5>PRIMARY ADDRESS</H5>
-                        <% address.forEach((row,index)=>{ %>
+        <br>
 
-                          <form method="post" action="/edit-address">
-                            <!-- Form content... -->
-                            <div class="row">
-                              <div class="col-md-6">
-                                <br>
+        <!-- Add Address button -->
+        <a href="/add-address"><button type="button" class="btn btn-primary btn-primary-right"
+            style="padding-top: 10px;">Add Address</button></a>
+        <% if(locals.message){ %>
+        <!-- Display message if exists -->
+        <p style="color: red;font-size: large;">
+          <%= message %>
+        </p>
+        <% } %>
+        <% address.forEach((row,index)=>{ %>
 
+        <!-- Edit Address Form -->
+        <form method="post" action="/edit-address">
+          <!-- Form content... -->
+          <div class="row">
+            <div class="col-md-6">
+              <br>
 
-                                <input type="hidden" value="<%=row._id%>" name="id">
+              <!-- Hidden input for address ID -->
+              <input type="hidden" value="<%=row._id%>" name="id">
 
-                                <h2>
-                                  <%= row.name %>
-                                </h2>
+              <h2>
+                <%= row.name %>
+              </h2>
 
-                                <h5>
-                                  <%=row.address %>
-                                </h5>
-                                <h6>
-                                  District: <%= row.district %>
-                                </h6>
-                                <h6>
-                                  State: <%= row.state %>
-                                </h6>
+              <h5>
+                <%=row.address %>
+              </h5>
+              <h6>
+                District: <%= row.district %>
+              </h6>
+              <h6>
+                State: <%= row.state %>
+              </h6>
 
-                              </div>
-                              <div class="col-md-6">
-                                <br>
-                                <br>
-                                <br>
+            </div>
+            <div class="col-md-6">
+              <br>
+              <br>
+              <br>
 
-                                <h6>
-                                  Pin: <%= row.pincode %>
-                                </h6>
+              <h6>
+                Pin: <%= row.pincode %>
+              </h6>
 
-                                <h6>
-                                  Phone:<%= row.phone %>
-                                </h6>
-                                <h6>
-                                  E-mail: <%= row.email %>
-                                </h6>
+              <h6>
+                Phone:<%= row.phone %>
+              </h6>
+              <h6>
+                E-mail: <%= row.email %>
+              </h6>
 
+            </div>
+          </div>
 
-                              </div>
-                            </div>
-                           
+          <!-- Form submission button -->
+          <div class="form-group mt-4">
+            <button type="submit" class="btn btn-secondary btn-primary-right"
+              style="padding-top: 10px;">Edit Address</button>
+          </div>
+        </form>
 
-                            <div class="form-group mt-4">
+        <br>
+        <%})%>
 
-                              <button type="submit" class="btn btn-secondary btn-primary-right"
-                                style="padding-top: 10px;">Edit Address</button>
-                            </div>
-                          </form>
+      </div>
+    </div>
+  </main>
 
-                          <br>
-                          <%})%>
-
-                  </div>
-               
-          
-        </div>
-      </main>
-      <%- include('../../partials/userpartials/footer.ejs') %>
-      </body>
+</body>
+</html>

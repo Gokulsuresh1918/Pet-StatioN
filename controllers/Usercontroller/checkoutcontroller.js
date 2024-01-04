@@ -6,6 +6,7 @@ const { contactCollection } = require('../../model/contactDB')
 const { CouponCollection } = require('../../model/couponDB')
 const Razorpay = require('razorpay');
 const { UserCollection } = require('../../model/userDB')
+const { walletcollection } = require('../../model/wallethistory')
 const { loginGet } = require('./publiccontroller')
 
 exports.checkoutget = async (req, res) => {
@@ -104,9 +105,9 @@ exports.confirmationpost = async (req, res) => {
             const userId = req.session.userId;
             const productDetails = req.body.orderDetails;
             //stock management
-            const productid = productDetails.map(ele=>ele.productId)
+            const productid = productDetails.map(ele => ele.productId)
             const stockmanage = await productCollection.findOne({ _id: productid })
-            stockmanage.qty-=Number(productDetails[0].quantity)
+            stockmanage.qty -= Number(productDetails[0].quantity)
             stockmanage.save()
 
             const paymentMode = req.body.paymentMode
@@ -132,7 +133,7 @@ exports.confirmationpost = async (req, res) => {
             const userId = req.session.userId;
             const orderNumber = generateOrderNumber();
             const cartDetails = await cartCollection.findOne({ userId: userId })
-                 
+
             const address = await addressCollection.findById(data.notes.address)
             const productDetails = cartDetails.products.map(product => ({
                 productId: product.productId,
@@ -140,15 +141,15 @@ exports.confirmationpost = async (req, res) => {
                 uniquePriceTotal: Number(product.price) * Number(product.quantity)
             }));
             const currentstatus = "pending"
-//here i done stock managewment
+            //here i done stock managewment
 
 
 
-              //stock management
-              const productid = productDetails.map(ele=>ele.productId)
-              const stockmanage = await productCollection.findOne({ _id: productid })
-              stockmanage.qty-=Number(productDetails[0].quantity)
-              stockmanage.save()
+            //stock management
+            const productid = productDetails.map(ele => ele.productId)
+            const stockmanage = await productCollection.findOne({ _id: productid })
+            stockmanage.qty -= Number(productDetails[0].quantity)
+            stockmanage.save()
             const paymentMode = data.notes.payment
             const total = productDetails.reduce((acc, product) => acc + product.uniquePriceTotal, 0);
             const newOrder = new orderCollection({
@@ -162,7 +163,13 @@ exports.confirmationpost = async (req, res) => {
 
             });
 
-
+            // Create a new wallet record or update an existing one in walletcollection
+            const walletRecord = await walletcollection.create({
+                userId: userId,
+                orderId: Ordernumber,
+                transactionAmount: orderAmount,
+                description: "Deposit", // You can customize the description based on your needs
+            });
             await newOrder.save();
             await cartCollection.deleteMany({})
             return res.redirect('/confirmation')
@@ -251,6 +258,13 @@ exports.walletorder = async (req, res) => {
             });
             const walletDeduction = Math.min(walletAmount, total);
             await newOrder.save();
+            // Create a new wallet record or update an existing one in walletcollection
+            const walletRecord = await walletcollection.create({
+                userId: userId,
+                orderId: orderNumber,
+                transactionAmount: total,
+                description: "Debited", // You can customize the description based on your needs
+            });
             await UserCollection.findByIdAndUpdate(userId, { $inc: { wallet: -walletDeduction } });
             await cartCollection.deleteMany({});
             res.status(200).json({ success: true, message: 'Order placed successfully!' });

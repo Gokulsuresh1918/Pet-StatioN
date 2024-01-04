@@ -122,8 +122,10 @@
                                                         <label for="name" class="form-label">Name:</label>
                                                         <input type="text" class="form-control" id="name" name="name"
                                                             required>
-                                                        <div id="nameError" style="color: red;" class="error-message"></div>
+                                                        <div id="nameError" style="color: red;" class="error-message">
+                                                        </div>
                                                     </div>
+
                                                     <div class="mb-3">
                                                         <label for="category" class="form-label">Category Name:</label>
                                                         <select class="form-select" id="category" name="category"
@@ -135,46 +137,52 @@
                                                                 <% }) %>
                                                         </select>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="image" class="form-label">Image:</label>
                                                         <input type="file" class="form-control" id="fileUploader"
                                                             name="image" data-image-preview="#imagePreview"
                                                             accept=".jpg, .jpeg, .png, .gif" required multiple>
-                                                        <div id="imageError"style="color: red;" class="error-message"></div>
-
+                                                        <div id="imageError" style="color: red;" class="error-message">
+                                                        </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="description" class="form-label">Description:</label>
                                                         <input type="text" class="form-control" id="description"
                                                             name="description" required>
-                                                        <div id="descriptionError"style="color: red;" class="error-message"></div>
+                                                        <div id="descriptionError" style="color: red;"
+                                                            class="error-message"></div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="price" class="form-label">Price:</label>
                                                         <input type="number" class="form-control" id="price"
                                                             name="price" required>
-                                                        <div id="priceError"style="color: red;" class="error-message"></div>
+                                                        <div id="priceError" style="color: red;" class="error-message">
+                                                        </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="qty" class="form-label">Qty:</label>
                                                         <input type="number" class="form-control" id="qty" name="qty"
                                                             required>
-                                                        <div id="qtyError"style="color: red;" class="error-message"></div>
+                                                        <div id="qtyError" style="color: red;" class="error-message">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div id="imagePreview">
-                                                    <a style="position: absolute; top: 0; right: 0; color: red" class="fas fa-times "
-                                                    href=""></a>
-                                            
-                                                </div>
-                                                  
 
+                                                <div id="imagePreview">
+                                                    <a style="position: absolute; top: 0; right: 0; color: red"
+                                                        class="fas fa-times " href=""></a>
+                                                </div>
                                             </div>
+
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
                                         </form>
+
 
                                     </div>
                                 </div>
@@ -193,9 +201,10 @@
                 </div>
                 <section class="cropper110-page">
                     <div class="cropper110-box">
-                        <div class="cropper110-cropping-box"></div>
+                        <!-- Container for the image -->
+                        <div id="croppingBox" class="cropper110-cropping-box"></div>
                     </div>
-
+        
                     <div>
                         <button class="cropper110-crop mx-3">Crop</button>
                     </div>
@@ -206,56 +215,60 @@
 
 <script>
     function validateForm() {
-        let name = document.getElementById("name").value;
-        let description = document.getElementById("description").value;
-        let price = document.getElementById("price").value;
-        let qty = document.getElementById("qty").value;
-        let image = document.getElementById("fileUploader").value;
-
-        // Reset previous error messages
+        // Reset error messages
         document.getElementById("nameError").innerHTML = "";
+        document.getElementById("imageError").innerHTML = "";
         document.getElementById("descriptionError").innerHTML = "";
         document.getElementById("priceError").innerHTML = "";
         document.getElementById("qtyError").innerHTML = "";
-        document.getElementById("imageError").innerHTML = "";
 
-        // Validate name (only letters and spaces)
-        let nameRegex = /^[a-zA-Z ]+$/;
-        if (!nameRegex.test(name)) {
-            document.getElementById("nameError").innerHTML = "Name should only contain letters and spaces.";
-            return false;
+        // Validation logic
+        let isValid = true;
+
+        // Name validation
+        const name = document.getElementById("name").value;
+        if (name.trim() === "") {
+            document.getElementById("nameError").innerHTML = "Name is required";
+            isValid = false;
+        } else if (name.trim().length < 4) {
+            document.getElementById("nameError").innerHTML = "Name must be at least 4 characters";
+            isValid = false;
         }
 
-        // Validate description (only letters and basic punctuation)
-        if (test(description)) {
-            document.getElementById("descriptionError").innerHTML = "Description should contain ";
-            return false;
+        // Image validation (You can add more specific image validation if needed)
+        const image = document.getElementById("fileUploader").value;
+        if (image.trim() === "") {
+            document.getElementById("imageError").innerHTML = "Image is required";
+            isValid = false;
         }
 
-        // Validate price (positive number)
-        if (isNaN(price) || price <= 0) {
-            document.getElementById("priceError").innerHTML = "Price should be a positive number.";
-            return false;
+        // Description validation
+        const description = document.getElementById("description").value;
+        if (description.trim() === "") {
+            document.getElementById("descriptionError").innerHTML = "Description is required";
+            isValid = false;
+        } else if (description.trim().length < 10) {
+            document.getElementById("nameError").innerHTML = "description must be at least 10 characters";
+            isValid = false;
         }
 
-        // Validate qty (positive integer)
-        if (!Number.isInteger(Number(qty)) || qty <= 0) {
-            document.getElementById("qtyError").innerHTML = "Quantity should be a positive integer.";
-            return false;
+        // Price validation
+        const price = document.getElementById("price").value;
+        if (isNaN(price) || price < 0) {
+            document.getElementById("priceError").innerHTML = "Price should be a non-negative number";
+            isValid = false;
         }
 
-        // Validate image (optional: check if file is selected)
-        if (!image) {
-            document.getElementById("imageError").innerHTML = "Please select an image.";
-            return false;
+        // Quantity validation
+        const qty = document.getElementById("qty").value;
+        if (isNaN(qty) || qty < 0) {
+            document.getElementById("qtyError").innerHTML = "Quantity should be a non-negative number";
+            isValid = false;
         }
 
-        // Additional validation logic can be added here
-
-        return true;
+        return isValid;
     }
 </script>
-
 
 </html>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
@@ -277,7 +290,6 @@
                 let img = document.createElement('img')
                 img.src = imgSrc
                 img.dataset.fileName = each.name
-                console.log(fileInput.id, 'file inut id')
                 img.dataset.input = fileInput.id
                 img.addEventListener('click', cropImage)
                 previewDiv.append(img)

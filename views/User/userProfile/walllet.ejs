@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <title>Wallet Management</title>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background-color: #ff69b4;
+      color: #fff;
+    }
+
+    .brand {
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand img {
+      margin-right: 10px;
+      height: 30px;
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .card {
+      margin-top: 50px;
+    }
+
+    #balance {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #history-table {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+    <%-include('../../partials/layoutpage.ejs') %>
+  <%- include('../../partials/userpartials/header.ejs') %>
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header">
+            <h3 style="font-weight: bold;" class="text-center">Wallet Management</h3>
+          </div>
+          <div class="card-body">
+            <div class="text-center mb-3">
+              <h4>Current Balance</h4>
+              <p style="color: green;" id="balance">₹<%= walletAmount %></p>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="history-table">
+      <div class="col-md-8 offset-md-2">
+        <h3 class="text-center mb-4">Transaction History</h3>
+        <% if (wallet!="") { %>
+        <table class="table table-bordered">
+            <table>
+                
+                
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Order ID</th>
+                        <th>Type</th>
+                    </tr>
+                    <% } %>
+                </thead>
+                <tbody>
+                    <% wallet.forEach(transaction => { %>
+                        <tr>
+                            <td style="width: 150px;"><%= transaction.createdAt.toISOString().slice(0, 10) %></td>
+                            <td style="width: 130px;"><%= transaction.transactionAmount %></td>
+                            <td style="width: 260px;"><%= transaction.orderId %></td>
+                            
+                            <td style=" <%= transaction.description === 'Deposit' ? 'color: green;' : 'color: red;' %>">
+                                <%= transaction.description %>
+                            </td>
+                            
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <br><br>
+      </div>
+    </div>
+  </div>
+<%- include('../../partials/userpartials/footer.ejs') %>
+  <!-- Add your styles or link to a stylesheet here -->
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

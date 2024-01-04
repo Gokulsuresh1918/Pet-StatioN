@@ -233,7 +233,7 @@ exports.salesReport = async (req, res) => {
 
       doc.moveDown(); // Move down after the title
       doc.font("Helvetica-Bold").text(`Sales Report `, { font: 10, align: "center", margin: 10 });
-      doc.font("Helvetica-Bold").text(` From  ${startingDate.getDay()}-${startingDate.getMonth()}-${startingDate.getFullYear()}  To ${endingDate.getDay()}- ${endingDate.getMonth()}- ${endingDate.getFullYear()} `, { font: 14, align: "center", margin: 10 });
+      doc.font("Helvetica-Bold").text(` From  ${startingDate.getDay()}-${startingDate.getMonth()+1}-${startingDate.getFullYear()}  To ${endingDate.getDay()}- ${endingDate.getMonth()+1}- ${endingDate.getFullYear()} `, { font: 14, align: "center", margin: 10 });
 
       doc.moveDown(); // Move down after the title
       const tableData = {
