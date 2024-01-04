@@ -141,6 +141,9 @@ exports.confirmationpost = async (req, res) => {
             }));
             const currentstatus = "pending"
 //here i done stock managewment
+
+
+
               //stock management
               const productid = productDetails.map(ele=>ele.productId)
               const stockmanage = await productCollection.findOne({ _id: productid })
