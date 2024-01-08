@@ -320,7 +320,7 @@
             fetch(imgSrc)
                 .then(res => res.blob())
                 .then(blob => {
-                    console.log(imgNames)
+                    // console.log(imgNames)
                     let file = new File([blob], `${imgNames}-${Date.now()}.png`, { type: "image/jpeg" })
                     const dt = new DataTransfer()
                     for (let each of fileUploader.files) {
@@ -331,7 +331,7 @@
                         }
                     }
                     fileUploader.files = dt.files
-                    console.log(fileUploader.files)
+                    // console.log(fileUploader.files)
                     let previewDiv = document.querySelector(fileUploader.dataset.imagePreview)
                     previewDiv.innerHTML = ""
                     let res = ""

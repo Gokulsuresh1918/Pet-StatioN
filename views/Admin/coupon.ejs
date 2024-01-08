@@ -352,7 +352,7 @@
             return response.json();
           })
           .then(data => {
-            console.log(data);
+            // console.log(data);
             Swal.fire('Deleted!', 'Your coupon has been deleted.', 'success');
             window.location.reload();
           })
@@ -374,7 +374,7 @@
         .then(response => response.json())
         .then(data => {
           // Check if the elements are found
-          console.log(document.getElementById('code'));
+          // console.log(document.getElementById('code'));
 
           // Update the modal fields with the fetched data
           document.getElementById('code').value = data.code;

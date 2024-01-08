@@ -20,11 +20,30 @@ const { log } = require("console");
 //OrderGet------------------------------------------------------------------------
 exports.orderGet = async (req, res) => {
   try {
-    const orderdata = await orderCollection.find();
+    const pages = parseInt(req.query.page) || 1;
+    const limit = 7; // Set the number of products per page
+    const skip = (pages - 1) * limit;
+
+    const orderdata = await orderCollection.find().skip(skip)
+    .limit(limit)
     orderdata.reverse()
     const addresses = orderdata.map(order => order.address);
 
-    res.render("Admin/order", { orderdata, addresses,page:4});
+    // Pagination
+    
+
+    // Fetch products with pagination
+   
+    
+    const totalorders = await orderCollection.countDocuments();
+
+    // Calculate total number of pages
+    const totalPages = Math.ceil(totalorders / limit);
+    
+    // Adjust current page if it exceeds total pages
+    const currentPage = Math.min(pages, totalPages);
+    console.log(currentPage,"   ",totalPages);
+    res.render("Admin/order", { orderdata, addresses,currentPage,totalPages, page: 4 });
   } catch (error) {
     console.error('Error fetching order details:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -60,12 +79,12 @@ exports.viewProductOrder = async (req, res) => {
 
 exports.viewAddressOrder = async (req, res) => {
   const orderid = req.body.id
-   const orderData = await orderCollection.findOne({ _id: orderid });
+  const orderData = await orderCollection.findOne({ _id: orderid });
   const addressDetails = orderData.address;
   res.status(200).json(addressDetails);
 };
 
- 
+
 
 exports.manageOrder = async (req, res) => {
   const orderId = req.body.id
@@ -88,14 +107,14 @@ exports.manageOrder = async (req, res) => {
       );
       res.status(200).send('Order is canceled');
 
-    }else if(statusOfOrder == "delivered"){
+    } else if (statusOfOrder == "delivered") {
       const updatedOrder = await orderCollection.findOneAndUpdate(
         { _id: orderId },
         { $set: { status: "Delivered" } },
         { new: true }
       );
       res.status(200).send('Order is canceled');
-    }else if(statusOfOrder == "Shipped"){
+    } else if (statusOfOrder == "Shipped") {
       const updatedOrder = await orderCollection.findOneAndUpdate(
         { _id: orderId },
         { $set: { status: "Shipped" } },
@@ -113,7 +132,7 @@ exports.manageOrder = async (req, res) => {
 exports.cancelorder = async (req, res) => {
   const orderId = req.body.id;
   try {
-    
+
     const updatedOrder = await orderCollection.findOneAndUpdate(
       { _id: orderId },
       { $set: { status: "Cancel" } },

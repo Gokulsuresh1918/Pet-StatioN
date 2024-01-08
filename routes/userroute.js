@@ -4,10 +4,10 @@ const router = express.Router();
 
 const { homeGet, contactGet, contactpost, aboutget ,categoryfilter} = require('../controllers/Usercontroller/authenticationcontroller')
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
-const { shopget, productView,wishlistget,wishlistdataget, shopsearch ,quantityUpdation} = require('../controllers/Usercontroller/shop&productcontroller')
+const { shopget, productView,wishlistget,wishlistdataget, shopsearch ,quantityUpdationget,quantityUpdation} = require('../controllers/Usercontroller/shop&productcontroller')
 const { cartGet, addcartpost, clearcartget, removeItem,clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')
 const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder,couponapply } = require('../controllers/Usercontroller/checkoutcontroller')
-const { profileGet, addressGet,addimagepost,wallethistory, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget,cancelorder } = require('../controllers/Usercontroller/profilecontroller')
+const { profileGet, addressGet,addimagepost,wallethistory,downloadinvoice, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget,cancelorder } = require('../controllers/Usercontroller/profilecontroller')
 const { forgetpass, forgetpasspost, resendpost, otpGet, otppost, resendotpget } = require('../controllers/Usercontroller/otp&passcontroller')
 // Importing middleware functions
 const { usersession } = require('../middleware/userAuth');
@@ -67,6 +67,7 @@ router.get('/edit-address/:id', usersession, editaddressGet);
 router.post('/edit-address', usersession, editaddresspost);
 router.post('/addimage', usersession, addimagepost);
 router.get('/wallet', usersession, wallethistory);
+router.get('/downloadinvoice/:id', usersession, downloadinvoice);
 
 //order routes
 router.get('/orders', usersession, ordersget);

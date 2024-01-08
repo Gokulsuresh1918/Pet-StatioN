@@ -47,7 +47,7 @@ exports.UserGet = async (req, res) => {
     const limit = 5; // Set the number of products per page
     const skip = (page - 1) * limit;
 const demo = await UserCollection.find()
-console.log(demo);
+// console.log(demo);
     // Fetch products with pagination
     const data = await UserCollection.find()
         .skip(skip)
@@ -74,7 +74,7 @@ exports.blockUser = async (req, res) => {
         console.log('Blocked user');
 
         const userId = req.query.userid;
-        console.log(userId);
+        // console.log(userId);
         // Find user by ID      
         const user = await UserCollection.findOne({_id:userId});
         if (!user) {

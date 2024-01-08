@@ -80,9 +80,10 @@
                             <td style="padding-left: 25px;">
                               <%= order.payment %>
                             </td>
-                            <% if (order.status!=="Delivered"&&order.status!=="Returned"&&order.status!=="Cancel" ) { %>
-                            <td>
-                              <div class="dropdown" style="width: 150px; border-radius: 10px;">
+                            <% if (order.status!=="Delivered" &&order.status!=="Returned" &&order.status!=="Cancel" ) {
+                              %>
+                              <td>
+                                <div class="dropdown" style="width: 150px; border-radius: 10px;">
 
                                   <select class="status" id="status" onchange="statusOfOrder('<%= order.id %>', value)"
                                     style="border-radius: 10px; background-color: #f8f9fa; color: #D81B60; border: 1px solid #D81B60;">
@@ -100,21 +101,40 @@
                                               <% } %>
                                                 <option style="color: black;" value="delivered">Delivered</option>
                                   </select>
-                                  
-                                  
+
+
                                 </div>
                               </td>
                               <% } else if (order.status=="Returned" ) { %>
                                 <td>Returned</td>
-                              <% } else  if (order.status=="Cancel" ) {%>
-                                <td>Cancelled</td>
-                                <% }else{ %>
-                                  <td>Delivered</td>
-                                  <% } %>
+                                <% } else if (order.status=="Cancel" ) {%>
+                                  <td>Cancelled</td>
+                                  <% }else{ %>
+                                    <td>Delivered</td>
+                                    <% } %>
                           </tr>
                           <% }) %>
                       </tbody>
                     </table>
+
+                    <div class="pagination justify-content-center mt-2 mb-2">
+                      <% if (currentPage> 1) { %>
+                        <a href="?page=<%= currentPage - 1 %>" class="prev-arrow" aria-label="Previous">
+                          <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                        </a>
+                        <% } %>
+                          <% for (let i=1; i <=totalPages; i++) { %>
+                            <a href="?page=<%= i %>"
+                              class="<%= i === currentPage ? 'active page-link' : 'page-link' %>">
+                              <%= i %>
+                            </a>
+                            <% } %>
+                              <% if (currentPage < totalPages) { %>
+                                <a href="?page=<%= currentPage + 1 %>" class="next-arrow" aria-label="Next">
+                                  <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                </a>
+                                <% } %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -256,7 +276,6 @@
   //addresspopup integration
 
   function openAddressPopup(orderid) {
-    console.log("vannu");
     var modal = document.getElementById('addressModal');
     var modalContent = document.getElementById('addressModalContent');
 
@@ -323,7 +342,7 @@
 
     fetch('/admin/manageOrder', {
       method: "POST",
-      body: JSON.stringify({ id: orderid ,value:selectedvalue}),
+      body: JSON.stringify({ id: orderid, value: selectedvalue }),
       headers: {
         "Content-Type": "application/json",
       }
@@ -335,75 +354,13 @@
       .catch((error) => {
         console.error('Error:', error);
       });
-      window.location.reload()
+    window.location.reload()
   };
 
-  
-
-    // if (selectedvalue == "Pending") {
-    //   pendingorder(orderid)
-    // } else if (selectedvalue == "Cancel") {
-    //   cancelorder(orderid)
-    // } else if (selectedvalue == "delivered") {
-    //   deliveredorder(orderid)
-    // }
 
 
-  // function pendingorder(orderid) {
-  //   fetch('/admin/pendingOrder', {
-  //     method: "POST",
-  //     body: JSON.stringify({ id: orderid }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     }
-  //   })
-  //     .then((res) => {
-  //       console.log('Response from server:', res);
-  //       window.location.reload()
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-
-  // };
 
 
-  // function deliveredorder(orderid) {
-  //   fetch('/admin/deliveryOrder', {
-  //     method: "POST",
-  //     body: JSON.stringify({ id: orderid }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     }
-  //   })
-  //     .then((res) => {
-  //       console.log('Response from server:', res);
-  //       window.location.reload()
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-
-  // };
-
-
-  // function cancelorder(orderid) {
-  //   fetch('/admin/cancelOrder', {
-  //     method: "POST",
-  //     body: JSON.stringify({ id: orderid }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     }
-  //   })
-  //     .then((res) => {
-  //       console.log('Response from server:', res);
-  //       window.location.reload()
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-
-  // }
 
 
 </script>

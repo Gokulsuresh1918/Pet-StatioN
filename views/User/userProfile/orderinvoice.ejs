@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body >
+    <header class="fixed-bottom bg-light p-3 d-flex justify-content-end">
+        <button onclick="downloadSaleReport()" class="btn btn-primary">Download</button>
+    </header>
+
+    <div class="container mt-3">
+        <div class="overflow-x-hidden">
+            <div class="overflow-auto">
+                <div class="border-bottom mt-5 mb-5 p-4">
+                    <div class="d-md-flex justify-content-between">
+                        <h2 class="text-2xl mb-2 font-weight-bold">ORDER #<%= order.Ordernumber %></h2>
+                        <p class="font-medium">Date:<%= new Date(order.createdAt).toLocaleDateString("en-US", {
+                            weekday: 'short',
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        }) %></p>
+                    </div>
+                    <div>
+                        <p>User Id : <%= order.userId %></p>
+                        <p><span style="font-weight: bold;" > Order Status :</span> 
+                            <% if (order.status == 'delivered') { %>
+                                <span class="text-success">DELIVERED</span>
+                            <% } else if (order.status == 'cancelled') { %>
+                                <span class="text-danger">CANCELLED</span>
+                            <% } else if (order.status == 'pending') { %>
+                                <span class="text-warning">PENDING</span>
+                            <% } else if (order.status == 'confirmed') { %>
+                                <span class="text-warning">CONFIRMED</span>
+                            <% } else if (order.status == 'Returned') { %>
+                                <span class="text-warning">Returned</span>
+                            <% } %>
+                        </p>
+                        <p> <span style="font-weight: bold;" > Payment Mode :</span> <%= order.payment %></p>
+                       
+                        <div class="d-md-flex justify-content-between ">
+                            <p class="flex p-3 md:p-0">
+                                <span style="font-weight: bold;" >Shipping Address :</span>
+                                <br>
+                                <span>
+                                    <%= order.address?.name %> <br>
+                                    <%= order.address?.address %> <br>
+                                    <%= order.address?.district %> <br>
+                                    <%= order.address?.phone %> <br>
+                                    <%= order.address?.email %> <br>
+                                    <%= order.address?.pincode %> <br>
+                                    <%= order.address?.state %> <br>
+                                </span>
+                            </p>
+                            
+                            <p class="text-xl font-weight-bold">
+                                <span class="text-success"><%= order.status %></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+                        <div class="flex flex-col rounded-lg bg-white flex-md-row">
+                       
+                            <div class="flex w-full flex-md-col px-4 py-4">
+                                <span class="font-weight-bold"><span style="font-weight: bold;  padding-right: 7px;">Name:</span><%= product.name %></span>
+                                <span class="float-md-end text-gray-600"> <span style="font-weight: bold;  padding-right: 7px;">Price :</span>₹<%= product.price %></span>
+                                <br>
+                                <span class="float-md-end text-gray-600"><span style="font-weight: bold;  padding-right: 7px;">Quantity :</span> <%= product.qty %></span>
+                                <p class="text-lg font-weight-bold"><span style="font-weight: bold;  padding-right: 7px;">Total:</span>₹<%= product.price * product.qty %></p>
+                            </div>
+                        </div>
+                </div>
+                
+                <div class="border-top mt-5 mb-5 p-4">
+                    <p class="text-xl font-weight-bold"><span style="font-weight: bold;  padding-right: 7px;">SUB TOTAL  :</span> ₹<%= product.price %></p>
+                    <p class="text-xl font-weight-bold"><span style="font-weight: bold;  padding-right: 7px;">Quantity :</span> <%= product.qty %></p>
+                    <p class="text-xl font-weight-bold"> <span style="font-weight: bold;  padding-right: 7px;">GRAND TOTAL  :</span>₹<%= product.price * product.qty %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../../partials/adminpartials/footer.ejs') %>
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+<script>
+    function downloadSaleReport() {
+        window.print();
+    }
+  </script>
+</html>

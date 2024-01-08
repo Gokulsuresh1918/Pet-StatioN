@@ -246,74 +246,7 @@
       </script>
 
 
-      <!-- <script>
-        let pluses = document.getElementsByClassName('plus');
-        let minuses = document.getElementsByClassName('minus');
-        let amounts = document.getElementsByClassName('amount');
-
-        for(let i=0; i< pluses.length; i++){
-
-            pluses[i].addEventListener("click",function (){
-                amounts[i].innerHTML = parseInt(amounts[i].innerHTML) +1;
-                let itemId = this.dataset.itemId;
-                let newAmount = parseInt(amounts[i].innerHTML);
-                fetch('/updateCart',{
-                    method:'POST',
-                    headers:{
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({itemId:itemId, amount:newAmount}),
-                    
-                })
-                .then(response => response.json())
-                .then(data=>{
-                    console.log('Success:', data);
-                })
-                .catch((error)=>{
-                    console.error('Error:', error);
-                });
-                
-                window.location.reload();
-            });
-                
-            minuses[i].addEventListener("click", function(){
-                
-                if(parseInt(amounts[i].innerHTML) > 1){
-                    
-                    amounts[i].innerHTML = parseInt(amounts[i].innerHTML) -1;
-                }
-                minuses[i].style.display = (parseInt(amounts[i].innerHTML)===1)? 'none': 'inline-block';
-
-                    let itemId = this.dataset.itemId;
-                    console.log(itemId);
-                    let newAmount = parseInt(amounts[i].innerHTML);
-
-                    if(newAmount>0){
-                    
-                        fetch('/updateCart',{
-                            method:'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-
-                            },
-                            body:JSON.stringify({itemId: itemId,amount:newAmount}),
-                        })
-                        .then(response => response.json())
-                    .then(data => {
-                    console.log('Success:', data);
-                    })
-                    .catch((error) => {
-                    console.error('Error:', error);
-                    });
-                    window.location.reload();
-                    
-                }
-            });
-
-            minuses[i].style.display = (parseInt(amounts[i].innerHTML)===1)? 'none': 'inline-block';
-        }
-
-    </script> -->
+  
 
       <!--================End Cart Area =================-->
 
@@ -365,7 +298,7 @@
 
             <script>
               function removeItem(productId) {
-                console.log(productId);
+                // console.log(productId);
                 fetch(`/removeItem/${productId}`,
                   {
                     method: 'DELETE',
