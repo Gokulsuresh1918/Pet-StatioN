@@ -19,7 +19,7 @@ exports.shopget = async (req, res) => {
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
 
-            const categories = await categoryCollection.find({}, 'categoryname');
+            const categories = await categoryCollection.find({blockStatus:true}, 'categoryname');
             categoryNames = categories.map(category => category.categoryname);
 
 
@@ -29,8 +29,9 @@ exports.shopget = async (req, res) => {
             const limit = 4; // Set the number of products per page
             const skip = (page - 1) * limit;
 
+         
             // Fetch products with pagination
-            const data = await productCollection.find()
+            const data = await productCollection.find({blockStatus:true})
                 .skip(skip)
                 .limit(limit);
             data.reverse()
@@ -41,6 +42,7 @@ exports.shopget = async (req, res) => {
 
             // Adjust current page if it exceeds total pages
             const currentPage = Math.min(page, totalPages);
+          
 
             res.render('User/shop', { productdata: data, user, cartcount, totalPages, currentPage, categoryNames })
         } else {
@@ -53,7 +55,7 @@ exports.shopget = async (req, res) => {
             const limit = 4; // Set the number of products per page
             const skip = (page - 1) * limit;
             // Fetch products with pagination
-            const data = await productCollection.find()
+            const data = await productCollection.find({blockStatus:true})
                 .skip(skip)
                 .limit(limit);
             data.reverse()

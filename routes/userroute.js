@@ -36,6 +36,7 @@ router.get('/productview/:id',usersession, productView);
 
 
 
+
 // Cart routes
 router.get('/cart', usersession, cartGet);
 router.post('/addcart', usersession, addcartpost);

@@ -26,7 +26,12 @@ const productschema = new mongoose.Schema({
     image:[{
         type:String,
         // required:true
-    }]
+    }],
+    blockStatus: {
+        type: Boolean,
+        default: false,
+        required: true
+    }
 
 });
 

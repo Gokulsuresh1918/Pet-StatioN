@@ -11,7 +11,7 @@ const { reviewget, UserGet, blockUser, } = require('../controllers/Admincontroll
 const { couponGet, couponpost, couponDelete, editCoupon, offerGet, offerpost, salesReport } = require('../controllers/Admincontroller/couponcontroller')
 const { orderGet, viewProductOrder, viewAddressOrder, manageOrder,cancelorder } = require('../controllers/Admincontroller/ordercontroller')
 const { categoryGet, categorypost, addcategoryGet, addcategoryPost, editcategoryGet, editcategoryPost, blockcategory, } = require('../controllers/Admincontroller/categorycontroller')
-const { productGet, productpost, productaddGet, productaddpost, editproductGet, editproductpost, imagedelete, } = require('../controllers/Admincontroller/productcontroller')
+const { productGet, productpost, productaddGet, productaddpost,productdelete, editproductGet, editproductpost, imagedelete, } = require('../controllers/Admincontroller/productcontroller')
 
 
 
@@ -70,6 +70,7 @@ router.get('/productdetails', adminSession, productGet);
 router.get('/productadd', adminSession, productaddGet);
 router.post('/productadd', upload.array('image', 4), adminSession, productaddpost);
 router.get('/productedit/:id', adminSession, editproductGet);
+router.get('/productdelete/:id', adminSession, productdelete);
 router.post('/productedit/:id', upload.array('image', 4), adminSession, editproductpost);
 router.get('/:image/:id', adminSession, imagedelete);
 

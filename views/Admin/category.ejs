@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/assets/css/material-dashboard.css">
   <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
   <link rel="stylesheet" href="/assets/css/material-dashboard.min.css">
-  <link rel="shortcut icon" href="/img/Cat & Dog 3a.png">
+  <link rel="shortcut icon" href="/img/aksharalogo.png">
 
   <title>
     Category Dashboard
@@ -74,9 +74,9 @@
                               <td style="max-width: 80px;white-space:break-spaces;word-break: break-all;"><%= row.description %></td>
                               <td><a href="/admin/editcategory/<%= row._id %>"><button class="btn btn-success dltBtn">Edit</button></a></td>
                               <td>
-                                  <a href="blockcategory/<%= row._id %>">
-                                      <button class="btn btn-<%= row.blockStatus ? 'success' : 'danger' %>">
-                                          <%= row.blockStatus ? 'Recover' : 'Delete' %>
+                                  <a href="/admin/blockcategory/<%= row._id %>">
+                                      <button class="btn btn-<%= row.blockStatus ? 'danger' : 'success' %>">
+                                          <%= row.blockStatus ? 'Delete' : 'Recover' %>
                                       </button>
                                   </a>
                               </td>

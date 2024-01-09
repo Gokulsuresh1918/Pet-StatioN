@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
   <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
-  <link rel="shortcut icon" href="/img/Cat & Dog 3a.png">
+  <link rel="shortcut icon" href="/img/aksharalogo.png">
 
   <link rel="stylesheet" href="/assets/css/material-dashboard.css">
   <link rel="stylesheet" href="/assets/css/material-dashboard.css.map">
@@ -66,6 +66,7 @@
 
                             <th>Details</th>
                             <th>Action</th>
+                            <th>Delete</th>
                           </tr>
                         </thead>
 
@@ -103,6 +104,13 @@
                                 <%= row.qty %>
                               </td>
                               <td><a href="/admin/productedit/<%= row._id%>"><button class="btn btn-success">Edit</button></a></td>
+                              <td>
+                                <a href="/admin/productdelete/<%= row._id %>">
+                                    <button class="btn btn-<%= row.blockStatus ? 'danger' : 'success' %>">
+                                        <%= row.blockStatus ? 'Delete' : 'Recover' %>
+                                    </button>
+                                </a>
+                            </td>
                               <%})%>
                             </tr>
                             <%}%>

@@ -107,6 +107,18 @@ exports.editproductGet = async (req, res) => {
     }
 }
 
+
+exports.productdelete = async (req, res) => {
+    try {
+        const productid = req.params.id
+        const product = await productCollection.findById({ _id: productid })
+        product.blockStatus = !product.blockStatus
+        await product.save()
+        res.redirect("/admin/productdetails")
+    } catch (error) {
+        console.error("error", error);
+    }
+};
 exports.editproductpost = async (req, res) => {
 
     try {
