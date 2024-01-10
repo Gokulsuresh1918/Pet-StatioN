@@ -171,8 +171,8 @@ exports.confirmationpost = async (req, res) => {
             // Create a new wallet record or update an existing one in walletcollection
             const walletRecord = await walletcollection.create({
                 userId: userId,
-                orderId: Ordernumber,
-                transactionAmount: orderAmount,
+                orderId: orderNumber,
+                transactionAmount: total,
                 description: "Deposit", // You can customize the description based on your needs
             });
             await newOrder.save();
@@ -227,7 +227,7 @@ exports.razorpaypost = (req, res) => {
                 return;
             }
             // Add orderprice to the response object
-            res.send({ orderId: order.id });
+            res.status(200).send({ orderId: order.id });
         });
     } catch (error) {
         console.error("Razorpay post error:", error);

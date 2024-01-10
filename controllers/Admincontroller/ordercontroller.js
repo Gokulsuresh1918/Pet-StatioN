@@ -42,7 +42,7 @@ exports.orderGet = async (req, res) => {
     
     // Adjust current page if it exceeds total pages
     const currentPage = Math.min(pages, totalPages);
-    console.log(currentPage,"   ",totalPages);
+    // console.log(currentPage,"   ",totalPages);
     res.render("Admin/order", { orderdata, addresses,currentPage,totalPages, page: 4 });
   } catch (error) {
     console.error('Error fetching order details:', error);

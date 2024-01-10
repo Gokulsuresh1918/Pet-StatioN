@@ -102,7 +102,7 @@ exports.blockcategory = async (req, res) => {
     try {
         const categoryid = req.params._id
         const category = await categoryCollection.findById({ _id: categoryid })
-        console.log(category);
+        // console.log(category);
         category.blockStatus = !category.blockStatus
 
         await category.save()

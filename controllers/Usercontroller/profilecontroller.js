@@ -65,13 +65,16 @@ exports.addresspost = async (req, res) => {
             email: req.body.email,
             state: req.body.state
         }
+
+        
+ 
         // Use Address.name instead of just name
-        await addressCollection.updateOne({ name: Address.name }, { $set: Address }, { upsert: true });
-        res.render('User/userProfile/address', { address: Address, message: "" });
-    }
+         await addressCollection.updateOne({ name: Address.name }, { $set: Address }, { upsert: true });
+    res.redirect('/address')
+}
     catch (error) {
-        console.error("addresspost error" + "= " + error);
-    }
+    console.error("addresspost error" + "= " + error);
+}
 };
 
 
@@ -233,8 +236,29 @@ exports.ordersget = async (req, res) => {
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             cartdata.reverse()
             const cartcount = cartdata[0]?.products.length
+            // Pagination
+            const page = parseInt(req.query.page) || 1;
+            const limit = 8; // Set the number of products per page
+            const skip = (page - 1) * limit;
 
-            res.render('User/userProfile/order', { orderdata: data, user, cartcount })
+
+            // Fetch products with pagination
+            const data = await orderCollection.find()
+                .skip(skip)
+                .limit(limit);
+            data.reverse()
+            const totalorders = await orderCollection.countDocuments();
+
+            // Calculate total number of pages
+            const totalPages = Math.ceil(totalorders / limit);
+
+            // Adjust current page if it exceeds total pages
+            const currentPage = Math.min(page, totalPages);
+
+
+
+
+            res.render('User/userProfile/order', { orderdata: data, totalPages, currentPage, user, cartcount })
         } else {
             const user = false
             res.render('User/userProfile/order', { orderdata, user, cartcount: 0 })
@@ -282,7 +306,7 @@ exports.cancelorder = async (req, res) => {
     const orderdata = await orderCollection.findOne({ _id: orderId });
     const total = orderdata.total
     const payment = orderdata.payment
-    console.log(payment);
+    // console.log(payment);
     try {
         if (payment == "online") {
             const userId = req.session.userId;
@@ -335,7 +359,7 @@ exports.downloadinvoice = async (req, res) => {
 
 
 
-        res.render('User/userProfile/orderinvoice', { order,product });
+        res.render('User/userProfile/orderinvoice', { order, product });
     } catch (error) {
         console.log(error);
         res.status(500).send('Internal Server Error');

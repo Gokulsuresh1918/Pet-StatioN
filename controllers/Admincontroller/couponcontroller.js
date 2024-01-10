@@ -288,7 +288,7 @@ exports.salesReport = async (req, res) => {
         createdAt: { $gte: excelstartingDate, $lte: excelendingDate },
       });
       // Check if orders array is empty
-      if (orders.length === 0) {
+      if (orderCursor.length === 0) {
         res.status(404).json({ message: 'No data found for the given date range' });
         return;
       }
@@ -328,10 +328,10 @@ exports.salesReport = async (req, res) => {
             .join(", "),
           status: orderItem.status,
           orderdate: orderItem.createdAt.toISOString(), // Assuming createdAt is a valid Date object
-          address: orderItem.address.address,
-          city: orderItem.address.district, // Assuming district is the city field
-          pincode: orderItem.address.pincode,
-          state: orderItem.address.state,
+          address: orderItem.address?.address,
+          city: orderItem.address?.district, // Assuming district is the city field
+          pincode: orderItem.address?.pincode,
+          state: orderItem.address?.state,
         });
       }
 

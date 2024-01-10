@@ -478,7 +478,7 @@
 
               .then(data => {
 
-                if (data.success) {
+                if (data.orderId) {
                 
                 const orderId = data.orderId;
                 console.log("OrderId received:", orderId);
@@ -496,11 +496,7 @@
                   "image": "/img/aksharalogo.png",
                   "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                   "callback_url": "/confirmation",
-                  // "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-                  //   "name": "Gaurav Kumar", //your customer's name
-                  //   "email": "gaurav.kumar@example.com",
-                  //   "contact": "7902371571" //Provide the customer's phone number for better conversion rates 
-                  // },
+               
                   "notes": {
                     "payment": paymentMode,
                     "address": addressid
@@ -521,7 +517,7 @@
                       title: 'Address Not Found',
                       text: 'Please provide a valid address.',
                       confirmButtonText: 'OK',
-                      timer: 3000, // Automatically close after 5 seconds
+                      timer: 3000, 
                     });
                   }
                 })
