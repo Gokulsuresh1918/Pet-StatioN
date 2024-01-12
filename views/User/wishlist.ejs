@@ -7,21 +7,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Wishlist</title>
   <link rel="shortcut icon" href="/img/aksharalogo.png">
-  
-    <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/productcss/animate.css">
-    <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
-    <link rel="stylesheet" href="/assets/productcss/nice-select.css">
-    <link rel="stylesheet" href="/assets/productcss/all.css">
-    <link rel="stylesheet" href="/assets/productcss/flaticon.css">
-    <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
-    <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
-    <link rel="stylesheet" href="/assets/productcss/slick.css">
-    <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
-    <link rel="stylesheet" href="/assets/productcss/style.css">
+
+  <link rel="stylesheet" href="/assets/productcss/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/productcss/animate.css">
+  <link rel="stylesheet" href="/assets/productcss/owl.carousel.min.css">
+  <link rel="stylesheet" href="/assets/productcss/nice-select.css">
+  <link rel="stylesheet" href="/assets/productcss/all.css">
+  <link rel="stylesheet" href="/assets/productcss/flaticon.css">
+  <link rel="stylesheet" href="/assets/productcss/themify-icons.css">
+  <link rel="stylesheet" href="/assets/productcss/magnific-popup.css">
+  <link rel="stylesheet" href="/assets/productcss/slick.css">
+  <link rel="stylesheet" href="/assets/productcss/price_rangs.css">
+  <link rel="stylesheet" href="/assets/productcss/style.css">
 
 
-    
+
 </head>
 <style>
   .hero-img-wrap {
@@ -31,151 +31,183 @@
   @media only screen and (max-width: 1000px) {
     .hero-img-wrap {
       overflow-x: hidden;
- 
+
     }
   }
 </style>
+
 <body>
   <%- include('../partials/layoutpage.ejs') %>
-    <!--::header part start::-->    
-    
-    
+    <!--::header part start::-->
+
+
     <%- include('../partials/userpartials/header.ejs') %>
 
       <!-- Start Hero Section -->
-			<div class="hero">
-				<div class="container">
-					<div class="row justify-content-between">
-						<div class="col-lg-5">
-							<div class="intro-excerpt">
-								<h1>Wishlist</h1>
-								<p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to preserve and
+      <div class="hero">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-lg-5">
+              <div class="intro-excerpt">
+                <h1>Wishlist</h1>
+                <p class="mb-4">"Pets are humanizing. They remind us we have an obligation and responsibility to
+                  preserve and
                   nurture and care for all life. Money can buy you a fine dog, but only love can make him wag
                   his tail. The trouble with a kitten is that eventually it becomes a cat."</p>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="/img/wishlisrt.png" class="img-fluid">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		<!-- End Hero Section -->
-      
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="hero-img-wrap">
+                <img src="/img/wishlisrt.png" class="img-fluid">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Hero Section -->
+
       <!--================Cart Area =================-->
       <!--================Cart Area =================-->
       <main>
         <section class="cart_area padding_top">
-            <div class="container">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
+          <div class="container">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Cart</th>
+                    <th scope="col">Remove</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (wishlistdata) { %>
+                    <% wishlistdata.items.forEach((wishlist, index)=> { %>
+                      <% const product=productData.find(obj=> obj.id == wishlist.productId) %>
+
+                        <tr>
+                          <td>
+                            <div class="media">
+                              <div class="d-flex">
+                                <img style="width: 100px; height: 80px;" src="/MulterUploads/<%= product.image[0] %>"
+                                  alt="" />
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="media-body">
+                              <p>
+                                <%= product.name %>
+                              </p>
+                            </div>
+                          </td>
+                          <td>
+                            <h5>
+                              <%= product.price %>
+                            </h5>
+                          </td>
+                          <td>
+
+                            <button id="addToCartButton" onclick="addToCart('<%=product.id%>')" class="btn_3"
+                              style="text-decoration: none;">add to cart</button>
+                          </td>
+                          <td>
+
+                            <button id="RemoveFromWish" onclick="RemoveFromWish('<%=product.id%>')"
+                              style="z-index: 100;" class="btn">Remove</button>
+                          </td>
+                        </tr>
+
+                        <% }); %>
+
+                          <% } else { %>
                             <tr>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Action</th>
-                              
+                              <td colspan="5">
+                                <img style="width: 400px; height: 300px; color: red;" src="/img/wishlistlatest.jpeg"
+                                  alt="image">
+                                <span style="font-weight: bold;font-size:large;"> " YOUR WISHLIST IS EMPTY " Please add
+                                  products to your wishlist.</span>
+                              </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <% if (wishlistdata) { %>
-                                <% wishlistdata.items.forEach((wishlist, index) => { %>
-                                    <% const product = productData.find(obj => obj.id == wishlist.productId) %>
-    
-                                    <tr>
-                                        <td>
-                                            <div class="media">
-                                                <div class="d-flex">
-                                                    <img style="width: 100px; height: 80px;" src="/MulterUploads/<%= product.image[0] %>" alt="" />
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media-body">
-                                                <p>
-                                                    <%= product.name %>
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h5>
-                                                <%= product.price %>
-                                            </h5>
-                                        </td>
-                                        <td>
-
-                                            <button id="addToCartButton" onclick="addToCart('<%= product.id %>')" class="btn_3"
-                                                style="text-decoration: none;">add to cart</button>
-                                        </td>
-                                    </tr>
-                                    
-                                <% }); %>
-                            
-                            <% } else { %>
-                                <tr>
-                                    <td colspan="5">
-                                        <img style="width: 400px; height: 300px; color: red;" src="/img/wishlistlatest.jpeg" alt="image">
-                                        <span style="font-weight: bold;font-size:large;"> " YOUR WISHLIST IS EMPTY " Please add products to your wishlist.</span>
-                                    </td>
-                                </tr>
                             <% } %>
-                           
-                        </tbody>
-                        
-                    </table>
-                    
-                </div>
-                <a class="btn btn-sm btn_3" href="/clearwishlist">Clear Wishlist</a>
-         
-            </div>
-        </section>
-    </main>
-    
-<!--================End Cart Area =================-->
 
-  
-<%- include('../partials/userpartials/footer.ejs') %>
+                </tbody>
+
+              </table>
+
+            </div>
+            <a class="btn btn-sm btn_3" href="/clearwishlist">Clear Wishlist</a>
+
+          </div>
+        </section>
+      </main>
+
       <!--================End Cart Area =================-->
 
+
+      <%- include('../partials/userpartials/footer.ejs') %>
+        <!--================End Cart Area =================-->
+
 </body>
-
 <script>
-    function addToCart(productId) {
-        let val = 1
-        const data = {
-          productId: productId,
-          quantity: val
-        }
-        fetch('/addcart', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data) // Convert data to JSON string
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            if (data.message == "noUser") {
-              window.location.href = '/';
-            }
-          })
-        // Change button text and redirect
-        var button = document.getElementById('addToCartButton');
-        button.textContent = 'Go to Cart';
-        button.onclick = () => {
-          window.location.href = '/cart';
-        };
-      }
+  function RemoveFromWish(productId) {
+    console.log("vannu");
+    fetch(`/RemoveFromWish/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
 
-  </script>
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      }).then(data => {
+
+        window.location.reload();
+      })
+
+  }
+</script>
+<script>
+  function addToCart(productId) {
+    let val = 1
+    const data = {
+      productId: productId,
+      quantity: val
+    }
+    fetch('/addcart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data) // Convert data to JSON string
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.message == "noUser") {
+          window.location.href = '/';
+        }
+      })
+    // Change button text and redirect
+    var button = document.getElementById('addToCartButton');
+    button.textContent = 'Go to Cart';
+    button.onclick = () => {
+      window.location.href = '/cart';
+    };
+  }
+
+</script>
 
 
 <script src="/jsUT/bootstrap.bundle.min.js"></script>

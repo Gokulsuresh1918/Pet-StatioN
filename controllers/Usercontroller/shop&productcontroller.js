@@ -19,7 +19,7 @@ exports.shopget = async (req, res) => {
             const cartdata = await cartCollection.find({ userId: req.session.userId })
             const cartcount = cartdata[0]?.products.length
 
-            const categories = await categoryCollection.find({blockStatus:true}, 'categoryname');
+            const categories = await categoryCollection.find({ blockStatus: true }, 'categoryname');
             categoryNames = categories.map(category => category.categoryname);
 
 
@@ -29,9 +29,9 @@ exports.shopget = async (req, res) => {
             const limit = 4; // Set the number of products per page
             const skip = (page - 1) * limit;
 
-         
+
             // Fetch products with pagination
-            const data = await productCollection.find({blockStatus:true})
+            const data = await productCollection.find({ blockStatus: true })
                 .skip(skip)
                 .limit(limit);
             data.reverse()
@@ -42,7 +42,7 @@ exports.shopget = async (req, res) => {
 
             // Adjust current page if it exceeds total pages
             const currentPage = Math.min(page, totalPages);
-          
+
 
             res.render('User/shop', { productdata: data, user, cartcount, totalPages, currentPage, categoryNames })
         } else {
@@ -55,7 +55,7 @@ exports.shopget = async (req, res) => {
             const limit = 4; // Set the number of products per page
             const skip = (page - 1) * limit;
             // Fetch products with pagination
-            const data = await productCollection.find({blockStatus:true})
+            const data = await productCollection.find({ blockStatus: true })
                 .skip(skip)
                 .limit(limit);
             data.reverse()
@@ -132,6 +132,30 @@ exports.productView = async (req, res) => {
     }
 }
 
+exports.RemoveFromWish = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const userid = req.session.userId
+
+        const result = await Wishlistcollection.updateOne(
+            { userId: userid },
+            { $pull: { items: { productId: productId } } }
+        );
+
+        console.log(result);
+
+        if (result.modifiedCount > 0) {
+            res.json({ message: 'Product removed successfully.' });
+        } else {
+            res.status(404).json({ message: 'Product not found in the wishlist.' });
+        }
+    } catch (error) {
+        console.error("Error deleting product", error);
+        res.status(500).send({ message: 'An error occurred while trying to remove the product.' });
+    }
+}
+
+
 
 exports.cartGet = async (req, res) => {
     try {
@@ -189,7 +213,7 @@ exports.shopsearch = async (req, res) => {
 exports.quantityUpdation = async (req, res) => {
     try {
         const { cartId, productId, count } = req.body;
-       const userid = req.session.userId
+        const userid = req.session.userId
         // Find the cart by ID
         const cart = await cartCollection.findOne({ userId: userid });
 
@@ -209,13 +233,13 @@ exports.quantityUpdation = async (req, res) => {
 
         if (productIndex !== -1) {
             // Update quantity and calculate subtotal
-            if (count==1) {
-                cart.products[productIndex].quantity +=1;
-                cart.products[productIndex].subtotal =   cart.products[productIndex].quantity * product.price;
+            if (count == 1) {
+                cart.products[productIndex].quantity += 1;
+                cart.products[productIndex].subtotal = cart.products[productIndex].quantity * product.price;
 
-            }else{
-                cart.products[productIndex].quantity -=1;
-                cart.products[productIndex].subtotal =   cart.products[productIndex].quantity * product.price;
+            } else {
+                cart.products[productIndex].quantity -= 1;
+                cart.products[productIndex].subtotal = cart.products[productIndex].quantity * product.price;
 
             }
 

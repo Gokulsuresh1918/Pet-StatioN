@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { homeGet, contactGet, contactpost, aboutget ,categoryfilter} = require('../controllers/Usercontroller/authenticationcontroller')
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
-const { shopget, productView,wishlistget,wishlistdataget, shopsearch ,quantityUpdationget,quantityUpdation} = require('../controllers/Usercontroller/shop&productcontroller')
+const { shopget, productView,RemoveFromWish,wishlistget,wishlistdataget, shopsearch ,quantityUpdationget,quantityUpdation} = require('../controllers/Usercontroller/shop&productcontroller')
 const { cartGet, addcartpost, clearcartget, removeItem,clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')
 const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder,couponapply } = require('../controllers/Usercontroller/checkoutcontroller')
 const { profileGet, addressGet,addimagepost,wallethistory,downloadinvoice, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget,cancelorder } = require('../controllers/Usercontroller/profilecontroller')
@@ -33,6 +33,7 @@ router.get('/shop', shopget);
 router.get('/wishlist/:id', wishlistget);
 router.get('/wishlist', wishlistdataget);
 router.get('/productview/:id',usersession, productView);
+router.delete('/RemoveFromWish/:id',usersession, RemoveFromWish);
 
 
 
@@ -78,9 +79,9 @@ router.post('/couponapply/:code', couponapply);
 
 
 // Password-related routes
-router.get('/forgetpass', usersession, forgetpass);
-router.post('/forgetpass', usersession, forgetpasspost);
-router.post('/resendotp', usersession, resendpost);
+router.get('/forgetpass', forgetpass);
+router.post('/forgetpass', forgetpasspost);
+router.post('/resendotp', resendpost);
 router.get('/otppage', otpGet);
 router.post('/otppage', otppost);
 router.get('/resendotp', resendotpget);

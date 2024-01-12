@@ -86,8 +86,7 @@ exports.forgetpasspost = async (req, res) => {
                 if (error) {
                     console.log('Error sending OTP:', error);
                 } else {
-                    console.log('OTP sent:', info.response);
-                    res.render('User/forget-otp',cartcount)
+                    res.render('User/forget-otp',{cartcount})
                 }
             });
         } else {
