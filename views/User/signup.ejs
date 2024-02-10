@@ -41,55 +41,57 @@
       <h2 class="text-uppercase text-center mb-4" style="color: white;">Create an account</h2>
 
       <form action="/signup" method="post">
-     
-          <div class="alert alert-danger text-center error" style="display:none;" id="errorAlert"></div>
-       
-          
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="username" style="color: white;" class="form-label">Your Name</label>
-                <input type="text" id="username" name="username" class="form-control" />
-              </div>
-              <div class="col-md-6">
-                <label for="email" style="color: white;" class="form-label">Your Email</label>
-                <input type="email" id="email" name="email" class="form-control" />
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="mobile" style="color: white;" class="form-label">Mobile Number</label>
-                <input type="number" id="mobile" name="mobile" class="form-control" />
-              </div>
-              <div class="col-md-6">
-                <label for="password" style="color: white;" class="form-label">Password</label>
-                <input type="password" id="password" name="password" class="form-control" />
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="Referal" style="color: white;" class="form-label">Referal</label>
-                <input type="text" id="Referal" name="Referal" class="form-control" />
-              </div>
-              <div class="col-md-6">
-                <label for="repassword" style="color: white;" class="form-label">Repeat your password</label>
-                <input type="password" id="repassword" name="confirmpass" class="form-control" />
-              </div>
-            </div>
-            <!-- Show Password Checkbox -->
+
+        <div class="alert alert-danger text-center error" style="display:none;" id="errorAlert"></div>
 
 
-            <div class="form-check mt-2">
-              <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
-              <label class="form-check-label" style="color:blanchedalmond;" for="showPassword">Show Password</label>
-            </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="username" style="color: white;" class="form-label">Your Name</label>
+            <input type="text" id="username" name="username" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="email" style="color: white;" class="form-label">Your Email</label>
+            <input type="email" id="email" name="email" class="form-control" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="mobile" style="color: white;" class="form-label">Mobile Number</label>
+            <input type="number" id="mobile" name="mobile" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="password" style="color: white;" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-control" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="Referal" style="color: white;" class="form-label">Referal (Optional)</label>
+            <input type="text" id="Referal" name="Referal" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="repassword" style="color: white;" class="form-label">Repeat your password</label>
+            <input type="password" id="repassword" name="confirmpass" class="form-control" />
+          </div>
+        </div>
+        <!-- Show Password Checkbox -->
 
-            <div class="d-flex justify-content-center">
-              <button type="submit" id="submit" class="btn btn-success btn-block text-white">Register</button>
-            </div>
-            <a href="/" class="text-center mt-4 mb-0" style="color: #ff0000;text-decoration: none; "><p>Already have an account?</p> </a>
-            <a href="/" class="text-center mt-4 mb-0 fw-bold " style="color: #ffffff; text-decoration:none">
-              <h6>Sign in</h6>
-            </a>
+
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
+          <label class="form-check-label" style="color:blanchedalmond;" for="showPassword">Show Password</label>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <button type="submit" id="submit" class="btn btn-success btn-block text-white">Register</button>
+        </div>
+        <a href="/" class="text-center mt-4 mb-0" style="color: #ff0000;text-decoration: none; ">
+          <p>Already have an account?</p>
+        </a>
+        <a href="/" class="text-center mt-4 mb-0 fw-bold " style="color: #ffffff; text-decoration:none">
+          <h6>Sign in</h6>
+        </a>
       </form>
     </div>
   </section>
@@ -168,10 +170,10 @@
       if (message.length > 0) {
         // console.log(message);
         e.preventDefault();
-        error.style.display='block'
+        error.style.display = 'block'
         error.textContent = message.join("");
       } else {
-        error.style.display='none'
+        error.style.display = 'none'
         error.textContent = '';
       }
     });

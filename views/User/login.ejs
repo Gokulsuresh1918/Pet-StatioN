@@ -21,7 +21,7 @@
             aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-         
+
           <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
               <li class="nav-item active">
@@ -60,7 +60,7 @@
                     style="background-color: #3B5D50; border-radius: 0 200px 200px 0;">
                     <form action="/login" method="post">
 
-                   
+
                       <div class="d-flex align-items-center mb-3 pb-1">
                         <i class="fas fa-paw fa-2x me-3" style="color: white;"></i>
                         <span class="h1 fw-bold mb-0" style="color: white;">Pet Station</span>
@@ -70,13 +70,18 @@
 
                       <div class="form-outline mb-4">
                         <input type="email" id="form2Example17" name="Email" class="form-control form-control-lg" />
-                        <label class="form-label" style="color: white;" for="form2Example17">Email address</label>
+                        <label class="form-label" style="color: white;" for="form2Example17">Email address <span
+                            class="p-5" style="color:gold;">Demo :-
+                            PetStation@gmail.com</span></label>
                       </div>
+
 
                       <div class="form-outline mb-4">
                         <input type="password" id="form2Example27" name="password"
                           class="form-control form-control-lg" />
-                        <label class="form-label" style="color: white;" for="form2Example27">Password</label>
+                        <label class="form-label" style="color: white;" for="form2Example27">Password <span class="p-5"
+                            style="color:gold;">Demo :-
+                            PetStation@123</span></label>
 
                         <!-- Show Password Checkbox -->
                         <div class="form-check mt-2">
@@ -85,10 +90,12 @@
                           <label class="form-check-label" style="color:blanchedalmond;" for="showPassword">Show
                             Password</label>
                         </div>
+
                       </div>
                       <div class="pt-1 mb-4">
 
                         <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+
                       </div>
                       <% if (locals.message) { %>
                         <div class="alert alert-danger text-center">
