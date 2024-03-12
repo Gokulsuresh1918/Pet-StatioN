@@ -11,7 +11,7 @@ const { log } = require("console");
 
 
 
-//Admin login get
+//Admin login get the admin
 exports.LoginGet = (req, res) => {
   try {
     if (req.session.adminID) {
