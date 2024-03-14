@@ -27,7 +27,7 @@ exports.checkoutget = async (req, res) => {
                     }
                 })
 
-                // console.log(product.qty+" producty "+prod.quantity);
+                // console.log("showing quality",product.qty+" producty "+prod.quantity);
                 if (productQty < prod.quantity) {
                     qtyError = true
                 }
