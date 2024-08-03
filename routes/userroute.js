@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 
-const { homeGet, contactGet, contactpost, aboutget ,categoryfilter} = require('../controllers/Usercontroller/authenticationcontroller')
+const { homeGet, contactGet, contactpost, aboutget, categoryfilter } = require('../controllers/Usercontroller/authenticationcontroller')
 const { loginGet, loginPost, signupGet, signupPost, logoutuser } = require('../controllers/Usercontroller/publiccontroller')
-const { shopget, productView,RemoveFromWish,wishlistget,wishlistdataget, shopsearch ,quantityUpdationget,quantityUpdation} = require('../controllers/Usercontroller/shop&productcontroller')
-const { cartGet, addcartpost, clearcartget, removeItem,clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')
-const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder,couponapply } = require('../controllers/Usercontroller/checkoutcontroller')
-const { profileGet, addressGet,addimagepost,wallethistory,downloadinvoice, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget,cancelorder } = require('../controllers/Usercontroller/profilecontroller')
+const { shopget, productView, RemoveFromWish, wishlistget, wishlistdataget, shopsearch, quantityUpdationget, quantityUpdation } = require('../controllers/Usercontroller/shop&productcontroller')
+const { cartGet, addcartpost, clearcartget, removeItem, clearwishlistget } = require('../controllers/Usercontroller/cartcontroller')
+const { checkoutget, checkoutaddress, addressremove, confirmationget, confirmationpost, razorpaypost, walletorder, couponapply } = require('../controllers/Usercontroller/checkoutcontroller')
+const { profileGet, addressGet, addimagepost, wallethistory, downloadinvoice, addresspost, addaddressGet, addaddresspost, editaddressGet, editaddresspost, ordersget, Returnget, cancelorder } = require('../controllers/Usercontroller/profilecontroller')
 const { forgetpass, forgetpasspost, resendpost, otpGet, otppost, resendotpget } = require('../controllers/Usercontroller/otp&passcontroller')
 // Importing middleware functions
 const { usersession } = require('../middleware/userAuth');
@@ -25,15 +25,15 @@ router.get('/logoutuser', logoutuser);
 router.get('/home', homeGet);
 router.get('/contact', contactGet);
 router.post('/contact', usersession, contactpost);
-router.get('/about',usersession, aboutget);
-router.get('/categoryfilter',usersession, categoryfilter);
+router.get('/about', usersession, aboutget);
+router.get('/categoryfilter', usersession, categoryfilter);
 
 // Shop and Product routes
 router.get('/shop', shopget);
 router.get('/wishlist/:id', wishlistget);
 router.get('/wishlist', wishlistdataget);
-router.get('/productview/:id',usersession, productView);
-router.delete('/RemoveFromWish/:id',usersession, RemoveFromWish);
+router.get('/productview/:id', usersession, productView);
+router.delete('/RemoveFromWish/:id', usersession, RemoveFromWish);
 
 
 
@@ -44,8 +44,8 @@ router.post('/addcart', usersession, addcartpost);
 router.get('/clearcart', usersession, clearcartget);
 router.delete('/removeItem/:productId', usersession, removeItem);
 router.get('/clearwishlist', usersession, clearwishlistget);
-router.get('/search', shopsearch );
-router.post('/quantityUpdation', quantityUpdation );
+router.get('/search', shopsearch);
+router.post('/quantityUpdation', quantityUpdation);
 
 
 
